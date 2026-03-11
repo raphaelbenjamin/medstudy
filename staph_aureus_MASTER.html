@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staphylococcus Aureus — Master Study Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1117;
+  --ink: #e8e4dc;
+  --muted: #6b6a72;
+  --border: #2a2d38;
+  --gold: #d4a832;
+  --gold-light: #2a2310;
+  --gold-pale: #1c1a10;
+  --red: #e05252;
+  --red-light: #1f0f0f;
+  --green: #4ec97b;
+  --green-light: #0d1f15;
+  --blue: #5b9cf6;
+  --blue-light: #0d1525;
+  --surface: #161820;
+  --surface2: #1c1f2b;
+  --shadow: rgba(0,0,0,0.4);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  background: #0a0b0f;
+  color: var(--ink);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 58px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 1px solid var(--border);
+}
+.header-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.01em;
+  color: var(--gold);
+}
+.header-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* NAV TABS */
+.nav-wrapper {
+  background: #0a0b0f;
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  position: sticky;
+  top: 58px;
+  z-index: 100;
+}
+.tab-btn {
+  padding: 0 22px;
+  height: 48px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 600; }
+.tab-icon { margin-right: 6px; }
+
+/* PANELS */
+.panel { display: none; max-width: 900px; margin: 0 auto; padding: 36px 40px 80px; }
+.panel.active { display: block; animation: panelIn 0.3s ease; }
+@keyframes panelIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: none; } }
+
+/* ===================== FOUNDATION ===================== */
+.foundation-hero {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.foundation-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(200,150,30,0.1) 0%, transparent 70%);
+}
+.foundation-hero h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.7rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+  position: relative;
+}
+.foundation-hero p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 600px;
+  position: relative;
+  line-height: 1.7;
+}
+
+.f-section { margin-bottom: 36px; }
+.f-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.f-section-num {
+  width: 32px; height: 32px;
+  background: var(--gold);
+  color: #0f1117;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.f-section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+.f-section-toggle {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  transition: transform 0.2s;
+}
+.f-section-body { display: block; }
+.f-section-body.collapsed { display: none; }
+
+.f-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-bottom: 10px;
+}
+.f-card h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'DM Mono', monospace;
+}
+.f-card p, .f-card li {
+  font-size: 0.87rem;
+  color: var(--ink);
+  line-height: 1.7;
+}.f-card ul { padding-left: 18px; }
+.f-card ul li { margin-bottom: 4px; }
+.f-subsection {
+  background: var(--surface2);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+}
+.f-subsection h5 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.f-subsection p, .f-subsection li {
+  font-size: 0.84rem;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.f-subsection ul { padding-left: 16px; }
+.f-callout {
+  background: var(--gold-pale);
+  border: 1px solid #3a3010;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 10px 0;
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.f-callout strong { color: var(--gold); }
+.f-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+}
+.f-compare-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+.f-compare-item.pos { border-top: 3px solid var(--green); }
+.f-compare-item.neg { border-top: 3px solid var(--red); }
+.f-compare-item h6 { font-size: 0.78rem; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'DM Mono', monospace; }
+.f-compare-item.pos h6 { color: var(--green); }
+.f-compare-item.neg h6 { color: var(--red); }
+.f-compare-item p { font-size: 0.82rem; line-height: 1.6; }
+.pill {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 0.73rem;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  margin: 2px 2px;
+}
+.pill-gold { background: var(--gold-light); color: var(--gold); }
+.pill-red { background: var(--red-light); color: var(--red); }
+.pill-green { background: var(--green-light); color: var(--green); }
+.pill-blue { background: var(--blue-light); color: var(--blue); }
+
+/* ===================== NOTES ===================== */
+.n-section { margin-bottom: 30px; }
+.n-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+.n-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.n-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.n-card h4 { font-size: 0.8rem; font-weight: 600; color: var(--gold); margin-bottom: 8px; }
+.n-card ul { list-style: none; padding: 0; }
+.n-card li { font-size: 0.82rem; padding: 3px 0 3px 14px; position: relative; line-height: 1.55; }
+.n-card li::before { content: '›'; position: absolute; left: 0; color: var(--gold); }
+.n-table { width: 100%; border-collapse: collapse; font-size: 0.81rem; }
+.n-table th { background: var(--surface2); color: var(--gold); padding: 8px 14px; text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--border); }
+.n-table td { padding: 8px 14px; border-bottom: 1px solid var(--border); color: var(--ink); }
+.n-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.pos-t { color: var(--green); font-weight: 600; }
+.neg-t { color: var(--red); font-weight: 600; }
+
+/* ===================== FLASHCARDS ===================== */
+.fc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.fc-meta { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); }
+.fc-bar-wrap { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 28px; }
+.fc-bar { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.4s; }
+.flashcard { perspective: 1400px; cursor: pointer; margin-bottom: 24px; }
+.fc-inner { width: 100%; min-height: 200px; position: relative; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.4,0,0.2,1); border-radius: 14px; }
+.flashcard.flipped .fc-inner { transform: rotateY(180deg); }
+.fc-face { position: absolute; width: 100%; min-height: 200px; backface-visibility: hidden; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 32px 40px; text-align: center; }
+.fc-front { background: var(--surface); border: 1px solid var(--border); box-shadow: 0 2px 12px var(--shadow); }
+.fc-back { background: var(--surface2); border: 1px solid var(--gold); transform: rotateY(180deg); }
+.fc-face-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 14px; }
+.fc-back .fc-face-label { color: var(--muted); }
+.fc-q-text { font-family: 'DM Serif Display', serif; font-size: 1.05rem; line-height: 1.5; color: var(--ink); }
+.fc-a-text { font-size: 0.9rem; line-height: 1.65; color: var(--ink); }
+.fc-tap-hint { font-size: 0.7rem; color: var(--muted); margin-top: 14px; font-family: 'DM Mono', monospace; }
+.fc-keys { display: flex; gap: 18px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+.fc-key-hint { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+.key-badge { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 7px; font-size: 0.7rem; color: var(--ink); font-family: 'DM Mono', monospace; }
+.fc-controls { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.btn { padding: 9px 20px; border-radius: 7px; border: 1px solid var(--border); background: var(--surface); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.18s; }
+.btn:hover { border-color: var(--gold); color: var(--gold); }
+.btn-green { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.btn-green:hover { background: var(--green); color: #0a0b0f; border-color: var(--green); }
+.btn-red { background: var(--red-light); border-color: var(--red); color: var(--red); }
+.btn-red:hover { background: var(--red); color: #0a0b0f; border-color: var(--red); }
+.btn-gold { background: var(--gold); color: #0a0b0f; border-color: var(--gold); font-weight: 700; }
+.btn-gold:hover { background: #e0b830; border-color: #e0b830; color: #0a0b0f; }
+
+/* ===================== RECALL ===================== */
+.recall-intro {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 28px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  line-height: 1.6;
+}
+.recall-item {
+  margin-bottom: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.recall-q {
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.55;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.recall-qnum {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--gold);
+  background: var(--gold-light);
+  border: 1px solid rgba(212,168,50,0.25);
+  border-radius: 4px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.recall-textarea {
+  width: 100%;
+  min-height: 90px;
+  background: var(--bg);
+  border: none;
+  border-top: 1px solid var(--border);
+  padding: 14px 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--ink);
+  resize: vertical;
+  outline: none;
+  line-height: 1.7;
+  transition: background 0.2s;
+}
+.recall-textarea:focus { background: var(--surface2); }
+.recall-textarea::placeholder { color: var(--muted); font-style: italic; }
+.recall-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--surface2);
+}
+.recall-saved-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.67rem;
+  color: var(--green);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.recall-saved-badge.show { opacity: 1; }
+.recall-collapse-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 4px 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.recall-collapse-btn:hover { border-color: var(--gold); color: var(--gold); }
+.recall-collapsed-preview {
+  display: none;
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  background: var(--surface2);
+}
+.recall-collapsed-preview:hover { color: var(--ink); }
+
+/* ===================== QUIZ ===================== */
+.score-banner { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; display: none; align-items: center; gap: 20px; }
+.score-banner.show { display: flex; }
+.score-big { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--gold); }
+.score-sub { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+.pq-block { margin-bottom: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; }
+.pq-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 10px; }
+.pq-stem { font-size: 0.9rem; line-height: 1.7; margin-bottom: 18px; }
+.pq-opts { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pq-opt { padding: 10px 16px; border: 1px solid var(--border); border-radius: 7px; font-size: 0.83rem; cursor: pointer; transition: all 0.18s; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+.pq-opt:hover:not(.locked) { border-color: var(--blue); background: var(--blue-light); }
+.pq-opt-letter { font-family: 'DM Mono', monospace; font-size: 0.73rem; color: var(--muted); min-width: 16px; padding-top: 1px; }
+.pq-opt.correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.pq-opt.correct .pq-opt-letter { color: var(--green); }
+.pq-opt.wrong { background: var(--red-light); border-color: var(--red); color: var(--red); }
+.pq-opt.wrong .pq-opt-letter { color: var(--red); }
+.pq-exp { margin-top: 14px; padding: 12px 16px; background: var(--gold-pale); border-left: 3px solid var(--gold); border-radius: 0 7px 7px 0; font-size: 0.82rem; line-height: 1.65; display: none; color: var(--ink); }
+.pq-exp.show { display: block; }
+.pq-exp strong { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-title">Staphylococcus Aureus</div>
+  </div>
+  <div class="header-sub">Microbiology 4.1 + 4.2 · Master Study Tool</div>
+</header>
+
+<div class="nav-wrapper">
+  <button class="tab-btn active" onclick="showTab('foundation',this)"><span class="tab-icon">🧱</span>Foundation</button>
+  <button class="tab-btn" onclick="showTab('notes',this)"><span class="tab-icon">📋</span>Notes</button>
+  <button class="tab-btn" onclick="showTab('flash',this)"><span class="tab-icon">🃏</span>Flashcards</button>
+  <button class="tab-btn" onclick="showTab('recall',this)"><span class="tab-icon">📝</span>Active Recall</button>
+  <button class="tab-btn" onclick="showTab('quiz',this)"><span class="tab-icon">✏️</span>Practice Qs</button>
+</div>
+
+<!-- ============ FOUNDATION ============ -->
+<div id="foundation" class="panel active">
+
+  <div class="foundation-hero">
+    <h2>The Big Picture: Staph Aureus</h2>
+    <p>Before you memorize details, understand the story. This section builds from the ground up — from what bacteria even are, to how S. aureus fits into the microbiology world, and why its specific features matter clinically.</p>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="f-section">
+    <div class="f-section-header" onclick="toggleSection(this)">
+      <div class="f-section-num">1</div>
+      <div class="f-section-title">What Are Bacteria, and Why Do We Classify Them?</div>
+      <div class="f-section-toggle">▾ collapse</div>
+    </div>
+    <div class="f-section-body">
+      <div class="f-card">
+        <p>Bacteria are single-celled prokaryotes — they have no nucleus, no membrane-bound organelles. They live everywhere: on your skin, in your gut, in the air. Most are harmless or even helpful. A small subset are <strong>pathogens</strong> — they cause disease either by invading tissue directly, or by releasing <strong>toxins</strong> that damage the host.</p>
+      </div>
+      <div class="f-card">
+        <h4>Why classification matters for your exam</h4>
+        <p>Microbiology boards don't test whether you can name every organism. They test whether you can <strong>identify a bug from a clinical scenario and know how to treat it</strong>. Classification gives you a mental framework so you're not memorizing random facts — you're building a decision tree.</p>
+        <div class="f-subsection" style="margin-top:10px;">
+          <h5>The Two Big Questions for Any Bacterium</h5>
+          <ul>
+            <li><strong>Gram stain?</strong> → Tells you cell wall structure → narrows antibiotic choice</li>
+            <li><strong>Shape?</strong> → Cocci (spherical) vs. Bacilli (rod-shaped) → further narrows the list</li>
+          </ul>
+        </div>
+      </div>
+      <div class="f-callout">
+        <strong>The Gram Stain explained simply:</strong> Bacteria have cell walls. Gram-positive bacteria have a <strong>thick peptidoglycan layer</strong> that traps the crystal violet dye → stain <strong>purple</strong>. Gram-negative bacteria have a thin peptidoglycan layer + an outer membrane that washes the dye away → stain <strong>pink/red</strong>. This structural difference is why some antibiotics (like beta-lactams) work differently on gram-positives vs. gram-negatives.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="f-section">
+    <div class="f-section-header" onclick="toggleSection(this)">
+      <div class="f-section-num">2</div>
+      <div class="f-section-title">Where Does Staph Aureus Fit?</div>
+      <div class="f-section-toggle">▾ collapse</div>
+    </div>
+    <div class="f-section-body">
+      <div class="f-card">
+        <h4>Its place in the bacterial world</h4>
+        <p>S. aureus is a <strong>gram-positive coccus</strong> — purple on gram stain, spherical shape. It clusters into grape-like bunches (the word <em>staphyle</em> is Greek for "bunch of grapes"). This clusters appearance alone helps distinguish it from Streptococcus, which forms chains instead.</p>
+      </div>
+      <div class="f-compare">
+        <div class="f-compare-item pos">
+          <h6>Staphylococcus</h6>
+          <p>Gram+ cocci in <strong>clusters</strong>. Catalase positive. Coagulase used to distinguish species. Lives on skin and nares.</p>
+        </div>
+        <div class="f-compare-item neg">
+          <h6>Streptococcus</h6>
+          <p>Gram+ cocci in <strong>chains/pairs</strong>. Catalase negative. Hemolysis pattern used to distinguish species. Lives in throat/respiratory tract.</p>
+        </div>
+      </div>
+      <div class="f-callout">
+        <strong>The single fastest way to separate Staph from Strep:</strong> Catalase test. Add hydrogen peroxide. If bubbles form → catalase positive → <strong>Staph</strong>. No bubbles → Strep. The enzyme catalase breaks H₂O₂ into water and oxygen gas (the bubbles).
+      </div>
+      <div class="f-subsection">
+        <h5>The 3 Staph species you need to know</h5>
+        <ul>
+          <li><strong>S. aureus</strong> — the dangerous one. Coagulase positive.</li>
+          <li><strong>S. epidermidis</strong> — lives on skin, causes catheter infections. Coagulase negative, novobiocin sensitive.</li>
+          <li><strong>S. saprophyticus</strong> — causes UTIs in young women. Coagulase negative, novobiocin resistant.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="f-section">
+    <div class="f-section-header" onclick="toggleSection(this)">
+      <div class="f-section-num">3</div>
+      <div class="f-section-title">How Bacteria Cause Disease: Exotoxins vs. Endotoxins</div>
+      <div class="f-section-toggle">▾ collapse</div>
+    </div>
+    <div class="f-section-body">
+      <div class="f-card">
+        <p>Bacteria hurt you in two main ways: by <strong>physically invading</strong> tissue (like in pneumonia), or by secreting <strong>toxins</strong> that do the damage even from a distance. Understanding toxin types is essential for understanding S. aureus diseases.</p>
+      </div>
+      <div class="f-compare">
+        <div class="f-compare-item pos">
+          <h6>Exotoxins (Gram+ and Gram−)</h6>
+          <p>Actively <strong>secreted</strong> proteins. Often heat-labile (destroyed by heat), but some are heat-stable. S. aureus only makes exotoxins (it has no LPS). Types I, II, III depending on mechanism.</p>
+        </div>
+        <div class="f-compare-item neg">
+          <h6>Endotoxins (Gram− only)</h6>
+          <p>Part of the bacterial cell wall — <strong>LPS (lipopolysaccharide)</strong>. Released when bacteria die. Causes fever, shock. S. aureus is gram-positive → <strong>NO endotoxin/LPS</strong>.</p>
+        </div>
+      </div>
+      <div class="f-subsection">
+        <h5>Exotoxin Types — Simplified</h5>
+        <ul>
+          <li><strong>Type I (Superantigens):</strong> Don't enter cells. Bind outside the normal MHC II / T cell receptor binding groove → non-specific, massive T cell activation → cytokine storm → shock. Examples: TSST-1, Enterotoxin B.</li>
+          <li><strong>Type II (Membrane-disrupting):</strong> Damage cell membranes directly. Example: hemolysins.</li>
+          <li><strong>Type III (A-B toxins):</strong> Most exotoxins. The "B" (binding) portion attaches to a cell receptor; the "A" (active) portion enters the cell and causes damage.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="f-section">
+    <div class="f-section-header" onclick="toggleSection(this)">
+      <div class="f-section-num">4</div>
+      <div class="f-section-title">The Immune System's Battle Against Staph</div>
+      <div class="f-section-toggle">▾ collapse</div>
+    </div>
+    <div class="f-section-body">
+      <div class="f-card">
+        <p>To understand why S. aureus virulence factors matter, you first need to know how the immune system normally kills bacteria. Then you can appreciate exactly how S. aureus cheats.</p>
+      </div>
+      <div class="f-subsection">
+        <h5>Normal bacterial killing: The oxygen radical pathway</h5>
+        <p>Neutrophils and macrophages use NADPH oxidase to convert O₂ → superoxide radicals → H₂O₂ → HOCL radicals via myeloperoxidase (MPO). These radicals destroy bacteria.</p>
+      </div>
+      <div class="f-subsection">
+        <h5>How S. aureus defeats it: Catalase</h5>
+        <p>S. aureus makes catalase, which converts H₂O₂ → O₂ + H₂O before it can become HOCL radicals. Result: the killing pathway is neutralized. This is why patients with <strong>Chronic Granulomatous Disease</strong> (deficient NADPH oxidase) are extremely susceptible to catalase-positive organisms like S. aureus — they can't even get the killing process started.</p>
+      </div>
+      <div class="f-subsection">
+        <h5>How S. aureus defeats antibody-mediated immunity: Protein A</h5>
+        <p>Normally, IgG antibodies bind to bacteria via their Fab region, and the Fc region activates complement → C3b deposits on bacteria → opsonization → phagocytosis. Protein A binds the Fc region of IgG — flipping the antibody "upside down." This blocks complement activation and prevents opsonization, so phagocytes can't recognize and engulf the bacteria.</p>
+      </div>
+      <div class="f-callout">
+        <strong>Connect the dots:</strong> CGD patients can't make radicals. S. aureus neutralizes H₂O₂ with catalase. S. aureus also blocks complement with Protein A. And its polysaccharide capsule directly inhibits phagocytosis. It has three separate layers of immune evasion.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="f-section">
+    <div class="f-section-header" onclick="toggleSection(this)">
+      <div class="f-section-num">5</div>
+      <div class="f-section-title">Antibiotics 101: Why Some Work and Some Don't</div>
+      <div class="f-section-toggle">▾ collapse</div>
+    </div>
+    <div class="f-section-body">
+      <div class="f-card">
+        <p>Antibiotics that target bacteria's <strong>cell wall synthesis</strong> are the backbone of gram-positive treatment. S. aureus has developed clever ways to resist them.</p>
+      </div>
+      <div class="f-subsection">
+        <h5>How beta-lactam antibiotics work</h5>
+        <p>Bacteria build their cell wall using enzymes called <strong>penicillin-binding proteins (PBPs)</strong>. Beta-lactam antibiotics (penicillins, cephalosporins, carbapenems) contain a beta-lactam ring that irreversibly binds to PBPs, stopping cell wall synthesis → bacteria die from osmotic pressure.</p>
+      </div>
+      <div class="f-subsection">
+        <h5>Resistance mechanism 1: Penicillinase (MSSA)</h5>
+        <p>Some S. aureus strains secrete <strong>penicillinase</strong> — a beta-lactamase enzyme that cleaves the beta-lactam ring of penicillin, inactivating it. Solution: use <strong>penicillinase-resistant beta-lactams</strong> (oxacillin, nafcillin) which have a bulky side chain protecting the ring.</p>
+      </div>
+      <div class="f-subsection">
+        <h5>Resistance mechanism 2: Modified PBPs (MRSA)</h5>
+        <p>MRSA has a gene (mecA) encoding a modified PBP with very low affinity for ALL beta-lactams. No beta-lactam can bind → the whole class is useless. Treatment must switch to a different mechanism entirely: <strong>Vancomycin</strong> (binds D-Ala-D-Ala on cell wall precursor, bypassing PBPs entirely), <strong>Linezolid</strong> (inhibits ribosome), or <strong>Daptomycin</strong> (disrupts membrane).</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ NOTES ============ -->
+<div id="notes" class="panel">
+
+  <div class="n-section">
+    <div class="n-label">General Principles</div>
+    <div class="n-grid">
+      <div class="n-card">
+        <h4>Carriers & Morphology</h4>
+        <ul>
+          <li>1/3 general population carry S. aureus (nares)</li>
+          <li>4/5 healthcare workers are carriers</li>
+          <li>Gram+ cocci in grape-like clusters</li>
+          <li>Golden/yellow colonies on culture</li>
+          <li>Grows on mannitol salt agar (up to 10% NaCl)</li>
+          <li>Beta-hemolytic, novobiocin sensitive</li>
+          <li>Facultative anaerobe</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Key Enzyme Tests</h4>
+        <ul>
+          <li><strong>Catalase+</strong> → all Staph (vs Strep = catalase −)</li>
+          <li><strong>Coagulase+</strong> → S. aureus only</li>
+          <li>Coagulase− + novobiocin sensitive → S. epidermidis</li>
+          <li>Coagulase− + novobiocin resistant → S. saprophyticus</li>
+          <li>S. aureus does NOT grow on mannitol salt agar? False — it DOES; S. epidermidis does NOT</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="n-section">
+    <div class="n-label">Species Comparison</div>
+    <table class="n-table">
+      <tr><th>Feature</th><th>S. aureus</th><th>S. epidermidis</th><th>S. saprophyticus</th></tr>
+      <tr><td>Catalase</td><td class="pos-t">+</td><td class="pos-t">+</td><td class="pos-t">+</td></tr>
+      <tr><td>Coagulase</td><td class="pos-t">+</td><td class="neg-t">−</td><td class="neg-t">−</td></tr>
+      <tr><td>Novobiocin</td><td>Sensitive</td><td>Sensitive</td><td class="neg-t">Resistant</td></tr>
+      <tr><td>Mannitol salt agar</td><td class="pos-t">Grows</td><td class="neg-t">Does NOT</td><td>—</td></tr>
+    </table>
+  </div>
+
+  <div class="n-section">
+    <div class="n-label">Virulence Factors</div>
+    <div class="n-grid">
+      <div class="n-card">
+        <h4>Protein A</h4>
+        <ul>
+          <li>Binds Fc region of IgG</li>
+          <li>Blocks complement activation (↓ C3b)</li>
+          <li>Prevents opsonization → ↓ phagocytosis</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Other Factors</h4>
+        <ul>
+          <li>Catalase → neutralizes H₂O₂</li>
+          <li>Coagulase → fibrinogen → fibrin</li>
+          <li>Hemolysins → destroy RBCs, WBCs, platelets</li>
+          <li>Capsule → ↓ phagocytosis</li>
+          <li>Penicillinase → breaks beta-lactam ring</li>
+          <li>Modified PBPs → MRSA</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="n-section">
+    <div class="n-label">Toxins & Diseases</div>
+    <table class="n-table">
+      <tr><th>Toxin</th><th>Type</th><th>Disease</th><th>Key Board Clue</th></tr>
+      <tr><td><strong>Enterotoxin B</strong></td><td>Superantigen (Type I)</td><td>Gastroenteritis</td><td>Heat-stable, rapid onset, potato salad/custard, resolves 24–48h</td></tr>
+      <tr><td><strong>TSST-1</strong></td><td>Superantigen (Type I)</td><td>Toxic Shock Syndrome</td><td>Tampon use or wound packing; negative blood cultures</td></tr>
+      <tr><td><strong>Exfoliative toxin</strong></td><td>A-B type</td><td>SSSS</td><td>Cleaves desmoglein-1; infants; Nikolsky sign+</td></tr>
+      <tr><td><strong>PVL</strong></td><td>Pore-forming</td><td>Soft tissue necrosis / necrotizing fasciitis</td><td>Pain out of proportion to exam</td></tr>
+    </table>
+  </div>
+
+  <div class="n-section">
+    <div class="n-label">Clinical Diseases</div>
+    <table class="n-table">
+      <tr><th>Disease</th><th>Key Features</th></tr>
+      <tr><td><strong>IVDU Endocarditis</strong></td><td>Right-sided (tricuspid); septic emboli → splinter hemorrhages, Janeway (painless, palms/soles), Osler nodes (painful, finger pads), Roth spots</td></tr>
+      <tr><td><strong>Osteomyelitis</strong></td><td>Most common in children (long bones); adults = vertebral; sickle cell → think Salmonella instead</td></tr>
+      <tr><td><strong>Parotitis</strong></td><td>Peri-auricular edema, trismus, fever, ↑ amylase with normal lipase; risk: anticholinergics, salivary stones</td></tr>
+      <tr><td><strong>Additional</strong></td><td>Impetigo, pneumonia, meningitis, necrotizing fasciitis</td></tr>
+    </table>
+  </div>
+
+  <div class="n-section">
+    <div class="n-label">Antibiotics</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+      <div class="n-card" style="border-top: 3px solid var(--green);">
+        <h4 style="color:var(--green)">MSSA — PCN sensitive</h4>
+        <ul><li>No penicillinase</li><li>→ <strong>Penicillin</strong></li></ul>
+      </div>
+      <div class="n-card" style="border-top: 3px solid var(--blue);">
+        <h4 style="color:var(--blue)">MSSA — PCN resistant</h4>
+        <ul><li>Has penicillinase</li><li>→ <strong>Oxacillin, Nafcillin</strong></li><li>PCN allergy → <strong>Clindamycin</strong></li></ul>
+      </div>
+      <div class="n-card" style="border-top: 3px solid var(--red);">
+        <h4 style="color:var(--red)">MRSA</h4>
+        <ul><li>Modified PBPs</li><li>→ <strong>Vancomycin</strong></li><li>→ <strong>Linezolid</strong></li><li>→ <strong>Daptomycin</strong></li></ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ FLASHCARDS ============ -->
+<div id="flash" class="panel">
+  <div class="fc-top">
+    <div class="fc-meta" id="fc-counter">Card 1 of 16</div>
+    <div class="fc-meta">✅ <span id="fc-c">0</span> &nbsp;❌ <span id="fc-w">0</span></div>
+  </div>
+  <div class="fc-bar-wrap"><div class="fc-bar" id="fc-bar" style="width:6.25%"></div></div>
+  <div class="flashcard" id="flashcard" onclick="flipCard()">
+    <div class="fc-inner">
+      <div class="fc-face fc-front">
+        <div class="fc-face-label">Question</div>
+        <div class="fc-q-text" id="fc-q"></div>
+        <div class="fc-tap-hint">space = flip · ← → = navigate · , = missed · . = got it</div>
+      </div>
+      <div class="fc-face fc-back">
+        <div class="fc-face-label">Answer</div>
+        <div class="fc-a-text" id="fc-a"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-controls">
+    <button class="btn btn-red" onclick="markCard(false)">✗ Missed it</button>
+    <button class="btn" onclick="prevCard()">← Prev</button>
+    <button class="btn" onclick="nextCard()">Next →</button>
+    <button class="btn btn-green" onclick="markCard(true)">✓ Got it</button>
+  </div>
+</div>
+
+<!-- ============ ACTIVE RECALL ============ -->
+<div id="recall" class="panel">
+  <div class="recall-intro">
+    Write your answer freely — no grading, no pressure. Your notes auto-save as you type and collapse so you can re-attempt later without peeking.
+  </div>
+  <div id="recall-container"></div>
+</div>
+
+<!-- ============ PRACTICE Qs ============ -->
+<div id="quiz" class="panel">
+  <div class="score-banner" id="score-banner">
+    <div class="score-big" id="score-num">0/6</div>
+    <div>
+      <div style="font-weight:600; margin-bottom:3px; color:var(--ink);">Quiz Complete</div>
+      <div class="score-sub" id="score-msg"></div>
+    </div>
+    <button class="btn btn-gold" onclick="resetQuiz()" style="margin-left:auto;">Retry</button>
+  </div>
+  <div id="pq-container"></div>
+</div>
+
+<script>
+// ============ TABS ============
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ============ FOUNDATION TOGGLES ============
+function toggleSection(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.f-section-toggle');
+  if (body.classList.contains('collapsed')) {
+    body.classList.remove('collapsed');
+    toggle.textContent = '▾ collapse';
+  } else {
+    body.classList.add('collapsed');
+    toggle.textContent = '▸ expand';
+  }
+}
+
+// ============ FLASHCARDS ============
+const cards = [
+  { q: "What two features of S. aureus on gram stain distinguish it from Streptococcus?", a: "Both are gram-positive cocci (purple, spherical), but S. aureus forms grape-like CLUSTERS while Strep forms CHAINS. Also, S. aureus is catalase-positive; Strep is catalase-negative." },
+  { q: "What percentage of HCWs carry S. aureus vs. the general population, and where is it found?", a: "General population: ~1/3. Healthcare workers: ~4/5. Most common site: the nares." },
+  { q: "What does catalase do, and which bacteria have it?", a: "Catalase converts H₂O₂ → O₂ + H₂O, neutralizing the killing pathway. ALL Staph species have it. Strep species do NOT. Key test: add H₂O₂ — bubbles = catalase positive = Staph." },
+  { q: "What is Chronic Granulomatous Disease and why does it predispose to S. aureus?", a: "CGD = NADPH oxidase deficiency → can't generate superoxide/oxygen radicals → can't kill catalase-positive organisms. S. aureus neutralizes H₂O₂ with catalase, AND the patient can't even make the radicals. Double vulnerability." },
+  { q: "What does Protein A do and why is it clever?", a: "Protein A binds the Fc region of IgG (not Fab). This blocks complement activation, prevents C3b deposition, and inhibits opsonization → phagocytes can't engulf the bacteria." },
+  { q: "How do you distinguish the 3 Staph species using two lab tests?", a: "Step 1: Coagulase — if positive = S. aureus. Step 2 (coagulase-negative): Novobiocin sensitivity — sensitive = S. epidermidis; resistant = S. saprophyticus." },
+  { q: "What type of exotoxin are TSST-1 and Enterotoxin B, and what is their mechanism?", a: "Type I exotoxins (superantigens). They bind OUTSIDE the MHC II antigen-binding groove, non-specifically crosslinking MHC II and T cell receptors → massive T cell activation → cytokine storm → shock." },
+  { q: "Why are S. aureus gastroenteritis symptoms so rapid, and why don't antibiotics help?", a: "Enterotoxin B is pre-formed in the food (heat-stable). When you eat it, the toxin is already there — no incubation needed. Since there's no active bacterial infection to kill, antibiotics are useless." },
+  { q: "Classic board food for S. aureus gastroenteritis vs. B. cereus — what's the difference?", a: "S. aureus: potato salad, custards, dairy, eggs, meats left out at room temp. B. cereus: reheated rice (also rapid onset). Both are heat-stable toxins." },
+  { q: "What toxin causes SSSS, what does it target, and who does it affect?", a: "Exfoliative toxin cleaves desmoglein-1 → keratinocytes lose attachments → diffuse skin sloughing. Nikolsky sign positive. Mainly infants/young children." },
+  { q: "Janeway lesions vs. Osler nodes — location and pain?", a: "Janeway: palms/soles, NON-painful (mnemonic: J = Just fine). Osler nodes: finger/toe pads, PAINFUL (mnemonic: Osler = Ouch). Both are from septic emboli in endocarditis." },
+  { q: "Why does IVDU classically cause RIGHT-sided endocarditis?", a: "IV injection sends bacteria directly into venous circulation → right side of the heart first. Classic: tricuspid valve involvement, tricuspid regurgitation murmur." },
+  { q: "S. aureus osteomyelitis: children vs. adults, and the sickle cell exception?", a: "Children: long bone (metaphysis) osteomyelitis. Adults: vertebral osteomyelitis (especially with catheters or IVDU). Sickle cell exception: think Salmonella instead of S. aureus." },
+  { q: "What is penicillinase, and how does it differ from the MRSA resistance mechanism?", a: "Penicillinase = beta-lactamase enzyme that breaks the beta-lactam ring of penicillin. MRSA uses modified PBPs (mecA gene) with low affinity for ALL beta-lactams — a structural change that neutralizes the entire class." },
+  { q: "Why can't you use vancomycin for MSSA even though it covers it?", a: "It's suboptimal and promotes resistance. Beta-lactams (nafcillin/oxacillin) are superior for MSSA — they have better bactericidal activity. Vancomycin is reserved for when beta-lactams truly cannot work (MRSA)." },
+  { q: "Name all 3 MRSA antibiotics and briefly explain how each works differently from beta-lactams.", a: "Vancomycin: binds D-Ala-D-Ala on cell wall precursor (bypasses PBPs). Linezolid: inhibits the 50S ribosomal subunit (blocks protein synthesis). Daptomycin: disrupts the bacterial cell membrane." },
+];
+
+let currCard = 0, fcScores = new Array(cards.length).fill(null);
+function renderCard() {
+  document.getElementById('fc-q').textContent = cards[currCard].q;
+  document.getElementById('fc-a').textContent = cards[currCard].a;
+  document.getElementById('fc-counter').textContent = `Card ${currCard+1} of ${cards.length}`;
+  document.getElementById('fc-bar').style.width = `${((currCard+1)/cards.length)*100}%`;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-c').textContent = fcScores.filter(s=>s===true).length;
+  document.getElementById('fc-w').textContent = fcScores.filter(s=>s===false).length;
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { currCard = (currCard+1)%cards.length; renderCard(); }
+function prevCard() { currCard = (currCard-1+cards.length)%cards.length; renderCard(); }
+function markCard(v) { fcScores[currCard]=v; renderCard(); nextCard(); }
+renderCard();
+
+// Keyboard shortcuts for flashcards
+document.addEventListener('keydown', function(e) {
+  const flashPanel = document.getElementById('flash');
+  if (!flashPanel.classList.contains('active')) return;
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.code === 'Space') { e.preventDefault(); flipCard(); }
+  else if (e.code === 'ArrowRight') { e.preventDefault(); nextCard(); }
+  else if (e.code === 'ArrowLeft') { e.preventDefault(); prevCard(); }
+  else if (e.key === ',') { e.preventDefault(); markCard(false); }
+  else if (e.key === '.') { e.preventDefault(); markCard(true); }
+});
+
+// ============ ACTIVE RECALL ============
+const recallQs = [
+  "Name all three Staphylococcus species tested on boards. For each one, state: gram stain result, coagulase result, novobiocin sensitivity, and the classic clinical association.",
+  "Walk through the full oxygen radical killing pathway — starting from NADPH oxidase — and explain exactly where S. aureus catalase intervenes. What disease results when this pathway is broken from the start?",
+  "Describe Protein A: what it binds, what it blocks, and the downstream consequence for phagocytosis.",
+  "List all four major S. aureus toxins, the mechanism or type for each, and the disease each causes. Include one key board clue per toxin.",
+  "A patient has TSS. Why are blood cultures negative? How does TSST-1 cause shock at the molecular level?",
+  "Describe Staphylococcal Scalded Skin Syndrome: age group, toxin, molecular target, and how you distinguish it from Stevens-Johnson Syndrome.",
+  "An IV drug user has endocarditis. Which valve is most commonly affected and why? Name four peripheral findings — for each, state location and whether it is painful or painless.",
+  "Explain the three-tier antibiotic framework for S. aureus: MSSA penicillinase-sensitive, MSSA penicillinase-resistant, and MRSA. Give the drugs for each tier and the resistance mechanism behind each step up.",
+  "What is the difference between penicillinase-mediated resistance and MRSA resistance at the molecular level? Why does the MRSA mechanism render the entire beta-lactam class useless?",
+  "S. aureus osteomyelitis: which bones in which age groups? What is the classic sickle cell exception, and why does sickle cell change the answer?",
+];
+
+const recallAnswers = {};
+
+function buildRecall() {
+  const c = document.getElementById('recall-container');
+  c.innerHTML = '';
+  recallQs.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'recall-item';
+    div.id = `ri-${i}`;
+    div.innerHTML = `
+      <div class="recall-q">
+        <span class="recall-qnum">Q${i+1}</span>
+        <span>${q}</span>
+      </div>
+      <div class="recall-body" id="rb-${i}">
+        <textarea class="recall-textarea" id="rt-${i}" placeholder="Write your answer here..." oninput="saveRecall(${i})">${recallAnswers[i] || ''}</textarea>
+        <div class="recall-footer">
+          <span class="recall-saved-badge" id="rsaved-${i}">✓ saved</span>
+          <button class="recall-collapse-btn" onclick="collapseRecall(${i})">collapse ↑</button>
+        </div>
+      </div>
+      <div class="recall-collapsed-preview" id="rpreview-${i}" onclick="expandRecall(${i})"></div>
+    `;
+    c.appendChild(div);
+  });
+}
+
+function saveRecall(i) {
+  recallAnswers[i] = document.getElementById(`rt-${i}`).value;
+  const badge = document.getElementById(`rsaved-${i}`);
+  badge.classList.add('show');
+  setTimeout(() => badge.classList.remove('show'), 1500);
+}
+
+function collapseRecall(i) {
+  const body = document.getElementById(`rb-${i}`);
+  const preview = document.getElementById(`rpreview-${i}`);
+  const val = recallAnswers[i] || '';
+  body.style.display = 'none';
+  preview.style.display = 'block';
+  preview.textContent = val.trim()
+    ? `"${val.trim().slice(0, 80)}${val.length > 80 ? '…' : ''}" — click to expand`
+    : 'No answer yet — click to expand';
+}
+
+function expandRecall(i) {
+  document.getElementById(`rb-${i}`).style.display = 'block';
+  document.getElementById(`rpreview-${i}`).style.display = 'none';
+}
+
+buildRecall();
+
+// ============ PRACTICE Qs ============
+const questions = [
+  {
+    stem: "A 4-year-old presents with widespread painful skin peeling, diffuse erythema, and a positive Nikolsky sign following a minor skin infection. There is no mucosal involvement. Which toxin is responsible, and what does it target?",
+    options: ["TSST-1; crosslinks MHC II and T cell receptors", "Exfoliative toxin; cleaves desmoglein-1", "Enterotoxin B; heat-stable stimulation of GI mucosa", "Panton-Valentine leukocidin; destroys neutrophils"],
+    correct: 1,
+    exp: "<strong>Exfoliative toxin</strong> causes SSSS by cleaving <strong>desmoglein-1</strong>, disrupting keratinocyte attachments. Key distinguishing feature from Stevens-Johnson: <strong>no mucosal involvement</strong> in SSSS (SJS involves mucous membranes). Nikolsky sign = superficial blistering when lateral pressure applied."
+  },
+  {
+    stem: "A 26-year-old woman develops fever, hypotension, diffuse macular erythroderma, and myalgias 3 days into her menstrual period. She uses super-absorbent tampons. Blood cultures are negative. What best explains the negative blood cultures?",
+    options: ["The antibiotics given before cultures were drawn eliminated bacteremia", "TSS is entirely toxin-mediated; bacteria remain localized and don't enter the bloodstream", "The organism is a strict anaerobe that doesn't grow in standard blood culture bottles", "S. aureus evades detection via Protein A blocking opsonization"],
+    correct: 1,
+    exp: "<strong>Toxic Shock Syndrome</strong> is caused by TSST-1, a superantigen. The bacteria colonize a nidus (tampon, wound) and release toxin locally, which then enters systemic circulation. The bacteria themselves don't need to be bacteremic. This is why blood cultures are negative and why TSS presents as a <strong>toxin-mediated</strong> illness, not septicemia."
+  },
+  {
+    stem: "A 7-year-old child with sickle cell disease presents with 4 days of progressive right femur pain, tenderness to percussion, fever of 38.6°C, and elevated ESR. Which organism is the most likely cause in this specific patient population?",
+    options: ["Staphylococcus aureus", "Salmonella species", "Streptococcus pyogenes", "Pseudomonas aeruginosa"],
+    correct: 1,
+    exp: "<strong>Salmonella</strong> is the classic cause of osteomyelitis in sickle cell patients. In most other children, S. aureus would be the answer. Sickle cell patients have functional asplenia (repeated splenic infarction) → impaired clearance of encapsulated organisms and Salmonella. This is a classic board exception to know."
+  },
+  {
+    stem: "A 10-year-old presents to the ED with hand pain. His mother reports he has had recurrent pneumonias, skin abscesses, and lymphadenitis since infancy. Labs show normal immunoglobulin levels and lymphocyte counts. NBT (nitroblue tetrazolium) test is negative. Which organism is he at highest risk for?",
+    options: ["Streptococcus pneumoniae (encapsulated)", "Staphylococcus aureus (catalase-positive)", "Candida albicans (fungal)", "Clostridium difficile (spore-forming)"],
+    correct: 1,
+    exp: "A negative NBT test indicates <strong>Chronic Granulomatous Disease</strong> — NADPH oxidase deficiency means neutrophils can't generate superoxide radicals. Patients are uniquely susceptible to <strong>catalase-positive</strong> organisms (S. aureus, Aspergillus, Serratia, Nocardia, Pseudomonas) because these organisms neutralize any residual H₂O₂ with their own catalase, completely disarming the patient's minimal killing ability."
+  },
+  {
+    stem: "Blood cultures from a patient grow S. aureus. Susceptibility testing shows the organism is MSSA but produces penicillinase. The patient has no drug allergies. Which antibiotic is most appropriate?",
+    options: ["Penicillin G — MSSA should be sensitive to penicillin", "Nafcillin — penicillinase-resistant beta-lactam", "Vancomycin — covers all Staph species", "Clindamycin — appropriate for any MSSA bacteremia"],
+    correct: 1,
+    exp: "<strong>Nafcillin</strong> (or oxacillin) is the correct choice. The organism produces penicillinase, so plain <strong>penicillin G would be inactivated</strong>. Nafcillin has a bulky side chain that protects the beta-lactam ring. Vancomycin, while effective, is <strong>inferior to beta-lactams for MSSA</strong> and should be reserved for MRSA or PCN allergy. Using vancomycin unnecessarily drives resistance."
+  },
+  {
+    stem: "An IV drug user presents with fever, a new tricuspid regurgitation murmur, and splinter hemorrhages. You note tender nodules on his fingertips and non-tender, flat erythematous lesions on his palms. Which pair of terms correctly identifies these findings?",
+    options: ["Palmar = Janeway lesions (non-painful); fingertips = Osler nodes (painful)", "Palmar = Osler nodes (painful); fingertips = Janeway lesions (non-painful)", "Both are Roth spots in different distributions", "Palmar = petechiae; fingertips = Janeway lesions"],
+    correct: 0,
+    exp: "<strong>Janeway lesions</strong>: flat, non-painful, hemorrhagic macules on the <strong>palms and soles</strong> — septic emboli causing microabscesses. <strong>Osler nodes</strong>: tender, raised nodules on <strong>finger and toe pads</strong> — immune complex deposition. Mnemonic: <em>Osler = Ouch</em>. Roth spots are oval retinal hemorrhages with pale centers (seen on fundoscopy)."
+  }
+];
+
+let answered = new Array(questions.length).fill(false);
+function buildQuiz() {
+  const c = document.getElementById('pq-container');
+  c.innerHTML = '';
+  const L = ['A','B','C','D'];
+  questions.forEach((q, qi) => {
+    const b = document.createElement('div');
+    b.className = 'pq-block'; b.id = `pq-${qi}`;
+    b.innerHTML = `<div class="pq-num">Question ${qi+1} of ${questions.length}</div>
+      <div class="pq-stem">${q.stem}</div>
+      <ul class="pq-opts">${q.options.map((o,oi)=>`<li class="pq-opt" id="opt-${qi}-${oi}" onclick="pick(${qi},${oi})"><span class="pq-opt-letter">${L[oi]}.</span><span>${o}</span></li>`).join('')}</ul>
+      <div class="pq-exp" id="exp-${qi}">${q.exp}</div>`;
+    c.appendChild(b);
+  });
+}
+function pick(qi, oi) {
+  if (answered[qi]) return;
+  answered[qi] = true;
+  const q = questions[qi];
+  for (let i=0;i<q.options.length;i++) {
+    const el = document.getElementById(`opt-${qi}-${i}`);
+    el.classList.add('locked');
+    if (i===q.correct) el.classList.add('correct');
+    else if (i===oi) el.classList.add('wrong');
+  }
+  document.getElementById(`exp-${qi}`).classList.add('show');
+  if (answered.every(Boolean)) {
+    let score = 0;
+    questions.forEach((_,qi) => { if (!document.querySelector(`#pq-${qi} .pq-opt.wrong`)) score++; });
+    const b = document.getElementById('score-banner');
+    b.classList.add('show');
+    document.getElementById('score-num').textContent = `${score}/${questions.length}`;
+    const msgs = ['Keep at it!','Getting there — review the Foundation tab.','Solid effort!','Great work!','Almost perfect!','Perfect! 🎉'];
+    document.getElementById('score-msg').textContent = msgs[Math.min(score, msgs.length-1)];
+    b.scrollIntoView({behavior:'smooth'});
+  }
+}
+function resetQuiz() {
+  answered = new Array(questions.length).fill(false);
+  document.getElementById('score-banner').classList.remove('show');
+  buildQuiz();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+buildQuiz();
+</script>
+</body>
+</html>

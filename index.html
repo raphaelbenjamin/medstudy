@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MedStudy">
+<title>MedStudy</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#07080c; --bg2:#0c0e14; --surface:#11131a; --surface2:#161820;
+  --border:#1c1f2b; --border2:#252838;
+  --ink:#e2ddd4; --ink2:#7e7c89; --ink3:#3d3c48;
+  --gold:#c9a84c; --gold-bg:#1a1508; --gold-rim:rgba(201,168,76,0.18);
+  --green:#45b86a; --green-bg:rgba(69,184,106,0.08);
+  --r:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;font-size:14px;line-height:1.5;min-height:100vh;overflow-x:hidden;}
+
+header{position:sticky;top:0;z-index:200;background:rgba(7,8,12,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,40px);}
+.logo{display:flex;align-items:baseline;gap:9px;}
+.logo-name{font-family:'Lora',serif;font-size:1.15rem;font-weight:600;color:var(--gold);}
+.logo-tag{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--ink3);letter-spacing:.14em;text-transform:uppercase;}
+.header-stat{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--ink2);background:var(--surface2);border:1px solid var(--border2);border-radius:100px;padding:4px 13px;letter-spacing:.05em;}
+.header-stat b{color:var(--gold);font-weight:500;}
+
+.hero{padding:clamp(36px,6vw,68px) clamp(16px,4vw,40px) clamp(20px,3vw,36px);max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;}
+@media(max-width:640px){.hero{grid-template-columns:1fr;}.hero-right{display:none;}}
+.hero-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.hero-label::before{content:'';width:20px;height:1px;background:var(--gold);opacity:.5;}
+.hero h1{font-family:'Lora',serif;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:400;line-height:1.2;color:var(--ink);letter-spacing:-0.01em;margin-bottom:14px;}
+.hero h1 i{color:var(--gold);font-style:italic;}
+.hero-desc{font-size:0.84rem;color:var(--ink2);max-width:460px;line-height:1.75;margin-bottom:22px;}
+.legend{display:flex;gap:18px;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;}
+.ldot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.ldot-exam{background:var(--gold);} .ldot-step{background:var(--ink3);} .ldot-ready{background:var(--green);}
+
+.ring-wrap{width:96px;height:96px;position:relative;display:flex;align-items:center;justify-content:center;}
+.ring-wrap svg{position:absolute;inset:0;transform:rotate(-90deg);}
+.ring-track{fill:none;stroke:var(--border2);stroke-width:5;}
+.ring-fill{fill:none;stroke:var(--gold);stroke-width:5;stroke-linecap:round;stroke-dasharray:251.2;transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);}
+.ring-num{font-family:'Lora',serif;font-size:1.5rem;color:var(--gold);line-height:1;}
+.ring-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-top:6px;text-align:center;}
+
+.filters-wrap{max-width:1080px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 24px;display:flex;gap:6px;flex-wrap:wrap;}
+.f-btn{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:100px;border:1px solid var(--border2);background:none;color:var(--ink3);cursor:pointer;transition:all .15s;}
+.f-btn:hover{color:var(--ink);}
+.f-btn.on{background:var(--gold-bg);color:var(--gold);border-color:var(--gold-rim);}
+
+main{max-width:1080px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 80px;}
+.chapter{margin-bottom:44px;animation:fadeUp .4s ease both;}
+.chapter:nth-child(1){animation-delay:.04s} .chapter:nth-child(2){animation-delay:.08s}
+.chapter:nth-child(3){animation-delay:.12s} .chapter:nth-child(4){animation-delay:.15s}
+.chapter:nth-child(5){animation-delay:.18s} .chapter:nth-child(6){animation-delay:.20s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+
+.ch-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px;}
+.ch-num{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--ink3);letter-spacing:.1em;flex-shrink:0;}
+.ch-name{font-family:'Lora',serif;font-size:1rem;color:var(--ink);}
+.ch-tally{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--ink3);white-space:nowrap;}
+.ch-tally b{color:var(--green);}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px;}
+.card{border-radius:var(--r);border:1px solid var(--border);background:var(--surface);padding:13px 15px;text-decoration:none;display:block;transition:border-color .16s,transform .16s,opacity .16s;cursor:default;position:relative;overflow:hidden;}
+.card.exam{border-color:var(--gold-rim);background:linear-gradient(140deg,var(--surface),var(--gold-bg));}
+.card.exam::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4;}
+.card.step1{opacity:.28;}
+.card.step1:hover{opacity:.5;}
+.card.go{cursor:pointer;}
+.card.go:hover{transform:translateY(-2px);}
+.card.exam.go:hover{border-color:rgba(201,168,76,.45);}
+
+.card-title{font-size:0.81rem;font-weight:500;color:var(--ink);line-height:1.4;margin-bottom:8px;}
+.card.step1 .card-title{color:var(--ink2);}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.chip{font-family:'JetBrains Mono',monospace;font-size:0.53rem;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:4px;}
+.chip-exam{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-rim);}
+.chip-ready{background:var(--green-bg);color:var(--green);border:1px solid rgba(69,184,106,.2);}
+.chip-soon{background:var(--surface2);color:var(--ink3);border:1px solid var(--border);}
+.card-arrow{font-size:0.7rem;color:var(--gold);opacity:0;transition:opacity .15s,transform .15s;}
+.card.go:hover .card-arrow{opacity:1;transform:translateX(3px);}
+
+footer{border-top:1px solid var(--border);max-width:1080px;margin:0 auto;padding:20px clamp(16px,4vw,40px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ft{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--ink3);letter-spacing:.05em;}
+.ft a{color:var(--ink2);text-decoration:none;}
+.ft a:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-name">MedStudy</span>
+    <span class="logo-tag">raphaelbenjamin · Microbiology</span>
+  </div>
+  <div class="header-stat"><b id="h-ready">0</b> / <b id="h-total">0</b> tools ready</div>
+</header>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-label">Bootcamp · Italian Oral + Step 1</div>
+    <h1>Every chapter.<br><i>One place.</i></h1>
+    <p class="hero-desc">Starred topics are your Italian oral exam priority — bright cards, full detail. Unstarred topics are Step 1 for later — dimmed, still mapped, tools coming when you need them.</p>
+    <div class="legend">
+      <div class="legend-item"><span class="ldot ldot-exam"></span>Oral exam</div>
+      <div class="legend-item"><span class="ldot ldot-step"></span>Step 1 / later</div>
+      <div class="legend-item"><span class="ldot ldot-ready"></span>Tool ready</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="ring-wrap">
+      <svg viewBox="0 0 88 88" width="96" height="96">
+        <circle class="ring-track" cx="44" cy="44" r="40"/>
+        <circle class="ring-fill" id="ring" cx="44" cy="44" r="40" style="stroke-dashoffset:251.2"/>
+      </svg>
+      <div><div class="ring-num" id="ring-num">0</div></div>
+    </div>
+    <div class="ring-label">tools built</div>
+  </div>
+</div>
+
+<div class="filters-wrap">
+  <button class="f-btn on" onclick="filter('all',this)">All chapters</button>
+  <button class="f-btn"    onclick="filter('exam',this)">⭐ Oral exam only</button>
+  <button class="f-btn"    onclick="filter('ready',this)">✓ Ready to study</button>
+</div>
+
+<main id="root"></main>
+
+<footer>
+  <div class="ft">raphaelbenjamin.github.io/medstudy</div>
+  <div class="ft">⭐ Italian oral priority &nbsp;·&nbsp; Unstarred = Step 1 &nbsp;·&nbsp; <a href="https://github.com/raphaelbenjamin/medstudy" target="_blank">GitHub ↗</a></div>
+</footer>
+
+<script>
+const DATA = [
+  { ch:'01–03', title:'Fundamentals, Genetics & Toxins', topics:[
+    { n:'Structural Bacterial Envelope',             exam:true,  file:null },
+    { n:'Bacterial Adherence & Motility (Pili)',     exam:true,  file:null },
+    { n:'Gram Stain Procedure',                      exam:true,  file:null },
+    { n:'Poor Staining & Variant Procedures',        exam:true,  file:null },
+    { n:'Culture Media (MacConkey, Blood Agar)',     exam:true,  file:null },
+    { n:'Bacterial Morphology',                      exam:false, file:null },
+    { n:'DNA Structures & Genetic Exchange',         exam:true,  file:null },
+    { n:'Transformation & Transduction',             exam:true,  file:null },
+    { n:'Conjugation & Transposition',               exam:false, file:null },
+    { n:'Endotoxin & Gram-Negative Sepsis',          exam:true,  file:null },
+    { n:'Exotoxins',                                 exam:true,  file:null },
+  ]},
+  { ch:'04', title:'Staphylococcus', topics:[
+    { n:'S. aureus — Principles, Toxins, Diseases & Antibiotics', exam:true,  file:'tools/staph_aureus_MASTER.html' },
+    { n:'Antibiotic Resistant Strains (MRSA/VRSA)',               exam:false, file:null },
+    { n:'S. epidermidis & S. saprophyticus',                      exam:false, file:null },
+  ]},
+  { ch:'05', title:'Streptococcus', topics:[
+    { n:'S. pneumoniae, Viridans, S. pyogenes & S. agalactiae',   exam:true,  file:'tools/streptococcus_MASTER.html' },
+    { n:'Additional Streptococci',                                exam:false, file:null },
+  ]},
+  { ch:'06', title:'Enterococcus & Bacillus', topics:[
+    { n:'Enterococcus',       exam:false, file:null },
+    { n:'Bacillus anthracis', exam:false, file:null },
+    { n:'Bacillus cereus',    exam:false, file:null },
+  ]},
+  { ch:'07', title:'Clostridium', topics:[
+    { n:'C. difficile, C. perfringens & C. tetani', exam:true,  file:null },
+    { n:'C. botulinum',                             exam:false, file:null },
+  ]},
+  { ch:'08', title:'Mycobacteria', topics:[
+    { n:'M. tuberculosis, TB Diagnostics, Screening & BCG', exam:true,  file:null },
+    { n:'M. leprae & Additional Mycobacteria',              exam:false, file:null },
+  ]},
+  { ch:'09', title:'Non-Spore-Forming Gram+ Bacilli', topics:[
+    { n:'Listeria monocytogenes',      exam:true,  file:null },
+    { n:'Corynebacterium diphtheriae', exam:false, file:null },
+    { n:'Nocardia & Actinomyces',      exam:false, file:null },
+  ]},
+  { ch:'10', title:'Lactose-Fermenting Gram− Bacilli', topics:[
+    { n:'E. coli & Variant Strains',   exam:true,  file:null },
+    { n:'Klebsiella & others',         exam:false, file:null },
+  ]},
+  { ch:'11', title:'Non-Lactose-Fermenting Gram− Bacilli', topics:[
+    { n:'Salmonella (Non-typhoidal & Typhi)', exam:true,  file:null },
+    { n:'Pseudomonas aeruginosa',            exam:true,  file:null },
+    { n:'Shigella',                          exam:false, file:null },
+    { n:'Yersinia, Proteus & Legionella',    exam:false, file:null },
+  ]},
+  { ch:'12', title:'Gram− Curved Rods', topics:[
+    { n:'Vibrio cholerae',           exam:true,  file:null },
+    { n:'Campylobacter & H. pylori', exam:false, file:null },
+  ]},
+  { ch:'13', title:'Gram− Diplococci', topics:[
+    { n:'Neisseria gonorrhoeae', exam:true,  file:null },
+    { n:'N. meningitidis',       exam:false, file:null },
+    { n:'Moraxella catarrhalis', exam:false, file:null },
+  ]},
+  { ch:'14', title:'Gram− Coccobacilli', topics:[
+    { n:'Haemophilus, Bordetella & others', exam:false, file:null },
+  ]},
+  { ch:'15', title:'Spirochetes', topics:[
+    { n:'Treponema pallidum & Syphilis Diagnostics', exam:true,  file:null },
+    { n:'Borrelia & Leptospira',                     exam:false, file:null },
+  ]},
+  { ch:'16', title:'Atypical Bacteria', topics:[
+    { n:'Chlamydia trachomatis',           exam:true,  file:null },
+    { n:'Chlamydia pneumoniae & psittaci', exam:false, file:null },
+    { n:'Rickettsia, Mycoplasma & others', exam:false, file:null },
+  ]},
+  { ch:'17', title:'Dimorphic Mycosis', topics:[
+    { n:'Histoplasma, Blastomyces, Coccidioides & Sporothrix', exam:false, file:null },
+  ]},
+  { ch:'18', title:'Opportunistic Mycosis', topics:[
+    { n:'Aspergillus',                    exam:true,  file:null },
+    { n:'Candida',                        exam:true,  file:null },
+    { n:'Cryptococcus',                   exam:true,  file:null },
+    { n:'Mucor, Rhizopus & Pneumocystis', exam:false, file:null },
+  ]},
+  { ch:'19–25', title:'Tinea & Parasites', topics:[
+    { n:'Tinea variants',             exam:false, file:null },
+    { n:'GI & Systemic Protozoa',     exam:false, file:null },
+    { n:'Nematodes & Cestodes',       exam:false, file:null },
+    { n:'Trematodes & Ectoparasites', exam:false, file:null },
+  ]},
+  { ch:'28', title:'Positive-sense RNA Viruses', topics:[
+    { n:'HIV — Pathogenesis, Disease & Management', exam:true,  file:null },
+    { n:'Hepatitis C — Pathogenesis & Clinical',    exam:true,  file:null },
+    { n:'Yellow Fever & Dengue',                    exam:true,  file:null },
+    { n:'Rubella',                                  exam:true,  file:null },
+    { n:'Picornaviridae, Coronavirus & others',     exam:false, file:null },
+  ]},
+  { ch:'29', title:'Negative-sense RNA Viruses', topics:[
+    { n:'Measles, Mumps & RSV',                  exam:true,  file:null },
+    { n:'Influenza — Pathogenesis & Management', exam:true,  file:null },
+    { n:'Ebola, Rabies & others',                exam:false, file:null },
+  ]},
+  { ch:'30–31', title:'dsRNA & DNA Viruses', topics:[
+    { n:'Reovirus (Rotavirus)',            exam:true,  file:null },
+    { n:'Hepatitis B',                     exam:true,  file:null },
+    { n:'HPV — Pathogenesis & Clinical',   exam:true,  file:null },
+    { n:'Adenovirus',                      exam:true,  file:null },
+    { n:'Herpesvirus family & HSV',        exam:true,  file:null },
+    { n:'VZV, EBV, CMV, HHV 6/7/8 & Pox',exam:false, file:null },
+  ]},
+  { ch:'36', title:'Antibiotics', topics:[
+    { n:'General Principles & Coverage Overview',      exam:true,  file:null },
+    { n:'Beta-lactams — Penicillins & Cephalosporins', exam:true,  file:null },
+    { n:'Glycopeptides (Vancomycin)',                  exam:true,  file:null },
+    { n:'Aminoglycosides',                             exam:true,  file:null },
+    { n:'Antibiotic resistance mechanisms',            exam:true,  file:null },
+    { n:'Macrolides, FQs, Rifamycins & others',        exam:false, file:null },
+  ]},
+  { ch:'37–39', title:'Antifungals, Antiparasitics & Antivirals', topics:[
+    { n:'Antifungals',    exam:false, file:null },
+    { n:'Antiparasitics', exam:false, file:null },
+    { n:'Antivirals',     exam:false, file:null },
+  ]},
+];
+
+const totalReady  = () => DATA.flatMap(c=>c.topics).filter(t=>t.file).length;
+const totalTopics = () => DATA.flatMap(c=>c.topics).length;
+
+function card(t) {
+  const ready = !!t.file;
+  const tag  = ready ? 'a' : 'div';
+  const href = ready ? `href="${t.file}" target="_blank"` : '';
+  const examChip  = `<span class="chip chip-exam">⭐ oral</span>`;
+  const readyChip = `<span class="chip chip-ready">✓ ready</span>`;
+  const soonChip  = `<span class="chip chip-soon">soon</span>`;
+  const arrow = ready ? `<span class="card-arrow">→</span>` : '';
+  const leftChip = t.exam ? examChip : soonChip;
+  const rightChip = ready ? readyChip : '';
+  return `<${tag} class="card ${t.exam?'exam':'step1'} ${ready?'go':''}" ${href}>
+    <div class="card-title">${t.n}</div>
+    <div class="card-foot">${leftChip}${rightChip}${arrow}</div>
+  </${tag}>`;
+}
+
+function render(mode='all') {
+  let html = '';
+  for (const ch of DATA) {
+    let topics = ch.topics;
+    if (mode==='exam')  topics = topics.filter(t=>t.exam);
+    if (mode==='ready') topics = topics.filter(t=>t.file);
+    if (!topics.length) continue;
+    const rdy = topics.filter(t=>t.file).length;
+    html += `<div class="chapter">
+      <div class="ch-head">
+        <span class="ch-num">Ch. ${ch.ch}</span>
+        <span class="ch-name">${ch.title}</span>
+        <span class="ch-tally"><b>${rdy}</b>/${topics.length} ready</span>
+      </div>
+      <div class="card-grid">${topics.map(card).join('')}</div>
+    </div>`;
+  }
+  document.getElementById('root').innerHTML = html;
+}
+
+function filter(mode, btn) {
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  render(mode);
+}
+
+render();
+const ready = totalReady(), total = totalTopics();
+document.getElementById('h-ready').textContent = ready;
+document.getElementById('h-total').textContent = total;
+document.getElementById('ring-num').textContent = ready;
+const circ = 251.2;
+document.getElementById('ring').style.strokeDashoffset = circ * (1 - ready/total);
+</script>
+</body>
+</html>

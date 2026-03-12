@@ -35,7 +35,7 @@ header { background: #0a0b0f; padding: 0 40px; display: flex; align-items: cente
 .tab-btn:hover { color: var(--ink); }
 .tab-btn.active { color: var(--purple); border-bottom-color: var(--purple); font-weight: 600; }
 .tab-icon { margin-right: 6px; }
-.panel { display: none; max-width: 900px; margin: 0 auto; padding: 36px 40px 80px; }
+.panel { display: none; max-width: 900px; margin: 0 auto; padding: clamp(20px,4vw,36px) clamp(16px,4vw,40px) 80px; }
 .panel.active { display: block; animation: panelIn 0.3s ease; }
 @keyframes panelIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: none; } }
 
@@ -136,6 +136,33 @@ header { background: #0a0b0f; padding: 0 40px; display: flex; align-items: cente
 .score-banner.show { display: flex; }
 .score-big { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--purple); line-height: 1; }
 .score-sub { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+/* ===================== MOBILE ===================== */
+@media (max-width: 640px) {
+  header { padding: 0 16px; height: 52px; }
+  .header-sub { display: none; }
+  .nav-wrapper { padding: 0 8px; }
+  .tab-btn { padding: 0 12px; font-size: 0.75rem; height: 44px; }
+  .panel { padding: 20px 16px 60px; }
+  .foundation-hero { padding: 20px 18px; border-radius: 10px; }
+  .foundation-hero h2 { font-size: 1.35rem; }
+  .f-compare { grid-template-columns: 1fr; }
+  .n-grid { grid-template-columns: 1fr; }
+  .fc-face { padding: 24px 20px; }
+  .fc-q-text { font-size: 0.95rem; }
+  .fc-controls { gap: 7px; }
+  .fc-controls .btn { padding: 8px 13px; font-size: 0.75rem; }
+  .btn { padding: 9px 16px; font-size: 0.78rem; }
+  .n-table { font-size: 0.75rem; }
+  .n-table th, .n-table td { padding: 7px 10px; }
+  .pq-stem { font-size: 0.85rem; }
+  .pq-opt { font-size: 0.82rem; padding: 10px 12px; }
+  .score-banner { flex-wrap: wrap; gap: 10px; padding: 16px; }
+  .f-section-title { font-size: 1rem; }
+  .bd-topics { grid-template-columns: 1fr 1fr; }
+  .bd-submit-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
 </style>
 </head>
 <body>

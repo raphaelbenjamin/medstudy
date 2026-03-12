@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Clostridium — Master Study Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #09090f;
+  --bg2:     #0d0d15;
+  --surface: #111119;
+  --surf2:   #16161f;
+  --surf3:   #1c1c28;
+  --border:  #1e1e2e;
+  --border2: #28283c;
+  --ink:     #e4e0f0;
+  --ink2:    #807d94;
+  --ink3:    #3e3d52;
+  --purple:  #9d7ee8;
+  --purp-bg: #130f22;
+  --purp-rim:rgba(157,126,232,0.2);
+  --green:   #52c97a;
+  --grn-bg:  rgba(82,201,122,0.08);
+  --red:     #e05c5c;
+  --red-bg:  rgba(224,92,92,0.08);
+  --gold:    #c9a84c;
+  --blue:    #5b8ef0;
+  --r:       10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;font-size:14px;line-height:1.6;min-height:100vh;overflow-x:hidden;}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:0;z-index:200;
+  background:rgba(9,9,15,0.92);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(14px,4vw,36px);
+}
+.h-left{display:flex;align-items:baseline;gap:10px;}
+.h-title{font-family:'Lora',serif;font-size:1.1rem;font-weight:600;color:var(--purple);}
+.h-sub{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--ink3);letter-spacing:.14em;text-transform:uppercase;}
+.h-badge{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--ink2);background:var(--surf2);border:1px solid var(--border2);border-radius:100px;padding:3px 11px;letter-spacing:.05em;}
+
+/* ── NAV TABS ── */
+.nav{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:0 clamp(8px,2vw,36px);
+  display:flex;gap:0;overflow-x:auto;scrollbar-width:none;
+  position:sticky;top:52px;z-index:100;
+}
+.nav::-webkit-scrollbar{display:none;}
+.tab{
+  padding:0 clamp(10px,2vw,20px);height:46px;
+  border:none;background:none;color:var(--ink2);
+  font-family:'Outfit',sans-serif;font-size:0.8rem;font-weight:500;
+  cursor:pointer;border-bottom:2px solid transparent;
+  transition:all .18s;white-space:nowrap;
+}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--purple);border-bottom-color:var(--purple);font-weight:600;}
+
+/* ── PANELS ── */
+.panel{display:none;max-width:920px;margin:0 auto;padding:clamp(20px,4vw,36px) clamp(14px,4vw,36px) 80px;}
+.panel.active{display:block;animation:fadeUp .28s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+/* ── SECTION LABEL ── */
+.sec-label{
+  font-family:'JetBrains Mono',monospace;font-size:0.6rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);
+  border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:14px;
+}
+
+/* ── FOUNDATION ── */
+.f-hero{
+  background:linear-gradient(135deg,var(--surf2),var(--purp-bg));
+  border:1px solid var(--purp-rim);border-radius:12px;
+  padding:clamp(20px,4vw,30px) clamp(18px,4vw,28px);margin-bottom:28px;
+  position:relative;overflow:hidden;
+}
+.f-hero::after{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(157,126,232,0.12),transparent 70%);
+}
+.f-hero h2{font-family:'Lora',serif;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:400;color:var(--ink);margin-bottom:8px;}
+.f-hero p{font-size:0.84rem;color:var(--ink2);line-height:1.75;max-width:560px;}
+
+.f-block{margin-bottom:28px;}
+.f-block-head{
+  display:flex;align-items:center;gap:12px;
+  cursor:pointer;user-select:none;margin-bottom:12px;
+}
+.f-block-icon{
+  width:28px;height:28px;border-radius:7px;
+  background:var(--purp-bg);border:1px solid var(--purp-rim);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;color:var(--purple);flex-shrink:0;
+  font-family:'JetBrains Mono',monospace;font-weight:500;
+}
+.f-block-title{font-family:'Lora',serif;font-size:1rem;color:var(--ink);}
+.f-block-toggle{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--ink3);}
+.f-block-body{display:block;}
+.f-block-body.closed{display:none;}
+
+.f-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:16px 18px;margin-bottom:8px;
+}
+.f-card h4{font-size:0.78rem;font-weight:600;color:var(--purple);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;font-family:'JetBrains Mono',monospace;}
+.f-card p,.f-card li{font-size:0.85rem;color:var(--ink);line-height:1.7;}
+.f-card ul{padding-left:16px;}
+.f-card ul li{margin-bottom:4px;}
+.f-card ul li::marker{color:var(--purple);}
+
+.f-two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+@media(max-width:580px){.f-two{grid-template-columns:1fr;}}
+
+.f-callout{
+  background:var(--purp-bg);border:1px solid var(--purp-rim);
+  border-radius:8px;padding:12px 16px;margin:8px 0;
+  font-size:0.84rem;line-height:1.7;
+}
+.f-callout strong{color:var(--purple);}
+.f-callout.warn{background:rgba(201,168,76,0.07);border-color:rgba(201,168,76,0.2);}
+.f-callout.warn strong{color:var(--gold);}
+.f-callout.danger{background:var(--red-bg);border-color:rgba(224,92,92,0.2);}
+.f-callout.danger strong{color:var(--red);}
+
+.toxin-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;}
+@media(max-width:580px){.toxin-grid{grid-template-columns:1fr;}}
+.toxin-card{background:var(--surf2);border:1px solid var(--border2);border-radius:8px;padding:14px 16px;}
+.toxin-card .tc-head{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:500;margin-bottom:8px;letter-spacing:.05em;}
+.toxin-card.a .tc-head{color:var(--blue);}
+.toxin-card.b .tc-head{color:var(--red);}
+.toxin-card p{font-size:0.82rem;color:var(--ink2);line-height:1.65;}
+.toxin-card strong{color:var(--ink);}
+
+.hy-pill{
+  display:inline-block;background:rgba(201,168,76,0.12);
+  color:var(--gold);border:1px solid rgba(201,168,76,0.25);
+  border-radius:4px;font-family:'JetBrains Mono',monospace;
+  font-size:0.58rem;letter-spacing:.07em;text-transform:uppercase;
+  padding:1px 7px;margin-right:6px;vertical-align:middle;
+}
+
+.step-list{counter-reset:step;list-style:none;padding:0;}
+.step-list li{
+  counter-increment:step;display:flex;gap:12px;
+  padding:10px 0;border-bottom:1px solid var(--border);font-size:0.85rem;
+}
+.step-list li:last-child{border-bottom:none;}
+.step-list li::before{
+  content:counter(step);
+  min-width:22px;height:22px;border-radius:50%;
+  background:var(--purp-bg);border:1px solid var(--purp-rim);
+  color:var(--purple);font-family:'JetBrains Mono',monospace;
+  font-size:0.68rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  margin-top:2px;
+}
+
+/* ── NOTES ── */
+.n-species{margin-bottom:32px;}
+.n-species-head{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--purp-rim);
+}
+.n-species-icon{font-size:1.1rem;}
+.n-species-name{font-family:'Lora',serif;font-size:1.05rem;color:var(--ink);}
+.n-species-tag{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-left:auto;}
+
+.n-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+@media(max-width:580px){.n-grid{grid-template-columns:1fr;}}
+.n-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 15px;}
+.n-card h4{font-size:0.72rem;font-weight:600;color:var(--purple);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;font-family:'JetBrains Mono',monospace;}
+.n-card ul{list-style:none;padding:0;}
+.n-card li{font-size:0.81rem;padding:3px 0 3px 13px;position:relative;line-height:1.55;color:var(--ink);}
+.n-card li::before{content:'›';position:absolute;left:0;color:var(--purple);}
+
+.n-table{width:100%;border-collapse:collapse;font-size:0.79rem;margin-bottom:10px;}
+.n-table th{background:var(--surf3);color:var(--purple);padding:8px 12px;text-align:left;font-size:0.68rem;text-transform:uppercase;letter-spacing:.07em;font-family:'JetBrains Mono',monospace;border-bottom:1px solid var(--border2);}
+.n-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--ink);vertical-align:top;}
+.n-table tr:last-child td{border-bottom:none;}
+.n-table tr:hover td{background:var(--surf2);}
+.pos{color:var(--green);font-weight:600;}
+.neg{color:var(--red);font-weight:600;}
+.neu{color:var(--ink2);}
+
+.pep-table{width:100%;border-collapse:collapse;font-size:0.78rem;margin-bottom:12px;}
+.pep-table th{background:var(--surf3);color:var(--purple);padding:7px 11px;text-align:left;font-size:0.66rem;text-transform:uppercase;letter-spacing:.07em;font-family:'JetBrains Mono',monospace;border-bottom:1px solid var(--border2);}
+.pep-table td{padding:7px 11px;border-bottom:1px solid var(--border);vertical-align:top;}
+.pep-table tr:last-child td{border-bottom:none;}
+
+/* ── FLASHCARDS ── */
+.fc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.fc-meta{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--ink2);}
+.fc-scores{display:flex;gap:12px;}
+.fc-score{font-family:'JetBrains Mono',monospace;font-size:0.68rem;}
+.fc-score.good{color:var(--green);}
+.fc-score.bad{color:var(--red);}
+.fc-bar-wrap{height:3px;background:var(--border);border-radius:2px;margin-bottom:26px;}
+.fc-bar{height:100%;background:var(--purple);border-radius:2px;transition:width .4s;}
+.flashcard{perspective:1400px;cursor:pointer;margin-bottom:22px;}
+.fc-inner{width:100%;min-height:190px;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);border-radius:12px;}
+.flashcard.flipped .fc-inner{transform:rotateY(180deg);}
+.fc-face{position:absolute;width:100%;min-height:190px;backface-visibility:hidden;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:28px clamp(18px,4vw,38px);text-align:center;}
+.fc-front{background:var(--surface);border:1px solid var(--border2);}
+.fc-back{background:var(--purp-bg);border:1px solid var(--purp-rim);transform:rotateY(180deg);}
+.fc-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--ink3);text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px;}
+.fc-q{font-family:'Lora',serif;font-size:clamp(0.9rem,2vw,1rem);line-height:1.55;color:var(--ink);}
+.fc-a{font-size:0.85rem;line-height:1.7;color:var(--ink);}
+.fc-hint{font-size:0.65rem;color:var(--ink3);margin-top:12px;font-family:'JetBrains Mono',monospace;}
+.fc-controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.btn{padding:8px 18px;border-radius:7px;border:1px solid var(--border2);background:var(--surface);color:var(--ink);font-family:'Outfit',sans-serif;font-size:0.78rem;font-weight:500;cursor:pointer;transition:all .15s;}
+.btn:hover{border-color:var(--purple);color:var(--purple);}
+.btn-ok{background:var(--grn-bg);border-color:rgba(82,201,122,.3);color:var(--green);}
+.btn-ok:hover{background:var(--green);color:#000;border-color:var(--green);}
+.btn-miss{background:var(--red-bg);border-color:rgba(224,92,92,.3);color:var(--red);}
+.btn-miss:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.btn-purple{background:var(--purp-bg);border-color:var(--purp-rim);color:var(--purple);}
+.btn-purple:hover{background:var(--purple);color:#fff;}
+
+/* ── ACTIVE RECALL ── */
+.ar-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden;}
+.ar-head{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none;}
+.ar-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--purple);background:var(--purp-bg);border:1px solid var(--purp-rim);border-radius:5px;padding:2px 7px;flex-shrink:0;}
+.ar-q{font-size:0.85rem;color:var(--ink);line-height:1.5;flex:1;}
+.ar-chevron{font-size:0.65rem;color:var(--ink3);flex-shrink:0;transition:transform .2s;}
+.ar-block.open .ar-chevron{transform:rotate(90deg);}
+.ar-body{display:none;padding:0 16px 14px;}
+.ar-block.open .ar-body{display:block;}
+.ar-textarea{
+  width:100%;min-height:90px;background:var(--surf2);border:1px solid var(--border2);
+  border-radius:8px;padding:12px 14px;color:var(--ink);font-family:'Outfit',sans-serif;
+  font-size:0.83rem;line-height:1.6;resize:vertical;margin-bottom:10px;outline:none;
+}
+.ar-textarea:focus{border-color:var(--purple);}
+.ar-answer{display:none;background:var(--purp-bg);border:1px solid var(--purp-rim);border-radius:8px;padding:12px 14px;font-size:0.83rem;line-height:1.7;color:var(--ink);}
+.ar-answer.show{display:block;}
+.ar-answer strong{color:var(--purple);}
+.ar-btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* ── PRACTICE Qs ── */
+.pq-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:14px;}
+.pq-num{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+.pq-stem{font-size:0.88rem;line-height:1.7;color:var(--ink);margin-bottom:14px;}
+.pq-opts{list-style:none;padding:0;display:flex;flex-direction:column;gap:7px;}
+.pq-opt{
+  padding:10px 14px;border-radius:8px;border:1px solid var(--border2);
+  background:var(--surf2);cursor:pointer;font-size:0.83rem;line-height:1.55;
+  display:flex;gap:10px;align-items:flex-start;transition:border-color .15s;
+}
+.pq-opt:hover:not(.locked){border-color:var(--purple);background:var(--purp-bg);}
+.pq-opt.correct{background:var(--grn-bg);border-color:rgba(82,201,122,.4);color:var(--green);}
+.pq-opt.wrong{background:var(--red-bg);border-color:rgba(224,92,92,.4);color:var(--red);}
+.pq-opt.locked{cursor:default;}
+.pq-letter{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--ink3);flex-shrink:0;margin-top:1px;}
+.pq-exp{display:none;margin-top:14px;padding:12px 14px;background:var(--purp-bg);border:1px solid var(--purp-rim);border-radius:8px;font-size:0.82rem;line-height:1.7;color:var(--ink);}
+.pq-exp.show{display:block;}
+.pq-exp strong{color:var(--purple);}
+.score-banner{display:none;background:var(--purp-bg);border:1px solid var(--purp-rim);border-radius:var(--r);padding:18px 20px;margin-bottom:20px;align-items:center;gap:16px;}
+.score-banner.show{display:flex;}
+.score-big{font-family:'Lora',serif;font-size:2rem;color:var(--purple);}
+.score-sub{font-size:0.8rem;color:var(--ink2);margin-top:2px;}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  header{padding:0 14px;height:48px;}
+  .h-sub{display:none;}
+  .nav{padding:0 6px;}
+  .tab{padding:0 10px;font-size:0.74rem;height:42px;}
+  .panel{padding:18px 14px 60px;}
+  .f-hero{padding:18px 16px;}
+  .f-two,.n-grid,.toxin-grid{grid-template-columns:1fr;}
+  .fc-face{padding:22px 16px;}
+  .fc-q{font-size:0.9rem;}
+  .fc-controls .btn{padding:8px 12px;font-size:0.74rem;}
+  .pq-stem{font-size:0.84rem;}
+  .pq-opt{font-size:0.8rem;padding:9px 11px;}
+  .score-banner{flex-wrap:wrap;}
+  .n-table,.pep-table{font-size:0.74rem;}
+  .n-table th,.n-table td,.pep-table th,.pep-table td{padding:6px 9px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-left">
+    <span class="h-title">Clostridium</span>
+    <span class="h-sub">Microbiology · Ch. 07</span>
+  </div>
+  <div class="h-badge">C. diff · C. perfringens · C. tetani</div>
+</header>
+
+<div class="nav">
+  <button class="tab active" onclick="showTab('foundation',this)">🧱 Foundation</button>
+  <button class="tab" onclick="showTab('notes',this)">📋 Notes</button>
+  <button class="tab" onclick="showTab('flashcards',this)">🃏 Flashcards</button>
+  <button class="tab" onclick="showTab('recall',this)">📝 Active Recall</button>
+  <button class="tab" onclick="showTab('quiz',this)">✏️ Practice Qs</button>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     FOUNDATION
+════════════════════════════════════════════════ -->
+<div id="foundation" class="panel active">
+
+  <div class="f-hero">
+    <h2>The Clostridium Genus</h2>
+    <p>Gram-positive, spore-forming, obligate anaerobe bacilli. All catalase-negative — this distinguishes them from <em>Bacillus</em>. Four major pathogens, two distinct disease categories: GI disease (C. diff, C. perfringens) and neurotoxic disease (C. tetani, C. botulinum).</p>
+  </div>
+
+  <!-- BLOCK 1 — Framework -->
+  <div class="f-block">
+    <div class="f-block-head" onclick="toggleBlock(this)">
+      <div class="f-block-icon">01</div>
+      <div class="f-block-title">Gram-Positive Algorithm — Where Clostridium Fits</div>
+      <div class="f-block-toggle">▾ collapse</div>
+    </div>
+    <div class="f-block-body">
+      <div class="f-card">
+        <h4>Shared Features — All Clostridium</h4>
+        <div class="f-two">
+          <ul>
+            <li>Gram-positive bacilli (rods)</li>
+            <li>Catalase <span class="neg">negative</span></li>
+            <li>Spore-forming</li>
+            <li>Obligate anaerobes</li>
+          </ul>
+          <ul>
+            <li>Thrive in low-oxygen environments</li>
+            <li>Spores resistant to heat/disinfectants</li>
+            <li>Toxin-mediated pathology (not bacteria)</li>
+            <li>Found in soil and GI flora</li>
+          </ul>
+        </div>
+      </div>
+      <div class="f-card">
+        <h4>Algorithm Branch Points</h4>
+        <p style="margin-bottom:10px;">Spore-forming gram+ bacilli → test <strong>catalase</strong>: Bacillus (<span class="pos">+</span>) vs Clostridium (<span class="neg">−</span>). Then for Clostridium → does it have a <strong>neurotoxin</strong>?</p>
+        <table class="n-table">
+          <tr><th>Species</th><th>Neurotoxin</th><th>Motile</th><th>Key Disease</th></tr>
+          <tr><td>C. difficile</td><td class="neg">No</td><td class="pos">Yes</td><td>Pseudomembranous colitis</td></tr>
+          <tr><td>C. perfringens</td><td class="neg">No</td><td class="neg">No</td><td>Gas gangrene, gastroenteritis</td></tr>
+          <tr><td>C. tetani</td><td class="pos">Yes (UMN)</td><td>—</td><td>Tetanus (spastic)</td></tr>
+          <tr><td>C. botulinum</td><td class="pos">Yes (LMN)</td><td>—</td><td>Botulism (flaccid)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 2 — C. diff -->
+  <div class="f-block">
+    <div class="f-block-head" onclick="toggleBlock(this)">
+      <div class="f-block-icon">02</div>
+      <div class="f-block-title">C. difficile — Pseudomembranous Colitis</div>
+      <div class="f-block-toggle">▾ collapse</div>
+    </div>
+    <div class="f-block-body">
+      <div class="f-callout warn">
+        <strong>⭐ Key Concept:</strong> C. diff normally colonizes the GI tract peacefully. The problem starts when antibiotics (especially <strong>clindamycin</strong> or fluoroquinolones) wipe out competing flora — allowing C. diff to overgrow and release toxins.
+      </div>
+      <div class="toxin-grid">
+        <div class="toxin-card a">
+          <div class="tc-head">Toxin A — Enterotoxin</div>
+          <p><strong>Binds enterocytes</strong> → endocytosis → ↑ epithelial permeability → fluid leaks from vessels into lumen → <strong>watery diarrhea</strong></p>
+        </div>
+        <div class="toxin-card b">
+          <div class="tc-head">Toxin B — Cytotoxin</div>
+          <p><strong>Inserts pores</strong> into cell membrane → inactivates Rho proteins → disrupts actin cytoskeleton → <strong>destroys enterocytes</strong> → cytopathic</p>
+        </div>
+      </div>
+      <div class="f-callout warn">
+        <strong>Note:</strong> These are named opposite to the classic A/B exotoxin convention — Toxin A is the binding one here, not Toxin B. Classic trick.
+      </div>
+      <div class="f-card">
+        <h4>Risk Factors <span class="hy-pill">High Yield</span></h4>
+        <ul>
+          <li><strong>Recent antibiotic use</strong> — clindamycin is the classic; also fluoroquinolones, broad-spectrum PCN</li>
+          <li>PPI use (omeprazole) — lower yield but still tested</li>
+          <li>Hospitalization — contaminated hospital equipment, fecal-oral spread</li>
+          <li>Elderly / immunocompromised patients</li>
+        </ul>
+      </div>
+      <div class="f-card">
+        <h4>Clinical Presentation</h4>
+        <ul>
+          <li>Watery diarrhea (&gt;3 loose stools/day) ± occult blood</li>
+          <li>Abdominal pain, fever, leukocytosis</li>
+          <li>Severe: dehydration → hypovolemic shock → prerenal AKI</li>
+          <li>Pseudomembranous colitis: yellow fibrin exudates on colonic mucosa (colonoscopy)</li>
+        </ul>
+      </div>
+      <div class="f-card">
+        <h4>Toxic Megacolon <span class="hy-pill">High Yield</span></h4>
+        <p>Toxins + massive inflammation + nitric oxide production → colonic dilation (3–4× normal diameter). Leads to: <strong>colonic perforation</strong> → peritonitis, <strong>paralytic ileus</strong> (dysmotility without mechanical blockage), shock. Don't do colonoscopy — risk of perforation. Other causes: ulcerative colitis, Crohn's.</p>
+      </div>
+      <div class="f-card">
+        <h4>Diagnostics</h4>
+        <table class="pep-table">
+          <tr><th>Test</th><th>Sensitivity</th><th>Specificity</th><th>Notes</th></tr>
+          <tr><td><strong>NAAT (PCR)</strong></td><td class="pos">↑↑</td><td class="pos">↑</td><td>Best overall test; detects toxin genes</td></tr>
+          <tr><td>EIA for toxin A/B</td><td class="neg">↓</td><td class="pos">↑↑↑</td><td>Most specific; needs high toxin quantity</td></tr>
+          <tr><td>EIA for GDH antigen</td><td class="pos">↑</td><td class="neg">↓</td><td>Detects all C. diff, not just toxigenic</td></tr>
+          <tr><td>Colonoscopy</td><td>—</td><td>—</td><td>Pseudomembranes visible; avoid in toxic megacolon</td></tr>
+        </table>
+      </div>
+      <div class="f-card">
+        <h4>Management</h4>
+        <ol class="step-list">
+          <li><strong>Fidaxomicin</strong> — first-line for most cases (preferred over vancomycin for recurrence prevention)</li>
+          <li><strong>Oral vancomycin</strong> — used in refractory or severe cases</li>
+          <li><strong>Metronidazole</strong> — last resort only (not first-line)</li>
+          <li><strong>Fecal microbiota transplant</strong> — recurrent C. diff, restores normal flora</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 3 — C. perfringens -->
+  <div class="f-block">
+    <div class="f-block-head" onclick="toggleBlock(this)">
+      <div class="f-block-icon">03</div>
+      <div class="f-block-title">C. perfringens — Gas Gangrene & Gastroenteritis</div>
+      <div class="f-block-toggle">▾ collapse</div>
+    </div>
+    <div class="f-block-body">
+      <div class="f-card">
+        <h4>Key Distinguishing Features</h4>
+        <div class="f-two">
+          <ul>
+            <li><strong>Non-motile</strong> (C. diff is motile)</li>
+            <li>Double zone of hemolysis on blood agar</li>
+            <li>Uses carbohydrates as fuel → releases CO₂</li>
+          </ul>
+          <ul>
+            <li>α-toxin = phospholipase C (lecithinase)</li>
+            <li>Myonecrosis via cell membrane lysis</li>
+            <li>CO₂ gas production separates fascial planes</li>
+          </ul>
+        </div>
+      </div>
+      <div class="f-card">
+        <h4>Gas Gangrene (Clostridial Myonecrosis) <span class="hy-pill">High Yield</span></h4>
+        <p style="margin-bottom:8px;">↓ Tissue perfusion (trauma, surgery, PVD) → anaerobic environment → C. perfringens proliferates → releases <strong>α-toxin (phospholipase C)</strong> → lyses cell membranes → myonecrosis + CO₂ gas production</p>
+        <div class="f-callout danger">
+          <strong>Clinical clues:</strong> Pain out of proportion to exam, massive edema, crepitus (gas in soft tissue = crackling sound), red → purple → black skin discoloration, bullae. Gas pockets on imaging ("feathering pattern").
+        </div>
+        <p style="margin-top:8px;font-size:0.84rem;"><strong>Spontaneous gas gangrene</strong> (no trauma): think <em>C. septicum</em> — hematogenous spread from GI tract in patients with <strong>colon cancer</strong> or IBD. Same association as S. gallolyticus with colon cancer.</p>
+      </div>
+      <div class="f-card">
+        <h4>Gastroenteritis — Foodborne Illness</h4>
+        <p style="margin-bottom:8px;">Different from S. aureus/B. cereus — C. perfringens involves <strong>spore ingestion</strong> (not preformed toxin), so bacteria must germinate and release enterotoxin first.</p>
+        <table class="pep-table">
+          <tr><th>Bug</th><th>Mechanism</th><th>Onset</th><th>Classic Food</th></tr>
+          <tr><td>S. aureus</td><td>Preformed toxin</td><td>1–8 hrs</td><td>Potato salad, custards</td></tr>
+          <tr><td>B. cereus</td><td>Preformed toxin</td><td>1–8 hrs</td><td>Reheated rice</td></tr>
+          <tr><td><strong>C. perfringens</strong></td><td>Spore ingestion → toxin</td><td><strong>12–24 hrs</strong></td><td><strong>Reheated meat</strong></td></tr>
+        </table>
+        <p style="font-size:0.82rem;margin-top:6px;">Presentation: watery diarrhea, emesis, abdominal pain. Usually self-limited.</p>
+      </div>
+      <div class="f-card">
+        <h4>Management — Gas Gangrene</h4>
+        <ol class="step-list">
+          <li><strong>Surgical debridement</strong> — remove necrotic tissue urgently</li>
+          <li><strong>Penicillin + Clindamycin</strong> — covers C. perfringens + Group A strep (necrotizing fasciitis coverage)</li>
+          <li><strong>Hyperbaric oxygen therapy</strong> — kills obligate anaerobe by flooding with O₂</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 4 — C. tetani -->
+  <div class="f-block">
+    <div class="f-block-head" onclick="toggleBlock(this)">
+      <div class="f-block-icon">04</div>
+      <div class="f-block-title">C. tetani — Tetanus (Spastic Paralysis)</div>
+      <div class="f-block-toggle">▾ collapse</div>
+    </div>
+    <div class="f-block-body">
+      <div class="f-callout">
+        <strong>The Core Concept:</strong> C. tetani releases <strong>tetanospasmin toxin</strong> → travels retrograde via peripheral nerves to CNS → cleaves SNARE proteins (synaptobrevin-2) at <strong>inhibitory interneurons</strong> → blocks GABA/glycine release → loss of inhibition → spastic (UMN) paralysis. Everything is toxin-mediated, not bacterial invasion.
+      </div>
+      <div class="f-card">
+        <h4>Morphology</h4>
+        <p><strong>"Drumstick-shaped"</strong> — narrow rod with a terminal spherical spore. Found ubiquitously in soil and animal feces.</p>
+      </div>
+      <div class="f-card">
+        <h4>Pathogenesis Step-by-Step <span class="hy-pill">High Yield</span></h4>
+        <ol class="step-list">
+          <li>Penetrating wound (nail, bite, burn) → spores inoculated into anaerobic tissue</li>
+          <li>Spores germinate → bacteria release tetanospasmin toxin</li>
+          <li>Toxin travels <strong>retrograde</strong> up cholinergic neurons → spinal cord (CNS)</li>
+          <li>Toxin reaches <strong>Renshaw cells</strong> (inhibitory interneurons in ventral horn)</li>
+          <li>Cleaves <strong>synaptobrevin-2</strong> (SNARE protein) → blocks vesicle exocytosis</li>
+          <li>No GABA/glycine released → α-motor neurons fire without inhibition</li>
+          <li>Result: sustained muscle contraction, spasms, UMN signs</li>
+        </ol>
+      </div>
+      <div class="f-two">
+        <div class="f-card">
+          <h4>Clinical Features (UMN Signs)</h4>
+          <ul>
+            <li><strong>Trismus</strong> — "lockjaw"</li>
+            <li><strong>Risus sardonicus</strong> — sustained facial grimace</li>
+            <li><strong>Opisthotonus</strong> — arching of neck/back</li>
+            <li>Muscle rigidity, spasticity</li>
+            <li>Hyperreflexia</li>
+            <li>Laryngospasm → respiratory failure</li>
+          </ul>
+        </div>
+        <div class="f-card">
+          <h4>Neonatal Tetanus</h4>
+          <ul>
+            <li>Unvaccinated mother → no transplacental IgG for baby</li>
+            <li>Soil on umbilical stump → colonization</li>
+            <li>↓ Cry, difficulty feeding/latching</li>
+            <li>Trismus, persistently clenched hands</li>
+            <li>Opisthotonus</li>
+            <li>Prevention: Tdap during pregnancy</li>
+          </ul>
+        </div>
+      </div>
+      <div class="f-callout danger">
+        <strong>Key irreversibility fact:</strong> Once tetanospasmin binds SNARE proteins → binding is <strong>irreversible</strong>. TIG (tetanus immunoglobulin) neutralizes free toxin but cannot reverse already-bound toxin. Symptoms in progress will continue until new SNARE proteins are synthesized.
+      </div>
+      <div class="f-card">
+        <h4>Management</h4>
+        <ol class="step-list">
+          <li><strong>Airway first</strong> — laryngospasm risk is immediate threat</li>
+          <li><strong>Wound cleaning and debridement</strong> — remove remaining bacteria/spores</li>
+          <li><strong>Metronidazole or Penicillin</strong> — kills bacteria, stops further toxin production</li>
+          <li><strong>TIG (Tetanus Immunoglobulin)</strong> — passive immunization, neutralizes free circulating toxin</li>
+          <li><strong>Tetanus toxoid vaccine</strong> — active immunization; note: vaccine targets the <em>toxin</em>, not the bacteria</li>
+        </ol>
+      </div>
+      <div class="f-card">
+        <h4>Vaccination Schedule & Post-Exposure Prophylaxis</h4>
+        <p style="margin-bottom:10px;font-size:0.83rem;"><strong>DTaP:</strong> 5 doses at 2, 4, 6 months, 15–18 months, 4–6 years &nbsp;·&nbsp; <strong>Tdap booster:</strong> 11–12 years, once in pregnancy &nbsp;·&nbsp; <strong>Td:</strong> every 10 years adults</p>
+        <table class="pep-table">
+          <tr><th>Wound Type</th><th>&lt;3 or Unknown Vaccinations</th><th>≥3 Vaccinations</th></tr>
+          <tr><td><strong>Clean (minor)</strong></td><td>Tetanus toxoid</td><td>Give if ≥ 10 years since last dose</td></tr>
+          <tr><td><strong>Dirty/contaminated</strong> (soil, bite)</td><td>Tetanus toxoid <strong>+ TIG</strong></td><td>Give if ≥ 5 years since last dose</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 5 — Tetani vs Botulinum -->
+  <div class="f-block">
+    <div class="f-block-head" onclick="toggleBlock(this)">
+      <div class="f-block-icon">05</div>
+      <div class="f-block-title">C. tetani vs C. botulinum — The Critical Comparison</div>
+      <div class="f-block-toggle">▾ collapse</div>
+    </div>
+    <div class="f-block-body">
+      <table class="n-table">
+        <tr><th>Feature</th><th>C. tetani</th><th>C. botulinum</th></tr>
+        <tr><td>Toxin name</td><td>Tetanospasmin</td><td>Botulinum toxin</td></tr>
+        <tr><td>Target site</td><td>Inhibitory interneurons (CNS)</td><td>NMJ — motor nerve terminals (PNS)</td></tr>
+        <tr><td>Effect</td><td>Blocks GABA/glycine release</td><td>Blocks ACh release</td></tr>
+        <tr><td>Paralysis type</td><td><strong>Spastic (UMN)</strong></td><td><strong>Flaccid (LMN)</strong></td></tr>
+        <tr><td>Reflexes</td><td>Hyperreflexia</td><td>Hyporeflexia</td></tr>
+        <tr><td>Shape</td><td>Drumstick</td><td>Club-shaped</td></tr>
+        <tr><td>Classic scenario</td><td>Rusty nail, unvaccinated neonates</td><td>Honey in infants, canned food</td></tr>
+      </table>
+      <div class="f-callout">
+        <strong>Memory hook:</strong> Tetanus = <strong>T</strong>ense muscles (spastic, UMN, can't open jaw). Botulism = <strong>B</strong>ag of muscles (flaccid, LMN, descending weakness, can't breathe).
+      </div>
+    </div>
+  </div>
+
+</div><!-- /foundation -->
+
+
+<!-- ════════════════════════════════════════════════
+     NOTES
+════════════════════════════════════════════════ -->
+<div id="notes" class="panel">
+
+  <!-- C. diff -->
+  <div class="n-species">
+    <div class="n-species-head">
+      <span class="n-species-icon">💊</span>
+      <span class="n-species-name">Clostridioides difficile</span>
+      <span class="n-species-tag">C. diff · GI pathogen</span>
+    </div>
+    <div class="n-grid">
+      <div class="n-card">
+        <h4>General Principles</h4>
+        <ul>
+          <li>Gram+ bacilli, catalase−, spore-forming</li>
+          <li>Obligate anaerobe, <strong>motile</strong></li>
+          <li>Normal GI flora — kept in check by microbiome</li>
+          <li>Toxigenic vs non-toxigenic strains</li>
+          <li>Fecal-oral transmission</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Toxins</h4>
+        <ul>
+          <li><strong>Toxin A</strong> (Enterotoxin) → ↑ epithelial permeability → watery diarrhea</li>
+          <li><strong>Toxin B</strong> (Cytotoxin) → pore formation → Rho inactivation → destroys enterocytes</li>
+          <li>Both bind enterocytes via endocytosis</li>
+          <li>Both contribute to pseudomembranous colitis</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Risk Factors</h4>
+        <ul>
+          <li>Recent antibiotics — <strong>clindamycin</strong> (most classic)</li>
+          <li>Fluoroquinolones, broad-spectrum penicillins</li>
+          <li>PPI use (omeprazole)</li>
+          <li>Hospitalization, elderly, immunocompromised</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Complications</h4>
+        <ul>
+          <li><strong>Toxic megacolon</strong> → colonic perforation</li>
+          <li>Paralytic ileus</li>
+          <li>Hypovolemic shock, prerenal AKI</li>
+          <li>Pseudomembranous colitis (fibrin exudates)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sec-label">Diagnostics & Management</div>
+    <table class="n-table">
+      <tr><th>Test</th><th>Sensitivity</th><th>Specificity</th><th>Note</th></tr>
+      <tr><td>NAAT (PCR)</td><td class="pos">↑↑</td><td class="pos">↑</td><td>Best overall — detects toxin genes</td></tr>
+      <tr><td>EIA (toxin A/B)</td><td class="neg">↓</td><td class="pos">↑↑↑</td><td>Most specific but low sensitivity</td></tr>
+      <tr><td>EIA (GDH antigen)</td><td class="pos">↑</td><td class="neg">↓</td><td>Detects all C. diff, not just toxigenic</td></tr>
+    </table>
+    <div class="n-grid">
+      <div class="n-card">
+        <h4>Treatment (in order)</h4>
+        <ul>
+          <li><strong>Fidaxomicin</strong> — first-line</li>
+          <li>Oral vancomycin — refractory/severe</li>
+          <li>Metronidazole — last resort</li>
+          <li>Fecal microbiota transplant — recurrent</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Don't Forget</h4>
+        <ul>
+          <li>Stop offending antibiotic if possible</li>
+          <li>No colonoscopy in toxic megacolon</li>
+          <li>Toxin A = enterotoxin (binding) — reversed from classic A/B naming</li>
+          <li>Toxin B = cytotoxin (destroying)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. perfringens -->
+  <div class="n-species">
+    <div class="n-species-head">
+      <span class="n-species-icon">🦠</span>
+      <span class="n-species-name">Clostridium perfringens</span>
+      <span class="n-species-tag">Gas gangrene · Gastroenteritis</span>
+    </div>
+    <div class="n-grid">
+      <div class="n-card">
+        <h4>General Principles</h4>
+        <ul>
+          <li>Gram+ <strong>non-motile</strong> bacilli (cf. C. diff = motile)</li>
+          <li>Catalase−, spore-forming, obligate anaerobe</li>
+          <li><strong>Double zone hemolysis</strong> on blood agar (inner β + outer α)</li>
+          <li>CO₂ produced as metabolic byproduct</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Key Toxins</h4>
+        <ul>
+          <li><strong>α-toxin</strong> — phospholipase C (lecithinase) → lyses phospholipid bilayers → myonecrosis</li>
+          <li><strong>Enterotoxin</strong> (heat labile) — diarrheal and emetic properties; released after spore germination</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Gas Gangrene</h4>
+        <ul>
+          <li>Risk: trauma, surgery, peripheral vascular disease</li>
+          <li>Pain out of proportion, crepitus, edema</li>
+          <li>Skin: red → purple → black</li>
+          <li>Gas pockets on imaging (feathering pattern)</li>
+          <li>Spontaneous: C. septicum + colon cancer</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Gastroenteritis</h4>
+        <ul>
+          <li>Spore ingestion (not preformed toxin)</li>
+          <li>Onset <strong>12–24 hours</strong> (cf. S. aureus 1–8 hrs)</li>
+          <li>Classic food: <strong>reheated meat</strong></li>
+          <li>Watery diarrhea, emesis, abdominal pain</li>
+          <li>Self-limited</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Management — Gas Gangrene</h4>
+        <ul>
+          <li>Surgical debridement (emergency)</li>
+          <li>Penicillin + Clindamycin</li>
+          <li>Hyperbaric oxygen (kills anaerobe)</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Complications</h4>
+        <ul>
+          <li>Shock, multi-organ failure</li>
+          <li>ARDS, DIC</li>
+          <li>Colonic perforation (spontaneous)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. tetani -->
+  <div class="n-species">
+    <div class="n-species-head">
+      <span class="n-species-icon">⚡</span>
+      <span class="n-species-name">Clostridium tetani</span>
+      <span class="n-species-tag">Tetanus · UMN · Spastic</span>
+    </div>
+    <div class="n-grid">
+      <div class="n-card">
+        <h4>General Principles</h4>
+        <ul>
+          <li>"<strong>Drumstick-shaped</strong>" gram+ bacilli</li>
+          <li>Ubiquitous in soil, animal feces</li>
+          <li>Catalase−, spore-forming, obligate anaerobe</li>
+          <li>Toxin = tetanospasmin (not bacteria)</li>
+          <li>Retrograde transport to CNS</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Pathogenesis</h4>
+        <ul>
+          <li>Wound → spores germinate → tetanospasmin released</li>
+          <li>Retrograde transport → inhibitory interneurons (Renshaw cells)</li>
+          <li>Cleaves <strong>synaptobrevin-2</strong> (SNARE protein)</li>
+          <li>Blocks GABA + glycine → ↑↑ α-motor neuron firing</li>
+          <li>Binding is <strong>irreversible</strong></li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Clinical (UMN Signs)</h4>
+        <ul>
+          <li><strong>Trismus</strong> — lockjaw</li>
+          <li><strong>Risus sardonicus</strong> — frozen grin</li>
+          <li><strong>Opisthotonus</strong> — neck/back arching</li>
+          <li>Spasticity, hyperreflexia</li>
+          <li>Laryngospasm → respiratory failure</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Neonatal Tetanus</h4>
+        <ul>
+          <li>Unvaccinated mom → no IgG transfer</li>
+          <li>Soil on umbilical stump</li>
+          <li>↓ Cry, won't feed, trismus</li>
+          <li>Persistently clenched fists, opisthotonus</li>
+          <li>Prevention: Tdap in pregnancy</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Management</h4>
+        <ul>
+          <li>Airway first (laryngospasm)</li>
+          <li>Wound debridement</li>
+          <li>Metronidazole/Penicillin (kills bacteria)</li>
+          <li><strong>TIG</strong> — passive, neutralizes free toxin</li>
+          <li><strong>Tetanus toxoid</strong> — active immunization</li>
+        </ul>
+      </div>
+      <div class="n-card">
+        <h4>Post-Exposure Prophylaxis</h4>
+        <ul>
+          <li>Clean minor wound + &lt;3 doses → toxoid</li>
+          <li>Dirty wound + &lt;3 doses → toxoid + TIG</li>
+          <li>Clean + ≥3 doses → toxoid if &gt;10 yrs</li>
+          <li>Dirty + ≥3 doses → toxoid if &gt;5 yrs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sec-label">Vaccination Schedule</div>
+    <table class="n-table">
+      <tr><th>Vaccine</th><th>Schedule</th><th>Contains</th></tr>
+      <tr><td>DTaP</td><td>2, 4, 6 mo; 15–18 mo; 4–6 yrs (5 doses)</td><td>Diphtheria, Tetanus, acellular Pertussis</td></tr>
+      <tr><td>Tdap</td><td>Booster 11–12 yrs; once in pregnancy</td><td>Same, lower diphtheria dose</td></tr>
+      <tr><td>Td</td><td>Every 10 years (adults)</td><td>Tetanus + Diphtheria only</td></tr>
+    </table>
+  </div>
+
+</div><!-- /notes -->
+
+
+<!-- ════════════════════════════════════════════════
+     FLASHCARDS
+════════════════════════════════════════════════ -->
+<div id="flashcards" class="panel">
+  <div class="fc-top">
+    <div class="fc-meta"><span id="fc-counter">Card 1 of 18</span></div>
+    <div class="fc-scores">
+      <span class="fc-score good">✓ <span id="fc-c">0</span></span>
+      <span class="fc-score bad">✗ <span id="fc-w">0</span></span>
+    </div>
+  </div>
+  <div class="fc-bar-wrap"><div class="fc-bar" id="fc-bar" style="width:5.5%"></div></div>
+  <div class="flashcard" id="flashcard" onclick="flipCard()">
+    <div class="fc-inner">
+      <div class="fc-face fc-front">
+        <div class="fc-label">Question</div>
+        <div class="fc-q" id="fc-q"></div>
+        <div class="fc-hint">tap to flip · space to flip · ← → to navigate</div>
+      </div>
+      <div class="fc-face fc-back">
+        <div class="fc-label">Answer</div>
+        <div class="fc-a" id="fc-a"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-controls">
+    <button class="btn btn-miss" onclick="markCard(false)">✗ Missed</button>
+    <button class="btn" onclick="prevCard()">← Prev</button>
+    <button class="btn" onclick="nextCard()">Next →</button>
+    <button class="btn btn-ok" onclick="markCard(true)">✓ Got it</button>
+  </div>
+</div><!-- /flashcards -->
+
+
+<!-- ════════════════════════════════════════════════
+     ACTIVE RECALL
+════════════════════════════════════════════════ -->
+<div id="recall" class="panel">
+  <div class="f-hero" style="margin-bottom:20px;">
+    <h2>Active Recall</h2>
+    <p>Write your answer first — then reveal. This is how your Italian oral exam works. No peeking.</p>
+  </div>
+  <div id="recall-list"></div>
+</div><!-- /recall -->
+
+
+<!-- ════════════════════════════════════════════════
+     PRACTICE Qs
+════════════════════════════════════════════════ -->
+<div id="quiz" class="panel">
+  <div class="score-banner" id="score-banner">
+    <div class="score-big" id="score-num">0/7</div>
+    <div><div style="font-weight:600;margin-bottom:2px;">Quiz Complete</div><div class="score-sub" id="score-msg"></div></div>
+    <button class="btn btn-purple" onclick="resetQuiz()" style="margin-left:auto;">Retry</button>
+  </div>
+  <div id="pq-container"></div>
+</div><!-- /quiz -->
+
+
+<script>
+// ─── TABS ───
+function showTab(id, btn) {
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── FOUNDATION TOGGLES ───
+function toggleBlock(head) {
+  const body = head.nextElementSibling;
+  const tog = head.querySelector('.f-block-toggle');
+  const closed = body.classList.toggle('closed');
+  tog.textContent = closed ? '▸ expand' : '▾ collapse';
+}
+
+// ─── FLASHCARDS ───
+const CARDS = [
+  {q:"What are the four shared characteristics of all Clostridium species?", a:"Gram-positive bacilli, catalase-negative, spore-forming, obligate anaerobes. They all thrive in low-oxygen environments and cause toxin-mediated disease."},
+  {q:"How do you differentiate Clostridium from Bacillus on the gram-positive algorithm?", a:"Both are spore-forming gram-positive bacilli. Key difference: Bacillus = catalase-positive; Clostridium = catalase-negative."},
+  {q:"What is the most classic antibiotic associated with triggering C. diff infection, and why?", a:"Clindamycin — it (and fluoroquinolones) wipe out the normal competing gut flora that keeps C. diff in check. Once competitors are gone, C. diff overgrows and releases toxins."},
+  {q:"C. diff Toxin A vs Toxin B — which is the enterotoxin and which is the cytotoxin?", a:"Toxin A = enterotoxin → binds enterocytes → ↑ epithelial permeability → watery diarrhea. Toxin B = cytotoxin → pore insertion → inactivates Rho proteins → destroys enterocytes. Note: this is REVERSED from classic A/B nomenclature."},
+  {q:"What is toxic megacolon and what causes it in C. diff?", a:"Massive colonic dilation (3–4× normal) from toxin-induced inflammation + edema + nitric oxide production. Can lead to colonic perforation, paralytic ileus, and shock. Don't do colonoscopy — perforation risk."},
+  {q:"What is the best overall diagnostic test for C. diff, and why?", a:"NAAT (PCR) — detects toxin-producing genes specifically, has both high sensitivity and high specificity. EIA for toxin is more specific but less sensitive. EIA for GDH antigen is sensitive but non-specific."},
+  {q:"C. diff management — rank the antibiotics in order of preference.", a:"1st: Fidaxomicin. 2nd: Oral vancomycin (refractory/severe). Last resort: Metronidazole. Recurrent C. diff: fecal microbiota transplant."},
+  {q:"What uniquely distinguishes C. perfringens from C. difficile on lab tests?", a:"C. perfringens is non-motile (C. diff has flagella and is motile). Also: C. perfringens shows a double zone of hemolysis on blood agar (inner β-hemolysis + outer α-hemolysis)."},
+  {q:"What is the alpha-toxin of C. perfringens and what does it do?", a:"Phospholipase C (lecithinase) — cleaves phospholipids in cell membranes → lyses the membrane → myonecrosis. This mediates gas gangrene."},
+  {q:"Why does gas gangrene classically occur after traumatic injury, and what are the clinical clues?", a:"Trauma → decreased tissue perfusion → anaerobic environment → C. perfringens thrives. Clues: pain out of proportion, crepitus (crackling), red→purple→black skin, gas pockets on imaging (feathering pattern), massive edema."},
+  {q:"What is spontaneous gas gangrene and which organism causes it?", a:"Gas gangrene without trauma. Caused by C. septicum, which spreads hematogenously from the GI tract in patients with colon cancer or IBD. Classic board association: colon cancer → C. septicum (like S. gallolyticus)."},
+  {q:"How does C. perfringens gastroenteritis differ from S. aureus in timing and food source?", a:"S. aureus: preformed toxin, onset 1–8 hrs, custards/potato salad. C. perfringens: spore ingestion → toxin produced in gut, onset 12–24 hrs, classic food = reheated meat."},
+  {q:"Describe the complete pathogenesis of tetanospasmin from wound to symptom.", a:"Wound → spore inoculation → anaerobic germination → tetanospasmin released → retrograde transport up cholinergic neurons → CNS (Renshaw cells) → cleaves synaptobrevin-2 (SNARE protein) → blocks GABA/glycine exocytosis → α-motor neurons fire unchecked → spastic paralysis."},
+  {q:"Why does tetanus cause UMN signs rather than LMN signs?", a:"Tetanospasmin travels to the CNS (spinal cord inhibitory interneurons). Any pathology affecting the central nervous system produces UMN signs (spasticity, hyperreflexia). Compare botulinum: targets peripheral NMJ → LMN signs (flaccid paralysis)."},
+  {q:"What are the classic clinical findings of tetanus?", a:"Trismus (lockjaw), risus sardonicus (facial grimace), opisthotonus (arching of neck/back), muscle rigidity, spasticity, hyperreflexia. Late: laryngospasm → respiratory failure. All UMN signs."},
+  {q:"What is neonatal tetanus and how is it prevented?", a:"Unvaccinated mother has no IgG to transfer transplacentally. Soil placed on umbilical stump inoculates spores. Baby develops trismus, difficulty feeding, opisthotonus, clenched fists. Prevention: Tdap during every pregnancy so IgG crosses placenta."},
+  {q:"Why doesn't TIG (tetanus immunoglobulin) reverse symptoms once they've started?", a:"Tetanospasmin binds SNARE proteins irreversibly. TIG neutralizes free circulating toxin but cannot reverse toxin that has already bound. Symptoms continue until new SNARE proteins are synthesized. TIG prevents worsening, not reversal."},
+  {q:"C. tetani vs C. botulinum — complete comparison.", a:"Tetani: tetanospasmin, CNS/inhibitory interneurons, blocks GABA/glycine, spastic (UMN), hyperreflexia, drumstick shape, rusty nail/neonates. Botulinum: botulinum toxin, PNS/NMJ, blocks ACh, flaccid (LMN), hyporeflexia, club shape, honey in infants/canned food."},
+];
+
+let curr=0, scores=new Array(CARDS.length).fill(null);
+function renderFC() {
+  document.getElementById('fc-q').textContent = CARDS[curr].q;
+  document.getElementById('fc-a').textContent = CARDS[curr].a;
+  document.getElementById('fc-counter').textContent = `Card ${curr+1} of ${CARDS.length}`;
+  document.getElementById('fc-bar').style.width = `${((curr+1)/CARDS.length)*100}%`;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-c').textContent = scores.filter(s=>s===true).length;
+  document.getElementById('fc-w').textContent = scores.filter(s=>s===false).length;
+}
+function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
+function nextCard(){curr=(curr+1)%CARDS.length;renderFC();}
+function prevCard(){curr=(curr-1+CARDS.length)%CARDS.length;renderFC();}
+function markCard(v){scores[curr]=v;nextCard();}
+renderFC();
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('flashcards').classList.contains('active')){
+    if(e.code==='Space'){e.preventDefault();flipCard();}
+    else if(e.code==='ArrowRight')nextCard();
+    else if(e.code==='ArrowLeft')prevCard();
+    else if(e.key===',')markCard(false);
+    else if(e.key==='.')markCard(true);
+  }
+});
+
+// ─── ACTIVE RECALL ───
+const RECALL_QS = [
+  {q:"Tell me about Clostridioides difficile — classification, pathogenesis, and clinical presentation.", a:"<strong>Classification:</strong> Gram+ bacilli, catalase−, spore-forming, obligate anaerobe, motile. Normal GI colonizer kept in check by flora.<br><br><strong>Pathogenesis:</strong> Antibiotics (classically clindamycin) destroy competing flora → C. diff overgrows → releases Toxin A (enterotoxin → ↑ epithelial permeability → watery diarrhea) and Toxin B (cytotoxin → destroys enterocytes via Rho inactivation → pseudomembranous colitis).<br><br><strong>Clinical:</strong> Watery diarrhea (&gt;3 stools/day), abdominal pain, fever, leukocytosis. Severe: toxic megacolon → colonic perforation, paralytic ileus, shock."},
+  {q:"What are the diagnostic tests for C. diff and when would you use each?", a:"<strong>NAAT/PCR</strong> — best overall; detects toxin-producing genes; high sensitivity + specificity.<br><strong>EIA toxin A/B</strong> — most specific but low sensitivity; needs high toxin quantity.<br><strong>EIA for GDH antigen</strong> — high sensitivity but detects all C. diff (not just toxigenic); non-specific.<br><strong>Colonoscopy</strong> — shows pseudomembranes; avoid in toxic megacolon risk."},
+  {q:"Explain the pathogenesis of C. perfringens gas gangrene from start to finish.", a:"Trauma/surgery/PVD → ↓ tissue perfusion → anaerobic environment → C. perfringens proliferates → releases <strong>α-toxin (phospholipase C/lecithinase)</strong> → cleaves phospholipid bilayers → myonecrosis. Simultaneously: bacterial metabolism releases <strong>CO₂ gas</strong> as byproduct → gas separates fascial planes → crepitus, gas pockets on imaging.<br><br>Clinical: pain out of proportion, crepitus, massive edema, red→purple→black skin discoloration, bullae. Treatment: surgical debridement + penicillin/clindamycin + hyperbaric O₂."},
+  {q:"How does C. perfringens gastroenteritis differ from S. aureus food poisoning?", a:"<strong>S. aureus:</strong> preformed heat-stable toxin already in food → onset 1–8 hrs → custards, potato salad. Antibiotics useless.<br><br><strong>C. perfringens:</strong> spores ingested in contaminated food → must germinate in GI tract → bacteria release enterotoxin → onset <strong>12–24 hrs</strong> → reheated meat. Self-limited."},
+  {q:"Describe the complete mechanism of tetanospasmin toxin and why it causes spastic paralysis.", a:"C. tetani spores inoculated via wound → anaerobic germination → tetanospasmin released → <strong>retrograde transport</strong> up cholinergic neurons → spinal cord → targets <strong>Renshaw cells</strong> (inhibitory interneurons, ventral horn) → cleaves <strong>synaptobrevin-2 (SNARE protein)</strong> → vesicles cannot undergo exocytosis → <strong>no GABA/glycine released</strong> → inhibitory control lost → α-motor neurons fire continuously → spastic (UMN) paralysis.<br><br>UMN signs: trismus, opisthotonus, risus sardonicus, hyperreflexia, spasticity. Binding irreversible."},
+  {q:"A mother presents for prenatal care at 30 weeks. She's never been vaccinated. What do you do and why?", a:"Give <strong>Tdap vaccine</strong> (tetanus, diphtheria, acellular pertussis) during pregnancy.<br><br>Why: Vaccination stimulates maternal IgG production. IgG (not IgM) can cross the placenta → passive immunity for neonate. Without this, if unsanitary cord practices are used (soil on umbilical stump), neonate can develop <strong>neonatal tetanus</strong> — no transplacental IgG = no protection.<br><br>Schedule: Give Tdap once during every pregnancy."},
+  {q:"Compare C. tetani and C. botulinum across all key features.", a:"<strong>Tetani:</strong> tetanospasmin → CNS (inhibitory interneurons) → blocks GABA/glycine → spastic UMN paralysis → hyperreflexia, trismus, opisthotonus → drumstick shape → rusty nail/wound/neonates → treat: TIG + tetanus toxoid.<br><br><strong>Botulinum:</strong> botulinum toxin → PNS (NMJ, motor nerve terminals) → blocks ACh release → flaccid LMN paralysis → hyporeflexia, descending weakness, diplopia → club shape → honey in infants, canned food, wound botulism → treat: antitoxin."},
+  {q:"A patient with colon cancer develops gas gangrene without any trauma. What organism and what is the mechanism?", a:"<strong>Clostridium septicum</strong> (not C. perfringens).<br><br>Mechanism: colonic malignancy → disruption of epithelial integrity → C. septicum (normally non-pathogenic gut flora) spreads <strong>hematogenously</strong> from GI tract → reaches muscle → causes gangrene. No external wound required.<br><br>Also occurs with IBD. Board pearl: colon cancer → think C. septicum for gas gangrene (like S. gallolyticus for endocarditis)."},
+  {q:"Walk me through tetanus post-exposure prophylaxis for a patient with a dirty wound from a dog bite.", a:"Step 1: Is the wound clean or dirty? → Dirty (bite + soil contact).<br>Step 2: How many prior tetanus vaccinations?<br><br><strong>If &lt;3 or unknown:</strong> Give tetanus toxoid AND TIG (tetanus immunoglobulin — passive immunization to neutralize any toxin already present).<br><br><strong>If ≥3 doses:</strong> Give tetanus toxoid booster only if last dose was &gt;5 years ago.<br><br>Key: for dirty wounds, if vaccine history is inadequate, always give both toxoid + TIG."},
+  {q:"Why are antibiotics not sufficient to treat established tetanus, and what must be given instead?", a:"By the time symptoms appear, tetanospasmin has already entered CNS neurons and <strong>irreversibly bound SNARE proteins</strong>. Antibiotics (metronidazole/penicillin) kill bacteria and prevent further toxin production, but cannot reverse toxin already bound.<br><br>What's needed: <strong>TIG (tetanus immunoglobulin)</strong> → binds free circulating toxin before it reaches CNS.<br><br>Important: even TIG cannot reverse symptoms already present — it only prevents worsening. New SNARE proteins must be synthesized naturally for recovery."},
+];
+
+function buildRecall() {
+  const root = document.getElementById('recall-list');
+  RECALL_QS.forEach((item, i) => {
+    root.innerHTML += `
+    <div class="ar-block" id="ar-${i}">
+      <div class="ar-head" onclick="toggleAR(${i})">
+        <span class="ar-num">Q${i+1}</span>
+        <span class="ar-q">${item.q}</span>
+        <span class="ar-chevron">▶</span>
+      </div>
+      <div class="ar-body">
+        <textarea class="ar-textarea" id="ar-ta-${i}" placeholder="Write your answer before revealing..."></textarea>
+        <div class="ar-btn-row">
+          <button class="btn btn-purple" onclick="toggleAnswer(${i})">Reveal answer</button>
+          <button class="btn" onclick="clearAR(${i})">Clear</button>
+        </div>
+        <div class="ar-answer" id="ar-ans-${i}">${item.a}</div>
+      </div>
+    </div>`;
+  });
+}
+function toggleAR(i) {
+  const b = document.getElementById(`ar-${i}`);
+  b.classList.toggle('open');
+}
+function toggleAnswer(i) {
+  const ans = document.getElementById(`ar-ans-${i}`);
+  ans.classList.toggle('show');
+}
+function clearAR(i) {
+  document.getElementById(`ar-ta-${i}`).value='';
+  document.getElementById(`ar-ans-${i}`).classList.remove('show');
+}
+buildRecall();
+
+// ─── PRACTICE Qs ───
+const QS = [
+  {
+    stem:"A 67-year-old hospitalized patient on clindamycin for a skin infection develops profuse watery diarrhea (8 stools/day) with abdominal cramping. Temperature 38.4°C, WBC 18,000. Stool PCR for toxin-producing genes returns positive. What is the best initial antibiotic?",
+    opts:["Metronidazole — classic treatment for C. diff","Fidaxomicin — preferred first-line agent","Oral vancomycin — superior to all other options","IV vancomycin — better systemic coverage"],
+    correct:1,
+    exp:"<strong>Fidaxomicin</strong> is the preferred first-line treatment for C. diff. It has the advantage of lower recurrence rates compared to oral vancomycin. Oral vancomycin is used in refractory or severe cases. <strong>Metronidazole is now last resort</strong> — no longer first-line. IV vancomycin does not reach the colon and is ineffective. The NAAT/PCR is the best overall diagnostic test used here."
+  },
+  {
+    stem:"A 72-year-old woman with known colon cancer develops sudden severe left thigh pain, fever of 39.2°C, and rapidly spreading ecchymosis. CT shows extensive gas within the thigh musculature. She denies any recent trauma or wounds. Which organism is most likely responsible?",
+    opts:["Clostridium perfringens — classic gas gangrene","Clostridium septicum — spontaneous gas gangrene","Group A Streptococcus — necrotizing fasciitis","Staphylococcus aureus — with PVL toxin"],
+    correct:1,
+    exp:"<strong>Clostridium septicum</strong> is the classic cause of spontaneous gas gangrene (no trauma). It spreads hematogenously from the GI tract in patients with <strong>colon cancer or IBD</strong>. C. perfringens causes traumatic gas gangrene. The key board association: colon cancer → C. septicum (just as S. gallolyticus → colon cancer for endocarditis)."
+  },
+  {
+    stem:"A 28-year-old construction worker steps on a rusty nail. He is unsure whether he received tetanus vaccinations as a child and has not had any boosters. On exam, the wound is deep and contaminated with soil. What is the most appropriate management?",
+    opts:["Tetanus toxoid only — no need for immunoglobulin","Wound cleaning only — antibiotics are not indicated","Tetanus toxoid + tetanus immunoglobulin (TIG)","TIG alone — avoids potential vaccine reaction"],
+    correct:2,
+    exp:"Dirty/contaminated wound + fewer than 3 prior vaccinations (or unknown) → give <strong>both tetanus toxoid AND TIG</strong>. The toxoid provides active immunization. The TIG provides immediate passive immunization to neutralize any toxin already present. Giving only toxoid leaves the patient unprotected against toxin that may already be in the wound."
+  },
+  {
+    stem:"A medical student is reviewing a case of tetanus. She notes that even after giving TIG, the patient's muscle spasms did not immediately resolve. Which statement best explains this finding?",
+    opts:["TIG only works for botulism, not tetanus","TIG was given too late to be absorbed","Tetanospasmin binding to SNARE proteins is irreversible; TIG only neutralizes free toxin","The dose of TIG was insufficient to cover the infection"],
+    correct:2,
+    exp:"Tetanospasmin <strong>irreversibly cleaves synaptobrevin-2 (SNARE proteins)</strong> at inhibitory interneurons. Once bound, the binding cannot be undone. TIG neutralizes free circulating tetanospasmin — preventing worsening — but cannot reverse toxin already bound. Recovery requires synthesis of new SNARE proteins. This is why early treatment is critical."
+  },
+  {
+    stem:"A previously healthy 35-year-old man develops severe right arm pain 24 hours after a crush injury at work. On exam, the skin is red and tense with massive edema. You hear a crackling sound when you palpate the skin. X-ray shows gas in the soft tissues. Which antibiotic combination is most appropriate?",
+    opts:["Vancomycin + piperacillin-tazobactam","Penicillin + clindamycin","Metronidazole + ciprofloxacin","Ceftriaxone alone"],
+    correct:1,
+    exp:"<strong>Penicillin + clindamycin</strong> is the classic regimen for gas gangrene from C. perfringens. It also covers Group A Streptococcus (the other main necrotizing infection). Clindamycin is added because it inhibits protein synthesis, reducing toxin production. Surgical debridement and hyperbaric oxygen therapy are also essential."
+  },
+  {
+    stem:"A family of four ate a church potluck dinner featuring reheated beef stew. 18 hours later, all four develop crampy abdominal pain and profuse watery diarrhea. There is no fever, nausea, or vomiting. The symptoms resolve in 24 hours. Which organism is the most likely cause?",
+    opts:["Staphylococcus aureus — from a food handler","Bacillus cereus — reheated starch","Clostridium perfringens — reheated meat, delayed onset","Salmonella — undercooked poultry"],
+    correct:2,
+    exp:"<strong>C. perfringens gastroenteritis</strong> classically presents 12–24 hours after eating <strong>reheated meat</strong> (beef stew = classic). S. aureus and B. cereus present earlier (1–8 hrs) because they involve preformed toxins. C. perfringens involves spore ingestion → germination → enterotoxin release, explaining the delay. Self-limited, no fever, watery diarrhea — classic picture."
+  },
+  {
+    stem:"A 6-day-old neonate in a rural community presents with irritability, inability to suck, and persistently clenched fists. The mother is unvaccinated. The midwife placed traditional herbs mixed with soil on the umbilical stump. Which mechanism best explains the neonate's findings?",
+    opts:["Botulinum toxin blocking ACh at the NMJ causing flaccid paralysis","Tetanospasmin cleaving SNARE proteins at inhibitory interneurons causing spastic paralysis","Exfoliative toxin disrupting desmoglein-1 at the skin","Alpha-toxin lysing cell membranes at the umbilicus"],
+    correct:1,
+    exp:"Classic <strong>neonatal tetanus</strong>. Soil on the umbilical stump inoculates C. tetani spores. Unvaccinated mother → no transplacental IgG. Tetanospasmin travels retrograde to CNS → cleaves synaptobrevin-2 at inhibitory interneurons → loss of GABA/glycine inhibition → spastic paralysis. Neonates present with trismus (can't suck), opisthotonus, clenched fists. Prevent by giving Tdap to all pregnant women."
+  },
+];
+
+let answered=new Array(QS.length).fill(false);
+function buildQuiz(){
+  const c=document.getElementById('pq-container');c.innerHTML='';
+  const L=['A','B','C','D'];
+  QS.forEach((q,qi)=>{
+    const b=document.createElement('div');b.className='pq-block';b.id=`pq-${qi}`;
+    b.innerHTML=`<div class="pq-num">Question ${qi+1} of ${QS.length}</div>
+    <div class="pq-stem">${q.stem}</div>
+    <ul class="pq-opts">${q.opts.map((o,oi)=>`<li class="pq-opt" id="opt-${qi}-${oi}" onclick="pick(${qi},${oi})"><span class="pq-letter">${L[oi]}.</span><span>${o}</span></li>`).join('')}</ul>
+    <div class="pq-exp" id="exp-${qi}">${q.exp}</div>`;
+    c.appendChild(b);
+  });
+}
+function pick(qi,oi){
+  if(answered[qi])return;answered[qi]=true;
+  const q=QS[qi];
+  for(let i=0;i<q.opts.length;i++){
+    const el=document.getElementById(`opt-${qi}-${i}`);
+    el.classList.add('locked');
+    if(i===q.correct)el.classList.add('correct');
+    else if(i===oi)el.classList.add('wrong');
+  }
+  document.getElementById(`exp-${qi}`).classList.add('show');
+  if(answered.every(Boolean)){
+    let score=0;
+    QS.forEach((_,qi)=>{if(!document.querySelector(`#pq-${qi} .pq-opt.wrong`))score++;});
+    const b=document.getElementById('score-banner');b.classList.add('show');
+    document.getElementById('score-num').textContent=`${score}/${QS.length}`;
+    const msgs=['Keep reviewing!','Getting there!','Solid!','Great work!','Almost perfect!','Perfect! 🎉'];
+    document.getElementById('score-msg').textContent=msgs[Math.min(score,msgs.length-1)];
+    b.scrollIntoView({behavior:'smooth'});
+  }
+}
+function resetQuiz(){
+  answered=new Array(QS.length).fill(false);
+  document.getElementById('score-banner').classList.remove('show');
+  buildQuiz();window.scrollTo({top:0,behavior:'smooth'});
+}
+buildQuiz();
+</script>
+</body>
+</html>

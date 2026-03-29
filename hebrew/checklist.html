@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Hebrew Vocab</title>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --bg: #000;
+    --text: #fff;
+    --text-checked: #4a4a4a;
+    --divider: #222;
+    --circle-border: #3a3a3a;
+    --check-fill: #ffd60a;
+    --keyword: #5ac8fa;
+    --trans: #666;
+    --header-bg: rgba(0,0,0,0.9);
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--header-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--divider);
+    padding: 18px 20px 0;
+  }
+
+  .header-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    direction: ltr;
+  }
+
+  .title {
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #555;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .count {
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: #3a3a3a;
+  }
+
+  .filters {
+    display: flex;
+    direction: ltr;
+    border-bottom: none;
+  }
+
+  .ftab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 0 10px;
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #3a3a3a;
+    background: none;
+    border: none;
+    border-bottom: 1.5px solid transparent;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .ftab.active { color: #ffd60a; border-bottom-color: #ffd60a; }
+
+  /* List */
+  .list { padding-bottom: 80px; }
+
+  .row {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--divider);
+    min-height: 50px;
+    gap: 16px;
+    cursor: pointer;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  /* Circle — physically rightmost for right thumb */
+  .circle {
+    flex-shrink: 0;
+    order: 1;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--circle-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .row.checked .circle {
+    background: var(--check-fill);
+    border-color: var(--check-fill);
+  }
+
+  .ck { display: none; }
+  .row.checked .ck { display: block; }
+
+  /* Info dot */
+  .idot {
+    flex-shrink: 0;
+    order: 3;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #181818;
+    border: none;
+    color: #3a3a3a;
+    font-size: 0.6rem;
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.12s, color 0.12s;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .idot.open { background: #5ac8fa22; color: #5ac8fa; }
+
+  /* Content */
+  .content {
+    flex: 1;
+    order: 2;
+    padding: 13px 0;
+  }
+
+  .sentence {
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text);
+    direction: rtl;
+    text-align: right;
+    transition: color 0.2s;
+  }
+
+  .row.checked .sentence {
+    color: var(--text-checked);
+  }
+
+  .keyword { color: var(--keyword); font-weight: 400; }
+  .row.checked .keyword { color: #2a4a55; }
+
+  .trans {
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--trans);
+    direction: ltr;
+    text-align: left;
+    margin-top: 4px;
+    display: none;
+    font-style: italic;
+  }
+  .trans.open { display: block; }
+
+  /* Empty */
+  .empty {
+    display: none;
+    text-align: center;
+    padding: 80px 32px;
+    color: #333;
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    font-size: 0.9rem;
+    direction: ltr;
+  }
+  .empty.show { display: block; }
+
+  /* Bottom */
+  .bottom {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--divider);
+    padding: 10px 20px 22px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    direction: ltr;
+  }
+
+  .cbtn {
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: #3a3a3a;
+    background: none;
+    border: 1px solid #222;
+    padding: 6px 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .cbtn:hover { color: #666; border-color: #3a3a3a; }
+  .cbtn.ok { color: #34c759; border-color: #34c759; }
+
+  .rbtn {
+    font-family: 'Arial Hebrew', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: #2a2a2a;
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: color 0.12s;
+  }
+  .rbtn:hover { color: #ff453a; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-row">
+    <span class="title">Hebrew Vocab</span>
+    <div style="display:flex;align-items:center;gap:10px;direction:ltr;">
+      <button id="showall-btn" onclick="toggleAllTrans()" style="font-family:'Arial Hebrew',Arial,sans-serif;font-size:0.72rem;color:#444;background:none;border:1px solid #222;padding:4px 12px;border-radius:12px;cursor:pointer;transition:color 0.12s,border-color 0.12s;white-space:nowrap;">Show translations</button>
+      <span class="count" id="hcount">0 / 0</span>
+    </div>
+  </div>
+  <div class="filters">
+    <button class="ftab active" onclick="setFilter('all',this)">All</button>
+    <button class="ftab" onclick="setFilter('unseen',this)">Learning</button>
+    <button class="ftab" onclick="setFilter('known',this)">Known ✓</button>
+  </div>
+</div>
+
+<div class="list" id="list"></div>
+<div class="empty" id="empty">Nothing here.</div>
+
+<div class="bottom">
+  <button class="cbtn" id="ca" onclick="copyAll()">Copy all</button>
+  <button class="cbtn" id="cu" onclick="copyUnchecked()">Copy unchecked</button>
+  <button class="rbtn" onclick="doReset()">Reset</button>
+</div>
+
+<script>
+const S = [
+  [1,"חשבון","...תביא לי את <k>החשבון</k>, בבקשה","Bring me the bill, please…"],
+  [2,"שיחה","...הייתה לנו <k>שיחה</k> ממש קשה אתמול","We had a really tough conversation yesterday…"],
+  [3,"הורה","...כל <k>הורה</k> רוצה הכי טוב לילד שלו","Every parent wants what's best for their child…"],
+  [4,"עלול","...זה <k>עלול</k> לקחת הרבה זמן","This might take a long time…"],
+  [5,"חושב","...אני <k>חושב</k> שאתה צודק","I think you're right…"],
+  [6,"הסכים","...הוא לא <k>הסכים</k> בהתחלה, אבל אחר כך","He didn't agree at first, but then…"],
+  [7,"החליט","...היא <k>החליטה</k> לעזוב את העבודה","She decided to leave the job…"],
+  [8,"הסביר","...הוא <k>הסביר</k> לי את כל הסיטואציה","He explained the whole situation to me…"],
+  [9,"לחלוטין","...אני <k>לחלוטין</k> לא מסכים עם זה","I absolutely don't agree with that…"],
+  [10,"אביב","...בתל <k>אביב</k> באביב זה פשוט יפה","In Tel Aviv in spring it's just beautiful…"],
+  [11,"אמריקני","...יש לו <k>אמריקני</k> שלם — מבטא, הכל","He's fully American — accent, everything…"],
+  [12,"מסעדה","...בואו נצא ל<k>מסעדה</k> הערב","Let's go to a restaurant tonight…"],
+  [13,"בתור","...<k>בתור</k> אמא, זה מאוד קשה לי","As a mother, this is very hard for me…"],
+  [14,"אכפת","...לא <k>אכפת</k> לי מה הם חושבים","I don't care what they think…"],
+  [15,"כלשהו","...צריך פתרון <k>כלשהו</k> לבעיה הזאת","We need some kind of solution to this problem…"],
+  [16,"המון","...תודה, <k>המון</k> המון","Thank you, so so much…"],
+  [17,"כיף","...היה <k>כיף</k> ממש, תודה שהזמנת","It was really fun, thanks for inviting me…"],
+  [18,"גר","...הוא <k>גר</k> בתל אביב כבר שש שנים","He's been living in Tel Aviv for six years…"],
+  [19,"מסך","...אתה מבלה יותר מדי זמן מול ה<k>מסך</k>","You spend too much time in front of the screen…"],
+  [20,"שלם","...כבר <k>שלמתי</k>, אל דאגה","I already paid, don't worry…"],
+  [21,"בקרוב","...נדבר על זה <k>בקרוב</k>, בסדר?","We'll talk about it soon, okay?"],
+  [22,"נורא","...הוא <k>נורא</k> חכם, אבל נורא עצלן","He's terribly smart, but terribly lazy…"],
+  [23,"דאג","...היא <k>דאגה</k> לכולם חוץ מעצמה","She took care of everyone except herself…"],
+  [24,"חוויה","...זאת הייתה <k>חוויה</k> שלא אשכח","That was an experience I won't forget…"],
+  [25,"חוסר","...יש פה <k>חוסר</k> אמון בסיסי","There's a basic lack of trust here…"],
+  [26,"חום","...יש לו <k>חום</k> גבוה, הוא לא יוכל לבוא","He has a high fever, he won't be able to come…"],
+  [27,"הסתיים","...הסרט <k>הסתיים</k> לפני חצי שעה","The film ended half an hour ago…"],
+  [28,"הן","...<k>הן</k> לא ידעו מה קורה שם","They (f) didn't know what was going on there…"],
+  [29,"ניהל","...הוא <k>ניהל</k> את החברה במשך עשר שנים","He managed the company for ten years…"],
+  [30,"תרבות","...יש הבדל <k>תרבות</k> בין הדורות","There's a cultural difference between the generations…"],
+  [31,"ישראלי","...זה <k>ישראלי</k> לגמרי — לא מחכים בתור","That's totally Israeli — not waiting in line…"],
+  [32,"חברתי","...הוא מאוד <k>חברתי</k>, מכיר את כולם","He's very social, knows everyone…"],
+  [33,"גבול","...יש <k>גבול</k> למה שאני מוכן לסבול","There's a limit to what I'm willing to put up with…"],
+  [34,"בעיקר","...אני אוהב <k>בעיקר</k> מוזיקה מהשמונים","I mainly like music from the eighties…"],
+  [35,"נעלם","...הוא <k>נעלם</k> אחרי המסיבה, אף אחד לא ראה אותו","He disappeared after the party, no one saw him…"],
+  [36,"התייחס","...הוא לא <k>התייחס</k> בכלל למה שאמרתי","He didn't address at all what I said…"],
+  [37,"שורה","...עמדנו ב<k>שורה</k> שלוש שעות","We stood in line for three hours…"],
+  [38,"גילה","...היא <k>גילתה</k> שהוא שיקר לה","She discovered that he had lied to her…"],
+  [39,"תקשורת","...ה<k>תקשורת</k> מגזימה עם הסיפור הזה","The media is overdoing it with this story…"],
+  [40,"נוח","...הכיסא הזה לא <k>נוח</k> בכלל","This chair isn't comfortable at all…"],
+  [41,"מתחת","...המפתחות <k>מתחת</k> לשטיח","The keys are under the mat…"],
+  [42,"לעתים","...<k>לעתים</k> אני לא מבין אותו","At times I don't understand him…"],
+  [43,"גודל","...מה ה<k>גודל</k> שלך?","What's your size?"],
+  [44,"קהל","...ה<k>קהל</k> השתגע כשהוא עלה לבמה","The audience went crazy when he came on stage…"],
+  [45,"דירה","...שכר ה<k>דירה</k> בתל אביב עלה שוב","Rent in Tel Aviv has gone up again…"],
+  [46,"יחסים","...ה<k>יחסים</k> ביניהם מורכבים מאז","Relations between them have been complex since then…"],
+  [47,"כוונה","...לא הייתה לי <k>כוונה</k> לפגוע בך","I had no intention of hurting you…"],
+  [48,"ארוחה","...<k>ארוחת</k> ערב אצלנו תמיד בשבע","Dinner at ours is always at seven…"],
+  [49,"סתם","...אל תקח את זה ברצינות, אמרתי <k>סתם</k>","Don't take it seriously, I was just saying it…"],
+  [50,"הציג","...הוא <k>הציג</k> את הפרויקט בפני הצוות","He presented the project to the team…"],
+  [51,"הקשיב","...היא <k>הקשיבה</k> לכל מילה בלי להפריע","She listened to every word without interrupting…"],
+  [52,"ברית","...<k>ברית</k> המילה הייתה שמחה קטנה ומרגשת","The brit milah was a small and moving celebration…"],
+  [53,"שוק","...הלכנו ל<k>שוק</k> הכרמל לקנות ירקות","We went to the Carmel Market to buy vegetables…"],
+  [54,"אצל","...אני אישן <k>אצל</k> חבר הלילה","I'll sleep at a friend's place tonight…"],
+  [55,"פועל","...הממשלה <k>פועלת</k> למצוא פתרון","The government is working to find a solution…"],
+  [56,"יהודי","...מדינה <k>יהודית</k> ודמוקרטית — זאת הדילמה","A Jewish and democratic state — that's the dilemma…"],
+  [57,"התמודד","...הוא <k>התמודד</k> עם המחלה בכוח ובכבוד","He dealt with the illness with strength and dignity…"],
+  [58,"קצה","...הגענו ל<k>קצה</k> של הדרך ופנינו שמאלה","We got to the end of the road and turned left…"],
+  [59,"תל","...<k>תל</k> אביב נקראת על שם ספרו של הרצל","Tel Aviv is named after Herzl's book…"],
+  [60,"היטב","...קרא את החוזה <k>היטב</k> לפני שאתה חותם","Read the contract thoroughly before you sign…"],
+  [61,"תחושה","...יש לי <k>תחושה</k> שמשהו לא בסדר כאן","I have a feeling something isn't right here…"],
+  [62,"גישה","...ה<k>גישה</k> שלו לבעיה שונה לחלוטין משלנו","His approach to the problem is completely different…"],
+  [63,"עקב","...<k>עקב</k> הגשם הכבד, הטיסה התעכבה","As a result of the heavy rain, the flight was delayed…"],
+  [64,"תפס","...השוטר <k>תפס</k> את הגנב ברגע האחרון","The policeman caught the thief at the last moment…"],
+  [65,"סביב","...ישבנו <k>סביב</k> השולחן וסיפרנו סיפורים","We sat around the table and told stories…"],
+  [66,"צפון","...הם גרים ב<k>צפון</k> הארץ, ליד חיפה","They live in the north of the country, near Haifa…"],
+  [67,"ציפה","...לא <k>ציפיתי</k> שזה יהיה כל כך קשה","I didn't expect it to be this hard…"],
+  [68,"מורה","...ה<k>מורה</k> שלנו למתמטיקה היה הכי מפחיד","Our maths teacher was the scariest one…"],
+  [69,"רציני","...אתה <k>רציני</k> עכשיו או אתה צוחק עלי?","Are you serious right now or joking with me?"],
+  [70,"עמוק","...השיחה הזאת הייתה <k>עמוקה</k> ממה שציפיתי","This conversation was deeper than I expected…"],
+  [71,"מטורף","...זה <k>מטורף</k> כמה אנשים היו שם","It's crazy how many people were there…"],
+  [72,"תחנה","...תורד אותי ב<k>תחנה</k> הבאה בבקשה","Drop me off at the next stop please…"],
+  [73,"הזכיר","...הוא <k>הזכיר</k> לי שיש לי פגישה מחר","He reminded me that I have a meeting tomorrow…"],
+  [74,"מכונה","...ה<k>מכונה</k> שלו חדשה, קנה אותה לפני חודש","His car is new, he bought it a month ago…"],
+  [75,"רגש","...הסרט הזה עורר בי <k>רגשות</k> שלא ציפיתי","This film stirred up emotions I didn't expect…"],
+  [76,"כמות","...ה<k>כמות</k> של הסוכר בשתייה הזאת מדהימה","The amount of sugar in this drink is shocking…"],
+  [77,"הבנה","...זה דורש <k>הבנה</k> עמוקה של ההקשר","It requires deep understanding of the context…"],
+  [78,"מתח","...היה <k>מתח</k> בחדר שאפשר היה לחתוך אותו","There was tension in the room you could cut…"],
+  [79,"זז","...לא <k>זז</k> מהכיסא כל הערב, רק בטלפון","Didn't budge from the chair all evening…"],
+  [80,"כביש","...ה<k>כביש</k> הזה סגור, תיקח כביש אחר","This road is closed, take a different one…"],
+  [81,"עצום","...הפוטנציאל כאן הוא <k>עצום</k>","The potential here is enormous…"],
+  [82,"מומחה","...הביאו <k>מומחה</k> מחו\"ל להסביר את הנושא","They brought in an expert from abroad…"],
+  [83,"מגוון","...יש <k>מגוון</k> רחב של אפשרויות","There's a wide variety of options…"],
+  [84,"השוואה","...ב<k>השוואה</k> לשנה שעברה, המצב השתפר","Compared to last year, the situation improved…"],
+  [85,"אוטובוס","...פספסתי את ה<k>אוטובוס</k> ב-30 שניות","I missed the bus by 30 seconds…"],
+  [86,"נמנע","...הוא <k>נמנע</k> מלהתייחס לשאלות הקשות","He avoided addressing the difficult questions…"],
+  [87,"יעיל","...הדרך הכי <k>יעילה</k> להגיע לשם היא ברכבת","The most efficient way to get there is by train…"],
+  [88,"ישירות","...פנה אליו <k>ישירות</k>, אל תלך דרך מתווכים","Approach him directly, don't go through intermediaries…"],
+  [89,"תושב","...<k>תושבי</k> הדרום סובלים שנים מהמצב","Residents of the south have suffered for years…"],
+  [90,"נעים","...<k>נעים</k> מאוד, שמעתי עליך דברים טובים","Very nice to meet you, I've heard good things…"],
+  [91,"גובה","...ב<k>גובה</k> כזה קשה לנשום בלי להסתגל","At such altitude it's hard to breathe…"],
+  [92,"שטות","...אל תקשיב לו, הוא מדבר <k>שטויות</k>","Don't listen to him, he talks nonsense…"],
+  [93,"מסובך","...הסיטואציה ה<k>מסובכת</k> הזאת קשה להסביר","This complicated situation is hard to explain…"],
+  [94,"מודאג","...אני <k>מודאג</k> ממנו, לא ענה כל היום","I'm worried about him, he hasn't answered all day…"],
+  [95,"יחסית","...זה <k>יחסית</k> זול לאזור הזה","It's relatively cheap for this area…"],
+  [96,"לוקח","...כמה זמן <k>לוקח</k> לנסוע משם לפה?","How long does it take to travel from there to here?"],
+  [97,"עימות","...היה <k>עימות</k> חריף בין השניים בישיבה","There was a sharp confrontation at the meeting…"],
+  [98,"ניצל","...הוא <k>ניצל</k> כל הזדמנות לקדם את עצמו","He exploited every opportunity to advance himself…"],
+  [99,"נפוץ","...זאת תופעה <k>נפוצה</k> מאוד בקרב צעירים","It's a very common phenomenon among young people…"],
+  [100,"בהכרח","...יקר יותר לא <k>בהכרח</k> אומר טוב יותר","More expensive doesn't necessarily mean better…"],
+  [101,"במיוחד","...אני אוהב את זה, <k>במיוחד</k> בסוף יום עמוס","I love it, especially at the end of a busy day…"],
+  [102,"לקחת","...הוא הציע <k>לקחת</k> אותנו לנמל התעופה","He offered to take us to the airport…"],
+  [103,"רוב","...<k>רוב</k> האנשים שהכרתי שם כבר עברו דירה","Most of the people I knew there have already moved…"],
+  [104,"משפט","...ה<k>משפט</k> שלו נמשך שלוש שנים","His trial lasted three years…"],
+  [105,"שינה","...אני לא ישנה טוב, ה<k>שינה</k> שלי מקוטעת","I'm not sleeping well, my sleep is fragmented…"],
+  [106,"רוח","...יש <k>רוח</k> חזקה היום, לא כיף לשבת בחוץ","There's a strong wind today, not fun to sit outside…"],
+  [107,"הוסיף","...הוא <k>הוסיף</k> שהוא שמח שנפגשנו","He added that he was glad we met…"],
+  [108,"בדק","...האחות <k>בדקה</k> לחץ דם ושלחה אותי הביתה","The nurse checked my blood pressure and sent me home…"],
+  [109,"מעט","...המצב השתפר <k>מעט</k> אבל לא חזר לנורמלי","The situation improved a little but hasn't normalized…"],
+  [110,"צד","...מ<k>צד</k> אחד כן, מצד שני אני לא בטוח","On one hand yes, on the other hand I'm not sure…"],
+  [111,"אישי","...זה לא <k>אישי</k>, זה עניין עסקי בלבד","It's not personal, it's purely a business matter…"],
+  [112,"בהחלט","...זאת <k>בהחלט</k> הסעודה הכי טובה השנה","That's definitely the best meal I've eaten this year…"],
+  [113,"נשמע","...זה <k>נשמע</k> טוב, אבל אני צריך לראות פרטים","That sounds good, but I need to see the details…"],
+  [114,"קול","...יש לה <k>קול</k> מיוחד שלא שמעתי כמוהו","She has a unique voice I've never heard before…"],
+  [115,"הראה","...הוא <k>הראה</k> לי איך עושים את זה","He showed me how to do it…"],
+  [116,"שיעור","...יש לי <k>שיעור</k> עברית ביום שלישי","I have a Hebrew class on Tuesday…"],
+  [117,"כדאי","...<k>כדאי</k> להגיע מוקדם, יש תור ארוך","It's worthwhile to arrive early, there's a long queue…"],
+  [118,"לפעמים","...<k>לפעמים</k> עדיף פשוט לשתוק","Sometimes it's better to just stay quiet…"],
+  [119,"חנות","...ה<k>חנות</k> הזאת סגורה בשבת","This shop is closed on Saturday…"],
+  [120,"מספיק","...זה לא <k>מספיק</k>, צריך עוד שעה עבודה","That's not enough, we need another hour of work…"],
+  [121,"לפחות","...קח <k>לפחות</k> מעיל, יהיה קר בלילה","Take at least a jacket, it'll be cold at night…"],
+  [122,"הפעם","...<k>הפעם</k> אני לא מתנצל","This time I'm not apologising…"],
+  [123,"נהג","...ה<k>נהג</k> פתח הדלת רק בתחנה הבאה","The driver opened the door only at the next stop…"],
+  [124,"הציע","...היא <k>הציעה</k> לאכול בחוץ במקום לבשל","She suggested eating out instead of cooking…"],
+  [125,"מעבר","...<k>מעבר</k> לכסף, יש גם שאלה של עקרונות","Beyond the money, there's also a question of principles…"],
+  [126,"לבד","...הוא גר <k>לבד</k> כבר שלוש שנים","He's been living alone for three years…"],
+  [127,"הצלחה","...<k>הצלחה</k> במבחן! אתה מוכן","Good luck on the test! You're ready…"],
+  [128,"בעוד","...הגעתי <k>בעוד</k> שהם עוד היו ישנים","I arrived while they were still asleep…"],
+  [129,"החלטה","...זאת <k>החלטה</k> גדולה, אל תמהר","It's a big decision, don't rush it…"],
+  [130,"שכן","...ה<k>שכן</k> שלמעלה מנגן גיטרה עד חצות","The neighbor upstairs plays guitar until midnight…"],
+  [131,"ליד","...שב <k>ליד</k> החלון, יש שם יותר אוויר","Sit next to the window, there's more air there…"],
+  [132,"צעד","...כל <k>צעד</k> שהוא עשה הוביל לאותו מקום","Every step he took led to the same place…"],
+  [133,"פעילות","...יש <k>פעילות</k> ספורטיבית לילדים כל שישי","There's sports activity for kids every Friday…"],
+  [134,"רואה","...אתה <k>רואה</k> את מה שאני רואה?","Do you see what I'm seeing?"],
+  [135,"טעות","...זאת הייתה <k>טעות</k> שעלתה לנו הרבה כסף","It was a mistake that cost us a lot of money…"],
+  [136,"ביטחון","...ה<k>ביטחון</k> האישי שלו נפגע קשה","His personal confidence was badly damaged…"],
+  [137,"הצטרף","...הוא <k>הצטרף</k> לקבוצה שלנו לפני חודשיים","He joined our group only two months ago…"],
+  [138,"טיול","...עשינו <k>טיול</k> לגליל בסוף השבוע","We did a trip to the Galilee at the weekend…"],
+  [139,"התאם","...הוא לא <k>התאים</k> לתפקיד, כולם ידעו","He wasn't suited to the role, everyone knew it…"],
+  [140,"אתן","...<k>אתן</k> רוצות לבוא גם? יש מקום לכולן","Do you (f.pl) want to come too? There's room for everyone…"],
+  [141,"פתוח","...הדלת <k>פתוחה</k>, אפשר להיכנס מתי שרוצים","The door is open, come in whenever you want…"],
+  [142,"סליחה","...<k>סליחה</k>, אתה יכול לומר לי איפה התחנה?","Excuse me, can you tell me where the station is?"],
+  [143,"שכר","...<k>שכר</k> הממוצע בהייטק עלה משמעותית","The average salary in tech has risen significantly…"],
+  [144,"הר","...עלינו ל<k>הר</k> הזיתים בזמן שקיעה","We went up to the Mount of Olives at sunset…"],
+  [145,"קהילה","...ה<k>קהילה</k> הזאת מאוד מגובשת","This community is very tight-knit…"],
+  [146,"התחל","...תתחיל כבר, אנחנו מחכים לך","Just start already, we're waiting for you…"],
+  [147,"מאושר","...הוא נראה <k>מאושר</k> יותר מאי פעם","He seems happier than ever…"],
+  [148,"ייתכן","...<k>ייתכן</k> שיהיה עיכוב של כמה ימים","There may be a delay of a few days…"],
+  [149,"בפני","...הוא עמד <k>בפני</k> בית המשפט ושמר שתיקה","He stood before the court and kept silent…"],
+  [150,"רצינות","...צריך לקחת את זה ב<k>רצינות</k>","You need to take this seriously…"],
+  [151,"זר","...אני מרגיש <k>זר</k> בעיר הזאת","I feel like a stranger in this city…"],
+  [152,"ביקר","...הוא <k>ביקר</k> אותה בבית החולים כל יום","He visited her in hospital every day…"],
+  [153,"אחרת","...עשה את זה <k>אחרת</k>, הדרך שלך לא עובדת","Do it differently, your way isn't working…"],
+  [154,"עוזר","...הוא <k>עוזר</k> לה עם הילדים כמה פעמים","He helps her with the kids a few times a week…"],
+  [155,"סך","...ב<k>סך</k> הכל יצא לנו מעל התקציב","All in all we went over budget…"],
+  [156,"חקר","...הוא <k>חקר</k> את הנושא לעומק לפני שדיבר","He researched the topic in depth before speaking…"],
+  [157,"עלייה","...<k>עלייה</k> מרוסיה בשנות ה-90 שינתה את ישראל","Immigration from Russia in the 90s changed Israel…"],
+  [158,"חיובי","...תנסה לשמור על גישה <k>חיובית</k>","Try to keep a positive attitude…"],
+  [159,"סופי","...זאת התשובה ה<k>סופית</k> שלי","That's my final answer…"],
+  [160,"מבוגר","...הוא עדיין מתנהג כמו ילד, אפילו שהוא <k>מבוגר</k>","He still behaves like a child, even though he's an adult…"],
+  [161,"תכנן","...הם <k>תכננו</k> את החתונה שנה שלמה מראש","They planned the wedding a whole year in advance…"],
+  [162,"נסיעה","...<k>נסיעה</k> טובה! תתקשר כשתגיע","Safe travels! Call when you arrive…"],
+  [163,"ביקור","...ה<k>ביקור</k> שלהם היה קצר אבל מאוד נעים","Their visit was short but very pleasant…"],
+  [164,"סחר","...<k>סחר</k> החוץ הישראלי עלה השנה","Israeli foreign trade rose this year…"],
+  [165,"נטה","...הוא <k>נטה</k> להגזים כל פעם שסיפר סיפורים","He tended to exaggerate every time he told stories…"],
+  [166,"רעש","...ה<k>רעש</k> מהרחוב מונע ממני לישון","The noise from the street stops me from sleeping…"],
+  [167,"תגיד","...<k>תגיד</k>, אתה יודע מתי הם מגיעים?","Tell me, do you know when they're arriving?"],
+  [168,"עולה","...כמה זה <k>עולה</k>? זה נראה יקר מדי","How much does it cost? It seems too expensive…"],
+  [169,"כועס","...הוא <k>כועס</k> עלי כבר שבוע ולא ברור למה","He's been angry at me for a week and it's not clear why…"],
+  [170,"מביך","...זאת הייתה הסיטואציה הכי <k>מביכה</k> בחיי","It was the most embarrassing situation of my life…"],
+  [171,"כישורים","...יש לו <k>כישורים</k> חברתיים מעולים","He has excellent social skills…"],
+  [172,"ויכוח","...היה לנו <k>ויכוח</k> ארוך עד שעות קטנות","We had a long argument until the early hours…"],
+  [173,"עצה","...יש לך <k>עצה</k> טובה? אני לא יודע מה לעשות","Do you have any good advice? I don't know what to do…"],
+  [174,"הבטחה","...הוא נתן <k>הבטחה</k> ולא קיים אותה","He made a promise and didn't keep it…"],
+  [175,"בגדול","...<k>בגדול</k> הכל בסדר, רק כמה פרטים לסגור","On the whole everything's fine, just a few details to sort…"],
+  [176,"התרגל","...לוקח זמן <k>להתרגל</k> לחום של תל אביב","It takes time to get used to the heat of Tel Aviv…"],
+  [177,"הגון","...הוא בן אדם <k>הגון</k>, תמיד עומד במילתו","He's a decent person, always keeps his word…"],
+  [178,"פשרה","...הגענו ל<k>פשרה</k> שהייתה קבילה לשני הצדדים","We reached a compromise acceptable to both sides…"],
+  [179,"התבטא","...הוא <k>התבטא</k> בצורה לא מדויקת","He expressed himself imprecisely…"],
+  [180,"שגרתי","...זאת בדיקה <k>שגרתית</k>, אין ממה לדאוג","It's a routine check, nothing to worry about…"],
+  [181,"מהגר","...<k>מהגרים</k> רבים מגיעים לישראל לחיים טובים יותר","Many immigrants come to Israel for a better life…"],
+  [182,"הוטרד","...הוא <k>הוטרד</k> מהתגובות שקיבל ברשת","He was troubled by the reactions he received online…"],
+];
+
+let checked = {}, filter = 'all', openT = {};
+
+function save() {
+  try {
+    // Encode checked IDs as compact comma-separated string
+    const ids = Object.keys(checked).filter(k => checked[k]).join(',');
+    // Save to localStorage
+    localStorage.setItem('hv_ids', ids);
+    // Also encode into URL hash so it survives app restarts
+    history.replaceState(null, '', ids ? '#' + ids : '#');
+  } catch(e) {}
+}
+
+function load() {
+  try {
+    // Try URL hash first (most reliable on mobile after app close)
+    let ids = '';
+    if (location.hash && location.hash.length > 1) {
+      ids = decodeURIComponent(location.hash.slice(1));
+    } else {
+      // Fall back to localStorage
+      ids = localStorage.getItem('hv_ids') || '';
+    }
+    if (ids) {
+      ids.split(',').forEach(id => { if (id) checked[parseInt(id)] = true; });
+    }
+  } catch(e) {}
+}
+
+function kw(t) { return t.replace(/<k>(.*?)<\/k>/g, '<span class="keyword">$1</span>'); }
+
+function rows() {
+  if (filter === 'known') return S.filter(s => checked[s[0]]);
+  if (filter === 'unseen') return S.filter(s => !checked[s[0]]);
+  return S;
+}
+
+function render() {
+  const list = document.getElementById('list');
+  const empty = document.getElementById('empty');
+  const data = rows();
+
+  if (!data.length) {
+    list.innerHTML = '';
+    empty.classList.add('show');
+  } else {
+    empty.classList.remove('show');
+    list.innerHTML = data.map(s => {
+      const [id,,text,tr] = s;
+      const c = !!checked[id], o = !!openT[id];
+      return `<div class="row${c?' checked':''}" id="r${id}">
+        <div class="content" onclick="tog(${id})">
+          <div class="sentence">${kw(text)}</div>
+          <div class="trans${o?' open':''}" id="t${id}">${tr}</div>
+        </div>
+        <button class="idot${o?' open':''}" id="d${id}" onclick="togT(event,${id})">${o?'×':'i'}</button>
+        <div class="circle" onclick="tog(${id})">
+          <svg class="ck" width="13" height="10" viewBox="0 0 13 10" fill="none">
+            <path d="M1.5 5L5 8.5L11.5 1.5" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  upd();
+}
+
+function upd() {
+  const cnt = Object.values(checked).filter(Boolean).length;
+  document.getElementById('hcount').textContent = `${cnt} / ${S.length}`;
+}
+
+function tog(id) {
+  checked[id] = !checked[id];
+  save();
+  if (filter !== 'all') { setTimeout(render, 220); return; }
+  const r = document.getElementById('r'+id);
+  if (r) r.classList.toggle('checked', !!checked[id]);
+  upd();
+}
+
+function togT(e, id) {
+  e.stopPropagation();
+  openT[id] = !openT[id];
+  const t = document.getElementById('t'+id);
+  const d = document.getElementById('d'+id);
+  t && t.classList.toggle('open', !!openT[id]);
+  if (d) { d.classList.toggle('open', !!openT[id]); d.textContent = openT[id]?'×':'i'; }
+}
+
+function setFilter(f, el) {
+  filter = f;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+function doReset() {
+  if (confirm('Reset all progress?')) {
+    checked = {};
+    try { localStorage.removeItem('hv_ids'); } catch(e) {}
+    history.replaceState(null, '', '#');
+    render();
+  }
+}
+
+function copyAll() {
+  const t = S.map(s => s[2].replace(/<k>(.*?)<\/k>/g,'$1')).join('\n');
+  navigator.clipboard.writeText(t).then(() => flash('ca','Copied ✓','Copy all'));
+}
+
+function copyUnchecked() {
+  const t = S.filter(s=>!checked[s[0]]).map(s=>s[2].replace(/<k>(.*?)<\/k>/g,'$1')).join('\n');
+  navigator.clipboard.writeText(t).then(() => flash('cu','Copied ✓','Copy unchecked'));
+}
+
+function flash(id, on, off) {
+  const b = document.getElementById(id);
+  b.textContent = on; b.classList.add('ok');
+  setTimeout(()=>{ b.textContent=off; b.classList.remove('ok'); }, 2000);
+}
+
+function toggleAllTrans() {
+  const allOpen = S.every(s => openT[s[0]]);
+  S.forEach(s => { openT[s[0]] = !allOpen; });
+  const btn = document.getElementById('showall-btn');
+  if (btn) btn.textContent = allOpen ? 'Show translations' : 'Hide translations';
+  render();
+}
+
+load(); render();
+</script>
+</body>
+</html>

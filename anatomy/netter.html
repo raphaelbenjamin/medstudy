@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anatomy Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg-deep:#0d1117;--bg-card:#161b22;--bg-card-hover:#1c2230;--bg-elevated:#21262d;--border:#30363d;--border-light:#3a424d;--text-primary:#e6edf3;--text-secondary:#8b949e;--text-muted:#6e7681;--accent-blue:#58a6ff;--accent-green:#3fb950;--accent-orange:#d29922;--accent-red:#f85149;--accent-purple:#bc8cff;--accent-teal:#39d2c0;--accent-pink:#f778ba;--accent-coral:#f0883e;--accent-yellow:#e3b341}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg-deep);color:var(--text-primary);font-family:'IBM Plex Sans',sans-serif;font-weight:400;line-height:1.6;min-height:100vh}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.container{max-width:920px;margin:0 auto;padding:40px 24px 80px}
+.site-header{text-align:center;margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--border);position:relative}
+.site-header::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--accent-red),transparent)}
+.site-header h1{font-family:'DM Serif Display',serif;font-size:2.6rem;font-weight:400;letter-spacing:-0.02em;margin-bottom:10px;background:linear-gradient(135deg,var(--text-primary),var(--accent-red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.site-header p{color:var(--text-secondary);font-size:0.95rem;font-weight:300}
+.progress-bar{margin-top:24px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:0.8rem;color:var(--text-muted);font-family:'IBM Plex Mono',monospace}
+.progress-track{width:200px;height:4px;background:var(--bg-elevated);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;width:0%;background:var(--accent-red);border-radius:2px;transition:width 0.6s ease}
+.exam-section{margin-bottom:48px}
+.exam-title{font-family:'DM Serif Display',serif;font-size:1.5rem;font-weight:400;margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.exam-title .badge{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;padding:3px 10px;border-radius:20px;border:1px solid}
+.badge-thorax{color:var(--accent-red);border-color:rgba(248,81,73,0.3);background:rgba(248,81,73,0.08)}
+.badge-abd{color:var(--accent-orange);border-color:rgba(210,153,34,0.3);background:rgba(210,153,34,0.08)}
+.badge-pelvis{color:var(--accent-pink);border-color:rgba(247,120,186,0.3);background:rgba(247,120,186,0.08)}
+.badge-hn{color:var(--accent-purple);border-color:rgba(188,140,255,0.3);background:rgba(188,140,255,0.08)}
+.badge-ul{color:var(--accent-blue);border-color:rgba(88,166,255,0.3);background:rgba(88,166,255,0.08)}
+.badge-ll{color:var(--accent-teal);border-color:rgba(57,210,192,0.3);background:rgba(57,210,192,0.08)}
+.badge-back{color:var(--accent-yellow);border-color:rgba(227,179,65,0.3);background:rgba(227,179,65,0.08)}
+.exam-subtitle{color:var(--text-muted);font-size:0.82rem;margin-bottom:24px;font-weight:300}
+.category{margin-bottom:28px}
+.category-label{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:10px;padding-left:4px;display:flex;align-items:center;gap:8px}
+.category-label::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px}
+.cat-heart .category-label::before{background:var(--accent-red)}
+.cat-lung .category-label::before{background:var(--accent-blue)}
+.cat-mediastinum .category-label::before{background:var(--accent-purple)}
+.cat-gut .category-label::before{background:var(--accent-orange)}
+.cat-accessory .category-label::before{background:var(--accent-yellow)}
+.cat-wall .category-label::before{background:var(--accent-coral)}
+.cat-pelvis .category-label::before{background:var(--accent-pink)}
+.cat-larynx .category-label::before{background:var(--accent-purple)}
+.cat-nerve .category-label::before{background:var(--accent-teal)}
+.cat-upper .category-label::before{background:var(--accent-blue)}
+.cat-lower .category-label::before{background:var(--accent-teal)}
+.cat-back .category-label::before{background:var(--accent-yellow)}
+.cat-cranial .category-label::before{background:var(--accent-pink)}
+.topic-list{display:flex;flex-direction:column;gap:4px}
+.topic-item{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s ease;overflow:hidden}
+.topic-item:hover{background:var(--bg-card-hover);border-color:var(--border-light);transform:translateX(4px)}
+.topic-item.completed{border-left:3px solid var(--accent-green)}
+.topic-header{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;user-select:none}
+.topic-name{font-size:0.92rem;font-weight:500;flex:1}
+.topic-status{display:flex;align-items:center;gap:10px}
+.status-indicator{width:8px;height:8px;border-radius:50%;background:var(--bg-elevated);border:1.5px solid var(--text-muted);transition:all 0.2s ease;flex-shrink:0}
+.topic-item.completed .status-indicator{background:var(--accent-green);border-color:var(--accent-green);box-shadow:0 0 8px rgba(63,185,80,0.4)}
+.chevron{color:var(--text-muted);font-size:0.75rem;transition:transform 0.25s ease;flex-shrink:0}
+.topic-item.open .chevron{transform:rotate(90deg)}
+.topic-content{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.topic-item.open .topic-content{max-height:15000px}
+.topic-body{padding:0 18px 18px;border-top:1px solid var(--border);padding-top:16px}
+.section-block{margin-bottom:20px}
+.section-block:last-child{margin-bottom:0}
+.section-title{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent-red);margin-bottom:8px}
+.section-content{color:var(--text-secondary);font-size:0.87rem;line-height:1.7;font-weight:300}
+.section-content p{margin-bottom:8px}
+.section-content p:last-child{margin-bottom:0}
+.section-content b{color:var(--text-primary);font-weight:500}
+.section-content ul{list-style:none;padding:0}
+.section-content ul li{position:relative;padding-left:16px;margin-bottom:5px}
+.section-content ul li::before{content:'›';position:absolute;left:0;color:var(--text-muted);font-weight:600}
+.recall-list{list-style:none;padding:0;counter-reset:recall}
+.recall-list li{counter-increment:recall;padding-left:24px;position:relative;margin-bottom:6px}
+.recall-list li::before{content:counter(recall,decimal-leading-zero);position:absolute;left:0;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--text-muted);top:2px}
+.netter-ref{background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.2);border-radius:6px;padding:8px 12px;margin:8px 0;font-size:0.8rem;color:var(--accent-red);font-family:'IBM Plex Mono',monospace}
+.netter-ref::before{content:'📖 Netter: '}
+.mark-complete{display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:6px 14px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-secondary);font-family:'IBM Plex Mono',monospace;font-size:0.72rem;cursor:pointer;transition:all 0.2s ease;letter-spacing:0.03em}
+.mark-complete:hover{border-color:var(--accent-green);color:var(--accent-green);background:rgba(63,185,80,0.06)}
+.topic-item.completed .mark-complete{border-color:var(--accent-green);color:var(--accent-green)}
+.search-wrap{position:relative;margin-bottom:36px}
+.search-wrap input{width:100%;padding:14px 18px 14px 44px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;color:var(--text-primary);font-family:'IBM Plex Sans',sans-serif;font-size:0.9rem;font-weight:400;outline:none;transition:border-color 0.2s ease}
+.search-wrap input::placeholder{color:var(--text-muted);font-weight:300}
+.search-wrap input:focus{border-color:var(--accent-red);box-shadow:0 0 0 3px rgba(248,81,73,0.08)}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.9rem}
+.controls{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+.ctrl-btn{padding:7px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;color:var(--text-secondary);font-family:'IBM Plex Mono',monospace;font-size:0.72rem;cursor:pointer;transition:all 0.2s ease;letter-spacing:0.03em}
+.ctrl-btn:hover{border-color:var(--accent-red);color:var(--accent-red)}
+.topic-item.hidden,.category.hidden,.exam-section.hidden{display:none}
+@media(max-width:600px){.container{padding:24px 16px 60px}.site-header h1{font-size:1.8rem}.topic-header{padding:12px 14px}.topic-name{font-size:0.85rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="site-header">
+<h1>Anatomy Study Hub</h1>
+<p>Clinical deduction · High-yield facts · Netter plate refs · Exam prep</p>
+<div class="progress-bar">
+<span id="progressLabel">0 / 0 topics reviewed</span>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+</header>
+<div class="search-wrap">
+<span class="search-icon">⌕</span>
+<input type="text" id="searchInput" placeholder="Search topics…" autocomplete="off">
+</div>
+<div class="controls">
+<button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+<button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+<button class="ctrl-btn" onclick="resetProgress()">Reset progress</button>
+</div>
+<div id="topicContainer">
+
+<!-- ===== SECTION 1: THORAX ===== -->
+<div class="exam-section">
+<h2 class="exam-title">I. Thorax <span class="badge badge-thorax">Heart · Lungs · Mediastinum</span></h2>
+<p class="exam-subtitle">Coronary arteries, cardiac veins, valves, conducting system, lungs, great vessels</p>
+
+<div class="category cat-heart">
+<div class="category-label">Heart — Coronary Arteries & Cardiac Veins</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="coronary-arteries" data-name="coronary arteries rca lad circumflex diaphragmatic surface posterior interventricular sa node" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Coronary arteries — territories, SA node supply & clinical</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Core Anatomy</div><div class="section-content">
+<p>Two coronary arteries arise from the aortic sinuses just above the aortic valve:</p>
+<p><b>Left coronary artery (LCA):</b> Short left main → splits into (1) <b>Left anterior descending (LAD)</b> — supplies anterior wall of LV, anterior 2/3 of interventricular septum, apex; and (2) <b>Left circumflex (LCx)</b> — supplies lateral and posterior wall of LV.</p>
+<p><b>Right coronary artery (RCA):</b> Travels in the right AV groove → gives off acute marginal branches → continues as <b>posterior descending artery (PDA)</b> in ~85% of people (right-dominant). Supplies: right atrium, right ventricle, <b>diaphragmatic (inferior) surface of the heart</b>, posterior 1/3 of the interventricular septum, SA node (~60%), AV node.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Exam Answers</div><div class="section-content">
+<ul>
+<li><b>MI of diaphragmatic surface</b> → <b>RCA</b> occluded (the RCA/PDA supplies the inferior/diaphragmatic surface)</li>
+<li><b>Infarction of posterior 1/3 of IV septum</b> → <b>Posterior interventricular branch of the RCA</b> (= PDA)</li>
+<li><b>SA node blood supply in most people</b> → <b>RCA (~60%)</b>, circumflex in ~40%</li>
+<li><b>SA node location</b> → between the <b>SVC</b> and the <b>superior border of the crista terminalis</b></li>
+</ul>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>Which artery supplies the diaphragmatic (inferior) surface of the heart?</li>
+<li>What does the LAD supply?</li>
+<li>In a right-dominant heart, which artery gives off the PDA?</li>
+<li>Which artery most commonly supplies the SA node?</li>
+<li>Where is the SA node located anatomically?</li>
+<li>What part of the septum does the PDA supply?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 222–223 (Coronary Arteries and Cardiac Veins), Plate 229 (Conducting System)</div>
+<button class="mark-complete" onclick="toggleComplete('coronary-arteries', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+<div class="topic-item" data-slug="cardiac-veins" data-name="cardiac veins middle cardiac vein small cardiac vein coronary sinus great cardiac vein" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Cardiac veins — which vein runs with the RCA?</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Core Anatomy</div><div class="section-content">
+<p>Cardiac veins parallel the coronary arteries:</p>
+<ul>
+<li><b>Great cardiac vein</b> — runs with the <b>LAD</b> in the anterior IV groove, then with LCx → drains into the coronary sinus</li>
+<li><b>Middle cardiac vein</b> — runs with the <b>PDA/posterior IV branch of RCA</b> in the posterior IV groove</li>
+<li><b>Small cardiac vein</b> — runs with the <b>RCA</b> (right coronary margin), drains into coronary sinus</li>
+<li><b>Anterior cardiac veins</b> — drain directly into the right atrium (do NOT drain into coronary sinus)</li>
+</ul>
+<p><b>Exam answer:</b> Surgeon suturing the distal RCA accidentally punctures the adjacent vein → <b>small cardiac vein</b> (runs alongside the RCA). However, some sources say <b>middle cardiac vein</b> since the "distal" RCA is near where it becomes the PDA in the posterior IV groove. This is commonly tested — the middle cardiac vein accompanies the PDA at the distal end of the RCA territory.</p>
+</div></div>
+<div class="netter-ref">Plate 222 (Coronary Arteries and Cardiac Veins)</div>
+<button class="mark-complete" onclick="toggleComplete('cardiac-veins', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+
+<div class="category cat-heart">
+<div class="category-label">Heart — Chambers, Valves & Conducting System</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="heart-chambers-valves" data-name="heart chambers valves aortic cusps mitral tricuspid s1 pectinate muscles septomarginal trabecula moderator band" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Chambers, valves, S1 sound, moderator band & key features</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Key Facts</div><div class="section-content">
+<p><b>Aortic valve cusps:</b> Right, Left, and <b>Posterior</b> (NOT anterior). Mnemonic: the aortic valve has R, L, P cusps. The pulmonary valve has R, L, and Anterior.</p>
+<p><b>S1 heart sound:</b> Produced by closure of the <b>AV valves = mitral + tricuspid</b> (beginning of systole). S2 = closure of aortic + pulmonary (semilunar valves).</p>
+<p><b>Pectinate muscles:</b> Ridge-like muscles in the atrial walls. They extend anterolaterally from the <b>crista terminalis</b> (terminal crest) in the RA. The septomarginal trabecula (moderator band) is in the RIGHT ventricle.</p>
+<p><b>Moderator band (septomarginal trabecula):</b> Carries part of the <b>right bundle branch</b> to the <b>anterior papillary muscle of the right ventricle</b>. It carries the LEFT branch? NO — "The septomarginal trabecula carries part of the LEFT branch" is WRONG. It carries the RIGHT bundle branch.</p>
+<p><b>Apex of the heart:</b> Formed by the <b>left ventricle</b>, lies in the left <b>5th intercostal space</b>, midclavicular line.</p>
+<p><b>Epicardium</b> = visceral layer of serous pericardium. Correct.</p>
+<p><b>Left atrium compression:</b> A dilated left atrium presses on the <b>esophagus</b> (directly posterior) → dysphagia.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Exam Answers</div><div class="section-content">
+<ul>
+<li>"Septomarginal trabecula carries part of the LEFT branch" → <b>WRONG</b> (it carries the RIGHT bundle branch). This is the exception.</li>
+<li>S1 = <b>mitral + tricuspid</b> valve closure</li>
+<li>Aortic valve cusps = <b>right, left, posterior</b></li>
+<li>Dilated left atrium compresses → <b>esophagus</b></li>
+<li>Moderator band → <b>anterior papillary muscle of RV</b></li>
+</ul>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What are the three cusps of the aortic valve?</li>
+<li>What produces S1? S2?</li>
+<li>What does the moderator band carry and to which muscle?</li>
+<li>What structure does a dilated left atrium compress posteriorly?</li>
+<li>Where do pectinate muscles extend from?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 224–228 (Atria, Ventricles, Valves), Plate 229 (Conducting System)</div>
+<button class="mark-complete" onclick="toggleComplete('heart-chambers-valves', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+<div class="topic-item" data-slug="fetal-circulation" data-name="fetal circulation patent ductus arteriosus foramen ovale ductus venosus umbilical vein eustachian valve" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Fetal circulation, PDA & foramen ovale</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Core Concept</div><div class="section-content">
+<p><b>Three fetal shunts:</b></p>
+<ul>
+<li><b>Ductus venosus:</b> Umbilical vein → bypasses liver → IVC (becomes ligamentum venosum)</li>
+<li><b>Foramen ovale:</b> RA → LA (bypasses lungs). Blood is directed through it by the <b>valve of the IVC (Eustachian valve)</b>, which directs oxygenated blood from the IVC toward the foramen ovale. Becomes fossa ovalis.</li>
+<li><b>Ductus arteriosus:</b> Pulmonary artery → aorta (bypasses lungs). Becomes ligamentum arteriosum.</li>
+</ul>
+<p><b>Patent ductus arteriosus (PDA):</b> If contrast injected into aortic arch immediately appears in both pulmonary arteries → PDA (aorta communicates with pulmonary trunk).</p>
+<p><b>Foramen ovale blood shunt:</b> Directed by the <b>Eustachian valve</b> (valve of the IVC), which in fetal life guides oxygenated blood from the IVC across the foramen ovale into the LA.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What are the three fetal shunts and what does each bypass?</li>
+<li>What valve directs blood through the foramen ovale in fetal life?</li>
+<li>If contrast in the aorta appears in pulmonary arteries, what is the diagnosis?</li>
+<li>Which vessel carries oxygenated blood to the fetus?</li>
+</ul></div></div>
+<div class="netter-ref">Plate 233 (Prenatal and Postnatal Circulation)</div>
+<button class="mark-complete" onclick="toggleComplete('fetal-circulation', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+<div class="topic-item" data-slug="esophageal-varices" data-name="esophageal varices portal systemic anastomosis left gastric azygos portal hypertension" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Esophageal varices & portosystemic anastomoses</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Core Concept</div><div class="section-content">
+<p>In portal hypertension, blood from the portal system finds alternative routes to reach the systemic venous circulation. Esophageal varices are the most dangerous portosystemic anastomosis.</p>
+<p><b>Esophageal varices:</b> Left gastric vein (portal) ↔ submucosal esophageal veins → <b>azygos system</b> (systemic). When portal pressure rises, these submucosal veins engorge → varices → risk of fatal hemorrhage.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What portal vein connects to the azygos system in esophageal varices?</li>
+<li>Name four sites of portosystemic anastomosis.</li>
+</ul></div></div>
+<div class="netter-ref">Plate 241 (Veins of Esophagus)</div>
+<button class="mark-complete" onclick="toggleComplete('esophageal-varices', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+
+<div class="category cat-lung">
+<div class="category-label">Lungs, Airways & Thoracic Wall</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="lungs-airways" data-name="lungs azygos vein left bronchus cervical pleura middle lobe segments oblique fissure rib articulation sternal angle carina diaphragm phrenic" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Lungs, bronchi, pleura, ribs, diaphragm & sternal angle</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">High-Yield Facts (All Exam-Tested)</div><div class="section-content">
+<p><b>Azygos vein:</b> Arches over the <b>right main bronchus</b>, draining into the <b>SVC</b>.</p>
+
+<p><b>Left main bronchus:</b> Passes <b>inferior to the arch of the aorta</b>, <b>anterior to the esophagus</b>, and <b>anterior to the thoracic (descending) aorta</b>. The left bronchus is longer and more horizontal than the right.</p>
+
+<p><b>Cervical pleura:</b> Covers the <b>apices of the lungs</b> (the part of the lung that projects above the 1st rib into the root of the neck).</p>
+
+<p><b>Middle lobe segments (right lung):</b> <b>Lateral and medial</b> segments. (The middle lobe only exists on the right.)</p>
+
+<p><b>Oblique fissure:</b> Projects anteriorly at the <b>6th rib/6th costal cartilage</b> (some sources: 4th–5th intercostal space laterally, ending at the 6th costochondral junction anteriorly).</p>
+
+<p><b>Rib 8 articulation:</b> A typical rib head articulates with: (1) inferior costal facet of the vertebra ABOVE, (2) superior costal facet of its own vertebra, (3) transverse process of its own vertebra. So Rib 8 → <b>inferior costal facet of T7, superior costal facet of T8, transverse process of T8</b>.</p>
+
+<p><b>Sternal angle (of Louis):</b> Marks the level of the <b>2nd rib</b> articulating with the sternum. Also marks: tracheal bifurcation (carina), beginning/end of aortic arch, azygos vein arch, T4-T5 level.</p>
+
+<p><b>Carina level:</b> <b>T4-T5</b> (at the sternal angle).</p>
+
+<p><b>Diaphragm innervation:</b> <b>Phrenic nerve (C3, C4, C5)</b> — "C3, 4, 5 keeps the diaphragm alive." Injury to the phrenic nerve in the posterior triangle of the neck → diaphragmatic paralysis. Phrenic nerve roots = <b>C3-C5</b>.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>The azygos vein arches over which structure and drains into where?</li>
+<li>What is the relationship of the left main bronchus to the aortic arch?</li>
+<li>What does the cervical pleura cover?</li>
+<li>What are the segments of the middle lobe?</li>
+<li>Which rib articulates at the sternal angle?</li>
+<li>What vertebral level is the carina?</li>
+<li>What nerve innervates the diaphragm and from which roots?</li>
+<li>Which facets does rib 8 articulate with?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 192–193 (Thoracic Wall, Ribs), 199 (Phrenic Nerve), 202–207 (Lungs, Bronchi), 209 (Great Vessels), Plate 190 (Lymph of Breast)</div>
+<button class="mark-complete" onclick="toggleComplete('lungs-airways', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+<div class="topic-item" data-slug="breast-lymph" data-name="breast lymphatic drainage pectoral axillary lateral quadrants" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Breast lymphatic drainage</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Core Concept</div><div class="section-content">
+<p>Lymph from the <b>lateral quadrants</b> of the breast drains first into the <b>pectoral (anterior) axillary lymph nodes</b>. ~75% of all breast lymph drains to the axillary nodes. The medial quadrants drain to the parasternal (internal thoracic) nodes.</p>
+</div></div>
+<div class="netter-ref">Plates 190–191 (Lymph of Mammary Gland)</div>
+<button class="mark-complete" onclick="toggleComplete('breast-lymph', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+</div>
+
+<!-- ===== SECTION 2: ABDOMEN ===== -->
+<div class="exam-section">
+<h2 class="exam-title">II. Abdomen <span class="badge badge-abd">GI · Peritoneum · Abdominal Wall</span></h2>
+
+<div class="category cat-gut">
+<div class="category-label">Peritoneum, Omental Foramen & Clinical Scenarios</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="peritoneum-omental" data-name="omental foramen epiploic winslow boundaries omental bursa lesser sac posterior gastric ulcer peritonitis appendicitis psoas" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Omental foramen, lesser sac, appendicitis & gastric ulcer</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Omental Foramen (of Winslow/Epiploic Foramen)</div><div class="section-content">
+<p>The only natural communication between the greater and lesser peritoneal sacs. Boundaries:</p>
+<ul>
+<li><b>Anterior:</b> Hepatoduodenal ligament (containing portal triad: portal vein, hepatic artery proper, bile duct)</li>
+<li><b>Posterior:</b> IVC (inferior vena cava)</li>
+<li><b>Superior:</b> Caudate lobe of liver</li>
+<li><b>Inferior:</b> 1st part of duodenum</li>
+</ul>
+<p>Mnemonic for order: <b>A</b>nterior = hepatoduodenal <b>l</b>igament, <b>P</b>osterior = IVC, <b>S</b>uperior = liver, <b>I</b>nferior = duodenum.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Clinical Scenarios</div><div class="section-content">
+<p><b>Posterior gastric ulcer perforation:</b> Stomach's posterior wall faces the <b>omental bursa (lesser sac)</b>. Perforation → contents spill into the lesser sac → peritonitis develops initially in the <b>omental bursa</b>.</p>
+<p><b>Appendicitis (psoas sign):</b> Pain around umbilicus, fever, positive psoas test (flexion of hip against resistance causes RLQ pain) → <b>appendix</b> is inflamed (retrocecal appendix lies on psoas muscle).</p>
+<p><b>Hepatocolic ligament:</b> Part of the <b>greater omentum</b> system (connects liver to hepatic flexure of colon).</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What are the 4 boundaries of the omental foramen?</li>
+<li>What is the posterior wall of the omental foramen?</li>
+<li>Where does a posterior gastric ulcer perforation initially drain?</li>
+<li>What does a positive psoas sign suggest?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 273–275 (Omental Bursa, Peritoneum), Plate 282 (Appendix)</div>
+<button class="mark-complete" onclick="toggleComplete('peritoneum-omental', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+<div class="topic-item" data-slug="biliary-pancreas-spleen" data-name="bile duct hepatopancreatic ampulla pancreatic head tumor jaundice portal triad spleen splenic artery renal vein sma" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Biliary system, pancreas, spleen & portal triad</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Key Facts</div><div class="section-content">
+<p><b>Pancreatic head tumor + jaundice:</b> The head of the pancreas wraps around the <b>bile duct (common bile duct)</b>. A tumor here obstructs the bile duct → obstructive jaundice. (Not the cystic duct, not the hepatic ducts — specifically the bile duct as it passes through/behind the head.)</p>
+<p><b>Hepatopancreatic ampulla (of Vater):</b> Formed by the union of the <b>main pancreatic duct + bile duct</b>. Opens into the 2nd part of the duodenum at the major duodenal papilla.</p>
+<p><b>Portal triad (in hepatoduodenal ligament):</b> Portal vein + hepatic artery proper + bile duct. During liver transplantation, clamping the portal triad includes the <b>hepatic artery proper</b>.</p>
+<p><b>Spleen:</b> Located in the <b>left hypochondriac region</b> (NOT right). Supplied by the <b>splenic artery</b> (branch of the <b>celiac trunk</b>, NOT SMA). Does NOT normally extend below the costal margin (if palpable, it's enlarged). Attached to the stomach by the gastrosplenic ligament, to the kidney by the splenorenal (lienorenal) ligament.</p>
+<p><b>Renal vein occlusion:</b> The LEFT renal vein crosses anterior to the aorta but POSTERIOR to the <b>superior mesenteric artery (SMA)</b>. An SMA aneurysm can compress and occlude the left renal vein ("nutcracker syndrome").</p>
+<p><b>Stab wound at T10 midaxillary line on the LEFT:</b> → <b>Spleen</b> (ribs 9–11, left side).</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What does a pancreatic head tumor obstruct to cause jaundice?</li>
+<li>What two ducts unite to form the hepatopancreatic ampulla?</li>
+<li>What three structures are in the portal triad?</li>
+<li>What artery supplies the spleen and from which trunk?</li>
+<li>Which artery can compress the left renal vein?</li>
+<li>What organ is at risk with a left T10 midaxillary stab wound?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 287 (Gallbladder/Bile Ducts), 288 (Pancreas), 289 (Spleen), 285 (Liver Vascular)</div>
+<button class="mark-complete" onclick="toggleComplete('biliary-pancreas-spleen', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+
+<div class="category cat-wall">
+<div class="category-label">Inguinal Region & Hernias</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="hernias" data-name="inguinal hernia direct indirect femoral hesselbach triangle inferior epigastric vessels femoral vein women" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Direct vs indirect inguinal vs femoral hernias & Hesselbach triangle</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Core Anatomy</div><div class="section-content">
+<p><b>Indirect inguinal hernia:</b> Goes through the deep (internal) inguinal ring, <b>LATERAL to the inferior epigastric vessels</b>, through the inguinal canal, may exit through the superficial ring into the scrotum. Most common hernia in BOTH men and women overall.</p>
+<p><b>Direct inguinal hernia:</b> Pushes through the posterior wall of the inguinal canal (Hesselbach triangle), <b>MEDIAL to the inferior epigastric vessels</b>. Does NOT pass through the deep ring.</p>
+<p><b>Hesselbach triangle borders:</b> (1) <b>Inferior epigastric artery</b> (lateral), (2) <b>Rectus abdominis</b> (medial), (3) <b>Inguinal ligament</b> (inferior).</p>
+<p><b>Femoral hernia:</b> Passes through the femoral ring, <b>inferior to the inguinal ligament</b>, <b>medial to the femoral vein</b>. More common in women due to wider pelvis. Highest risk of incarceration/strangulation.</p>
+<p><b>Exam answers:</b></p>
+<ul>
+<li>Loop of intestine medial to inferior epigastric vessels → <b>direct inguinal hernia</b></li>
+<li>Mass inferior to inguinal ligament, medial to femoral vein → <b>femoral hernia</b></li>
+<li>Most common hernia in women → <b>indirect inguinal</b> (most common hernia in all people, though femoral is more common in women than in men)</li>
+</ul>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What is the key anatomical landmark separating direct from indirect inguinal hernias?</li>
+<li>What are the borders of Hesselbach triangle?</li>
+<li>Where does a femoral hernia pass relative to the inguinal ligament?</li>
+<li>What structure is just lateral to a femoral hernia?</li>
+<li>What is the most common type of hernia in women?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 262–264 (Inguinal Region, Femoral Sheath)</div>
+<button class="mark-complete" onclick="toggleComplete('hernias', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+</div>
+
+<!-- ===== SECTION 3: PELVIS ===== -->
+<div class="exam-section">
+<h2 class="exam-title">III. Pelvis & Perineum <span class="badge badge-pelvis">Uterus · Bladder · Testis</span></h2>
+
+<div class="category cat-pelvis">
+<div class="category-label">Pelvic Anatomy & Clinical</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="pelvis-clinical" data-name="rectouterine pouch douglas culdocentesis uterine artery ureter water under bridge uterus anteverted anteflexed testicular lymph para-aortic" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Pouch of Douglas, uterine artery/ureter, testicular drainage & uterine position</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Key Facts</div><div class="section-content">
+<p><b>Rectouterine pouch (of Douglas):</b> The lowest point of the peritoneal cavity in females. Located between the uterus and rectum. Accessed by needle through the <b>posterior vaginal fornix</b> (culdocentesis) to drain ascites. Also: if an instrument perforates the posterior wall of the uterus through the cervical os → enters the <b>rectouterine pouch</b>.</p>
+
+<p><b>Uterine artery and ureter — "water under the bridge":</b> The ureter passes <b>posterior and inferior</b> to the uterine artery at the level of the cervix. The ureter is the "water" passing "under the bridge" (uterine artery). This is critical during hysterectomy — surgeons must ligate the uterine artery carefully to avoid cutting the ureter.</p>
+
+<p><b>Normal uterine position:</b> <b>Anteverted</b> (angle between cervix and vagina tilts forward) and <b>anteflexed</b> (body of uterus bends forward on the cervix).</p>
+
+<p><b>Testicular lymphatic drainage:</b> Testes drain to <b>para-aortic (lumbar) lymph nodes</b> — NOT inguinal nodes. This is because the testes developed retroperitoneally and descended, taking their lymphatic drainage with them. The scrotum (skin) drains to superficial inguinal nodes, but the testis itself → para-aortic.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What is the lowest peritoneal pouch in females?</li>
+<li>How do you access the rectouterine pouch for fluid drainage?</li>
+<li>What is the relationship of the ureter to the uterine artery?</li>
+<li>What is "water under the bridge"?</li>
+<li>What is the normal position of the uterus?</li>
+<li>Where do testicular tumors first metastasize — inguinal or para-aortic nodes?</li>
+<li>If an instrument perforates the posterior uterine wall, where does it enter?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 344–348 (Female Pelvis), 356 (Uterus), 380 (Pelvic Arteries Female)</div>
+<button class="mark-complete" onclick="toggleComplete('pelvis-clinical', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+</div>
+
+<!-- ===== SECTION 4: HEAD & NECK ===== -->
+<div class="exam-section">
+<h2 class="exam-title">IV. Head & Neck <span class="badge badge-hn">Cranial Nerves · Larynx · Teeth</span></h2>
+
+<div class="category cat-cranial">
+<div class="category-label">Cranial Nerves — Clinical Scenarios</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="vagus-hypoglossal" data-name="vagus nerve uvula deviation hypoglossal tongue deviation soft palate cranial nerves lesion" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Vagus (CN X) & hypoglossal (CN XII) — uvula & tongue deviation</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Core Concept</div><div class="section-content">
+<p><b>Vagus nerve (CN X) lesion → uvula deviates AWAY from the lesion (toward the normal side):</b></p>
+<ul>
+<li>The vagus innervates the muscles of the soft palate (via pharyngeal plexus) and larynx</li>
+<li>If the LEFT vagus is damaged → the left side of the soft palate is paralyzed → the intact right side pulls the uvula to the RIGHT (away from the lesion)</li>
+<li>Also causes: sagging of the soft palate on the affected side, hoarseness (recurrent laryngeal nerve involvement)</li>
+</ul>
+<p><b>Exam: Uvula deviates to the right → LEFT vagus nerve lesion.</b></p>
+
+<p><b>Hypoglossal nerve (CN XII) lesion → tongue deviates TOWARD the affected side:</b></p>
+<ul>
+<li>The hypoglossal nerve innervates all intrinsic and most extrinsic tongue muscles (except palatoglossus = vagus)</li>
+<li>If the RIGHT hypoglossal is damaged → right genioglossus is paralyzed → the intact LEFT genioglossus pushes the tongue to the RIGHT (toward the lesion)</li>
+<li>Mnemonic: "The tongue licks the wound" — deviates toward the damaged side</li>
+</ul>
+<p><b>Exam: Tongue deviates to the right → RIGHT hypoglossal nerve lesion (right hypoglossal nucleus).</b></p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>If the uvula deviates to the right, which nerve is damaged?</li>
+<li>If the tongue deviates to the right on protrusion, which nerve is damaged?</li>
+<li>Why does the tongue deviate toward the lesion side?</li>
+<li>What symptoms does a vagus nerve lesion cause besides uvula deviation?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 137 (Vagus CN X), 139 (Hypoglossal CN XII), 70–71 (Tongue)</div>
+<button class="mark-complete" onclick="toggleComplete('vagus-hypoglossal', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+<div class="topic-item" data-slug="taste-sensation" data-name="taste anterior two thirds tongue chorda tympani facial nerve lingual nerve inferior alveolar nerve" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Tongue taste vs sensation, inferior alveolar nerve & teeth</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Core Concept</div><div class="section-content">
+<p><b>Anterior 2/3 of tongue:</b></p>
+<ul>
+<li><b>General sensation</b> (touch, pain, temperature): <b>Lingual nerve</b> (branch of V3, mandibular division of trigeminal)</li>
+<li><b>Taste:</b> <b>Chorda tympani</b> (branch of CN VII, facial nerve) — hitchhikes with the lingual nerve</li>
+</ul>
+<p><b>Posterior 1/3 of tongue:</b> Both taste AND general sensation → <b>glossopharyngeal nerve (CN IX)</b></p>
+
+<p><b>Exam scenario:</b> "Taste in anterior 2/3 is lost but general sensation remains" → the <b>chorda tympani</b> is damaged (within the facial canal, before it joins the lingual nerve). The lingual nerve itself is intact (sensation preserved).</p>
+
+<p><b>Inferior alveolar nerve:</b> Branch of V3 (mandibular). Enters the mandibular foramen → runs in the mandibular canal → supplies all mandibular teeth. To treat mandibular molar caries → anesthetize the <b>inferior alveolar nerve</b> (inferior alveolar nerve block).</p>
+
+<p><b>Tooth surfaces (exam trap):</b> The <b>mesial surface</b> of a posterior tooth faces ANTERIORLY (toward the midline of the dental arch), NOT posteriorly. "Mesial surface of posterior teeth faces posteriorly" is WRONG.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What nerve carries taste from the anterior 2/3 of the tongue?</li>
+<li>What nerve carries general sensation from the anterior 2/3?</li>
+<li>If taste is lost but sensation is preserved, what nerve is damaged?</li>
+<li>What nerve do you block to anesthetize mandibular molars?</li>
+<li>Does the mesial surface of a posterior tooth face anteriorly or posteriorly?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 59 (V3 Mandibular Nerve), 66 (Afferent Innervation Oral Cavity/Tongue), 134 (Facial CN VII), 146 (Taste Pathways)</div>
+<button class="mark-complete" onclick="toggleComplete('taste-sensation', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+
+<div class="category cat-larynx">
+<div class="category-label">Larynx & Neck</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="larynx" data-name="larynx cricothyroid vocal folds tensor posterior cricoarytenoid abductor rima glottidis narrowest part conus elasticus carotid sheath" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Laryngeal muscles, rima glottidis, carotid sheath & neck anatomy</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Key Facts</div><div class="section-content">
+<p><b>Primary tensor of the vocal folds:</b> <b>Cricothyroid muscle</b> — the ONLY intrinsic laryngeal muscle innervated by the external branch of the superior laryngeal nerve (all others = recurrent laryngeal nerve). It elongates and tenses the vocal folds.</p>
+
+<p><b>Only ABductor of the vocal folds:</b> <b>Posterior cricoarytenoid</b> — vital for opening the airway. All other intrinsic muscles are adductors or tensors. In bilateral vocal cord paralysis, this is the muscle that fails → cords in midline → airway compromise.</p>
+
+<p><b>Rima glottidis:</b> The opening between the vocal folds. This is the <b>narrowest part of the adult larynx</b>. (In children, the narrowest part is the subglottic area at the cricoid ring.)</p>
+
+<p><b>Conus elasticus (cricovocal membrane):</b> The upper free edge forms the <b>vocal ligament</b> (the true vocal fold edge). Attaches inferiorly to the cricoid cartilage.</p>
+
+<p><b>Carotid sheath contents:</b> Carotid arteries <b>medially</b>, internal jugular vein <b>laterally</b>, vagus nerve <b>posteriorly</b> (between them).</p>
+
+<p><b>Lower lip carcinoma lymph drainage:</b> → <b>submental lymph nodes</b> first.</p>
+
+<p><b>Orbital floor blowout fracture:</b> The thin orbital floor breaks → contents herniate into the <b>maxillary sinus</b> (which lies directly below the orbit).</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What is the primary tensor of the vocal folds?</li>
+<li>What is the only abductor of the vocal folds?</li>
+<li>What is the narrowest part of the adult larynx?</li>
+<li>What are the contents of the carotid sheath and their relative positions?</li>
+<li>Where does lower lip cancer drain first?</li>
+<li>What sinus is involved in an orbital blowout fracture?</li>
+<li>What forms the free upper edge of the conus elasticus?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 90–93 (Larynx), 39–41 (Neck Vessels/Carotid), 85–86 (Lymph of Head/Neck)</div>
+<button class="mark-complete" onclick="toggleComplete('larynx', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+</div>
+
+<!-- ===== SECTION 5: UPPER LIMB ===== -->
+<div class="exam-section">
+<h2 class="exam-title">V. Upper Limb <span class="badge badge-ul">Brachial Plexus · Shoulder · Hand</span></h2>
+
+<div class="category cat-upper">
+<div class="category-label">Nerves, Fractures & Clinical Scenarios</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="upper-limb-nerves" data-name="ulnar nerve pisiform hamate axillary nerve suprascapular scaphoid anatomical snuffbox long thoracic winging scapula brachial plexus pancoast radial head nursemaid interosseous membrane" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">All upper limb nerve injuries, fractures & clinical tests</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Nerve Injuries — All Exam Scenarios</div><div class="section-content">
+<p><b>Fractured pisiform + hamate → ulnar nerve injury.</b> The ulnar nerve passes through Guyon's canal between the pisiform and hook of hamate. Fractures here damage it.</p>
+
+<p><b>Weakness of abduction 0–15° → suprascapular nerve.</b> The supraspinatus (innervated by suprascapular nerve) initiates abduction 0–15°. Deltoid (axillary nerve) takes over 15–90°. The question specifies 0–15° specifically = suprascapular.</p>
+
+<p><b>Surgical neck of humerus fracture → axillary nerve.</b> The axillary nerve wraps around the surgical neck through the quadrangular space. Injury → loss of deltoid function (abduction 15–90°) + loss of sensation over the regimental badge area (lateral shoulder).</p>
+
+<p><b>Scapula fracture — which muscle is LEAST affected? → Brachialis.</b> The brachialis originates from the anterior humerus shaft, NOT the scapula. All others listed (biceps, deltoid, pectoralis minor, latissimus dorsi) have scapular attachments.</p>
+
+<p><b>Scaphoid fracture:</b> Fall on outstretched hand (FOOSH) + tenderness in the <b>anatomical snuffbox</b> + normal initial X-ray → suspect <b>scaphoid</b> fracture. Risk of avascular necrosis due to retrograde blood supply. Most commonly fractured carpal bone.</p>
+
+<p><b>Winging scapula (pain on resisted forward pushing, NOT abduction):</b> → <b>Long thoracic nerve</b> (supplies serratus anterior). Serratus anterior holds the scapula against the thoracic wall. Loss → winging, especially with forward pushing (wall push-up). If winging worsened with arm abduction only → think spinal accessory nerve (trapezius).</p>
+
+<p><b>Pancoast tumor (superior thoracic aperture) + pain down medial arm:</b> → <b>Inferior trunk (C8-T1)</b> of the brachial plexus. The inferior trunk runs over the first rib and can be compressed by an apical lung tumor.</p>
+
+<p><b>Nursemaid's elbow:</b> Sudden pull on extended pronated forearm in a child → subluxation of the <b>radial head from the annular ligament</b>.</p>
+
+<p><b>Interosseous membrane force transmission:</b> Transmits force from the <b>radius → ulna</b>. When you fall on your hand, the force goes through the wrist to the radius, then across the interosseous membrane to the ulna, then to the humerus.</p>
+
+<p><b>Can't lift arm above shoulder but abduction intact:</b> This describes loss of trapezius function (upper fibers elevate past 90°) or possibly deltoid weakness. If abduction to 90° is possible but not beyond → think <b>spinal accessory nerve (CN XI)</b> — trapezius needed for full overhead elevation.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>What nerve is at risk with pisiform/hamate fractures?</li>
+<li>What nerve and muscle initiate abduction 0–15°?</li>
+<li>What nerve is injured with a surgical neck humerus fracture?</li>
+<li>Which carpal bone is most commonly fractured and why is AVN a risk?</li>
+<li>What nerve is damaged in winging scapula with pain on forward push?</li>
+<li>What brachial plexus component does a Pancoast tumor affect?</li>
+<li>What is subluxated in nursemaid's elbow?</li>
+<li>How does force transmit through the interosseous membrane?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 415 (Brachial Plexus), 421–425 (Arm), 442–445 (Wrist/Hand), 462–469 (Nerves of UL)</div>
+<button class="mark-complete" onclick="toggleComplete('upper-limb-nerves', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+</div>
+
+<!-- ===== SECTION 6: LOWER LIMB ===== -->
+<div class="exam-section">
+<h2 class="exam-title">VI. Lower Limb <span class="badge badge-ll">Hip · Knee · Nerves</span></h2>
+
+<div class="category cat-lower">
+<div class="category-label">Hip, Knee & Lower Limb Nerves</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="lower-limb-all" data-name="trendelenburg superior gluteal nerve obturator hip adduction acl anterior drawer femoral triangle patellar ligament tibial tuberosity sciatic injection foot drop peroneal fibular hip dislocation ligamentum teres disc herniation l3 l4" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">All lower limb nerve injuries, hip, knee & clinical tests</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Nerve Injuries — All Exam Scenarios</div><div class="section-content">
+<p><b>Positive Trendelenburg sign (standing on RIGHT leg, pelvis drops on LEFT):</b> → <b>RIGHT superior gluteal nerve</b> is damaged. The superior gluteal nerve innervates gluteus medius and minimus (hip abductors). When you stand on one leg, these muscles on the STANDING side hold the pelvis level. If they're weak, the pelvis drops on the opposite side. The damaged nerve is on the SAME side as the standing leg.</p>
+
+<p><b>Loss of hip adduction after pelvic surgery:</b> → <b>Obturator nerve</b> (L2-L4). The obturator nerve innervates the adductor muscles of the thigh (adductor longus, brevis, magnus, gracilis, obturator externus).</p>
+
+<p><b>Foot drop (can't dorsiflex):</b> → <b>Common peroneal (fibular) nerve</b> — wraps around the neck of the fibula (very vulnerable). The deep peroneal branch specifically controls dorsiflexion; the common peroneal is what's injured at the fibular neck. Proximal fibula fracture → common peroneal/fibular nerve damage → foot drop.</p>
+
+<p><b>Anterior drawer test positive (tibia slides anteriorly on femur):</b> → <b>Anterior cruciate ligament (ACL)</b> tear. Posterior drawer (tibia slides posteriorly) → PCL tear.</p>
+
+<p><b>Patellar ligament insertion:</b> → <b>Tibial tuberosity.</b> The quadriceps tendon → patella → patellar ligament → tibial tuberosity.</p>
+
+<p><b>Sciatic nerve injection:</b> Safe site = <b>upper lateral (superolateral) quadrant</b> of the buttock. This avoids the sciatic nerve which runs through the lower/medial part.</p>
+
+<p><b>Posterior hip dislocation:</b> Most common type. The <b>ligamentum teres (round ligament of the head of the femur)</b> is most likely torn first — it's the weakest ligament inside the joint. The iliofemoral (Y ligament) is the strongest.</p>
+
+<p><b>Femoral triangle:</b> Borders: inguinal ligament (superior), sartorius (lateral), adductor longus (medial). Floor: iliopsoas (laterally) + <b>pectineus and adductor longus</b> (medially).</p>
+
+<p><b>L3-L4 disc herniation → compresses L4 nerve root.</b> In the lumbar spine, a disc herniates posterolaterally and compresses the nerve ROOT BELOW (L3-L4 disc → L4 nerve). This differs from cervical spine where the nerve root above is affected.</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>Positive Trendelenburg standing on the RIGHT → which nerve is damaged?</li>
+<li>Loss of hip adduction → which nerve?</li>
+<li>Foot drop after fibular fracture → which nerve?</li>
+<li>Positive anterior drawer test → which ligament is torn?</li>
+<li>Where does the patellar ligament insert?</li>
+<li>Which quadrant is safe for gluteal injections?</li>
+<li>In posterior hip dislocation, which ligament tears first?</li>
+<li>What are the borders of the femoral triangle?</li>
+<li>L3-L4 disc herniation compresses which nerve root?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 476–480 (Hip), 489–491 (Nerves of Buttock), 497–503 (Knee, Cruciate Ligaments), 529–531 (Femoral/Sciatic Nerves)</div>
+<button class="mark-complete" onclick="toggleComplete('lower-limb-all', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+</div>
+
+<!-- ===== SECTION 7: BACK & SPINAL CORD ===== -->
+<div class="exam-section">
+<h2 class="exam-title">VII. Back & Spinal Cord <span class="badge badge-back">Vertebrae · Spinal Nerves · LP</span></h2>
+
+<div class="category cat-back">
+<div class="category-label">Spinal Cord, Nerve Roots & Lumbar Puncture</div>
+<div class="topic-list">
+
+<div class="topic-item" data-slug="spine-back" data-name="conus medullaris L1 L2 lumbar puncture ligamentum flavum dura mater C7 T1 foramen C8 nerve dermatome T10 umbilicus vibratory sense dorsal column" onclick="toggleTopic(this)">
+<div class="topic-header"><span class="topic-name">Conus medullaris, lumbar puncture, IVF nerves & dermatomes</span><div class="topic-status"><div class="status-indicator"></div><span class="chevron">▸</span></div></div>
+<div class="topic-content"><div class="topic-body">
+<div class="section-block"><div class="section-title">Key Facts</div><div class="section-content">
+<p><b>Conus medullaris:</b> The tapering end of the spinal cord. In adults, located at <b>L1-L2 vertebral level</b>. (In newborns it's at L3.) Below this is only the cauda equina (nerve roots, not spinal cord).</p>
+
+<p><b>Lumbar puncture at L3-L4:</b> The needle passes through (superficial to deep): skin → subcutaneous tissue → supraspinous ligament → interspinous ligament → <b>ligamentum flavum</b> → <b>epidural (extradural) space</b> → <b>dura mater</b> → arachnoid mater → <b>subarachnoid space</b> (CSF). After the ligamentum flavum, the next structure is the <b>epidural space</b>, then dura.</p>
+
+<p><b>C7-T1 IVF narrowing → C8 nerve compressed.</b> In the cervical spine, there are 8 cervical nerves but only 7 cervical vertebrae. C1-C7 nerves exit ABOVE their respective vertebrae. C8 exits between C7 and T1. So narrowing of the C7-T1 foramen → <b>C8 nerve root</b>.</p>
+
+<p><b>T10 dermatome = umbilicus.</b> Loss of vibratory sense below the umbilicus with preserved pain → <b>dorsal column lesion at T10</b>. Vibratory sense and proprioception travel in the dorsal columns (posterior funiculus). Pain/temperature travel in the spinothalamic tract (anterolateral).</p>
+</div></div>
+<div class="section-block"><div class="section-title">Active Recall</div><div class="section-content"><ul class="recall-list">
+<li>At what vertebral level does the conus medullaris end in adults?</li>
+<li>After the ligamentum flavum, what does a lumbar puncture needle enter next?</li>
+<li>What nerve exits the C7-T1 intervertebral foramen?</li>
+<li>What dermatome corresponds to the umbilicus?</li>
+<li>Loss of vibratory sense with preserved pain = lesion in which tract?</li>
+</ul></div></div>
+<div class="netter-ref">Plates 169–170 (Spinal Cord and Nerve Roots), 171 (Dermatomes), 174 (Spinal Meninges)</div>
+<button class="mark-complete" onclick="toggleComplete('spine-back', event)">✓ Toggle reviewed</button>
+</div></div></div>
+
+</div></div>
+</div>
+
+</div><!-- end topicContainer -->
+</div><!-- end container -->
+
+<script>
+function getCompleted(){try{return JSON.parse(localStorage.getItem('anat-completed')||'{}')}catch(e){return{}}}
+function saveCompleted(o){localStorage.setItem('anat-completed',JSON.stringify(o))}
+function updateProgress(){var c=getCompleted(),t=0,d=0;document.querySelectorAll('.topic-item').forEach(function(el){t++;if(c[el.dataset.slug]){d++;el.classList.add('completed')}else{el.classList.remove('completed')}});document.getElementById('progressLabel').textContent=d+' / '+t+' topics reviewed';document.getElementById('progressFill').style.width=t>0?(d/t*100)+'%':'0%'}
+function toggleComplete(slug,e){e.stopPropagation();var c=getCompleted();c[slug]=!c[slug];saveCompleted(c);updateProgress()}
+function toggleTopic(el){el.classList.toggle('open')}
+function expandAll(){document.querySelectorAll('.topic-item:not(.hidden)').forEach(function(el){el.classList.add('open')})}
+function collapseAll(){document.querySelectorAll('.topic-item').forEach(function(el){el.classList.remove('open')})}
+function resetProgress(){if(confirm('Reset all progress?')){localStorage.removeItem('anat-completed');updateProgress()}}
+document.getElementById('searchInput').addEventListener('input',function(){var q=this.value.toLowerCase().trim();document.querySelectorAll('.topic-item').forEach(function(el){el.classList.toggle('hidden',q&&!el.dataset.name.includes(q))});document.querySelectorAll('.category').forEach(function(c){c.classList.toggle('hidden',c.querySelectorAll('.topic-item:not(.hidden)').length===0)});document.querySelectorAll('.exam-section').forEach(function(s){s.classList.toggle('hidden',s.querySelectorAll('.topic-item:not(.hidden)').length===0)})});
+updateProgress();
+</script>
+</body>
+</html>

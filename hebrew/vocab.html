@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Hebrew Vocab</title>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  :root{
+    --bg:#101010;--surface:#1a1a1a;--surface-2:#222;--surface-3:#2a2a2a;
+    --text:#f0f0f0;--text-dim:#aaa;--text-muted:#666;
+    --accent:#f5c518;--accent-dim:rgba(245,197,24,0.1);
+    --green:#34d399;
+    --border:rgba(255,255,255,0.06);--border-light:rgba(255,255,255,0.1);
+    --radius:10px;
+    --font:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display','Helvetica Neue',system-ui,sans-serif;
+  }
+  html,body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .header{position:sticky;top:0;z-index:50;background:rgba(16,16,16,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 18px 0}
+  .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;direction:ltr}
+  .logo{display:flex;align-items:center;gap:7px}
+  .logo-mark{width:26px;height:26px;border-radius:6px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:0.8rem;font-weight:700;color:#000;line-height:1}
+  .logo-text{font-size:0.72rem;font-weight:500;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase}
+  .header-actions{display:flex;align-items:center;gap:5px;direction:ltr}
+  .h-btn{font-family:var(--font);font-size:0.66rem;font-weight:500;color:var(--text-muted);background:transparent;border:1px solid var(--border-light);padding:4px 10px;border-radius:16px;cursor:pointer;transition:color 0.15s,border-color 0.15s;white-space:nowrap}
+  @media(hover:hover){.h-btn:hover{color:var(--text-dim);border-color:rgba(255,255,255,0.15)}}
+  .h-btn:active{transform:scale(0.96)}
+  .h-btn.flash{color:var(--green);border-color:var(--green)}
+  .counter{font-family:var(--font);font-size:0.68rem;font-weight:400;color:var(--text-muted);margin-left:2px;white-space:nowrap}
+  .progress-wrap{padding:0 0 10px;direction:ltr}
+  .progress-bar{height:2px;background:rgba(255,255,255,0.04);border-radius:1px;overflow:hidden}
+  .progress-fill{height:100%;background:var(--accent);border-radius:1px;transition:width 0.4s cubic-bezier(0.22,1,0.36,1)}
+  .filters{display:flex;direction:ltr;gap:0}
+  .ftab{flex:1;text-align:center;padding:8px 0 10px;font-family:var(--font);font-size:0.72rem;font-weight:500;color:var(--text-muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:color 0.15s,border-color 0.15s}
+  @media(hover:hover){.ftab:hover{color:var(--text-dim)}}
+  .ftab.active{color:var(--accent);border-bottom-color:var(--accent)}
+  .search-wrap{padding:10px 18px 0;direction:ltr}
+  .search-box{width:100%;font-family:var(--font);font-size:0.82rem;font-weight:400;color:var(--text);background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius);padding:9px 14px 9px 34px;outline:none;transition:border-color 0.2s}
+  .search-box::placeholder{color:var(--text-muted)}
+  .search-box:focus{border-color:rgba(255,255,255,0.18)}
+  .search-container{position:relative}
+  .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none}
+  .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:var(--surface-2);border:none;color:var(--text-muted);width:20px;height:20px;border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:0.6rem;line-height:1}
+  .search-clear.show{display:flex}
+  .list{padding:2px 0 90px}
+  .item{border-bottom:1px solid var(--border)}
+  .item.checked{opacity:0.4}
+  .item.checked .word{text-decoration:line-through;text-decoration-color:var(--text-muted);text-underline-offset:3px}
+  .row{display:flex;align-items:center;padding:0 18px;min-height:54px;gap:8px;direction:rtl}
+  .expand-btn{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:transparent;border:1px solid var(--border-light);color:var(--text-muted);font-size:0.55rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform 0.25s cubic-bezier(0.22,1,0.36,1),color 0.15s,background 0.15s,border-color 0.15s}
+  @media(hover:hover){.expand-btn:hover{background:rgba(255,255,255,0.04);color:var(--text-dim)}}
+  .expand-btn:active{transform:scale(0.9)}
+  .expand-btn.open{color:var(--accent);border-color:rgba(245,197,24,0.25);background:rgba(245,197,24,0.06);transform:rotate(180deg)}
+  .word-area{flex:1;padding:13px 0;display:flex;align-items:baseline;gap:8px;direction:rtl;min-width:0;cursor:pointer}
+  .word{font-family:var(--font);font-size:1.2rem;font-weight:500;color:var(--text);line-height:1.35;transition:color 0.2s}
+  .pos-tag{font-family:var(--font);font-size:0.62rem;font-weight:400;color:var(--text-muted);direction:ltr;white-space:nowrap;flex-shrink:0}
+  .circle{flex-shrink:0;width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s cubic-bezier(0.22,1,0.36,1);-webkit-user-select:none;user-select:none;background:transparent}
+  @media(hover:hover){.circle:hover{border-color:var(--accent);background:var(--accent-dim)}}
+  .circle:active{transform:scale(0.85)}
+  .item.checked .circle{background:var(--accent);border-color:var(--accent)}
+  .ck{display:none}
+  .item.checked .ck{display:block}
+  .detail{overflow:hidden;max-height:0;opacity:0;transition:max-height 0.3s cubic-bezier(0.22,1,0.36,1),opacity 0.2s}
+  .detail.open{max-height:180px;opacity:1}
+  .detail-inner{padding:0 18px 14px;direction:ltr}
+  .detail-card{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+  .d-row{display:flex;gap:8px;align-items:baseline}
+  .d-label{font-family:var(--font);font-size:0.6rem;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;min-width:54px;flex-shrink:0}
+  .d-val{font-family:var(--font);font-size:0.82rem;color:var(--text-dim);line-height:1.5;direction:rtl;text-align:right}
+  .d-val.meaning{color:var(--text);font-weight:500}
+  .d-val.example{color:var(--green);font-size:0.88rem}
+  .d-val.ex-en{color:var(--text-muted);font-style:italic;font-size:0.76rem}
+  .d-sep{border:none;border-top:1px solid var(--border);margin:0}
+  .empty{display:none;text-align:center;padding:80px 32px;direction:ltr}
+  .empty.show{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .empty-icon{font-size:1.8rem;opacity:0.25}
+  .empty-text{font-family:var(--font);font-size:0.85rem;color:var(--text-muted)}
+  .bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(16,16,16,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:9px 18px calc(9px + env(safe-area-inset-bottom));display:flex;gap:8px;justify-content:center;align-items:center;direction:ltr}
+  .bottom-btn{font-family:var(--font);font-size:0.7rem;font-weight:500;color:var(--text-muted);background:transparent;border:1px solid var(--border-light);padding:6px 14px;border-radius:18px;cursor:pointer;transition:color 0.15s,border-color 0.15s;display:flex;align-items:center;gap:5px}
+  @media(hover:hover){.bottom-btn:hover{border-color:rgba(255,255,255,0.15);color:var(--text-dim)}}
+  .bottom-btn:active{transform:scale(0.96)}
+  .bottom-btn.danger{color:#555}
+  @media(hover:hover){.bottom-btn.danger:hover{color:#f87171;border-color:rgba(248,113,113,0.25)}}
+  @media(min-width:600px){
+    .list,.header,.search-wrap,.bottom{max-width:540px;margin-left:auto;margin-right:auto}
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-mark">ע</div>
+      <span class="logo-text">Hebrew Vocab</span>
+    </div>
+    <div class="header-actions">
+      <button class="h-btn" id="showall-btn" onclick="toggleAllDetail()">Expand all</button>
+      <button class="h-btn" id="ca" onclick="copyAll()">Copy all</button>
+      <button class="h-btn" id="cu" onclick="copyUnchecked()">Copy left</button>
+      <span class="counter" id="hcount"></span>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="pbar" style="width:0%"></div></div>
+  </div>
+  <div class="filters">
+    <button class="ftab active" data-f="all">All</button>
+    <button class="ftab" data-f="unseen">Learning</button>
+    <button class="ftab" data-f="known">Known</button>
+  </div>
+</div>
+<div class="search-wrap">
+  <div class="search-container">
+    <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input class="search-box" id="searchInput" type="text" placeholder="Search word, meaning, or example..." autocomplete="off" spellcheck="false">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+  </div>
+</div>
+<div class="list" id="list"></div>
+<div class="empty" id="empty">
+  <div class="empty-icon">📭</div>
+  <div class="empty-text">Nothing here yet.</div>
+</div>
+<div class="bottom">
+  <button class="bottom-btn" onclick="shuffleList()">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+    Shuffle
+  </button>
+  <button class="bottom-btn" id="resetOrderBtn" onclick="resetOrder()" style="display:none">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+    Reset order
+  </button>
+  <button class="bottom-btn danger" onclick="doReset()">Reset progress</button>
+</div>
+<script>
+const V=[
+[1,"אגב","adverb","א־ג־ב","by the way","אגב, שכחתי לספר לך","by the way, i forgot to tell you"],
+[2,"אדמה","noun","א־ד־מ","earth, soil","האדמה כאן פוריה","the soil here is fertile"],
+[3,"אחוז","noun / adjective","א־ח־ז","percent / gripped","עשרה אחוז הנחה","ten percent discount"],
+[4,"אויבים","noun, plural","א־י־ב","enemies","יש לו הרבה אויבים","he has many enemies"],
+[5,"אזרחות","noun","א־ז־ר","citizenship","הוא קיבל אזרחות","he received citizenship"],
+[6,"איזשהו","pronoun","א־י־ז","some, some kind of","יש איזשהו בעיה","there is some problem"],
+[7,"איכשהו","adverb","א־י־כ","somehow","נסתדר איכשהו","we will manage somehow"],
+[8,"איתי","preposition","א־ת","with me","בוא איתי","come with me"],
+[9,"איתן","preposition / name","א־ת","with them / Eitan","דיברתי איתן","i spoke with them"],
+[10,"איתכם","preposition","א־ת","with you (plural)","אני בא איתכם","i am coming with you"],
+[11,"אפשרי","adjective","א־פ־ש","possible","האם זה אפשרי","is this possible"],
+[12,"ארגון","noun","א־ר־ג","organization","הוא עובד בארגון","he works in an organization"],
+[13,"ארוח","verb (infinitive)","א־ר־ח","to host","אנחנו אוהבים לארח","we love to host"],
+[14,"אורך","noun","א־ר־כ","length","מה האורך שלו","what is its length"],
+[15,"אשר","conjunction","א־ש־ר","which, that","הבית אשר בניתי","the house that i built"],
+[16,"בחינה","noun","ב־ח־נ","exam","יש לי בחינה מחר","i have an exam tomorrow"],
+[17,"ביטל","verb (past)","ב־ט־ל","cancelled","הוא ביטל את הפגישה","he cancelled the meeting"],
+[18,"ביטחון","noun","ב־ט־ח","security / confidence","יש לי ביטחון עצמי","i have self-confidence"],
+[19,"ביקר","verb (past)","ב־ק־ר","visited","ביקרתי בעיר","i visited the city"],
+[20,"בנה","verb (past)","ב־נ־ה","built","הוא בנה בית","he built a house"],
+[21,"בעלים","noun, plural","ב־ע־ל","owners","הבעלים לא כאן","the owners are not here"],
+[22,"בריא","adjective","ב־ר־א","healthy","הוא אדם בריא","he is a healthy person"],
+[23,"ברוך","adjective / name","ב־ר־כ","blessed / Baruch","ברוך הבא","welcome"],
+[24,"גבינה","noun","ג־ב־נ","cheese","אני אוהב גבינה","i like cheese"],
+[25,"גג","noun","ג־ג","roof","עלינו לגג","we went up to the roof"],
+[26,"גוון","noun","ג־ו־ן","shade, tone, variety","יש גוון נחמד","there is a nice shade"],
+[27,"גורם","noun / verb","ג־ר־מ","factor / causes","מה הגורם לבעיה","what is the cause of the problem"],
+[28,"גיוס","noun","ג־י־ס","recruitment / draft","יום הגיוס מתקרב","the draft day is approaching"],
+[29,"גילה","verb (past)","ג־ל־ה","discovered / revealed","הוא גילה את הסוד","he discovered the secret"],
+[30,"גלל","noun","ג־ל־ל","because of (בגלל)","בגלל מה זה קרה","because of what did this happen"],
+[31,"גלידה","noun","ג־ל־ד","ice cream","אני רוצה גלידה","i want ice cream"],
+[32,"גן","noun","ג־נ","garden / kindergarten","הילדים בגן","the children are in kindergarten"],
+[33,"גר","verb (present)","ג־ו־ר","lives, resides","הוא גר בתל אביב","he lives in tel aviv"],
+[34,"דאגה","noun","ד־א־ג","worry, concern","יש לי דאגה גדולה","i have a big concern"],
+[35,"דואג","adjective / verb","ד־א־ג","worried / worries","הוא דואג לי","he worries about me"],
+[36,"דוגמאות","noun, plural","ד־ג־מ","examples","תן לי דוגמאות","give me examples"],
+[37,"דווקא","adverb","ד־ו־ק","specifically, actually","דווקא הוא בא","specifically he came"],
+[38,"דחוף","adjective","ד־ח־פ","urgent","זה דחוף מאוד","this is very urgent"],
+[39,"דחה","verb (past)","ד־ח־ה","postponed / rejected","הוא דחה את הפגישה","he postponed the meeting"],
+[40,"דירת","noun, construct","ד־י־ר","apartment of","דירת שני חדרים","a two-room apartment"],
+[41,"דמיין","verb (past)","ד־מ־י","imagined","הוא דמיין עולם טוב יותר","he imagined a better world"],
+[42,"דת","noun","ד־ת","religion","מה הדת שלך","what is your religion"],
+[43,"דתות","noun, plural","ד־ת","religions","יש הרבה דתות בעולם","there are many religions in the world"],
+[44,"דתי","adjective","ד־ת","religious","הוא אדם דתי","he is a religious person"],
+[45,"האזנה","noun","א־ז־נ","listening","תודה על ההאזנה","thank you for listening"],
+[46,"הביא","verb (past)","ב־ו־א","brought","הוא הביא מתנה","he brought a gift"],
+[47,"הגיב","verb (past)","ג־ו־ב","reacted","הוא הגיב בכעס","he reacted with anger"],
+[48,"הגיש","verb (past)","ג־ש","submitted / served","הוא הגיש את הטופס","he submitted the form"],
+[49,"הגדרה","noun","ג־ד־ר","definition","מה ההגדרה של המילה","what is the definition of the word"],
+[50,"הגן","verb (past)","ג־נ","defended","הוא הגן על עצמו","he defended himself"],
+[51,"הוכר","verb (passive past)","כ־ר","was recognized","הוא הוכר כמומחה","he was recognized as an expert"],
+[52,"הזכיר","verb (past)","ז־כ־ר","mentioned","הוא הזכיר את שמי","he mentioned my name"],
+[53,"הזמין","verb (past)","ז־מ־נ","invited / ordered","הוא הזמין אותי לארוחה","he invited me to a meal"],
+[54,"החליט","verb (past)","ח־ל־ט","decided","הוא החליט לעזוב","he decided to leave"],
+[55,"הלאה","adverb","ל־א","further, onward","לך הלאה","move on"],
+[56,"הסביר","verb (past)","ס־ב־ר","explained","הוא הסביר את הבעיה","he explained the problem"],
+[57,"הסבר","noun","ס־ב־ר","explanation","תן לי הסבר","give me an explanation"],
+[58,"הסתבר","verb (past)","ס־ב־ר","turned out","הסתבר שהוא צדק","it turned out he was right"],
+[59,"הסתובב","verb (past)","ס־ב־ב","walked around / turned","הוא הסתובב בעיר","he walked around the city"],
+[60,"העביר","verb (past)","ע־ב־ר","transferred / passed","הוא העביר את הכסף","he transferred the money"],
+[61,"העדיף","verb (past)","ע־ד־פ","preferred","הוא העדיף קפה","he preferred coffee"],
+[62,"הפחיד","verb (past)","פ־ח־ד","frightened","הרעש הפחיד אותי","the noise frightened me"],
+[63,"הפסקה","noun","פ־ס־ק","break, pause","יש לנו הפסקה עכשיו","we have a break now"],
+[64,"הפתיע","verb (past)","פ־ת־ע","surprised","הוא הפתיע אותי","he surprised me"],
+[65,"הצטרף","verb (past)","צ־ר־ף","joined","הוא הצטרף לקבוצה","he joined the group"],
+[66,"הקים","verb (past)","ק־ו־מ","established / set up","הוא הקים חברה","he established a company"],
+[67,"הקשיב","verb (past)","ק־ש־ב","listened","הוא הקשיב בשקט","he listened quietly"],
+[68,"הר","noun","ה־ר","mountain","טיפסנו על הר","we climbed a mountain"],
+[69,"הרב","noun","ר־ב","the rabbi","הרב דיבר לקהל","the rabbi spoke to the crowd"],
+[70,"הרגיע","verb (past)","ר־ג־ע","calmed down","הוא הרגיע את הילדים","he calmed the children down"],
+[71,"הרגל","noun","ר־ג־ל","habit","זה הרגל רע","this is a bad habit"],
+[72,"השאיר","verb (past)","ש־א־ר","left behind","הוא השאיר הודעה","he left a message"],
+[73,"השתחרר","verb (past)","ח־ר","was released / discharged","הוא השתחרר מהצבא","he was discharged from the army"],
+[74,"השתתף","verb (past)","ש־ת־פ","participated","הוא השתתף בפגישה","he participated in the meeting"],
+[75,"התאמן","verb (past)","א־מ־נ","trained, practiced","הוא התאמן כל יום","he trained every day"],
+[76,"התגייס","verb (past)","ג־י־ס","was drafted","הוא התגייס לצבא","he was drafted into the army"],
+[77,"התחל","verb (imperative)","ח־ל","start! (command)","התחל כבר","start already"],
+[78,"התמודד","verb (past)","מ־ד","dealt with / competed","הוא התמודד עם הקושי","he dealt with the difficulty"],
+[79,"התנהג","verb (past)","נ־ה־ג","behaved","הוא התנהג יפה","he behaved nicely"],
+[80,"התראה","noun","ר־א־ה","warning / notification","קיבלתי התראה","i received a warning"],
+[81,"התראות","noun, plural","ר־א־ה","warnings / notifications","יש הרבה התראות","there are many notifications"],
+[82,"התרכז","verb (past)","ר־כ־ז","concentrated","הוא התרכז בעבודה","he concentrated on the work"],
+[83,"התקיים","verb (past)","ק־י־מ","took place","האירוע התקיים אתמול","the event took place yesterday"],
+[84,"ותיק","adjective","ו־ת־ק","veteran, experienced","הוא עובד ותיק","he is a veteran employee"],
+[85,"זול","adjective","ז־ו־ל","cheap","זה מחיר זול","this is a cheap price"],
+[86,"זכות","noun","ז־כ־ה","right, merit","יש לך זכות לדעת","you have the right to know"],
+[87,"חבורה","noun","ח־ב־ר","group, gang","יש לו חבורה טובה","he has a good group of friends"],
+[88,"חבל","adverb / noun","ח־ב־ל","what a shame / rope","חבל שלא באת","what a shame you didn't come"],
+[89,"חבר","noun","ח־ב־ר","friend / member","הוא חבר טוב שלי","he is a good friend of mine"],
+[90,"חוויה","noun","ח־ו־ה","experience","זו חוויה מיוחדת","this is a special experience"],
+[91,"חוף","noun","ח־ו־פ","beach, coast","הלכנו לחוף הים","we went to the beach"],
+[92,"חטיף","noun","ח־ט־פ","snack","אני רוצה חטיף","i want a snack"],
+[93,"חייל","noun","ח־י־ל","soldier","הוא חייל צעיר","he is a young soldier"],
+[94,"חילק","verb (past)","ח־ל־ק","divided / distributed","הוא חילק את הכסף","he divided the money"],
+[95,"חכם","adjective","ח־כ־מ","wise, smart","הוא ילד חכם","he is a smart child"],
+[96,"חלק","noun / adjective","ח־ל־ק","part / smooth","זה חלק מהתוכנית","this is part of the plan"],
+[97,"חלש","adjective","ח־ל־ש","weak","הוא מרגיש חלש","he feels weak"],
+[98,"חפש","verb (past)","ח־פ־ש","searched","הוא חפש את המפתחות","he searched for the keys"],
+[99,"חרדה","noun","ח־ר־ד","anxiety","יש לי חרדה","i have anxiety"],
+[100,"חשובה","adjective, feminine","ח־ש־ב","important","זו שאלה חשובה","this is an important question"],
+[101,"טירון","noun","ט־י־ר","recruit, new soldier","הוא טירון בצבא","he is an army recruit"],
+[102,"יהודי","adjective / noun","י־ה־ד","Jewish / Jew","הוא יהודי","he is Jewish"],
+[103,"יחסים","noun, plural","י־ח־ס","relations, relationships","יחסים טובים חשובים","good relationships are important"],
+[104,"יחסית","adverb","י־ח־ס","relatively","זה קל יחסית","this is relatively easy"],
+[105,"יכל","verb (past)","י־כ־ל","could, was able","הוא לא יכל לבוא","he could not come"],
+[106,"ירדתי","verb (past, 1st person)","י־ר־ד","i went down","ירדתי במדרגות","i went down the stairs"],
+[107,"ישראלי","adjective","י־ש־ר","Israeli","הוא אזרח ישראלי","he is an Israeli citizen"],
+[108,"ישמע","verb (future)","ש־מ־ע","will hear / will listen","הוא ישמע את השיר","he will hear the song"],
+[109,"כחול","adjective","כ־ח־ל","blue","השמיים כחולים","the sky is blue"],
+[110,"כיסא","noun","כ־ס־א","chair","שב על הכיסא","sit on the chair"],
+[111,"כללי","adjective","כ־ל־ל","general","זו שאלה כללית","this is a general question"],
+[112,"כפר","noun","כ־פ־ר","village","הוא גר בכפר קטן","he lives in a small village"],
+[113,"כתב","verb (past)","כ־ת־ב","wrote","הוא כתב מכתב","he wrote a letter"],
+[114,"כתיבה","noun","כ־ת־ב","writing","הכתיבה שלו יפה","his writing is beautiful"],
+[115,"לימד","verb (past)","ל־מ־ד","taught","הוא לימד מתמטיקה","he taught mathematics"],
+[116,"מאזין","noun / verb","א־ז־נ","listener / listening","הוא מאזין טוב","he is a good listener"],
+[117,"מבין","verb (present)","ב־י־נ","understands","הוא מבין הכל","he understands everything"],
+[118,"מגורים","noun, plural","ג־ו־ר","residence, living quarters","אזור מגורים","residential area"],
+[119,"מגניבה","adjective, feminine","ג־נ־ב","cool, awesome","זו שכונה מגניבה","this is a cool neighborhood"],
+[120,"מגיש","verb (present)","נ־ג־ש","presents / submits","הוא מגיש את הדוח","he submits the report"],
+[121,"מדים","noun, plural","מ־ד","uniform","הוא לובש מדים","he is wearing a uniform"],
+[122,"מובן","adjective / noun","ב־י־נ","understood / sense","זה מובן מאליו","this is self-understood"],
+[123,"מוכר","adjective / verb","כ־ר","familiar / sells","הפנים שלו מוכרות","his face is familiar"],
+[124,"מומלץ","adjective","מ־ל־ץ","recommended","זו מסעדה מומלצת","this is a recommended restaurant"],
+[125,"מושב","noun","י־ש־ב","seat / cooperative village","קח את המושב שלך","take your seat"],
+[126,"מושבה","noun","י־ש־ב","colony, settlement","זו מושבה ישנה","this is an old settlement"],
+[127,"מושבות","noun, plural","י־ש־ב","colonies, settlements","יש הרבה מושבות","there are many settlements"],
+[128,"מושג","noun","ש־ג","concept, notion","זה מושג חשוב","this is an important concept"],
+[129,"מזוודה","noun","ז־ו־ד","suitcase","אני אורז מזוודה","i am packing a suitcase"],
+[130,"מזג","noun","מ־ז־ג","weather / temperament","מזג האוויר נחמד","the weather is nice"],
+[131,"מזמן","adverb","ז־מ־נ","for a long time, a while ago","לא ראיתי אותך מזמן","i haven't seen you in a long time"],
+[132,"מחוץ","preposition","ח־ו־ץ","outside of","הוא גר מחוץ לעיר","he lives outside the city"],
+[133,"מחדש","adverb","ח־ד־ש","anew, again","הוא התחיל מחדש","he started anew"],
+[134,"מחרת","noun","ח־ר","the next day","ביום המחרת הכל השתנה","the next day everything changed"],
+[135,"מחקר","noun","ח־ק־ר","research","הוא עושה מחקר","he is doing research"],
+[136,"מטה","noun / adverb","נ־ט־ה","headquarters / downward","פגישה במטה הצבא","a meeting at army headquarters"],
+[137,"מטבח","noun","ט־ב־ח","kitchen","הוא בישל במטבח","he cooked in the kitchen"],
+[138,"מטלה","noun","ט־ל","task, chore","יש לי מטלה להשלים","i have a task to complete"],
+[139,"מין","noun","מ־י־נ","type, kind / gender","איזה מין אדם הוא","what kind of person is he"],
+[140,"מיני","adjective","מ־י־נ","types of, kinds of","כל מיני דברים","all kinds of things"],
+[141,"מילואים","noun","מ־ל־א","reserve duty (military)","הוא יצא למילואים","he went to reserve duty"],
+[142,"מלוכלך","adjective","ל־כ־ך","dirty","הבגדים מלוכלכים","the clothes are dirty"],
+[143,"ממליצה","verb (present, feminine)","מ־ל־ץ","recommends","היא ממליצה על המסעדה","she recommends the restaurant"],
+[144,"מנוי","noun","נ־י","subscription / subscriber","יש לי מנוי לעיתון","i have a newspaper subscription"],
+[145,"מסביב","adverb","ס־ב־ב","around, surrounding","הכל מסביב שקט","everything around is quiet"],
+[146,"מסוכן","adjective","ס־כ־נ","dangerous","זה מקום מסוכן","this is a dangerous place"],
+[147,"מסתדר","verb (present)","ס־ד־ר","manages, gets along","הוא מסתדר טוב","he manages well"],
+[148,"מסיבה","noun","ס־ב־ב","party","יש לנו מסיבה הלילה","we have a party tonight"],
+[149,"מסיים","verb (present)","ס־י־מ","finishing","הוא מסיים את העבודה","he is finishing the work"],
+[150,"מעניין","adjective","ע־נ־י","interesting","זה מאוד מעניין","this is very interesting"],
+[151,"מעניינת","adjective, feminine","ע־נ־י","interesting","זו שאלה מעניינת","this is an interesting question"],
+[152,"מפעל","noun","פ־ע־ל","factory, plant","הוא עובד במפעל","he works in a factory"],
+[153,"מפלגה","noun","פ־ל־ג","political party","הוא חבר במפלגה","he is a member of a party"],
+[154,"מפקד","noun","פ־ק־ד","commander","המפקד נתן פקודה","the commander gave an order"],
+[155,"מפחיד","adjective","פ־ח־ד","scary, frightening","זה סרט מפחיד","this is a scary movie"],
+[156,"מצד","preposition","צ־ד","from the side of, as far as","מצדי אתה יכול לבוא","as far as i'm concerned you can come"],
+[157,"מצוין","adjective","צ־י־נ","excellent","הוא תלמיד מצוין","he is an excellent student"],
+[158,"מקורי","adjective","ק־ר","original","זה רעיון מקורי","this is an original idea"],
+[159,"מרכזי","adjective","ר־כ־ז","central","זה רחוב מרכזי","this is a central street"],
+[160,"משמעות","noun","ש־מ־ע","meaning, significance","מה המשמעות של זה","what is the meaning of this"],
+[161,"משתמש","noun / verb","ש־מ־ש","user / uses","הוא משתמש במחשב","he uses a computer"],
+[162,"מתגייס","verb (present)","ג־י־ס","enlisting, being drafted","הוא מתגייס השבוע","he is enlisting this week"],
+[163,"מתוק","adjective","מ־ת־ק","sweet","העוגה מתוקה","the cake is sweet"],
+[164,"מתחת","preposition","ת־ח־ת","below, under","המפתח מתחת לשטיח","the key is under the rug"],
+[165,"מתחילה","adverb / verb","ח־ל","from the beginning / starts (fem.)","נתחיל מתחילה","let's start from the beginning"],
+[166,"נבנה","verb (present passive)","ב־נ־ה","is being built","הבניין נבנה עכשיו","the building is being built now"],
+[167,"נביא","noun / verb (future)","נ־ב־א","prophet / we will bring","הנביא דיבר","the prophet spoke"],
+[168,"נגמר","verb (past)","ג־מ־ר","ended, ran out","האוכל נגמר","the food ran out"],
+[169,"נגע","verb (past)","נ־ג־ע","touched","הוא נגע בקיר","he touched the wall"],
+[170,"נדבר","verb (future)","ד־ב־ר","we will talk","נדבר מחר","we will talk tomorrow"],
+[171,"נדע","verb (future)","י־ד־ע","we will know","נדע בקרוב","we will know soon"],
+[172,"נוף","noun","נ־ו־פ","view, landscape","הנוף יפה מכאן","the view is beautiful from here"],
+[173,"נוצר","verb (past)","י־צ־ר","was created","הבעיה נוצרה אמש","the problem was created yesterday"],
+[174,"נוצרי","adjective / noun","נ־צ־ר","Christian","הוא נוצרי","he is Christian"],
+[175,"נושם","verb (present)","נ־ש־מ","breathing","הוא נושם בקושי","he is breathing with difficulty"],
+[176,"נח","adjective / verb","נ־ו־ח","resting / comfortable","הוא נח על הספה","he is resting on the sofa"],
+[177,"נחשב","verb (present)","ח־ש־ב","is considered","הוא נחשב מומחה","he is considered an expert"],
+[178,"נטייה","noun","נ־ט־ה","tendency, inclination","יש לו נטייה לאמנות","he has a tendency for art"],
+[179,"ניהול","noun","נ־ה־ל","management","הוא לומד ניהול","he studies management"],
+[180,"ניהל","verb (past)","נ־ה־ל","managed","הוא ניהל את החברה","he managed the company"],
+[181,"נלחם","verb (past / present)","ל־ח־מ","fought / fights","הוא נלחם בגבורה","he fought bravely"],
+[182,"נמל","noun","נ־מ־ל","port, harbor","הספינה עגנה בנמל","the ship docked at the port"],
+[183,"נמשך","verb (present)","מ־ש־כ","continues, lasts / is attracted","הסרט נמשך שעתיים","the movie lasts two hours"],
+[184,"נסוע","verb (infinitive)","נ־ס־ע","to travel","אני אוהב לנסוע","i like to travel"],
+[185,"נעלם","verb (past)","ע־ל־מ","disappeared","הוא נעלם פתאום","he disappeared suddenly"],
+[186,"נפוץ","adjective","פ־ו־ץ","common, widespread","זה שם נפוץ","this is a common name"],
+[187,"נפגש","verb (past)","פ־ג־ש","met","נפגשנו בקפה","we met at the cafe"],
+[188,"נפלא","adjective","פ־ל־א","wonderful","זו חוויה נפלאה","this is a wonderful experience"],
+[189,"נפתח","verb (past)","פ־ת־ח","opened","החנות נפתחה","the store opened"],
+[190,"נתחיל","verb (future)","ח־ל","we will start","נתחיל בעוד שעה","we will start in an hour"],
+[191,"סביב","preposition","ס־ב־ב","around","ישבנו סביב השולחן","we sat around the table"],
+[192,"סובב","verb (past / present)","ס־ב־ב","surrounded / rotates","הוא סובב את הבורג","he turned the screw"],
+[193,"סדיר","adjective","ס־ד־ר","regular, orderly","שירות סדיר","regular military service"],
+[194,"סופש","noun","ס־ו־פ","weekend (slang)","מה תעשה בסופש","what will you do this weekend"],
+[195,"סיימו","verb (past, plural)","ס־י־מ","they finished","הם סיימו את העבודה","they finished the work"],
+[196,"סכנה","noun","ס־כ־נ","danger","יש סכנה כאן","there is danger here"],
+[197,"סך","noun","ס־כ","total","הסך הכל גבוה","the total is high"],
+[198,"סמל","noun","ס־מ־ל","symbol / sergeant","זה סמל של המדינה","this is a symbol of the state"],
+[199,"סף","noun","ס־פ","threshold, edge","עומדים על סף מלחמה","standing on the threshold of war"],
+[200,"עבוד","verb (imperative)","ע־ב־ד","work! (command)","עבוד קשה","work hard"],
+[201,"עברי","adjective","ע־ב־ר","Hebrew","הוא מדבר עברי","he speaks Hebrew"],
+[202,"עברית","noun","ע־ב־ר","Hebrew (language)","אני לומד עברית","i am learning Hebrew"],
+[203,"עולמי","adjective","ע־ו־ל","global, worldwide","זו בעיה עולמית","this is a global problem"],
+[204,"עליון","adjective","ע־ל־י","upper, supreme","בית המשפט העליון","the supreme court"],
+[205,"עלילה","noun","ע־ל־ל","plot, storyline","העלילה מעניינת","the plot is interesting"],
+[206,"עמוד","noun","ע־מ־ד","page / pillar","פתח עמוד חמישה","open page five"],
+[207,"עונים","verb (present, plural)","ע־נ־ה","they answer","הם עונים על שאלות","they answer questions"],
+[208,"עצמאי","adjective","ע־צ־מ","independent","הוא אדם עצמאי","he is an independent person"],
+[209,"עצמכם","pronoun","ע־צ־מ","yourselves","עשו זאת בעצמכם","do it yourselves"],
+[210,"ערבי","adjective / noun","ע־ר־ב","Arab / Arabic / evening","הוא ערבי","he is Arab"],
+[211,"פחד","noun / verb","פ־ח־ד","fear / feared","יש לי פחד מגבהים","i have a fear of heights"],
+[212,"פנוי","adjective","פ־נ־ה","free, available","האם אתה פנוי","are you free"],
+[213,"פני","preposition / noun","פ־נ־ה","face of / before","לפני שעה","an hour ago"],
+[214,"פעמי","noun, construct","פ־ע־מ","times of","כמה פעמים","how many times"],
+[215,"צבא","noun","צ־ב־א","army","הוא בצבא","he is in the army"],
+[216,"צבאי","adjective","צ־ב־א","military","שירות צבאי","military service"],
+[217,"צועק","verb (present)","צ־ע־ק","yells, shouts","הוא צועק בקול","he shouts loudly"],
+[218,"צהריים","noun","צ־ה־ר","noon, midday","אכלנו בצהריים","we ate at noon"],
+[219,"ציבורי","adjective","צ־י־ב","public","תחבורה ציבורית","public transport"],
+[220,"ציוד","noun","צ־י־ד","equipment, gear","יש לי הרבה ציוד","i have a lot of equipment"],
+[221,"ציונים","noun, plural","צ־י־נ","grades / marks","קיבלתי ציונים טובים","i got good grades"],
+[222,"צפון","noun","צ־פ־נ","north","הם גרים בצפון","they live in the north"],
+[223,"צפוני","adjective","צ־פ־נ","northern","הם מהאזור הצפוני","they are from the northern area"],
+[224,"קבוע","adjective","ק־ב־ע","fixed, permanent","זה תפקיד קבוע","this is a permanent role"],
+[225,"קבע","verb (past)","ק־ב־ע","set, determined","הוא קבע פגישה","he set a meeting"],
+[226,"קבל","verb (past)","ק־ב־ל","received / accepted","הוא קיבל מכתב","he received a letter"],
+[227,"קצה","noun","ק־צ־ה","edge, end","עמד בקצה המדרכה","he stood at the edge of the sidewalk"],
+[228,"קרב","noun","ק־ר־ב","battle / close","היה קרב קשה","there was a tough battle"],
+[229,"ראינו","verb (past, plural)","ר־א־ה","we saw","ראינו סרט נהדר","we saw a great movie"],
+[230,"ראשונים","adjective, plural","ר־א־ש","first (plural)","הם היו הראשונים","they were the first"],
+[231,"רגוע","adjective","ר־ג־ע","calm, relaxed","הוא אדם רגוע","he is a calm person"],
+[232,"רוגע","noun","ר־ג־ע","calmness, serenity","יש כאן תחושת רוגע","there is a sense of calm here"],
+[233,"רצון","noun","ר־צ־נ","will, desire","יש לי רצון לנסוע","i have a desire to travel"],
+[234,"רציני","adjective","ר־צ־נ","serious","זה עניין רציני","this is a serious matter"],
+[235,"רצינות","noun","ר־צ־נ","seriousness","הוא דיבר ברצינות","he spoke seriously"],
+[236,"רץ","verb (present)","ר־ו־ץ","runs","הוא רץ כל בוקר","he runs every morning"],
+[237,"שאר","noun","ש־א־ר","the rest, remainder","שאר האנשים הלכו","the rest of the people left"],
+[238,"שביל","noun","ש־ב־ל","path, trail","הלכנו בשביל היער","we walked on the forest path"],
+[239,"שבילו","verb (past, plural)","ש־ב־ל","they hiked / walked the path","הם שבילו בהרים","they hiked in the mountains"],
+[240,"שגרה","noun","ש־ג־ר","routine","חוזרים לשגרה","returning to routine"],
+[241,"שטות","noun","ש־ט","nonsense","אל תדבר שטויות","don't talk nonsense"],
+[242,"שיא","noun","ש־י־א","peak, record","הוא שבר שיא","he broke a record"],
+[243,"שיטה","noun","ש־י־ט","method, system","זו שיטה טובה","this is a good method"],
+[244,"שיפור","noun","ש־פ־ר","improvement","יש שיפור גדול","there is a big improvement"],
+[245,"שירת","noun / verb (past, fem.)","ש־י־ר","singing / she served","היא שירת בצבא","she served in the army"],
+[246,"שכן","noun / verb","ש־כ־נ","neighbor / resided","השכן שלי נחמד","my neighbor is nice"],
+[247,"שלט","noun","ש־ל־ט","sign / remote control","ראיתי שלט גדול","i saw a large sign"],
+[248,"שלש","verb (past)","ש־ל־ש","tripled / did three times","הוא שילש את הסכום","he tripled the amount"],
+[249,"שמה","adverb / verb","ש־מ","there / she put","הוא נסע שמה","he traveled there"],
+[250,"שמעה","verb (past, feminine)","ש־מ־ע","she heard","היא שמעה את החדשות","she heard the news"],
+[251,"שנת","noun, construct","ש־נ־ה","year of","שנת הלימודים","the school year"],
+[252,"שקל","noun / verb","ש־ק־ל","shekel / weighed","זה עולה חמישה שקל","this costs five shekels"],
+[253,"שרת","verb (past, feminine)","ש־ר־ת","she served","היא שרתה בצבא","she served in the army"],
+[254,"שתייה","noun","ש־ת־ה","drinking, a drink","אני צריך שתייה","i need a drink"],
+[255,"שתות","verb (infinitive)","ש־ת־ה","to drink","אני רוצה לשתות","i want to drink"],
+[256,"תא","noun","ת־א","cell, compartment","הוא נמצא בתא","he is in the cell"],
+[257,"תבין","verb (future)","ב־י־נ","you will understand","אתה תבין בקרוב","you will understand soon"],
+[258,"תוכלו","verb (future, plural)","י־כ־ל","you (plural) will be able","תוכלו לבוא מחר","you will be able to come tomorrow"],
+[259,"תופעה","noun","י־פ־ע","phenomenon","זו תופעה מוזרה","this is a strange phenomenon"],
+[260,"תור","noun","ת־ו־ר","turn, queue / era","חכה לתור שלך","wait for your turn"],
+[261,"תחילה","adverb","ח־ל","first, at first","תחילה נאכל","first we will eat"],
+[262,"תחתית","noun","ת־ח־ת","bottom","בתחתית העמוד","at the bottom of the page"],
+[263,"תחפש","verb (future)","ח־פ־ש","you will search","תחפש את הקובץ","you will search for the file"],
+[264,"תחשב","verb (future)","ח־ש־ב","you will think / consider","תחשב על זה","think about it"],
+[265,"תחשבו","verb (future, plural)","ח־ש־ב","you (plural) will think","תחשבו לפני שתדברו","think before you speak"],
+[266,"תיאור","noun","א־ו־ר","description","תן לי תיאור קצר","give me a short description"],
+[267,"תיאר","verb (past)","א־ו־ר","described","הוא תיאר את הנוף","he described the landscape"],
+[268,"תיבה","noun","ת־י־ב","box / ark","יש מכתב בתיבה","there is a letter in the box"],
+[269,"תייר","noun","ת־י־ר","tourist","הוא תייר מחו״ל","he is a tourist from abroad"],
+[270,"תיכון","noun / adjective","כ־ו־נ","high school / middle","הוא לומד בתיכון","he studies in high school"],
+[271,"תכיר","verb (future)","כ־ר","you will meet / recognize","תכיר אותה בקרוב","you will meet her soon"],
+[272,"תלוי","adjective","ת־ל־ה","depends, hanging","זה תלוי בך","this depends on you"],
+[273,"תמצא","verb (future)","מ־צ־א","you will find","תמצא פתרון","you will find a solution"],
+[274,"תמצאו","verb (future, plural)","מ־צ־א","you (plural) will find","תמצאו את הדרך","you will find the way"],
+[275,"תמך","verb (past)","ת־מ־כ","supported","הוא תמך בהחלטה","he supported the decision"],
+[276,"תנסו","verb (future, plural)","נ־ס­ה","you (plural) will try","תנסו שוב","you will try again"],
+[277,"תעשייה","noun","ע־ש­ה","industry","תעשיית הטכנולוגיה צומחת","the technology industry is growing"],
+[278,"תרבות","noun","ר־ב","culture","יש תרבות עשירה","there is a rich culture"],
+[279,"תרגיש","verb (future)","ר­ג­ש","you will feel","תרגיש טוב יותר מחר","you will feel better tomorrow"],
+];
+let checked={},filter='all',openD={},searchTerm='',isShuffled=false;
+let displayOrder=V.map((_,i)=>i);
+
+function save(){try{localStorage.setItem('hv3',JSON.stringify(checked))}catch(e){}}
+function load(){try{const d=localStorage.getItem('hv3');if(d)checked=JSON.parse(d)}catch(e){}}
+
+function getRows(){
+  let data=displayOrder.map(i=>V[i]);
+  if(filter==='known')data=data.filter(v=>checked[v[0]]);
+  else if(filter==='unseen')data=data.filter(v=>!checked[v[0]]);
+  if(searchTerm){
+    const q=searchTerm.toLowerCase();
+    data=data.filter(v=>v[1].includes(q)||v[4].toLowerCase().includes(q)||v[5].includes(q)||v[6].toLowerCase().includes(q));
+  }
+  return data;
+}
+
+function render(){
+  const list=document.getElementById('list');
+  const empty=document.getElementById('empty');
+  const data=getRows();
+  if(!data.length){
+    list.innerHTML='';
+    empty.classList.add('show');
+  } else {
+    empty.classList.remove('show');
+    const frag=document.createDocumentFragment();
+    data.forEach((v)=>{
+      const[id,word,pos,root,meaning,example,exMeaning]=v;
+      const c=!!checked[id],o=!!openD[id];
+      const item=document.createElement('div');
+      item.className='item'+(c?' checked':'');
+      item.id='item'+id;
+      item.innerHTML='<div class="row">'+
+        '<button class="expand-btn'+(o?' open':'')+'" data-eid="'+id+'">▾</button>'+
+        '<div class="circle" data-id="'+id+'">'+
+          '<svg class="ck" width="13" height="10" viewBox="0 0 13 10" fill="none">'+
+            '<path d="M1.5 5L5 8.5L11.5 1.5" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'+
+          '</svg>'+
+        '</div>'+
+        '<div class="word-area">'+
+          '<span class="word">'+word+'</span>'+
+          '<span class="pos-tag">'+pos+'</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="detail'+(o?' open':'')+'" id="det'+id+'">'+
+        '<div class="detail-inner"><div class="detail-card">'+
+          '<div class="d-row">'+
+            '<span class="d-label">Meaning</span>'+
+            '<span class="d-val meaning">'+meaning+'</span>'+
+          '</div>'+
+          '<hr class="d-sep">'+
+          '<div class="d-row">'+
+            '<span class="d-label">Example</span>'+
+            '<span class="d-val example">'+example+'</span>'+
+          '</div>'+
+          '<div class="d-row">'+
+            '<span class="d-label"></span>'+
+            '<span class="d-val ex-en">'+exMeaning+'</span>'+
+          '</div>'+
+        '</div></div>'+
+      '</div>';
+      frag.appendChild(item);
+    });
+    list.innerHTML='';
+    list.appendChild(frag);
+  }
+  updateCounter();
+}
+
+function updateCounter(){
+  const cnt=Object.values(checked).filter(Boolean).length;
+  const pct=Math.round((cnt/V.length)*100);
+  document.getElementById('hcount').textContent=cnt+' / '+V.length;
+  document.getElementById('pbar').style.width=pct+'%';
+}
+
+function togCheck(id){
+  checked[id]=!checked[id];
+  if(!checked[id])delete checked[id];
+  save();
+  if(filter!=='all'){render();return}
+  const el=document.getElementById('item'+id);
+  if(el)el.classList.toggle('checked',!!checked[id]);
+  updateCounter();
+}
+
+function togDetail(id){
+  openD[id]=!openD[id];
+  const det=document.getElementById('det'+id);
+  const btn=document.querySelector('[data-eid="'+id+'"]');
+  if(det)det.classList.toggle('open',!!openD[id]);
+  if(btn)btn.classList.toggle('open',!!openD[id]);
+}
+
+document.getElementById('list').addEventListener('click',function(e){
+  var circle=e.target.closest('.circle');
+  if(circle){togCheck(+circle.dataset.id);return}
+  var ebtn=e.target.closest('.expand-btn');
+  if(ebtn){e.stopPropagation();togDetail(+ebtn.dataset.eid);return}
+  var wordArea=e.target.closest('.word-area');
+  if(wordArea){
+    var item=wordArea.closest('.item');
+    if(item)togDetail(+item.id.replace('item',''));
+  }
+});
+
+document.querySelector('.filters').addEventListener('click',function(e){
+  var tab=e.target.closest('.ftab');
+  if(!tab)return;
+  filter=tab.dataset.f;
+  document.querySelectorAll('.ftab').forEach(function(t){t.classList.remove('active')});
+  tab.classList.add('active');
+  render();
+});
+
+var searchInput=document.getElementById('searchInput');
+var searchClear=document.getElementById('searchClear');
+var searchDebounce;
+searchInput.addEventListener('input',function(){
+  clearTimeout(searchDebounce);
+  searchDebounce=setTimeout(function(){
+    searchTerm=searchInput.value.trim();
+    searchClear.classList.toggle('show',searchTerm.length>0);
+    render();
+  },120);
+});
+function clearSearch(){
+  searchInput.value='';searchTerm='';
+  searchClear.classList.remove('show');render();
+}
+
+function toggleAllDetail(){
+  var allOpen=V.every(function(v){return openD[v[0]]});
+  V.forEach(function(v){openD[v[0]]=!allOpen});
+  document.getElementById('showall-btn').textContent=allOpen?'Expand all':'Collapse all';
+  render();
+}
+
+function shuffleList(){
+  for(var i=displayOrder.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var tmp=displayOrder[i];displayOrder[i]=displayOrder[j];displayOrder[j]=tmp;
+  }
+  isShuffled=true;
+  document.getElementById('resetOrderBtn').style.display='flex';
+  render();
+}
+
+function resetOrder(){
+  displayOrder=V.map(function(_,i){return i});
+  isShuffled=false;
+  document.getElementById('resetOrderBtn').style.display='none';
+  render();
+}
+
+function doReset(){
+  if(confirm('Reset all progress? This cannot be undone.')){
+    checked={};save();render();
+  }
+}
+
+function copyAll(){
+  var t=V.map(function(v){return v[1]+' — '+v[4]}).join('\n');
+  navigator.clipboard.writeText(t).then(function(){flash('ca','Copied','Copy all')});
+}
+function copyUnchecked(){
+  var t=V.filter(function(v){return !checked[v[0]]}).map(function(v){return v[1]+' — '+v[4]}).join('\n');
+  navigator.clipboard.writeText(t).then(function(){flash('cu','Copied','Copy left')});
+}
+function flash(id,on,off){
+  var b=document.getElementById(id);
+  b.textContent=on;b.classList.add('flash');
+  setTimeout(function(){b.textContent=off;b.classList.remove('flash')},1800);
+}
+
+load();render();
+</script>
+</body>
+</html>

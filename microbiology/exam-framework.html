@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a0a0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Exam Framework — Microbiology — Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0d1117;
+  --bg-surface: #161b22;
+  --bg-card: #1c2230;
+  --bg-hover: #21283640;
+  --border: #30363d;
+  --border-accent: #3b4554;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #636c76;
+  --accent-blue: #58a6ff;
+  --accent-green: #3fb950;
+  --accent-orange: #d29922;
+  --accent-red: #f85149;
+  --accent-purple: #bc8cff;
+  --accent-pink: #f778ba;
+  --accent-cyan: #76e3ea;
+  --accent-teal: #2dd4bf;
+  --glow-blue: #58a6ff18;
+  --glow-green: #3fb95018;
+  --glow-orange: #d2992218;
+  --glow-purple: #bc8cff18;
+  --glow-pink: #f778ba18;
+  --glow-cyan: #76e3ea18;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+nav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 280px;
+  height: 100vh;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 100;
+  padding: 20px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+nav::-webkit-scrollbar { width: 4px; }
+nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.nav-header {
+  padding: 8px 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+.nav-header h1 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+}
+.nav-header p {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.nav-group { margin-bottom: 4px; }
+.nav-group-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 12px 20px 4px;
+}
+
+nav a {
+  display: block;
+  padding: 5px 20px 5px 28px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  border-left: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+nav a:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  border-left-color: var(--border-accent);
+}
+nav a.active {
+  color: var(--accent-blue);
+  border-left-color: var(--accent-blue);
+  background: var(--glow-blue);
+}
+
+.nav-gp .nav-group-title { color: var(--accent-green); }
+.nav-gn .nav-group-title { color: var(--accent-orange); }
+.nav-struct .nav-group-title { color: var(--accent-purple); }
+.nav-fungi .nav-group-title { color: var(--accent-pink); }
+.nav-virus .nav-group-title { color: var(--accent-cyan); }
+.nav-abx .nav-group-title { color: var(--accent-red); }
+.nav-dx .nav-group-title { color: var(--accent-teal); }
+.nav-immune .nav-group-title { color: var(--accent-blue); }
+.nav-vaccine .nav-group-title { color: var(--accent-orange); }
+.nav-genetics .nav-group-title { color: var(--accent-purple); }
+
+/* ── MAIN ── */
+main {
+  margin-left: 280px;
+  flex: 1;
+  padding: 32px 48px 80px;
+  max-width: 960px;
+}
+
+/* ── FRAMEWORK BOX ── */
+.framework-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.framework-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.framework-box.green::before { background: var(--accent-green); }
+.framework-box.orange::before { background: var(--accent-orange); }
+.framework-box.purple::before { background: var(--accent-purple); }
+.framework-box.pink::before { background: var(--accent-pink); }
+.framework-box.cyan::before { background: var(--accent-cyan); }
+.framework-box.red::before { background: var(--accent-red); }
+.framework-box.teal::before { background: var(--accent-teal); }
+.framework-box.blue::before { background: var(--accent-blue); }
+
+.framework-box h2 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.framework-box.green h2 { color: var(--accent-green); }
+.framework-box.orange h2 { color: var(--accent-orange); }
+.framework-box.purple h2 { color: var(--accent-purple); }
+.framework-box.pink h2 { color: var(--accent-pink); }
+.framework-box.cyan h2 { color: var(--accent-cyan); }
+.framework-box.red h2 { color: var(--accent-red); }
+.framework-box.teal h2 { color: var(--accent-teal); }
+.framework-box.blue h2 { color: var(--accent-blue); }
+
+.framework-box ol {
+  padding-left: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 2;
+}
+.framework-box ol li::marker { color: var(--text-muted); }
+.framework-box ol strong { color: var(--text-primary); font-weight: 600; }
+
+/* ── TOPIC SECTIONS ── */
+.section-divider {
+  font-family: 'Source Serif 4', serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 56px 0 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.topic {
+  margin-bottom: 36px;
+  padding: 20px 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.2s;
+}
+.topic:hover { border-color: var(--border-accent); }
+
+.topic h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topic h3 .tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.tag-gp { background: #3fb95020; color: var(--accent-green); }
+.tag-gn { background: #d2992220; color: var(--accent-orange); }
+.tag-struct { background: #bc8cff20; color: var(--accent-purple); }
+.tag-fungi { background: #f778ba20; color: var(--accent-pink); }
+.tag-virus { background: #76e3ea20; color: var(--accent-cyan); }
+.tag-abx { background: #f8514920; color: var(--accent-red); }
+.tag-dx { background: #2dd4bf20; color: var(--accent-teal); }
+.tag-immune { background: #58a6ff20; color: var(--accent-blue); }
+.tag-vaccine { background: #d2992220; color: var(--accent-orange); }
+.tag-genetics { background: #bc8cff20; color: var(--accent-purple); }
+
+.field { margin-bottom: 10px; }
+.field-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.field p, .field ul { color: var(--text-secondary); font-size: 14px; }
+.field ul { padding-left: 18px; list-style: disc; }
+.field ul li { margin-bottom: 2px; }
+.field strong { color: var(--text-primary); font-weight: 600; }
+.field em { color: var(--accent-blue); font-style: normal; font-weight: 500; }
+
+.highlight-box {
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent-orange);
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ── PRACTICE ANSWER ── */
+.practice-answer {
+  margin-top: 16px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #1a2332, #172030);
+  border: 1px solid #2a3a50;
+  border-left: 3px solid var(--accent-cyan);
+  border-radius: 0 8px 8px 0;
+  position: relative;
+}
+.practice-answer::before {
+  content: '✎ PRACTICE ANSWER';
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--accent-cyan);
+  display: block;
+  margin-bottom: 10px;
+}
+.practice-answer p {
+  font-family: 'Source Serif 4', serif;
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: #c9d1d9;
+}
+.practice-answer p + p { margin-top: 10px; }
+
+/* ── TOGGLE ── */
+.toggle-notes, .toggle-answer {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 6px;
+  margin-right: 6px;
+  transition: all 0.15s;
+}
+.toggle-notes:hover, .toggle-answer:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+.notes-content { display: block; }
+.notes-content.hidden { display: none; }
+.practice-answer.hidden { display: none; }
+
+/* ── HERO ── */
+.hero { margin-bottom: 44px; }
+.hero h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero p { color: var(--text-secondary); font-size: 15px; max-width: 620px; }
+
+/* ── MOBILE ── */
+.menu-btn {
+  display: none;
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 200;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .menu-btn { display: flex; align-items: center; justify-content: center; }
+  nav { transform: translateX(-100%); transition: transform 0.25s ease; }
+  nav.open { transform: translateX(0); box-shadow: 4px 0 20px #00000060; }
+  main { margin-left: 0; padding: 24px 18px 60px; }
+  .hero h1 { font-size: 26px; }
+}
+
+/* ── Back link ── */
+.back-link{display:flex;align-items:center;gap:6px;padding:8px 20px 12px;
+  font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--text-muted);
+  text-decoration:none;letter-spacing:.05em;transition:color .15s;}
+.back-link:hover{color:var(--accent-blue);}
+.back-link::before{content:"←";}
+</style>
+</head>
+<body>
+
+<button class="menu-btn" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+
+<nav id="sidebar">
+  <a class="back-link" href="index.html">Microbiology</a>
+  <div class="nav-header">
+    <h1>Micro Exam</h1>
+    <p>80/20 Framework + Practice Answers</p>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-title">Frameworks</div>
+    <a href="#fw-organism">Organism Framework</a>
+    <a href="#fw-structure">Structure / VF Framework</a>
+    <a href="#fw-dx">Diagnostic Framework</a>
+    <a href="#fw-drug">Drug Framework</a>
+    <a href="#fw-immune">Immune / Vaccine Framework</a>
+    <a href="#fw-genetics">Genetics Framework</a>
+  </div>
+  <div class="nav-group nav-gp">
+    <div class="nav-group-title">Gram-Positive Bacteria</div>
+    <a href="#staph-aureus">Staphylococci / S. aureus</a>
+    <a href="#strep-pyogenes">Streptococci / S. pyogenes</a>
+    <a href="#listeria">Listeria monocytogenes</a>
+    <a href="#clostridium">C. difficile / C. perfringens</a>
+    <a href="#bacillus">Bacillus spores</a>
+  </div>
+  <div class="nav-group nav-gn">
+    <div class="nav-group-title">Gram-Negative Bacteria</div>
+    <a href="#enterobacteria">Enterobacteria / E. coli</a>
+    <a href="#vibrio">Vibrio cholerae</a>
+    <a href="#salmonella">Salmonella spp</a>
+    <a href="#neisseria">Neisseria gonorrhoeae</a>
+    <a href="#gardnerella">Gardnerella vaginalis</a>
+  </div>
+  <div class="nav-group nav-struct">
+    <div class="nav-group-title">Structures / VFs</div>
+    <a href="#pili">Pili</a>
+    <a href="#biofilm">Biofilm</a>
+    <a href="#capsule">Bacterial Capsule</a>
+    <a href="#plasmid">Plasmid</a>
+  </div>
+  <div class="nav-group nav-fungi">
+    <div class="nav-group-title">Fungi</div>
+    <a href="#candida">Candida albicans</a>
+    <a href="#molds">Molds / Aspergillus / Crypto</a>
+    <a href="#antifungals">Antifungals</a>
+  </div>
+  <div class="nav-group nav-virus">
+    <div class="nav-group-title">Viruses</div>
+    <a href="#dna-viruses">DNA: HPV, Herpes, Adeno, HBV</a>
+    <a href="#rna-resp">RNA Resp: Influenza, Pneumo</a>
+    <a href="#rna-arbo">RNA Arbo: Yellow Fever, Dengue</a>
+    <a href="#hiv">HIV</a>
+    <a href="#hep-c">Hepatitis C</a>
+    <a href="#mmr">Measles / Mumps / Rubella</a>
+    <a href="#rotavirus">Rotavirus</a>
+    <a href="#prions">Prions</a>
+  </div>
+  <div class="nav-group nav-vaccine">
+    <div class="nav-group-title">Vaccines</div>
+    <a href="#tetanus-vax">Tetanus Vaccine</a>
+    <a href="#bcg-vax">BCG Vaccine</a>
+  </div>
+  <div class="nav-group nav-dx">
+    <div class="nav-group-title">Diagnostics / Lab</div>
+    <a href="#gram-stain">Gram Staining</a>
+    <a href="#zn-stain">Ziehl-Neelsen Staining</a>
+    <a href="#cultures">Cultures (Blood/Urine/CSF/Stool)</a>
+    <a href="#elisa-pcr">ELISA / PCR</a>
+    <a href="#chlamydia-dx">Chlamydia Detection</a>
+    <a href="#brucella-dx">Brucellosis Diagnosis</a>
+    <a href="#typhoid-dx">Typhoid Fever Diagnosis</a>
+  </div>
+  <div class="nav-group nav-abx">
+    <div class="nav-group-title">Antibiotics</div>
+    <a href="#beta-lactams">Beta-Lactams</a>
+    <a href="#aminoglycosides">Aminoglycosides</a>
+    <a href="#vancomycin">Vancomycin / Glycopeptides</a>
+    <a href="#abx-mechanisms">Mechanisms Overview</a>
+    <a href="#abx-resistance">Resistance Mechanisms</a>
+    <a href="#abx-test">Antibiotic Susceptibility Test</a>
+  </div>
+  <div class="nav-group nav-immune">
+    <div class="nav-group-title">Immune / Host</div>
+    <a href="#complement">Complement System</a>
+    <a href="#vaginal-flora">Vaginal Flora</a>
+  </div>
+  <div class="nav-group nav-genetics">
+    <div class="nav-group-title">Microbial Genetics</div>
+    <a href="#transduction">Transformation / Transduction</a>
+  </div>
+</nav>
+
+<main>
+
+<div class="hero">
+  <h1>Microbiology Exam Frameworks</h1>
+  <p>Each topic has condensed notes <em>and</em> a practice answer written the way you'd actually write it on an exam. Use the toggle buttons to switch between views. Click any topic in the sidebar to jump.</p>
+</div>
+
+<!-- ═══════ FRAMEWORKS ═══════ -->
+
+<div id="fw-organism" class="framework-box green">
+  <h2>Framework A — Organism (Bacteria, Fungi, Viruses)</h2>
+  <ol>
+    <li><strong>Classification</strong> — Gram +/−, shape, arrangement, DNA/RNA, envelope, etc.</li>
+    <li><strong>Key Virulence Factors</strong> — the 2-3 most important</li>
+    <li><strong>Diseases / Clinical Picture</strong> — 1-2 sentences max</li>
+    <li><strong>Transmission</strong></li>
+    <li><strong>Lab Diagnosis</strong> — stain, culture, molecular</li>
+    <li><strong>Treatment / Prevention</strong></li>
+  </ol>
+</div>
+
+<div id="fw-structure" class="framework-box purple">
+  <h2>Framework B — Structure / Virulence Factor</h2>
+  <ol>
+    <li><strong>What is it?</strong> — definition</li>
+    <li><strong>Structure / Composition</strong></li>
+    <li><strong>Mechanism</strong> — how does it help the bacterium?</li>
+    <li><strong>Clinical Significance</strong></li>
+    <li><strong>Key Examples</strong></li>
+  </ol>
+</div>
+
+<div id="fw-dx" class="framework-box teal">
+  <h2>Framework C — Diagnostic / Lab Method</h2>
+  <ol>
+    <li><strong>Principle</strong> — what does it detect and how?</li>
+    <li><strong>Procedure</strong> — key steps</li>
+    <li><strong>Interpretation</strong></li>
+    <li><strong>Clinical Use</strong></li>
+  </ol>
+</div>
+
+<div id="fw-drug" class="framework-box red">
+  <h2>Framework D — Drug / Antibiotic / Antifungal</h2>
+  <ol>
+    <li><strong>Class &amp; Examples</strong></li>
+    <li><strong>Mechanism of Action</strong></li>
+    <li><strong>Spectrum</strong></li>
+    <li><strong>Resistance</strong></li>
+    <li><strong>Key Clinical Uses</strong></li>
+  </ol>
+</div>
+
+<div id="fw-immune" class="framework-box blue">
+  <h2>Framework E — Immune / Host / Vaccine</h2>
+  <ol>
+    <li><strong>What is it?</strong></li>
+    <li><strong>Components / Composition</strong></li>
+    <li><strong>Mechanism</strong></li>
+    <li><strong>Clinical Significance</strong></li>
+  </ol>
+</div>
+
+<div id="fw-genetics" class="framework-box purple">
+  <h2>Framework F — Microbial Genetics</h2>
+  <ol>
+    <li><strong>Definition</strong></li>
+    <li><strong>Mechanism</strong></li>
+    <li><strong>What gets transferred?</strong></li>
+    <li><strong>Clinical Significance</strong></li>
+  </ol>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- GRAM-POSITIVE -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-green)">Gram-Positive Bacteria</h2>
+
+<!-- ── STAPH ── -->
+<div class="topic" id="staph-aureus">
+  <h3>Staphylococci / <em>S. aureus</em> <span class="tag tag-gp">G+</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div>
+    <p>Gram-positive cocci in <strong>clusters</strong>. Catalase-positive (vs Strep). <em>S. aureus</em> is <strong>coagulase-positive</strong> (vs CoNS like S. epidermidis).</p></div>
+    <div class="field"><div class="field-label">Key Virulence Factors</div>
+    <ul>
+      <li><strong>Protein A</strong> — binds Fc of IgG → prevents opsonisation</li>
+      <li><strong>Coagulase</strong> — fibrinogen → fibrin clot around bacterium</li>
+      <li><strong>Toxins:</strong> Enterotoxins (food poisoning, superantigen), TSST-1 (toxic shock), PVL (necrotising pneumonia), Exfoliative toxin (scalded skin)</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Diseases</div>
+    <p>Skin infections, bacteraemia, endocarditis, osteomyelitis, food poisoning (preformed toxin, rapid 2-6 hrs, no fever). MRSA = major nosocomial pathogen.</p></div>
+    <div class="field"><div class="field-label">Lab Diagnosis</div>
+    <p>Gram stain → clusters. Gold-yellow colonies on blood agar. Coagulase +. Mannitol salt agar → ferments mannitol (yellow).</p></div>
+    <div class="field"><div class="field-label">Treatment</div>
+    <p>MSSA → flucloxacillin. MRSA → vancomycin.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Staphylococcus aureus is a Gram-positive coccus that appears in grape-like clusters on Gram stain. It is differentiated from other staphylococci by being coagulase-positive and from streptococci by being catalase-positive. On culture it produces characteristic gold-yellow colonies on blood agar with beta-haemolysis, and it ferments mannitol on mannitol salt agar, turning the medium yellow.</p>
+    <p>Its major virulence factors include Protein A, which binds the Fc region of IgG and thereby prevents opsonisation and phagocytosis, and coagulase, which converts fibrinogen to fibrin creating a protective clot around the organism. S. aureus also produces a range of toxins: enterotoxins that act as superantigens and cause food poisoning characterised by rapid onset vomiting within 2-6 hours with notably no fever (since it is a preformed toxin), TSST-1 which causes toxic shock syndrome, PVL associated with necrotising pneumonia, and exfoliative toxin causing scalded skin syndrome.</p>
+    <p>Clinically it causes skin and soft tissue infections such as abscesses and boils, as well as more serious conditions like bacteraemia, endocarditis, and osteomyelitis. MRSA strains carry the mecA gene encoding an altered PBP2a with low beta-lactam affinity, making them resistant to all beta-lactams. Treatment of MSSA is with flucloxacillin (a penicillinase-resistant penicillin), while MRSA requires vancomycin. S. aureus is carried asymptomatically in the nasal passages of roughly 30% of the population, and transmission occurs via direct contact and fomites.</p>
+  </div>
+</div>
+
+<!-- ── STREP ── -->
+<div class="topic" id="strep-pyogenes">
+  <h3>Streptococci / <em>S. pyogenes</em> <span class="tag tag-gp">G+</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div>
+    <p>Gram-positive cocci in <strong>chains</strong>. Catalase-negative. GAS = <strong>Group A Strep</strong>, beta-haemolytic. Lancefield grouping by C-carbohydrate.</p></div>
+    <div class="field"><div class="field-label">Key Virulence</div>
+    <ul>
+      <li><strong>M protein</strong> — antiphagocytic, serotyping basis, molecular mimicry → rheumatic fever</li>
+      <li><strong>Streptolysin O &amp; S</strong> — lyse RBCs. ASO titre detects past infection.</li>
+      <li><strong>Hyaluronidase / Streptokinase</strong> — tissue spread</li>
+      <li><strong>Erythrogenic exotoxins</strong> — superantigens → scarlet fever</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Diseases</div>
+    <p>Pharyngitis, impetigo, cellulitis, necrotising fasciitis, scarlet fever. Post-infectious: rheumatic fever, post-strep glomerulonephritis.</p></div>
+    <div class="field"><div class="field-label">Lab Diagnosis</div>
+    <p>Chains on Gram stain. Beta-haemolysis. <strong>Bacitracin-sensitive</strong> (vs GBS resistant). Rapid antigen test. ASO titre.</p></div>
+    <div class="field"><div class="field-label">Treatment</div>
+    <p><strong>Penicillin</strong> (no resistance in GAS). Erythromycin if allergic.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Streptococcus pyogenes is a Gram-positive coccus that grows in chains and is classified as Group A Streptococcus (GAS) under the Lancefield system, which is based on the C-carbohydrate antigen on the cell wall. It is catalase-negative, which distinguishes it from staphylococci, and produces beta-haemolysis (complete clearing) on blood agar. It is characteristically sensitive to bacitracin, which differentiates it from Group B streptococci.</p>
+    <p>The most important virulence factor is the M protein, which is antiphagocytic and serves as the basis for serotyping. The M protein is also clinically significant because of molecular mimicry with cardiac tissue, which can lead to rheumatic fever as a post-infectious complication. Other virulence factors include streptolysin O and S, which are haemolysins — streptolysin O is immunogenic and the basis for the ASO titre, a serological marker used to confirm recent streptococcal infection. The organism also produces hyaluronidase and streptokinase, which help it spread through tissues, and erythrogenic exotoxins that act as superantigens and cause the rash of scarlet fever.</p>
+    <p>S. pyogenes causes pharyngitis, impetigo, cellulitis, and in severe cases necrotising fasciitis. The two major post-infectious sequelae are rheumatic fever (following pharyngitis only, due to M protein cross-reactivity) and post-streptococcal glomerulonephritis (following either skin or throat infection). Diagnosis is by Gram stain, culture showing beta-haemolysis and bacitracin sensitivity, rapid antigen detection test from a throat swab, and ASO titre for past infections. Treatment is penicillin, to which GAS has never developed resistance, or erythromycin in penicillin-allergic patients.</p>
+  </div>
+</div>
+
+<!-- ── LISTERIA ── -->
+<div class="topic" id="listeria">
+  <h3><em>Listeria monocytogenes</em> <span class="tag tag-gp">G+</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div>
+    <p>Gram-positive rod. Facultative intracellular. Beta-haemolytic. <strong>Tumbling motility at room temp</strong> (not 37°C). Grows at <strong>4°C</strong>.</p></div>
+    <div class="field"><div class="field-label">Virulence</div>
+    <ul>
+      <li><strong>Listeriolysin O (LLO)</strong> — escapes phagosome</li>
+      <li><strong>ActA</strong> — actin rocket-tail → cell-to-cell spread (evades antibodies)</li>
+      <li><strong>Internalin</strong> — invades non-phagocytic cells, crosses placenta and BBB</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Disease</div>
+    <p>Meningitis/septicaemia in neonates, pregnant women, elderly, immunocompromised. Foodborne: unpasteurised dairy, deli meats.</p></div>
+    <div class="field"><div class="field-label">Treatment</div>
+    <p><strong>Ampicillin ± gentamicin</strong>. Naturally resistant to cephalosporins.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Listeria monocytogenes is a Gram-positive rod (bacillus) that is a facultative intracellular pathogen, meaning it can survive and replicate inside host macrophages. It is beta-haemolytic on blood agar and has a distinctive tumbling motility at room temperature (25°C) due to flagella expression, although it is non-motile at 37°C. A key microbiological feature is its ability to grow at 4°C (refrigerator temperature), which is exploited in cold enrichment techniques in the lab and explains why refrigerated foods like unpasteurised dairy, soft cheeses, and deli meats are the main vehicles for transmission.</p>
+    <p>Its intracellular lifecycle depends on three major virulence factors. Listeriolysin O (LLO) is a pore-forming toxin that allows the bacterium to escape from the phagosome into the cytoplasm, avoiding lysosomal killing. Once in the cytoplasm, ActA recruits host actin filaments to form an "actin rocket tail" that propels the bacterium through the cytoplasm and directly into adjacent cells, allowing cell-to-cell spread without ever entering the extracellular space — thereby evading antibodies. Internalin proteins mediate invasion into non-phagocytic cells and are responsible for the organism's ability to cross the placenta and the blood-brain barrier.</p>
+    <p>Clinically, Listeria causes meningitis and septicaemia primarily in neonates, pregnant women (who are about 20 times more susceptible), the elderly, and immunocompromised patients. It is diagnosed by blood or CSF culture. Treatment is with ampicillin, often combined with gentamicin for synergistic bactericidal activity. Importantly, Listeria is naturally resistant to cephalosporins, so empirical meningitis regimens must include ampicillin if Listeria is suspected.</p>
+  </div>
+</div>
+
+<!-- ── CLOSTRIDIUM ── -->
+<div class="topic" id="clostridium">
+  <h3><em>C. difficile</em> &amp; <em>C. perfringens</em> <span class="tag tag-gp">G+</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Shared</div><p>Gram-positive rods, spore-forming, obligate anaerobes.</p></div>
+    <div class="field"><div class="field-label">C. difficile</div>
+    <ul>
+      <li>Toxin A (enterotoxin) + Toxin B (cytotoxin) → pseudomembranous colitis</li>
+      <li>Risk: broad-spectrum antibiotics (clindamycin, fluoroquinolones, cephalosporins)</li>
+      <li>Dx: stool toxin ELISA, PCR for toxin genes, GDH screening</li>
+      <li>Tx: oral vancomycin or fidaxomicin. Stop offending antibiotic. Severe → FMT.</li>
+    </ul></div>
+    <div class="field"><div class="field-label">C. perfringens</div>
+    <ul>
+      <li>Alpha toxin (lecithinase/phospholipase C) → gas gangrene</li>
+      <li>Also: food poisoning (enterotoxin, self-limiting)</li>
+      <li>Gas gangrene: crepitus, rapid tissue destruction</li>
+      <li>Tx: surgical debridement + penicillin + clindamycin</li>
+    </ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Clostridium difficile and Clostridium perfringens are both Gram-positive, spore-forming, obligate anaerobic rods, but they cause very different diseases.</p>
+    <p>C. difficile is the most important cause of antibiotic-associated diarrhoea and pseudomembranous colitis. It produces two main toxins: Toxin A, an enterotoxin that causes fluid secretion, and Toxin B, a cytotoxin that damages the colonic mucosa. Both toxins glycosylate Rho GTPases, disrupting the actin cytoskeleton. The disease typically occurs after broad-spectrum antibiotic use — especially clindamycin, fluoroquinolones, and cephalosporins — because these antibiotics disrupt the normal colonic flora and allow C. difficile spores (which persist in the hospital environment) to germinate and overgrow. Diagnosis is made by detecting toxins A and B in stool via ELISA, or by PCR for toxin genes. GDH (glutamate dehydrogenase) is used as a rapid screening test. Treatment involves stopping the offending antibiotic and starting oral vancomycin or fidaxomicin. In severe or recurrent cases, faecal microbiota transplant (FMT) is effective.</p>
+    <p>C. perfringens causes gas gangrene (myonecrosis), primarily through its alpha toxin, which is a lecithinase (phospholipase C) that degrades cell membranes, leading to rapid tissue destruction and gas production in the tissues (crepitus on palpation). It also causes a self-limiting food poisoning through a separate enterotoxin. Gas gangrene is diagnosed clinically and by Gram stain of wound exudate showing large Gram-positive rods. Treatment requires urgent surgical debridement along with high-dose penicillin and clindamycin (which inhibits toxin production).</p>
+  </div>
+</div>
+
+<!-- ── BACILLUS ── -->
+<div class="topic" id="bacillus">
+  <h3>Bacillus Spores <span class="tag tag-gp">G+</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div>
+    <p>Gram-positive, large spore-forming rods, <strong>aerobic</strong> (vs Clostridium = anaerobic). B. anthracis, B. cereus.</p></div>
+    <div class="field"><div class="field-label">Spores</div>
+    <p>Endospores: metabolically dormant, resist heat, desiccation, chemicals, radiation. Dipicolinic acid + calcium = heat resistance.</p></div>
+    <div class="field"><div class="field-label">B. anthracis</div>
+    <ul>
+      <li>Poly-D-glutamic acid capsule (unique, antiphagocytic) + anthrax toxin (PA + EF + LF)</li>
+      <li>Non-motile, non-haemolytic. Cutaneous (black eschar), inhalational, GI forms.</li>
+    </ul></div>
+    <div class="field"><div class="field-label">B. cereus</div>
+    <p>Food poisoning: emetic form (reheated rice, preformed toxin) and diarrhoeal form (heat-labile enterotoxin).</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Bacillus species are Gram-positive, large spore-forming rods that are aerobic, distinguishing them from the anaerobic spore-formers of the genus Clostridium. Their endospores are metabolically dormant structures that are highly resistant to heat, desiccation, chemical disinfectants, and radiation, largely due to the presence of dipicolinic acid and calcium in the spore core. Spores can persist in the environment for decades and require specific autoclaving conditions for sterilisation.</p>
+    <p>B. anthracis, the causative agent of anthrax, is the most clinically significant species. It produces a unique poly-D-glutamic acid capsule (most bacterial capsules are polysaccharide) that is antiphagocytic, and a tripartite anthrax toxin composed of protective antigen (PA), edema factor (EF, an adenylate cyclase), and lethal factor (LF, a metalloprotease). Importantly, B. anthracis is non-motile and non-haemolytic, which distinguishes it from B. cereus. It causes three forms of disease: cutaneous anthrax characterised by a painless black eschar, inhalational anthrax (woolsorter's disease) with a very high mortality, and gastrointestinal anthrax.</p>
+    <p>B. cereus is a common cause of food poisoning with two distinct presentations. The emetic form is classically associated with reheated fried rice and is caused by a preformed heat-stable toxin (cereulide), producing rapid-onset vomiting. The diarrhoeal form is caused by a heat-labile enterotoxin with a slower onset. Both are generally self-limiting.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- GRAM-NEGATIVE -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-orange)">Gram-Negative Bacteria</h2>
+
+<!-- ── ENTERO ── -->
+<div class="topic" id="enterobacteria">
+  <h3>Enterobacteriaceae / <em>E. coli</em> <span class="tag tag-gn">G−</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div>
+    <p>Gram-negative rods, facultative anaerobes. LPS endotoxin (Lipid A). Oxidase-negative. Ferment glucose.</p></div>
+    <div class="field"><div class="field-label">E. coli Pathotypes</div>
+    <ul>
+      <li><strong>ETEC</strong> — traveller's diarrhoea. LT (↑cAMP) + ST (↑cGMP).</li>
+      <li><strong>EHEC</strong> (O157:H7) — Shiga-like toxin → bloody diarrhoea, HUS. No antibiotics!</li>
+      <li><strong>EIEC</strong> — invades mucosa, dysentery-like</li>
+      <li><strong>EPEC</strong> — attaching/effacing, infantile diarrhoea</li>
+      <li><strong>UPEC</strong> — #1 UTI cause, P-fimbriae</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Lab</div>
+    <p>Lactose fermenter → pink on MacConkey. Green metallic sheen on EMB. O157:H7 doesn't ferment sorbitol.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>The Enterobacteriaceae are a large family of Gram-negative, facultatively anaerobic rods that are oxidase-negative and ferment glucose. All members possess LPS (lipopolysaccharide) in their outer membrane, and the Lipid A component is the endotoxin responsible for triggering septic shock through activation of TNF and IL-1 release. E. coli is the prototypical member of this family.</p>
+    <p>E. coli has several pathotypes that cause distinct diseases. ETEC (enterotoxigenic) is the leading cause of traveller's diarrhoea and produces a heat-labile toxin (LT) that increases cAMP — mechanistically similar to cholera toxin — and a heat-stable toxin (ST) that increases cGMP, both leading to watery diarrhoea. EHEC (enterohaemorrhagic), specifically serotype O157:H7, produces a Shiga-like toxin and causes bloody diarrhoea that can progress to haemolytic uraemic syndrome (HUS), characterised by thrombocytopenia, microangiopathic haemolytic anaemia, and acute renal failure. Antibiotics are contraindicated because they increase toxin release. UPEC (uropathogenic) is the number one cause of urinary tract infections, using P-fimbriae to attach to uroepithelial cells and type 1 fimbriae for colonisation. E. coli K1 capsular antigen is associated with neonatal meningitis.</p>
+    <p>In the lab, E. coli is identified as a lactose fermenter, producing pink colonies on MacConkey agar and a characteristic green metallic sheen on EMB (eosin methylene blue) agar. The O157:H7 serotype is distinguished by its inability to ferment sorbitol on sorbitol-MacConkey agar.</p>
+  </div>
+</div>
+
+<!-- ── VIBRIO ── -->
+<div class="topic" id="vibrio">
+  <h3><em>Vibrio cholerae</em> <span class="tag tag-gn">G−</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div><p>Gram-negative comma-shaped rod. Oxidase-positive. TCBS agar → yellow. Serotypes O1, O139.</p></div>
+    <div class="field"><div class="field-label">Virulence</div>
+    <ul>
+      <li>Cholera toxin (AB) — B binds GM1, A ADP-ribosylates Gs → ↑cAMP → Cl⁻/H₂O secretion</li>
+      <li>TCP — colonisation pilus</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Disease</div><p>Rice-water stool, massive watery diarrhoea, no blood/fever. Tx: ORT, doxycycline.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Vibrio cholerae is a Gram-negative, comma-shaped (curved) rod that is oxidase-positive, distinguishing it from the Enterobacteriaceae. It grows on TCBS (thiosulfate citrate bile salts sucrose) agar, producing yellow colonies due to sucrose fermentation. The epidemic-causing serotypes are O1 and O139.</p>
+    <p>The key virulence factor is cholera toxin, an AB-type exotoxin. The B subunit binds to the GM1 ganglioside receptor on intestinal epithelial cells, and the A subunit enters the cell where it ADP-ribosylates the Gs alpha subunit, permanently activating adenylate cyclase. This leads to a sustained increase in intracellular cAMP, which opens CFTR chloride channels and causes massive secretion of chloride and water into the intestinal lumen. The toxin-coregulated pilus (TCP) is essential for intestinal colonisation. Importantly, the cholera toxin gene is carried by a lysogenic bacteriophage (CTXφ), meaning non-toxigenic strains can acquire virulence through specialised transduction.</p>
+    <p>The clinical presentation is profuse "rice-water" watery diarrhoea that can lead to severe isotonic dehydration and death within hours if untreated. There is no mucosal invasion, so there is no blood in the stool and no fever. Treatment is primarily aggressive fluid replacement with oral rehydration therapy (ORT), and doxycycline can shorten the duration and reduce fluid losses.</p>
+  </div>
+</div>
+
+<!-- ── SALMONELLA ── -->
+<div class="topic" id="salmonella">
+  <h3><em>Salmonella</em> spp <span class="tag tag-gn">G−</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div><p>G− rods, non-lactose fermenter (colourless MacConkey), H₂S producer (black on XLD), motile.</p></div>
+    <div class="field"><div class="field-label">Two Syndromes</div>
+    <ul>
+      <li>Non-typhoidal (S. enteritidis) — gastroenteritis, poultry/eggs. Sickle cell → osteomyelitis.</li>
+      <li>Typhoidal (S. typhi) — systemic. Vi capsule, intracellular. Stepwise fever, rose spots, chronic carriers (gallbladder).</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Typhoid Dx</div><p>Week 1: blood culture. Week 2+: stool. Widal test (anti-O, anti-H). Tx: ciprofloxacin/ceftriaxone.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Salmonella species are Gram-negative, motile rods belonging to the Enterobacteriaceae family. They are non-lactose fermenters, appearing as colourless colonies on MacConkey agar, and produce hydrogen sulfide, forming black colonies on XLD and Hektoen enteric agar. There are two main clinical presentations.</p>
+    <p>Non-typhoidal Salmonella species such as S. enteritidis and S. typhimurium cause gastroenteritis, typically acquired from contaminated poultry and eggs. The infection is usually self-limiting and treated supportively. A notable association is that patients with sickle cell disease are predisposed to Salmonella osteomyelitis.</p>
+    <p>S. typhi causes typhoid (enteric) fever, a systemic illness quite different from simple gastroenteritis. S. typhi is a facultative intracellular organism that survives within macrophages, allowing it to disseminate systemically. Its Vi (virulence) polysaccharide capsule is antiphagocytic and is the target of the typhoid vaccine. The classic presentation is a stepwise rising fever, relative bradycardia, rose spots on the abdomen, and hepatosplenomegaly. Diagnosis depends on timing: blood culture is most sensitive in the first week of illness and is the gold standard. Stool culture becomes positive from the second week onwards. The Widal test detects agglutinating antibodies against the O (somatic) and H (flagellar) antigens, though its specificity is limited in endemic areas. Treatment is with ciprofloxacin or ceftriaxone. Chronic carriage in the gallbladder occurs in approximately 1-5% of patients and can be a source of ongoing transmission.</p>
+  </div>
+</div>
+
+<!-- ── NEISSERIA ── -->
+<div class="topic" id="neisseria">
+  <h3><em>Neisseria gonorrhoeae</em> <span class="tag tag-gn">G−</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div><p>G− diplococci (kidney-bean shaped), intracellular. Oxidase+. Thayer-Martin agar. No capsule (vs N. meningitidis).</p></div>
+    <div class="field"><div class="field-label">Virulence</div>
+    <ul>
+      <li>Pili (antigenic variation), Opa proteins, IgA protease, LOS</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Disease</div><p>Urethritis, cervicitis, PID, neonatal ophthalmia, disseminated → septic arthritis.</p></div>
+    <div class="field"><div class="field-label">Dx &amp; Tx</div><p>Gram stain (intracellular diplococci), Thayer-Martin, NAAT (gold standard). Tx: ceftriaxone IM + azithromycin.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Neisseria gonorrhoeae is a Gram-negative diplococcus with a characteristic kidney-bean or coffee-bean morphology, often seen intracellularly within neutrophils on Gram stain of urethral discharge (this finding is highly sensitive in symptomatic males). It is oxidase-positive and grows on Thayer-Martin medium, which is a chocolate agar supplemented with antibiotics (vancomycin, colistin, nystatin) to inhibit normal flora. Unlike N. meningitidis, N. gonorrhoeae does not possess a polysaccharide capsule, which is one reason no effective vaccine exists.</p>
+    <p>Its major virulence factors include type IV pili, which mediate initial attachment to mucosal epithelium and undergo extensive antigenic variation through recombination of silent pilin gene cassettes, allowing the organism to continuously evade the immune response. Opa (opacity) proteins contribute to adhesion and invasion. IgA protease cleaves secretory IgA at mucosal surfaces, undermining the first line of humoral defence. LOS (lipo-oligosaccharide) triggers the intense inflammatory response.</p>
+    <p>N. gonorrhoeae causes urethritis with purulent discharge in men, cervicitis in women (often asymptomatic), and can ascend to cause pelvic inflammatory disease (PID) leading to infertility. Neonatal ophthalmia neonatorum can occur during passage through an infected birth canal and is prevented with erythromycin eye drops. Disseminated gonococcal infection causes septic arthritis and skin lesions. The gold standard for diagnosis is now NAAT (nucleic acid amplification test / PCR) from a urethral swab or urine sample. Treatment is with intramuscular ceftriaxone, often combined with azithromycin to cover potential Chlamydia co-infection. N. gonorrhoeae has developed widespread resistance to penicillin and fluoroquinolones.</p>
+  </div>
+</div>
+
+<!-- ── GARDNERELLA ── -->
+<div class="topic" id="gardnerella">
+  <h3><em>Gardnerella vaginalis</em> <span class="tag tag-gn">G−</span></h3>
+  <div class="toggle-row">
+    <button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button>
+    <button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button>
+  </div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div><p>Gram-variable coccobacillus. Key organism in bacterial vaginosis (BV).</p></div>
+    <div class="field"><div class="field-label">Mechanism</div><p>BV = loss of Lactobacillus → ↑pH (>4.5) → Gardnerella + anaerobe overgrowth → amines.</p></div>
+    <div class="field"><div class="field-label">Dx: Amsel Criteria (3/4)</div>
+    <ul>
+      <li>Thin homogeneous discharge</li><li>pH > 4.5</li><li>Positive whiff test (KOH)</li><li>Clue cells on wet mount</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Treatment</div><p>Metronidazole or clindamycin.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Gardnerella vaginalis is a Gram-variable (often classified as Gram-negative) pleomorphic coccobacillus that is the key organism associated with bacterial vaginosis (BV), which is a condition of vaginal dysbiosis rather than a true infection. BV occurs when the normal vaginal flora, dominated by hydrogen peroxide-producing Lactobacillus species that maintain an acidic pH below 4.5, is disrupted. This allows overgrowth of Gardnerella along with anaerobes such as Prevotella and Mobiluncus, leading to increased vaginal pH above 4.5 and production of volatile amines that cause the characteristic fishy odour.</p>
+    <p>Diagnosis is typically made using the Amsel criteria, of which three out of four must be present: a thin, homogeneous greyish-white discharge; vaginal pH greater than 4.5; a positive whiff test (fishy odour upon adding 10% KOH to the discharge); and the presence of clue cells on wet mount microscopy — these are vaginal epithelial cells whose borders are obscured by adherent bacteria, giving them a stippled or granular appearance. The Nugent score, which grades Gram-stained vaginal smears based on bacterial morphotypes, is the gold standard for research purposes. Treatment is with metronidazole, either oral or intravaginal, or alternatively clindamycin. BV is not considered a sexually transmitted infection in the traditional sense but is associated with sexual activity.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- STRUCTURES / VFs -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-purple)">Bacterial Structures / Virulence Factors</h2>
+
+<div class="topic" id="pili">
+  <h3>Pili (Fimbriae) <span class="tag tag-struct">VF</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Definition</div><p>Hair-like pilin protein appendages. Shorter/thinner than flagella.</p></div>
+    <div class="field"><div class="field-label">Types</div>
+    <ul>
+      <li>Common pili — adhesion (UPEC type 1 fimbriae, P-pili)</li>
+      <li>Sex pilus (F pilus) — conjugation / DNA transfer</li>
+      <li>Type IV pili — twitching motility + adhesion (N. gonorrhoeae, Pseudomonas). Antigenic variation.</li>
+    </ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Pili, also called fimbriae, are short, hair-like protein appendages on the bacterial surface composed of repeating pilin subunits. They are structurally distinct from flagella, being shorter and thinner and serving adhesion rather than locomotion functions. Common pili (fimbriae) mediate attachment to host cell receptors, which is often the critical first step in establishing infection. For example, uropathogenic E. coli (UPEC) uses type 1 fimbriae to bind mannose residues on bladder epithelium, and P-fimbriae to attach to the renal epithelium, enabling ascending urinary tract infections.</p>
+    <p>The sex pilus, encoded by the F (fertility) plasmid, is a specialised structure that forms a bridge between two bacterial cells during conjugation, facilitating the transfer of plasmid DNA — including antibiotic resistance genes carried on R plasmids — from donor to recipient. Type IV pili, found in organisms like Neisseria gonorrhoeae and Pseudomonas aeruginosa, are particularly important because they mediate both adhesion and a form of movement called twitching motility. In N. gonorrhoeae, type IV pili undergo extensive antigenic variation through recombination of silent pilin gene copies, allowing the bacterium to continuously change its surface antigens and evade the host immune response, which is a major reason no effective gonococcal vaccine has been developed.</p>
+  </div>
+</div>
+
+<div class="topic" id="biofilm">
+  <h3>Biofilm <span class="tag tag-struct">VF</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Definition</div><p>Structured bacterial community in self-produced EPS matrix (polysaccharides, proteins, DNA) on surfaces.</p></div>
+    <div class="field"><div class="field-label">Steps</div><p>Attachment → microcolony → maturation → dispersal.</p></div>
+    <div class="field"><div class="field-label">Significance</div><p>10-1000x antibiotic resistance. Immune evasion. Medical device infections. Key: S. epidermidis, Pseudomonas, S. aureus.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>A biofilm is a structured community of bacteria encased within a self-produced extracellular polymeric substance (EPS) matrix composed of polysaccharides, proteins, and extracellular DNA, adhered to a surface. Biofilm formation proceeds through defined stages: initial attachment of planktonic bacteria to a surface (often mediated by pili and adhesins), formation of microcolonies, maturation into a three-dimensional architecture with water channels, and finally dispersal of cells to colonise new sites.</p>
+    <p>The clinical significance of biofilms is immense because bacteria within biofilms are 10 to 1000 times more resistant to antibiotics than their planktonic counterparts, due to poor antibiotic penetration through the EPS matrix, reduced metabolic activity of cells deep within the biofilm, and the presence of persister cells. Biofilms also shield bacteria from phagocytes, which cannot effectively penetrate the matrix. This makes biofilm-associated infections extremely difficult to treat and often requires removal of the colonised device. Biofilms are the primary pathogenic mechanism in infections of medical devices such as intravenous catheters, prosthetic joints, heart valves, and urinary catheters. The most important biofilm-forming organisms include Staphylococcus epidermidis (the leading cause of prosthetic device infections), Pseudomonas aeruginosa (chronic lung infections in cystic fibrosis), and Staphylococcus aureus.</p>
+  </div>
+</div>
+
+<div class="topic" id="capsule">
+  <h3>Bacterial Capsule <span class="tag tag-struct">VF</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Composition</div><p>Usually polysaccharide (exception: B. anthracis = poly-D-glutamic acid). Visualised by India ink or quellung reaction.</p></div>
+    <div class="field"><div class="field-label">Function</div><p>Antiphagocytic — prevents opsonisation and complement deposition.</p></div>
+    <div class="field"><div class="field-label">Key Organisms</div><p>"Some Killers Have Pretty Nice Capsules" — S. pneumoniae, Klebsiella, H. influenzae, Pseudomonas, N. meningitidis, Cryptococcus. Also E. coli K1, GBS, Salmonella Vi.</p></div>
+    <div class="field"><div class="field-label">Vaccines</div><p>Capsule = major vaccine target (conjugate vaccines). Asplenic patients vulnerable.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>The bacterial capsule is a well-organised layer, usually composed of polysaccharide, that surrounds the cell wall. The notable exception is Bacillus anthracis, whose capsule is made of poly-D-glutamic acid. The capsule can be visualised by negative staining with India ink (the capsule appears as a clear halo against a dark background, classically used for Cryptococcus neoformans in CSF), or by the quellung reaction, in which type-specific anticapsular antibodies cause the capsule to swell and become more visible under light microscopy.</p>
+    <p>The primary function of the capsule is to resist phagocytosis. It achieves this by preventing complement C3b from depositing on the bacterial surface, thus inhibiting opsonisation and subsequent phagocytic uptake. This makes encapsulated organisms particularly virulent, especially in patients who lack a functioning spleen, since the spleen is the primary organ for clearing poorly opsonised encapsulated bacteria from the blood. The major encapsulated organisms can be remembered by the mnemonic "Some Killers Have Pretty Nice Capsules": Streptococcus pneumoniae, Klebsiella pneumoniae, Haemophilus influenzae, Pseudomonas aeruginosa, Neisseria meningitidis, and Cryptococcus neoformans. Others include E. coli (K1 capsule in neonatal meningitis), Group B Streptococcus, and Salmonella typhi (Vi capsule).</p>
+    <p>The capsular polysaccharide is a key vaccine target. Conjugate vaccines, which link the polysaccharide to a protein carrier to elicit a T-cell-dependent response (important for children under 2 whose immune systems respond poorly to pure polysaccharide antigens), have been highly successful for pneumococcal, meningococcal, and Haemophilus influenzae type b infections.</p>
+  </div>
+</div>
+
+<div class="topic" id="plasmid">
+  <h3>Plasmid <span class="tag tag-struct">VF</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Definition</div><p>Small, circular, extrachromosomal DNA. Self-replicating. Not essential but confers advantages.</p></div>
+    <div class="field"><div class="field-label">Types</div>
+    <ul>
+      <li>R plasmids — antibiotic resistance genes (biggest concern)</li>
+      <li>F plasmid — sex pilus, conjugation</li>
+      <li>Virulence plasmids — toxins, adhesins</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Transfer</div><p>Mainly conjugation (sex pilus) — horizontal gene transfer, even between unrelated species.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Plasmids are small, circular, double-stranded, extrachromosomal DNA molecules that replicate independently of the bacterial chromosome. They are not essential for bacterial survival under normal conditions but carry genes that confer selective advantages, most importantly antibiotic resistance.</p>
+    <p>R (resistance) plasmids are the most clinically significant type, as they carry genes encoding enzymes such as beta-lactamases, aminoglycoside-modifying enzymes, and efflux pumps that confer resistance to multiple antibiotics simultaneously. F (fertility) plasmids encode the sex pilus and the machinery necessary for conjugation, the process by which plasmid DNA is transferred directly from a donor (F+) to a recipient (F−) bacterium through cell-to-cell contact. Virulence plasmids carry genes for toxins and adhesins — for example, the heat-labile enterotoxin of ETEC E. coli is plasmid-encoded.</p>
+    <p>The main method of plasmid transfer is conjugation, which is the most clinically important mechanism of horizontal gene transfer because it allows resistance genes to spread rapidly between bacteria, even between unrelated species. This is the primary driver of the global antibiotic resistance crisis. Plasmids can also carry transposons ("jumping genes") that can move resistance genes from plasmid to chromosome and vice versa, further increasing the genetic flexibility of bacteria.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- FUNGI -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-pink)">Fungi</h2>
+
+<div class="topic" id="candida">
+  <h3><em>Candida albicans</em> <span class="tag tag-fungi">Fungi</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div><p>Yeast, budding. Pseudohyphae/hyphae in tissue. Germ tube at 37°C in serum (diagnostic). Sabouraud agar.</p></div>
+    <div class="field"><div class="field-label">Disease</div><p>Oral thrush, vulvovaginal candidiasis, oesophageal candidiasis (AIDS-defining), candidaemia.</p></div>
+    <div class="field"><div class="field-label">Risk Factors</div><p>Immunosuppression, antibiotics, diabetes, catheters, steroids.</p></div>
+    <div class="field"><div class="field-label">Tx</div><p>Topical nystatin/clotrimazole. Systemic: fluconazole. Severe: echinocandins or amphotericin B.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Candida albicans is an oval, budding yeast that is part of the normal flora of the oral cavity, GI tract, and vagina, but becomes pathogenic when host defences are compromised. It is unique among fungi in that it forms pseudohyphae and true hyphae in tissue at 37°C, and this yeast-to-hyphal transition is itself a virulence factor as the hyphal form is more invasive. C. albicans is identified in the lab by the germ tube test — when incubated in serum at 37°C, it forms germ tubes (early hyphae), distinguishing it from other Candida species. It grows on Sabouraud dextrose agar and can be speciated using CHROMagar. On KOH preparation of clinical specimens, budding yeasts with pseudohyphae are seen.</p>
+    <p>Risk factors for candidiasis include immunosuppression (especially HIV/AIDS), broad-spectrum antibiotic use (which eliminates competing bacterial flora), diabetes mellitus, indwelling catheters, corticosteroid use, and total parenteral nutrition. Clinically, it causes oral thrush (white plaques that can be scraped off), vulvovaginal candidiasis, nappy rash, and oesophageal candidiasis (which is an AIDS-defining illness occurring at low CD4 counts). Candidaemia and invasive candidiasis occur in ICU patients, particularly those with central venous catheters. Treatment depends on severity: topical nystatin or clotrimazole for mucosal infections, oral fluconazole (an azole that inhibits ergosterol synthesis via CYP450 14-alpha-demethylase) for systemic but non-severe infections, and echinocandins like caspofungin (which inhibit beta-1,3-glucan synthase in the cell wall) or amphotericin B for severe or azole-resistant infections.</p>
+  </div>
+</div>
+
+<div class="topic" id="molds">
+  <h3>Molds: <em>Aspergillus</em> &amp; <em>Cryptococcus</em> <span class="tag tag-fungi">Fungi</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Aspergillus</div><ul>
+      <li>Septate hyphae, 45° acute-angle branching (V-shaped)</li>
+      <li>Invasive aspergillosis (neutropenic), aspergilloma, ABPA</li>
+      <li>Dx: galactomannan antigen, CT halo sign. Tx: voriconazole</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Cryptococcus</div><ul>
+      <li>Encapsulated yeast. NOT dimorphic. Pigeon droppings.</li>
+      <li>Meningoencephalitis in AIDS (CD4 < 100)</li>
+      <li>Dx: India ink, CrAg, mucicarmine. Tx: amphotericin B + flucytosine → fluconazole</li>
+    </ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Aspergillus species, most commonly A. fumigatus, are ubiquitous molds found in soil and decaying vegetation. On histology, they display septate hyphae with dichotomous branching at acute 45-degree angles (V-shaped), which distinguishes them from Mucor/Rhizopus species that have non-septate (pauciseptate) hyphae branching at wide 90-degree angles. Aspergillus causes a spectrum of diseases depending on host immunity. In severely neutropenic patients (such as those undergoing chemotherapy or stem cell transplant), invasive pulmonary aspergillosis is a life-threatening infection characterised by angioinvasion, tissue necrosis, and haemoptysis. An aspergilloma is a fungal ball that grows in a pre-existing lung cavity (e.g., from old TB). Allergic bronchopulmonary aspergillosis (ABPA) occurs in asthmatics as a hypersensitivity response with eosinophilia and elevated IgE. Diagnosis of invasive aspergillosis relies on the serum galactomannan antigen test, CT imaging showing a "halo sign" (ground glass surrounding a nodule), and biopsy. Treatment is with voriconazole as first-line.</p>
+    <p>Cryptococcus neoformans is an encapsulated yeast (not a mold, and not dimorphic) found in pigeon droppings. It is the most important cause of fungal meningoencephalitis, occurring primarily in HIV/AIDS patients with CD4 counts below 100. Its thick polysaccharide capsule is its major virulence factor, inhibiting phagocytosis. Diagnosis is made by India ink staining of CSF, which reveals the yeast surrounded by a clear halo representing the capsule, and confirmed by the cryptococcal antigen (CrAg) test using latex agglutination in serum or CSF, which is highly sensitive and specific. Mucicarmine stain shows the capsule in red on histology. Treatment is induction with amphotericin B plus flucytosine (5-FC), followed by long-term maintenance with fluconazole.</p>
+  </div>
+</div>
+
+<div class="topic" id="antifungals">
+  <h3>Antifungals — Classification &amp; MOA <span class="tag tag-fungi">Drug</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Target: Ergosterol</div><p>Fungal membranes have ergosterol (not cholesterol). Most antifungals target this.</p></div>
+    <div class="field"><div class="field-label">Classes</div>
+    <ul>
+      <li>Polyenes (Ampho B, Nystatin) — bind ergosterol → pores → leakage</li>
+      <li>Azoles (fluconazole, voriconazole) — block CYP450 14α-demethylase → no ergosterol synthesis</li>
+      <li>Echinocandins (caspofungin) — β-1,3-glucan synthase → cell wall</li>
+      <li>Flucytosine — → 5-FU → inhibits DNA/RNA synthesis. Always in combo.</li>
+      <li>Terbinafine — squalene epoxidase → dermatophytes</li>
+    </ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Antifungal drugs target structures and pathways that are unique to fungi, primarily ergosterol in the cell membrane and beta-glucan in the cell wall, which allows selective toxicity against fungi while sparing human cells.</p>
+    <p>Polyenes, including amphotericin B and nystatin, work by binding directly to ergosterol in the fungal cell membrane, creating pores that cause leakage of intracellular contents and cell death. Amphotericin B is the broadest-spectrum antifungal and is reserved for severe systemic infections, but its use is limited by significant nephrotoxicity. Nystatin is too toxic for systemic use and is used only topically for mucosal candidiasis. Azoles such as fluconazole, itraconazole, and voriconazole inhibit the cytochrome P450 enzyme lanosterol 14-alpha-demethylase, which is essential for ergosterol biosynthesis. Without ergosterol, the fungal membrane becomes unstable. Fluconazole is first-line for Candida and cryptococcal maintenance, while voriconazole is first-line for invasive aspergillosis. Azoles are hepatotoxic and are potent CYP450 inhibitors causing numerous drug interactions.</p>
+    <p>Echinocandins, such as caspofungin and micafungin, are the only class that targets the fungal cell wall by inhibiting beta-1,3-glucan synthase. They are effective against Candida species (including azole-resistant strains) and are well-tolerated with minimal side effects, but have limited activity against Cryptococcus. Flucytosine (5-FC) is converted inside the fungal cell to 5-fluorouracil, which inhibits DNA and RNA synthesis. It is always used in combination (classically with amphotericin B for cryptococcal meningitis) because resistance develops rapidly with monotherapy. Terbinafine inhibits squalene epoxidase, an early enzyme in the ergosterol synthesis pathway, and is primarily used orally for dermatophyte infections like onychomycosis.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- VIRUSES -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-cyan)">Viruses</h2>
+
+<div class="topic" id="dna-viruses">
+  <h3>DNA Viruses: HPV, Herpes, Adenovirus, HBV <span class="tag tag-virus">Virus</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">HPV</div><ul><li>Non-enveloped dsDNA. Types 6,11=warts. 16,18=cancer. E6→p53, E7→Rb. Vaccine: Gardasil (VLP).</li></ul></div>
+    <div class="field"><div class="field-label">Herpes</div><ul><li>Enveloped dsDNA. All latent. HSV-1 trigeminal, HSV-2 sacral, VZV dorsal root, EBV B cells, CMV owl-eye.</li><li>Tx: Acyclovir (needs viral thymidine kinase). Ganciclovir for CMV.</li></ul></div>
+    <div class="field"><div class="field-label">Adenovirus</div><ul><li>Non-enveloped dsDNA. Pharyngitis, conjunctivitis, pneumonia. Resistant to drying.</li></ul></div>
+    <div class="field"><div class="field-label">HBV</div><ul><li>Enveloped, partially dsDNA. Has reverse transcriptase! Serology: HBsAg, anti-HBs, HBeAg, anti-HBc. Chronic → HCC. Vaccine: recombinant HBsAg.</li></ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Human Papillomavirus (HPV) is a non-enveloped, double-stranded DNA virus with a circular genome. It infects squamous epithelium and is classified into low-risk types (6 and 11, which cause benign genital warts or condylomata acuminata) and high-risk types (16 and 18, which cause cervical, oropharyngeal, and anal cancers). The oncogenic mechanism involves two viral proteins: E6, which targets the tumour suppressor p53 for degradation, and E7, which inactivates Rb (retinoblastoma protein), together removing the two major brakes on cell proliferation. Diagnosis is by Pap smear (showing koilocytes — cells with perinuclear clearing) and HPV DNA PCR. Prevention is with the Gardasil 9 vaccine, which is a virus-like particle (VLP) vaccine covering 9 HPV types.</p>
+    <p>The Herpesviridae are enveloped, double-stranded DNA viruses that all share the property of establishing lifelong latency. HSV-1 causes oral herpes and is latent in the trigeminal ganglion (and is the most common cause of viral encephalitis, affecting the temporal lobe). HSV-2 causes genital herpes and is latent in the sacral ganglia. VZV (HHV-3) causes chickenpox on primary infection and reactivates as shingles (dermatomal vesicular rash) from the dorsal root ganglia. EBV (HHV-4) infects B lymphocytes, causes infectious mononucleosis (diagnosed by heterophile antibodies on the monospot test), and is associated with Burkitt lymphoma and nasopharyngeal carcinoma. CMV (HHV-5) causes disease in immunocompromised patients (retinitis, colitis) and is a TORCH pathogen, identified by characteristic "owl-eye" intranuclear inclusions. Herpes viruses are treated with acyclovir, a nucleoside analogue that requires phosphorylation by the viral enzyme thymidine kinase to become active, meaning it is selectively activated only in infected cells. Ganciclovir is used for CMV.</p>
+    <p>Adenovirus is a non-enveloped, double-stranded DNA virus with an icosahedral capsid. Being non-enveloped makes it resistant to desiccation and detergents, facilitating environmental spread. It causes pharyngitis, conjunctivitis (pink eye), pneumonia in children, and gastroenteritis.</p>
+    <p>Hepatitis B virus (HBV) is unique: it is an enveloped, partially double-stranded DNA virus (Hepadnavirus family) that replicates through an RNA intermediate using its own reverse transcriptase — making it the only DNA virus that uses reverse transcription. Serological markers are essential for interpretation: HBsAg (surface antigen) indicates active infection, anti-HBs indicates immunity (from vaccination or recovery), HBeAg indicates high replication and infectivity, anti-HBc IgM indicates acute infection, and anti-HBc IgG indicates past exposure. Chronic HBV infection can lead to cirrhosis and hepatocellular carcinoma. Treatment is with tenofovir or entecavir. Prevention is with the HBV vaccine, a recombinant subunit vaccine containing HBsAg.</p>
+  </div>
+</div>
+
+<div class="topic" id="rna-resp">
+  <h3>RNA Respiratory: Influenza &amp; Pneumoviridae <span class="tag tag-virus">Virus</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Influenza</div><ul><li>Enveloped, (−)ssRNA, 8 segments. H = attachment, N = release. Drift = epidemic, Shift = pandemic (Flu A only).</li><li>Tx: Oseltamivir (neuraminidase inhibitor, ≤48h). Yearly vaccine.</li></ul></div>
+    <div class="field"><div class="field-label">RSV (Pneumoviridae)</div><ul><li>Enveloped, (−)ssRNA, non-segmented. #1 bronchiolitis in infants. F protein → syncytia.</li><li>Prophylaxis: palivizumab (anti-F mAb) in high-risk infants.</li></ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Influenza virus is an enveloped, negative-sense single-stranded RNA virus with a segmented genome (8 segments for Influenza A), belonging to the Orthomyxoviridae family. Its two key surface glycoproteins are haemagglutinin (H), which mediates attachment to sialic acid residues on respiratory epithelium and viral entry, and neuraminidase (N), which cleaves sialic acid to release newly formed virions from the host cell. Antigenic drift refers to minor point mutations in the H and N genes that accumulate over time, producing new strains that evade prior immunity and causing seasonal epidemics — this is why the influenza vaccine must be reformulated annually. Antigenic shift is a major reassortment event in which entire genome segments are exchanged between different influenza subtypes when a single cell is co-infected (typically in a mixing vessel like a pig), producing a novel H or N subtype against which the population has no immunity, potentially causing a pandemic. Antigenic shift occurs only in Influenza A because it has animal reservoirs. Diagnosis is by RT-PCR (gold standard) or rapid antigen testing. Treatment is with oseltamivir, a neuraminidase inhibitor, which must be given within 48 hours of symptom onset to be effective.</p>
+    <p>Respiratory Syncytial Virus (RSV), now classified in the family Pneumoviridae, is an enveloped, negative-sense single-stranded RNA virus with a non-segmented genome. It is the number one cause of bronchiolitis and pneumonia in infants under two years of age. The F (fusion) protein on its surface fuses neighbouring respiratory epithelial cells together, forming characteristic multinucleated giant cells called syncytia, which is how the virus got its name. Diagnosis is by RT-PCR or rapid antigen detection from a nasopharyngeal aspirate. Treatment is primarily supportive. Palivizumab, a monoclonal antibody against the F protein, is given as prophylaxis to high-risk infants such as premature neonates and those with congenital heart or lung disease.</p>
+  </div>
+</div>
+
+<div class="topic" id="rna-arbo">
+  <h3>Arboviruses: Yellow Fever &amp; Dengue <span class="tag tag-virus">Virus</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Shared</div><p>Flaviviruses, enveloped (+)ssRNA. Aedes aegypti mosquito. Tropical.</p></div>
+    <div class="field"><div class="field-label">Yellow Fever</div><ul><li>Councilman bodies, mid-zone hepatic necrosis, jaundice. Biphasic illness. Vaccine: live attenuated 17D.</li></ul></div>
+    <div class="field"><div class="field-label">Dengue</div><ul><li>4 serotypes. Re-infection with different serotype → ADE → DHF/DSS. NS1 antigen (early dx). Avoid NSAIDs.</li></ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Yellow fever virus and dengue virus are both members of the Flavivirus family: enveloped, positive-sense, single-stranded RNA viruses transmitted by the Aedes aegypti mosquito in tropical regions.</p>
+    <p>Yellow fever virus is hepatotropic, causing liver damage characterised histologically by Councilman bodies (eosinophilic apoptotic hepatocytes) and mid-zone hepatic necrosis. The clinical course is classically biphasic: an initial period of fever and viraemia, followed by a brief remission, and then a toxic phase with jaundice, haemorrhagic manifestations, and renal failure in severe cases. Diagnosis is by serology (IgM capture ELISA) and PCR during viraemia. Prevention is with the highly effective live attenuated 17D vaccine, which provides long-lasting immunity with a single dose and is required for travel to endemic areas.</p>
+    <p>Dengue virus has four serotypes (DENV 1-4). Primary infection causes classic dengue fever — also called "break-bone fever" due to severe myalgia and arthralgia — with high fever, retro-orbital pain, and a maculopapular rash. The critical concern is that re-infection with a different serotype can lead to dengue haemorrhagic fever (DHF) or dengue shock syndrome (DSS) through a mechanism called antibody-dependent enhancement (ADE): non-neutralising antibodies from the first infection bind the new serotype and enhance its uptake into macrophages via Fc receptors, paradoxically increasing viral replication and the inflammatory response. Diagnosis relies on the NS1 antigen in the first few days of illness, followed by IgM/IgG serology. Treatment is supportive, and NSAIDs and aspirin are contraindicated because they increase bleeding risk.</p>
+  </div>
+</div>
+
+<div class="topic" id="hiv">
+  <h3>HIV <span class="tag tag-virus">Virus</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Classification</div><p>Enveloped, (+)ssRNA, diploid. Retrovirus. Reverse transcriptase, integrase, protease.</p></div>
+    <div class="field"><div class="field-label">Key Micro</div><ul>
+      <li>gp120 → CD4 + CCR5/CXCR4. gp41 → fusion.</li>
+      <li>Lifecycle: RT → integrase → protease → budding.</li>
+      <li>Dx: ELISA screen → Western blot confirm. CD4 + viral load monitoring.</li>
+      <li>Tx: HAART (NRTIs, NNRTIs, PIs, INSTIs, entry inhibitors).</li>
+    </ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Human Immunodeficiency Virus (HIV) is an enveloped, positive-sense, single-stranded RNA retrovirus of the Lentivirus genus. It is diploid, carrying two copies of its RNA genome, along with the enzymes reverse transcriptase, integrase, and protease. The viral envelope contains two key glycoproteins: gp120, which binds the CD4 receptor on host T-helper cells (and also macrophages and dendritic cells), and then binds a co-receptor — CCR5 in early infection (macrophage-tropic strains) or CXCR4 in late infection (T-cell-tropic strains). Following receptor binding, gp41 mediates fusion of the viral and host cell membranes.</p>
+    <p>The viral lifecycle proceeds as follows: after fusion and entry, reverse transcriptase converts the viral RNA into double-stranded DNA (a provirus). Integrase then inserts this proviral DNA into the host cell genome, where it can remain latent or be transcribed. New viral polyproteins are produced and cleaved by protease into functional proteins, and new virions assemble and bud from the cell membrane. Each of these enzymes — reverse transcriptase, integrase, and protease — is a therapeutic target. The high mutation rate of reverse transcriptase (which lacks proofreading ability) drives rapid drug resistance, necessitating combination antiretroviral therapy (ART). Drug classes include NRTIs (e.g. tenofovir, emtricitabine), NNRTIs (e.g. efavirenz), protease inhibitors, and integrase strand transfer inhibitors (INSTIs, e.g. dolutegravir, now first-line). Entry inhibitors include maraviroc (CCR5 antagonist) and enfuvirtide (gp41 fusion inhibitor).</p>
+    <p>HIV progressively destroys CD4+ T-helper cells, and AIDS is defined by a CD4 count below 200 cells/μL or the presence of an AIDS-defining illness. Diagnosis is by ELISA (screening, detects anti-HIV antibodies or p24 antigen, high sensitivity) followed by confirmatory Western blot or differentiation immunoassay. Disease monitoring uses CD4 count and viral load measurement by RT-PCR.</p>
+  </div>
+</div>
+
+<div class="topic" id="hep-c">
+  <h3>Hepatitis C Virus <span class="tag tag-virus">Virus</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Key Points</div><ul>
+      <li>Enveloped, (+)ssRNA, Flavivirus. Blood-borne. ~80% chronic. No vaccine.</li>
+      <li>Dx: anti-HCV (ELISA screen) → HCV RNA PCR (confirm). Genotyping.</li>
+      <li>Tx: DAAs (sofosbuvir etc) → >95% cure. Chronic → cirrhosis → HCC.</li>
+    </ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Hepatitis C virus (HCV) is an enveloped, positive-sense, single-stranded RNA virus belonging to the Flaviviridae family (genus Hepacivirus), with 6 major genotypes. It is primarily transmitted through blood-borne routes, most commonly intravenous drug use and historically through blood transfusions before routine screening was implemented. Unlike hepatitis B, where the majority of immunocompetent adults clear the infection, approximately 80% of HCV infections become chronic. This high chronicity rate is due to the virus's extreme genetic variability, particularly in its hypervariable envelope regions, which allows it to continuously evade the adaptive immune response. Chronic HCV infection leads to progressive liver fibrosis, cirrhosis, and eventually hepatocellular carcinoma. No vaccine exists because of this same antigenic variability.</p>
+    <p>Diagnosis begins with screening using anti-HCV antibodies detected by ELISA. A positive result must be confirmed with HCV RNA by PCR, which confirms active viraemia (anti-HCV antibodies alone may reflect cleared past infection). Genotyping is performed to guide treatment duration and regimen selection. Treatment has been revolutionised by direct-acting antivirals (DAAs) such as sofosbuvir (an NS5B RNA polymerase inhibitor), which achieve sustained virological response (cure) rates above 95% with short, well-tolerated oral courses, completely replacing the old interferon-based regimens.</p>
+  </div>
+</div>
+
+<div class="topic" id="mmr">
+  <h3>Measles / Mumps / Rubella <span class="tag tag-virus">Virus</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Measles</div><ul><li>Paramyxo, (−)ssRNA. Koplik spots (pathognomonic). Rash head→down. Complications: pneumonia, SSPE. Immunosuppressive.</li></ul></div>
+    <div class="field"><div class="field-label">Mumps</div><ul><li>Paramyxo. Parotitis, orchitis, meningitis.</li></ul></div>
+    <div class="field"><div class="field-label">Rubella</div><ul><li>Togavirus, (+)ssRNA. Mild in kids. Congenital rubella syndrome (1st trimester): deafness, cataracts, PDA.</li></ul></div>
+    <div class="field"><div class="field-label">MMR Vaccine</div><p>Live attenuated. 2 doses. Contraindicated in pregnancy + severe immunodeficiency.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Measles, mumps, and rubella are three viral infections prevented by the combined MMR live attenuated vaccine. Although often grouped together, they belong to different families and have distinct microbiological features.</p>
+    <p>Measles virus is a Paramyxovirus (enveloped, negative-sense ssRNA, non-segmented) and is one of the most contagious pathogens known, spreading by airborne transmission. The prodromal phase features the classic triad of cough, coryza, and conjunctivitis, along with Koplik spots — white spots on the buccal mucosa that are pathognomonic for measles. This is followed by a descending maculopapular rash spreading from the head downward. Complications include pneumonia (the leading cause of measles-related death), encephalitis, and subacute sclerosing panencephalitis (SSPE), a rare but fatal degenerative neurological disease that can develop years after infection. Importantly, measles virus causes transient immunosuppression by infecting CD4+ T cells and dendritic cells, predisposing patients to secondary bacterial infections.</p>
+    <p>Mumps virus is also a Paramyxovirus with the same genomic characteristics. It characteristically causes parotitis (bilateral painful swelling of the parotid glands). Complications include orchitis in post-pubertal males, which can rarely lead to infertility, aseptic meningitis, and pancreatitis.</p>
+    <p>Rubella virus differs in that it belongs to the Togavirus family and is a positive-sense ssRNA virus. It causes a mild illness in children and adults with low-grade fever, a fine maculopapular rash, and posterior auricular lymphadenopathy. Its major significance is congenital rubella syndrome, which occurs when a non-immune mother is infected during the first trimester. This causes the classic triad of sensorineural deafness, congenital cataracts, and cardiac defects (particularly patent ductus arteriosus). All three are prevented by the MMR vaccine, a live attenuated vaccine given in two doses, which is contraindicated in pregnant women and severely immunocompromised patients.</p>
+  </div>
+</div>
+
+<div class="topic" id="rotavirus">
+  <h3>Rotavirus <span class="tag tag-virus">Virus</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Key</div><ul><li>Non-enveloped, dsRNA, 11 segments. Reoviridae. "Wheel" on EM.</li><li>#1 childhood diarrhoea. Faecal-oral. NSP4 = viral enterotoxin. Osmotic diarrhoea.</li><li>Dx: rapid antigen in stool. Vaccine: live attenuated oral (Rotarix/RotaTeq).</li></ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Rotavirus is a non-enveloped, double-stranded RNA virus with 11 genome segments, belonging to the Reoviridae family. The name comes from its characteristic "wheel-like" appearance on electron microscopy. It is the leading cause of severe dehydrating diarrhoea in children under five years of age worldwide. Transmission is faecal-oral, and being non-enveloped makes it highly stable in the environment and resistant to many disinfectants.</p>
+    <p>The pathogenesis involves viral infection and destruction of mature villous enterocytes in the small intestine, leading to decreased absorptive surface area and osmotic diarrhoea. The virus also produces NSP4, which acts as a viral enterotoxin that directly stimulates chloride secretion. The diarrhoea is watery (no blood or inflammatory cells) and can cause severe dehydration, particularly in young children. Diagnosis is by rapid antigen detection (ELISA or immunochromatography) in stool samples. Treatment is supportive with fluid and electrolyte replacement. Prevention is with live attenuated oral vaccines — Rotarix (monovalent) or RotaTeq (pentavalent) — given in early infancy, which have dramatically reduced hospitalisations and deaths from rotavirus globally.</p>
+  </div>
+</div>
+
+<div class="topic" id="prions">
+  <h3>Prions <span class="tag tag-virus">Special</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Key</div><ul>
+      <li>Misfolded protein (PrPˢᶜ), NO nucleic acid. PrPᶜ (normal, α-helix) → PrPˢᶜ (pathological, β-sheet).</li>
+      <li>Resistant to heat, radiation, formalin, proteases.</li>
+      <li>Spongiform encephalopathy — no inflammation. CJD, vCJD, Kuru.</li>
+      <li>Dx: brain biopsy, 14-3-3 protein in CSF, RT-QuIC. No treatment.</li>
+    </ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Prions are unique infectious agents composed entirely of misfolded protein, with no nucleic acid — no DNA or RNA. The normal cellular prion protein, PrPᶜ, is a glycoprotein expressed on neuron surfaces that is rich in alpha-helix structure. The pathological form, PrPˢᶜ (scrapie form), has the same amino acid sequence but is misfolded into a beta-sheet-rich conformation. When PrPˢᶜ contacts normal PrPᶜ, it acts as a template, inducing the normal protein to refold into the pathological form in a chain-reaction that amplifies exponentially.</p>
+    <p>PrPˢᶜ is extraordinarily resistant to conventional sterilisation methods: it is not destroyed by standard autoclaving, formalin fixation, UV radiation, or proteases. Decontamination requires prolonged autoclaving at 134°C for 18 minutes or treatment with concentrated sodium hydroxide. Because PrPˢᶜ is a host protein, it does not trigger an immune response, and there are no antibodies, no inflammation, and no fever — which is why the histological hallmark is spongiform change (vacuolar degeneration) of the brain without any inflammatory infiltrate.</p>
+    <p>Prion diseases include sporadic CJD (Creutzfeldt-Jakob disease, the most common form, presenting with rapidly progressive dementia, myoclonus, and death within a year), variant CJD (linked to bovine spongiform encephalopathy or "mad cow disease," affecting younger patients), Kuru (historically found in Papua New Guinea due to ritualistic cannibalism), and Fatal Familial Insomnia (a genetic form). Diagnosis relies on brain biopsy showing spongiform change, characteristic MRI and EEG findings, detection of 14-3-3 protein in CSF as a marker of neuronal destruction, and the RT-QuIC assay for PrPˢᶜ amplification. There is no treatment and prion diseases are uniformly fatal.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- VACCINES -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-orange)">Vaccines</h2>
+
+<div class="topic" id="tetanus-vax">
+  <h3>Tetanus Vaccine <span class="tag tag-vaccine">Vaccine</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Organism</div><p>C. tetani — G+ anaerobic rod, spore-forming. Tetanospasmin → blocks GABA/glycine → spastic paralysis.</p></div>
+    <div class="field"><div class="field-label">Vaccine</div><p>Toxoid vaccine (inactivated toxin). DTaP (kids), Td/Tdap (boosters). Every 10 yrs. TIG for unvaccinated + dirty wound.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>The tetanus vaccine protects against Clostridium tetani, a Gram-positive, obligate anaerobic, spore-forming rod found in soil. C. tetani produces tetanospasmin, an extremely potent AB exotoxin that travels retrograde along motor neuron axons to the spinal cord, where it cleaves SNARE proteins (specifically synaptobrevin) in inhibitory interneurons, blocking the release of the inhibitory neurotransmitters GABA and glycine. This results in unopposed excitatory motor neuron activity, causing spastic paralysis — the opposite of botulinum toxin, which blocks acetylcholine release at the neuromuscular junction and causes flaccid paralysis.</p>
+    <p>The tetanus vaccine is a toxoid vaccine, meaning it contains tetanus toxin that has been chemically inactivated with formalin so that it retains its immunogenicity but not its toxicity. It stimulates production of anti-toxin antibodies that neutralise free tetanospasmin before it can bind to neurons. It is given as part of the DTaP (diphtheria, tetanus, acellular pertussis) childhood immunisation series, with Td or Tdap booster doses every 10 years in adults. In wound management, a booster is given if more than 5 years have elapsed since the last dose for contaminated wounds, or more than 10 years for clean wounds. For unvaccinated patients with dirty wounds, both the toxoid vaccine and tetanus immunoglobulin (TIG, passive immunisation with preformed anti-toxin antibodies) are administered to provide immediate protection while the active immune response develops.</p>
+  </div>
+</div>
+
+<div class="topic" id="bcg-vax">
+  <h3>BCG Vaccine <span class="tag tag-vaccine">Vaccine</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Key</div><ul>
+      <li>Live attenuated M. bovis. Intradermal, at birth in endemic areas.</li>
+      <li>Protects against severe childhood TB (miliary, meningeal). Variable vs pulmonary.</li>
+      <li>Makes PPD/Mantoux positive → use IGRA instead. Contraindicated if immunocompromised. Also used for bladder cancer.</li>
+    </ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>The BCG (Bacillus Calmette-Guérin) vaccine is a live attenuated strain of Mycobacterium bovis (a close relative of M. tuberculosis) that has been passaged repeatedly in culture to reduce its virulence while maintaining its immunogenicity. It is administered intradermally, typically at birth in countries with high TB prevalence, and stimulates a cell-mediated (Th1) immune response involving macrophage activation and granuloma formation, which mirrors the host defence against mycobacterial infection.</p>
+    <p>BCG is most effective at preventing severe, disseminated forms of childhood tuberculosis such as miliary TB and TB meningitis, which are the most lethal manifestations in young children. Its efficacy against pulmonary TB in adults is highly variable across studies, ranging from 0 to 80%, which is why it is not used in low-prevalence countries like the United States. An important practical consideration is that BCG vaccination causes a positive tuberculin skin test (PPD/Mantoux test), making it impossible to distinguish vaccinated from infected individuals. Therefore, in BCG-vaccinated populations, the interferon-gamma release assay (IGRA, such as QuantiFERON-TB Gold) is preferred for TB screening because it tests for antigens (ESAT-6, CFP-10) that are present in M. tuberculosis but absent from the BCG strain. As a live vaccine, BCG is contraindicated in immunocompromised patients, particularly HIV-positive individuals. An interesting additional use of BCG is intravesical instillation for the treatment of superficial bladder cancer, where it acts as a non-specific immune stimulant.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- DIAGNOSTICS -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-teal)">Diagnostic Techniques / Lab Methods</h2>
+
+<div class="topic" id="gram-stain">
+  <h3>Gram Staining <span class="tag tag-dx">Lab</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Principle</div><p>Differentiates by cell wall. G+ = thick peptidoglycan → retains crystal violet. G− = thin + outer membrane → takes safranin.</p></div>
+    <div class="field"><div class="field-label">Steps</div><p>Crystal violet → Iodine (mordant) → Decolouriser (KEY step) → Safranin. "Come In, Drink Some."</p></div>
+    <div class="field"><div class="field-label">Results</div><p>Purple = G+. Pink = G−.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Gram staining is the most fundamental differential staining technique in microbiology, classifying bacteria into two groups based on differences in cell wall structure. Gram-positive bacteria have a thick peptidoglycan layer (20-80 nm) that retains the primary stain, while Gram-negative bacteria have a thin peptidoglycan layer (1-2 nm) with an additional outer membrane containing lipopolysaccharide (LPS).</p>
+    <p>The procedure involves four steps performed in sequence. First, crystal violet (the primary stain) is applied, staining all bacteria purple. Second, Gram's iodine is added as a mordant, forming a crystal violet-iodine (CV-I) complex within the cells that is larger and more difficult to wash out. Third, a decolouriser (alcohol or acetone) is applied — this is the critical and differential step. In Gram-negative bacteria, the decolouriser dissolves the outer membrane and the thin peptidoglycan cannot retain the CV-I complex, so the stain is washed away. In Gram-positive bacteria, the alcohol dehydrates the thick peptidoglycan layer, trapping the CV-I complex inside. Fourth, safranin (the counterstain) is applied, staining the now-colourless Gram-negative bacteria pink/red while having no visible effect on the already-purple Gram-positive cells. The result is that Gram-positive organisms appear purple/blue and Gram-negative organisms appear pink/red. Beyond the Gram reaction, the stain also allows assessment of bacterial morphology (cocci vs rods) and arrangement (clusters, chains, diplococci), which are essential for initial identification and guiding empirical therapy.</p>
+  </div>
+</div>
+
+<div class="topic" id="zn-stain">
+  <h3>Ziehl-Neelsen (Acid-Fast) Staining <span class="tag tag-dx">Lab</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Principle</div><p>Detects acid-fast bacteria (Mycobacterium) whose mycolic acid-rich wall resists Gram staining. Once stained, resists acid-alcohol.</p></div>
+    <div class="field"><div class="field-label">Steps</div><p>Carbol fuchsin + heat → acid-alcohol decolouriser → methylene blue counterstain.</p></div>
+    <div class="field"><div class="field-label">Result</div><p>Acid-fast = bright red/pink rods on blue background. Used for M. tuberculosis, M. leprae.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>The Ziehl-Neelsen (ZN) stain is used to identify acid-fast bacteria, primarily Mycobacterium species, whose cell walls are rich in mycolic acids — long-chain, waxy lipids that make up about 60% of the cell wall by weight. These mycolic acids make mycobacteria resistant to Gram staining (they appear neither reliably Gram-positive nor Gram-negative) but also mean that once a stain penetrates the cell wall, it cannot be removed even by strong acid-alcohol decolourisers — hence "acid-fast."</p>
+    <p>The procedure involves three steps. First, carbol fuchsin (a red dye with phenol) is applied and heat is used to drive the dye through the waxy cell wall. Second, acid-alcohol (3% HCl in 95% ethanol) is applied as the decolouriser — non-acid-fast organisms lose the stain while acid-fast bacteria retain it. Third, methylene blue is applied as a counterstain, colouring the background blue. The result is that acid-fast bacilli appear as bright red or pink rods against a blue background. The ZN stain is used primarily for the diagnosis of tuberculosis (sputum smear microscopy is often the first diagnostic step) and leprosy (M. leprae in skin biopsies). Nocardia is weakly acid-fast (may show partial staining). An alternative fluorescent technique using auramine-rhodamine stain is more sensitive and is used for screening large numbers of specimens, with positive results confirmed by ZN staining.</p>
+  </div>
+</div>
+
+<div class="topic" id="cultures">
+  <h3>Cultures: Blood, Urine, CSF, Stool <span class="tag tag-dx">Lab</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Blood</div><p>2+ sets, different sites, before ABx. Aerobic + anaerobic bottles. Automated systems detect CO₂.</p></div>
+    <div class="field"><div class="field-label">Urine</div><p>Midstream clean catch. ≥10⁵ CFU/mL significant. CLED/MacConkey agar. E. coli #1.</p></div>
+    <div class="field"><div class="field-label">CSF</div><p>LP. Bacterial: ↑neutrophils, ↑protein, ↓↓glucose. Viral: ↑lymphocytes, normal glucose. TB: ↑lymphocytes, ↓↓glucose.</p></div>
+    <div class="field"><div class="field-label">Stool</div><p>Selective media: MacConkey, XLD, TCBS. C. diff toxin assay. O&amp;P exam.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Microbiological cultures from different body sites follow specific collection and interpretation principles tailored to their clinical context.</p>
+    <p>Blood cultures are indicated when bacteraemia or sepsis is suspected. At least two sets should be collected from different venipuncture sites before administering antibiotics, as antibiotic exposure dramatically reduces sensitivity. Each set consists of an aerobic and an anaerobic bottle. Samples are incubated in automated continuous-monitoring systems (such as BacTec or BacT/ALERT) that detect microbial growth by measuring CO₂ production. Positive bottles undergo Gram staining and subculture for organism identification and antibiotic susceptibility testing.</p>
+    <p>Urine cultures are indicated for suspected urinary tract infections. A midstream clean-catch specimen is the standard collection method to minimise contamination. The classic threshold for significant bacteriuria is ≥10⁵ colony-forming units per millilitre of a single organism, though lower counts may be significant in symptomatic patients or catheterised specimens. Samples are plated on CLED (cystine-lactose-electrolyte-deficient) agar or MacConkey agar. E. coli is the most common uropathogen by far.</p>
+    <p>CSF is obtained by lumbar puncture when meningitis is suspected and is sent for cell count, protein, glucose, Gram stain, culture, and PCR. The CSF profile allows differentiation: bacterial meningitis shows elevated neutrophils, raised protein, and markedly low glucose (bacteria consume it); viral meningitis shows elevated lymphocytes with normal or mildly raised protein and normal glucose; TB meningitis shows elevated lymphocytes but with markedly low glucose and very high protein, resembling bacterial meningitis but with a lymphocytic rather than neutrophilic predominance. India ink staining of CSF is used for Cryptococcus.</p>
+    <p>Stool cultures are indicated for bloody diarrhoea, persistent diarrhoea, or suspected foodborne illness. Specimens are plated on selective and differential media including MacConkey agar, XLD (xylose lysine deoxycholate) for Salmonella and Shigella, and TCBS agar for Vibrio. Additional stool tests include toxin assays for C. difficile, ova and parasite examination for parasitic infections, and viral PCR panels.</p>
+  </div>
+</div>
+
+<div class="topic" id="elisa-pcr">
+  <h3>ELISA &amp; PCR <span class="tag tag-dx">Lab</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">ELISA</div><p>Enzyme-labelled antibody. Indirect (HIV screen — detects patient Ab). Sandwich (HBsAg — detects Ag). Sensitive → screening.</p></div>
+    <div class="field"><div class="field-label">PCR</div><p>Amplifies DNA. Denature → anneal → extend. 30 cycles. RT-PCR for RNA viruses. qPCR for viral load. Gold standard for many infections.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>ELISA (enzyme-linked immunosorbent assay) and PCR (polymerase chain reaction) are two cornerstone diagnostic techniques in modern microbiology, serving complementary roles.</p>
+    <p>ELISA uses enzyme-labelled antibodies to detect either antibodies or antigens in patient samples, with a colorimetric readout proportional to the amount of target present. The indirect ELISA is used for antibody detection — patient serum is added to a plate coated with known antigen, and if specific antibodies are present, they are detected by a secondary enzyme-linked anti-human antibody. This is the basis of HIV screening (detecting anti-HIV antibodies). The sandwich ELISA is used for antigen detection — a capture antibody on the plate binds the target antigen, and a second enzyme-linked detection antibody completes the "sandwich." This format is used to detect HBsAg and p24 antigen. ELISA is highly sensitive, making it excellent for screening, but because sensitivity comes at the cost of some specificity, positive results often require confirmation by a more specific method.</p>
+    <p>PCR amplifies specific DNA sequences exponentially through repeated thermal cycles, each consisting of three steps: denaturation at approximately 95°C to separate the DNA strands, annealing at approximately 55-65°C where specific primers bind to complementary sequences, and extension at 72°C where Taq DNA polymerase synthesises new DNA strands. After 30 or more cycles, even a single copy of target DNA can be amplified to billions of copies. For RNA viruses (HIV, HCV, influenza, SARS-CoV-2), reverse transcriptase PCR (RT-PCR) first converts viral RNA to complementary DNA before amplification. Real-time quantitative PCR (qPCR) uses fluorescent probes to measure DNA accumulation in real time, allowing quantification of the pathogen load — this is essential for monitoring HIV and HCV viral loads. PCR is the gold standard for diagnosis of many infections including Chlamydia, gonorrhoea, TB, herpes encephalitis, and viral respiratory infections due to its exceptional sensitivity and specificity.</p>
+  </div>
+</div>
+
+<div class="topic" id="chlamydia-dx">
+  <h3>Chlamydia Detection <span class="tag tag-dx">Lab</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Why Special</div><p>Obligate intracellular. EB (infectious) → RB (replicating). Can't grow on standard media. No peptidoglycan (can't Gram stain).</p></div>
+    <div class="field"><div class="field-label">Methods</div><p>NAAT/PCR = gold standard (urine or swab). Also: cell culture (McCoy cells), DFA. Serology limited.</p></div>
+    <div class="field"><div class="field-label">Serovars</div><p>D-K: urogenital. L1-L3: LGV. A-C: trachoma. Tx: azithromycin or doxycycline.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Chlamydia trachomatis presents unique diagnostic challenges because it is an obligate intracellular bacterium that cannot be cultured on standard laboratory media — it requires living host cells to replicate. It also cannot be visualised by Gram staining because it lacks classical peptidoglycan in its cell wall (though it does possess peptidoglycan-like components recently identified). Its lifecycle alternates between two forms: the elementary body (EB), which is the small, metabolically inert, extracellular infectious form, and the reticulate body (RB), which is the larger, metabolically active, intracellular replicating form. EBs attach to and enter mucosal epithelial cells, convert to RBs that replicate by binary fission within a membrane-bound inclusion, and then convert back to EBs that are released to infect new cells.</p>
+    <p>The gold standard for diagnosis is now NAAT (nucleic acid amplification test), most commonly PCR, which can be performed on urine samples or urethral/cervical/vaginal swabs. NAAT is preferred because it is highly sensitive, highly specific, and non-invasive (especially when urine-based). Cell culture using McCoy cells was historically the reference standard and remains useful for medico-legal cases, but it is technically demanding, slow, and less sensitive than NAAT. Direct fluorescent antibody (DFA) testing can visualise EBs using fluorescent-labelled antibodies but has lower sensitivity. Serology is of limited value because of cross-reactivity between Chlamydia species. C. trachomatis is divided into serovars: D through K cause urogenital infections (urethritis, cervicitis, PID), L1 through L3 cause lymphogranuloma venereum (LGV, a more invasive STI affecting lymph nodes), and A through C cause trachoma, the leading infectious cause of preventable blindness worldwide. Treatment is with azithromycin (single dose) or doxycycline (7-day course).</p>
+  </div>
+</div>
+
+<div class="topic" id="brucella-dx">
+  <h3>Brucellosis Lab Diagnosis <span class="tag tag-dx">Lab</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Organism</div><p>Brucella — small G− coccobacilli, facultative intracellular. Zoonosis (livestock, unpasteurised dairy). B. melitensis most virulent.</p></div>
+    <div class="field"><div class="field-label">Disease</div><p>Undulant fever, arthralgia, hepatosplenomegaly. Chronic granulomatous.</p></div>
+    <div class="field"><div class="field-label">Dx</div><p>Blood culture (gold standard, prolonged incubation). Serology: Rose Bengal (screen), SAT/Wright ≥1:160. PCR. Lab biohazard!</p></div>
+    <div class="field"><div class="field-label">Tx</div><p>Doxycycline + rifampicin (6 weeks).</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Brucella species are small Gram-negative coccobacilli that are facultative intracellular pathogens, surviving within macrophages by inhibiting phagolysosome fusion. Brucellosis is a zoonotic disease acquired from livestock through consumption of unpasteurised dairy products, direct contact with infected animal tissues, or inhalation of aerosols. The most virulent species is B. melitensis (goats and sheep), followed by B. abortus (cattle) and B. suis (pigs). The disease presents as undulant fever (characterised by waves of fever that come and go), arthralgia, profuse sweating, hepatosplenomegaly, and can become chronic with granuloma formation in various organs.</p>
+    <p>Laboratory diagnosis relies on several approaches. Blood culture is the gold standard but requires prolonged incubation of up to 21 days because of the organism's slow growth, and modern automated blood culture systems have improved detection time. It is critical to alert the laboratory when brucellosis is suspected because Brucella is a significant biohazard and requires BSL-3 handling precautions. Serological testing is widely used: the Rose Bengal test is a rapid slide agglutination screening test, and the standard agglutination test (SAT, also called the Wright test) is confirmatory, with a titre of ≥1:160 considered significant in endemic areas. ELISA for IgM and IgG antibodies provides better sensitivity and specificity. PCR is increasingly used and offers rapid diagnosis. Treatment requires prolonged combination therapy — doxycycline plus rifampicin (or streptomycin) for at least six weeks — because the organism's intracellular location protects it from single-agent therapy and makes relapse common with shorter courses.</p>
+  </div>
+</div>
+
+<div class="topic" id="typhoid-dx">
+  <h3>Diagnosis of Typhoid Fever <span class="tag tag-dx">Lab</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Key</div><ul>
+      <li>Week 1: blood culture (gold standard, 60-80% sensitive)</li>
+      <li>Week 2+: stool culture. Bone marrow = most sensitive overall.</li>
+      <li>Widal: anti-O + anti-H agglutination. Rising titre in paired sera. Limited specificity.</li>
+      <li>Modern: PCR, Typhidot.</li>
+    </ul></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>The diagnosis of typhoid fever, caused by Salmonella typhi, depends on the stage of illness because the organism's presence in different body compartments changes over time. S. typhi is a Gram-negative rod, non-lactose fermenter, that is H₂S-positive on culture media such as XLD agar and possesses a Vi (virulence) polysaccharide capsule.</p>
+    <p>In the first week of illness, blood culture is the gold standard, with a sensitivity of approximately 60-80%. This is when bacteraemia is at its highest, as the organism circulates in the bloodstream after initial invasion through the intestinal mucosa and replication within macrophages of the reticuloendothelial system. From the second week onwards, stool culture becomes increasingly positive as organisms are shed from the gallbladder into the intestines. Urine culture may also be positive. Bone marrow culture is the single most sensitive diagnostic test (over 90% sensitivity, even in patients who have already received antibiotics), but it is invasive and therefore not routinely performed.</p>
+    <p>The Widal test is a classic serological test that detects agglutinating antibodies against the O antigen (somatic lipopolysaccharide) and the H antigen (flagellar protein) of S. typhi. A single high titre (≥1:160 for anti-O) or a fourfold rise in titre between acute and convalescent paired sera is considered significant. However, the Widal test has important limitations: cross-reactivity with other Salmonella species and other Enterobacteriaceae, false positives in endemic areas due to prior exposure, and false positives after typhoid vaccination. Modern approaches include PCR for rapid specific detection and Typhidot, an ELISA-based test detecting IgM and IgG against S. typhi outer membrane proteins. Treatment is with ciprofloxacin or ceftriaxone depending on resistance patterns.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ANTIBIOTICS -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-red)">Antibiotics / Mechanisms</h2>
+
+<div class="topic" id="beta-lactams">
+  <h3>Beta-Lactam Antibiotics <span class="tag tag-abx">ABX</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Class</div><p>All have β-lactam ring. Penicillins, Cephalosporins (1st-5th gen), Carbapenems, Monobactams.</p></div>
+    <div class="field"><div class="field-label">MOA</div><p>Bind PBPs → inhibit transpeptidase → block peptidoglycan cross-linking → lysis. Bactericidal.</p></div>
+    <div class="field"><div class="field-label">Resistance</div><p>β-lactamases (→ add inhibitor). Altered PBP (MRSA = PBP2a). ESBLs (→ carbapenems).</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Beta-lactam antibiotics are the largest and most widely used class of antibacterial agents, all sharing a beta-lactam ring in their molecular structure. The class includes penicillins (penicillin G, amoxicillin, ampicillin, flucloxacillin, piperacillin), cephalosporins (five generations, with progressively broader Gram-negative coverage from first to third generation), carbapenems (meropenem, imipenem — the broadest-spectrum beta-lactams, reserved for serious multi-drug-resistant infections), and monobactams (aztreonam, which covers only Gram-negative organisms).</p>
+    <p>Their mechanism of action involves binding to penicillin-binding proteins (PBPs, specifically transpeptidase enzymes) in the bacterial cell wall, which inhibits the final cross-linking step of peptidoglycan synthesis. Without intact cross-links, the peptidoglycan layer cannot maintain structural integrity, and the bacterium undergoes osmotic lysis. This makes them bactericidal. They are most effective against actively growing bacteria.</p>
+    <p>Resistance to beta-lactams occurs through three main mechanisms. The most common is production of beta-lactamases — enzymes encoded on plasmids or chromosomes that hydrolyse the beta-lactam ring, rendering the drug inactive. This is overcome by combining the antibiotic with a beta-lactamase inhibitor such as clavulanic acid (e.g. amoxicillin-clavulanate), tazobactam, or sulbactam. The second mechanism is alteration of the target PBP — the most important clinical example being MRSA, which carries the mecA gene encoding PBP2a, a modified penicillin-binding protein with very low affinity for all beta-lactams. This is why MRSA requires vancomycin or daptomycin. Third, extended-spectrum beta-lactamases (ESBLs), found commonly in E. coli and Klebsiella, can hydrolyse third-generation cephalosporins and are treated with carbapenems.</p>
+  </div>
+</div>
+
+<div class="topic" id="aminoglycosides">
+  <h3>Aminoglycosides <span class="tag tag-abx">ABX</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Examples</div><p>Gentamicin, streptomycin, tobramycin, amikacin.</p></div>
+    <div class="field"><div class="field-label">MOA</div><p>30S ribosome → misread mRNA + block translocation. Bactericidal. Need O₂ uptake → no anaerobes.</p></div>
+    <div class="field"><div class="field-label">Toxicity</div><p>Nephrotoxic + ototoxic (irreversible). Monitor trough levels.</p></div>
+    <div class="field"><div class="field-label">Resistance</div><p>Modifying enzymes (acetylation, phosphorylation) on R plasmids.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Aminoglycosides are a class of bactericidal antibiotics that includes gentamicin, streptomycin, tobramycin, and amikacin. They act by binding irreversibly to the 30S ribosomal subunit, causing misreading of mRNA codons and incorporation of incorrect amino acids into the growing polypeptide chain, as well as blocking translocation of the ribosome along the mRNA. This produces aberrant, non-functional proteins that are inserted into the bacterial membrane, disrupting its integrity and leading to cell death. Unlike most other protein synthesis inhibitors (which are bacteriostatic), aminoglycosides are bactericidal, partly because of this membrane-damaging effect.</p>
+    <p>A key pharmacological feature is that aminoglycosides require oxygen-dependent active transport to enter the bacterial cell, which means they are ineffective against obligate anaerobes and have reduced activity in anaerobic environments such as abscesses. Their spectrum is primarily aerobic Gram-negative bacteria. They are frequently used in combination with beta-lactam antibiotics for synergistic killing — the beta-lactam disrupts the cell wall, allowing greater aminoglycoside entry. Classic combinations include ampicillin plus gentamicin for Listeria meningitis and enterococcal endocarditis. Streptomycin is used as part of the TB regimen.</p>
+    <p>The major dose-limiting toxicities are nephrotoxicity (usually reversible, due to accumulation in renal proximal tubular cells) and ototoxicity (often irreversible, affecting both vestibular and cochlear function). Therapeutic drug monitoring of trough levels is essential to minimise toxicity. Resistance develops primarily through plasmid-encoded aminoglycoside-modifying enzymes that inactivate the drug by acetylation, phosphorylation, or adenylation.</p>
+  </div>
+</div>
+
+<div class="topic" id="vancomycin">
+  <h3>Vancomycin / Glycopeptides <span class="tag tag-abx">ABX</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">MOA</div><p>Binds D-Ala-D-Ala → blocks cell wall synthesis. Bactericidal. Too large for G− outer membrane → G+ only.</p></div>
+    <div class="field"><div class="field-label">Uses</div><p>MRSA (IV). C. diff (oral). Serious G+ when β-lactam allergic.</p></div>
+    <div class="field"><div class="field-label">Toxicity</div><p>Red man syndrome (histamine, not allergy → slow infusion). Nephro/ototoxicity.</p></div>
+    <div class="field"><div class="field-label">Resistance</div><p>VRE: D-Ala-D-Lac → vancomycin can't bind. Tx: linezolid, daptomycin.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Vancomycin is a glycopeptide antibiotic that inhibits bacterial cell wall synthesis by a mechanism distinct from beta-lactams. It binds with high affinity to the D-alanyl-D-alanine (D-Ala-D-Ala) dipeptide terminus of the peptidoglycan precursor (lipid II) on the outer surface of the cytoplasmic membrane, physically blocking both transglycosylation (polymerisation of the sugar backbone) and transpeptidation (cross-linking). Because vancomycin is a large molecule, it cannot penetrate the outer membrane of Gram-negative bacteria, restricting its spectrum to Gram-positive organisms only.</p>
+    <p>The two most important clinical uses are intravenous vancomycin for MRSA infections (it is the drug of choice because MRSA's altered PBP2a renders all beta-lactams ineffective, but vancomycin targets a different step), and oral vancomycin for Clostridioides difficile colitis (oral vancomycin is not absorbed and acts locally in the gut lumen where C. difficile resides). It is also used for serious Gram-positive infections in patients with beta-lactam allergies.</p>
+    <p>Red man syndrome is a common adverse effect caused by direct mast cell degranulation and histamine release when vancomycin is infused too rapidly — it manifests as flushing, erythema, and pruritus of the upper body. It is not a true allergy and is managed by slowing the infusion rate. Other toxicities include nephrotoxicity and ototoxicity. Vancomycin-resistant enterococci (VRE) have emerged as a major clinical problem. The resistance mechanism involves modification of the peptidoglycan target from D-Ala-D-Ala to D-Ala-D-Lactate, which reduces vancomycin's binding affinity by approximately 1000-fold. VRE infections are treated with linezolid or daptomycin.</p>
+  </div>
+</div>
+
+<div class="topic" id="abx-mechanisms">
+  <h3>Antibiotic Mechanisms — Overview <span class="tag tag-abx">ABX</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">By Target</div>
+    <ul>
+      <li>Cell wall — β-lactams, vancomycin, bacitracin</li>
+      <li>Membrane — polymyxins, daptomycin</li>
+      <li>30S — aminoglycosides, tetracyclines</li>
+      <li>50S — macrolides, chloramphenicol, clindamycin, linezolid</li>
+      <li>DNA — fluoroquinolones (gyrase/topo IV)</li>
+      <li>RNA — rifampicin (RNA polymerase)</li>
+      <li>Folate — TMP-SMX</li>
+      <li>DNA damage — metronidazole (anaerobes)</li>
+    </ul></div>
+    <div class="field"><p>"Buy AT 30, CCLE at 50"</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Antibiotics can be classified by their molecular target within the bacterium, and understanding these targets is essential both for predicting spectrum and for understanding resistance mechanisms.</p>
+    <p>Cell wall synthesis inhibitors include the beta-lactams (which bind PBPs and block transpeptidase-mediated peptidoglycan cross-linking), vancomycin (which binds D-Ala-D-Ala and blocks both transglycosylation and transpeptidation), and bacitracin (which prevents recycling of bactoprenol, the lipid carrier that transports peptidoglycan precursors across the membrane). Cell membrane disruptors include polymyxins like colistin (which bind LPS and disrupt the outer membrane of Gram-negatives, used as last-resort for multidrug-resistant organisms) and daptomycin (which inserts into Gram-positive cell membranes, causing depolarisation and rapid cell death).</p>
+    <p>Protein synthesis inhibitors target either the 30S or 50S ribosomal subunit. At the 30S: aminoglycosides cause mRNA misreading (bactericidal) and tetracyclines block tRNA attachment to the A site (bacteriostatic). At the 50S: macrolides like erythromycin block translocation (bacteriostatic), chloramphenicol inhibits peptidyl transferase (bacteriostatic), clindamycin blocks translocation similarly to macrolides, and linezolid blocks formation of the 70S initiation complex. The mnemonic "buy AT 30, CCLE at 50" helps recall which drugs target which subunit.</p>
+    <p>Nucleic acid synthesis inhibitors include fluoroquinolones (which inhibit DNA gyrase and topoisomerase IV, enzymes essential for DNA supercoiling and replication) and rifampicin (which inhibits DNA-dependent RNA polymerase, blocking transcription — a key drug in TB treatment). Folate synthesis inhibitors include sulfonamides (inhibiting dihydropteroate synthase) and trimethoprim (inhibiting dihydrofolate reductase); used together as co-trimoxazole (TMP-SMX) for sequential blockade of the folate pathway. These work selectively because humans obtain folate from diet rather than synthesising it. Metronidazole is activated intracellularly in anaerobic organisms, where it forms toxic free radicals that damage DNA; it is therefore effective only against anaerobes and certain protozoa.</p>
+  </div>
+</div>
+
+<div class="topic" id="abx-resistance">
+  <h3>Antibiotic Resistance Mechanisms <span class="tag tag-abx">ABX</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">4 Mechanisms</div><ul>
+      <li>Enzymatic inactivation (β-lactamases, aminoglycoside-modifying enzymes)</li>
+      <li>Target modification (PBP2a in MRSA, D-Ala-D-Lac in VRE, ribosome methylation)</li>
+      <li>Decreased permeability (porin loss in G−)</li>
+      <li>Efflux pumps (pump drug out)</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Spread</div><p>HGT: conjugation (plasmids #1), transformation, transduction. Transposons.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Antibiotic resistance in bacteria arises through four fundamental mechanisms, which can be intrinsic (naturally present) or acquired (through mutation or horizontal gene transfer).</p>
+    <p>Enzymatic inactivation is the most common mechanism: bacteria produce enzymes that chemically modify or destroy the antibiotic before it can reach its target. The prime example is beta-lactamases, which hydrolyse the beta-lactam ring. Aminoglycoside-modifying enzymes (acetyltransferases, phosphotransferases, and adenylyltransferases) inactivate aminoglycosides, and chloramphenicol acetyltransferase inactivates chloramphenicol. Target modification involves alteration of the antibiotic's binding site so that it can no longer recognise its target. Examples include PBP2a in MRSA (encoded by the mecA gene, a modified penicillin-binding protein with low beta-lactam affinity), the D-Ala-D-Lactate modification in VRE (which reduces vancomycin binding 1000-fold), and methylation of the 23S rRNA by erm genes (conferring resistance to macrolides, lincosamides, and streptogramins — the MLS_B phenotype). Decreased permeability occurs primarily in Gram-negative bacteria through loss or downregulation of outer membrane porins, reducing antibiotic entry — Pseudomonas aeruginosa losing OprD porin leading to carbapenem resistance is a classic example. Efflux pumps actively transport antibiotics out of the bacterial cell faster than they can accumulate, and these can be specific (tetracycline efflux pumps) or broad-spectrum (multidrug efflux pumps in Pseudomonas and Acinetobacter).</p>
+    <p>Resistance genes spread between bacteria primarily through horizontal gene transfer. Conjugation — direct transfer of plasmids carrying resistance genes (R plasmids) via the sex pilus — is the most clinically important mechanism because it can occur between unrelated bacterial species and can transfer multiple resistance genes simultaneously. Transformation (uptake of free DNA) and transduction (transfer via bacteriophages) also contribute. Transposons ("jumping genes") can move resistance genes between plasmids and chromosomes, further amplifying the spread of resistance.</p>
+  </div>
+</div>
+
+<div class="topic" id="abx-test">
+  <h3>Antibiotic Susceptibility Testing <span class="tag tag-abx">ABX</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Disk Diffusion (Kirby-Bauer)</div><p>Antibiotic disks on agar → zone of inhibition. Qualitative (S/I/R).</p></div>
+    <div class="field"><div class="field-label">MIC</div><p>Lowest concentration inhibiting visible growth. Quantitative. Broth dilution or Etest.</p></div>
+    <div class="field"><div class="field-label">Automated</div><p>VITEK, Phoenix — combine ID + susceptibility.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Antibiotic susceptibility testing (AST) determines which antibiotics will be effective against a specific bacterial isolate, guiding targeted therapy and is a cornerstone of clinical microbiology.</p>
+    <p>The Kirby-Bauer disk diffusion method is the most widely used qualitative technique. A standardised bacterial inoculum is spread evenly across a Mueller-Hinton agar plate, and paper disks impregnated with known concentrations of different antibiotics are placed on the surface. During overnight incubation, antibiotics diffuse outward from each disk in a concentration gradient, and susceptible bacteria are inhibited from growing in a zone around the disk. The diameter of this zone of inhibition is measured and compared against standardised breakpoint tables (set by CLSI or EUCAST) to categorise the organism as susceptible (S), intermediate (I), or resistant (R). This method is simple, inexpensive, and well-established but provides only qualitative results.</p>
+    <p>The minimum inhibitory concentration (MIC) is a quantitative measure defined as the lowest concentration of an antibiotic that inhibits visible bacterial growth after overnight incubation. It can be determined by broth microdilution (serial twofold dilutions of antibiotic in liquid media), or by the Etest, which uses a plastic strip containing a continuous antibiotic gradient placed on an inoculated agar plate — the MIC is read where the elliptical zone of inhibition intersects the strip. MIC values provide more precise information than disk diffusion and are particularly important for guiding dosing in serious infections. Automated systems such as VITEK and Phoenix combine bacterial identification and susceptibility testing in a single rapid platform, providing results within hours rather than overnight.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- IMMUNE / HOST -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-blue)">Immune / Host Factors</h2>
+
+<div class="topic" id="complement">
+  <h3>Complement System <span class="tag tag-immune">Immune</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Pathways</div><ul>
+      <li>Classical — C1q + Ab-Ag complex</li>
+      <li>Lectin — MBL binds mannose</li>
+      <li>Alternative — spontaneous C3 hydrolysis</li>
+    </ul><p>All converge at C3 → C3a + C3b.</p></div>
+    <div class="field"><div class="field-label">Key Components</div><p>C3b = opsonisation. C3a/C5a = anaphylatoxins (C5a = chemotaxis). C5b-9 = MAC (lysis). Deficiency → Neisseria.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>The complement system is a cascade of over 30 plasma proteins that forms a critical part of innate immunity, providing three major effector functions: opsonisation of pathogens, recruitment of inflammatory cells, and direct killing through membrane lysis. It is activated through three pathways that all converge at the central step of C3 cleavage into C3a and C3b.</p>
+    <p>The classical pathway is initiated when C1q binds to antigen-antibody complexes (IgG or IgM), linking complement to the adaptive immune response. The lectin pathway is activated when mannose-binding lectin (MBL) recognises mannose residues on microbial surfaces — this is antibody-independent and pattern-based. The alternative pathway is constitutively active at a low level through spontaneous hydrolysis of C3 in the plasma; it amplifies on microbial surfaces that lack complement regulatory proteins (which are present on host cells to prevent self-damage).</p>
+    <p>The key effector molecules are C3b, which coats microbial surfaces and acts as the major opsonin, promoting phagocytosis by binding complement receptors on neutrophils and macrophages; C3a and C5a, which are anaphylatoxins that trigger mast cell degranulation, increase vascular permeability, and recruit inflammatory cells (C5a is the most potent chemotactic factor for neutrophils); and the membrane attack complex (MAC, C5b-C6-C7-C8-C9), which assembles a pore in the pathogen's cell membrane, causing osmotic lysis. MAC-mediated killing is particularly important for Neisseria species, which is why patients with deficiencies in terminal complement components (C5-C9) are predisposed to recurrent Neisseria meningitidis and N. gonorrhoeae infections. This is a high-yield clinical correlation frequently tested on exams.</p>
+  </div>
+</div>
+
+<div class="topic" id="vaginal-flora">
+  <h3>Vaginal Flora <span class="tag tag-immune">Host</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Normal</div><p>Dominated by Lactobacillus. Lactic acid → pH < 4.5. H₂O₂ → kills anaerobes. Competitive exclusion.</p></div>
+    <div class="field"><div class="field-label">Disruption</div><p>Loss of Lactobacillus → ↑pH → Gardnerella/anaerobe overgrowth → BV. Or Candida overgrowth. Causes: antibiotics, douching, hormonal changes.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>The normal vaginal microbiome is dominated by Lactobacillus species, particularly L. crispatus, L. jensenii, and L. gasseri, which act as the primary defence against vaginal pathogens through several mechanisms. Lactobacilli produce lactic acid through fermentation of glycogen (deposited in vaginal epithelial cells under oestrogen influence), maintaining the vaginal pH at an acidic 3.8-4.5, which is directly inhibitory to most pathogenic bacteria. They also produce hydrogen peroxide (H₂O₂), which is directly bactericidal to anaerobes and catalase-negative organisms. Additionally, Lactobacilli provide colonisation resistance through competitive exclusion — they occupy adhesion sites on the vaginal epithelium, physically preventing pathogen attachment — and produce bacteriocins, antimicrobial peptides that kill competing organisms.</p>
+    <p>When this Lactobacillus-dominant ecosystem is disrupted — by broad-spectrum antibiotics (which kill Lactobacilli), vaginal douching (which mechanically removes them and raises pH), or hormonal changes (declining oestrogen reduces glycogen availability) — the vaginal pH rises above 4.5, creating a permissive environment for overgrowth of pathogenic organisms. This leads either to bacterial vaginosis (overgrowth of Gardnerella vaginalis and mixed anaerobes, characterised by fishy discharge, clue cells, and positive whiff test) or vulvovaginal candidiasis (overgrowth of Candida albicans, presenting with thick white discharge, pruritus, and pseudohyphae on KOH mount). Understanding the protective role of the vaginal flora explains why antibiotic use is a risk factor for both BV and candidiasis, and why restoration of Lactobacillus (through probiotics or treatment of the dysbiosis) is part of management.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- GENETICS -->
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="section-divider" style="color:var(--accent-purple)">Microbial Genetics</h2>
+
+<div class="topic" id="transduction">
+  <h3>Transformation &amp; Transduction <span class="tag tag-genetics">Genetics</span></h3>
+  <div class="toggle-row"><button class="toggle-notes" onclick="toggleSection(this, 'notes')">Hide Notes</button><button class="toggle-answer" onclick="toggleSection(this, 'answer')">Show Practice Answer</button></div>
+  <div class="notes-content">
+    <div class="field"><div class="field-label">Transformation</div><p>Uptake of naked DNA. Requires competence. Griffith experiment (1928). S. pneumoniae capsule switching.</p></div>
+    <div class="field"><div class="field-label">Transduction</div><ul>
+      <li>Generalised — phage packages random host DNA during lytic cycle</li>
+      <li>Specialised — lysogenic phage takes adjacent genes. E.g. diphtheria toxin (β-prophage), cholera toxin (CTXφ)</li>
+    </ul></div>
+    <div class="field"><div class="field-label">Conjugation</div><p>Sex pilus, F/R plasmid transfer. Most important for resistance spread.</p></div>
+  </div>
+  <div class="practice-answer hidden">
+    <p>Horizontal gene transfer (HGT) is the process by which bacteria acquire genetic material from other organisms without vertical (parent-to-offspring) transmission. It is the primary mechanism by which antibiotic resistance and virulence genes spread through bacterial populations, and it occurs through three main mechanisms: transformation, transduction, and conjugation.</p>
+    <p>Transformation is the uptake of free (naked) DNA from the environment by a bacterial cell. The bacterium must be in a state of "competence," meaning it expresses surface receptors and transport machinery for DNA binding and internalisation. This was first demonstrated in Griffith's landmark 1928 experiment, in which heat-killed smooth (encapsulated) Streptococcus pneumoniae was mixed with live rough (non-encapsulated) bacteria, and live smooth colonies emerged — the "transforming principle" (later identified as DNA by Avery, MacLeod, and McCarty in 1944). Clinically, transformation allows S. pneumoniae to undergo capsule switching and is important in natural competence of Neisseria and Haemophilus species.</p>
+    <p>Transduction is the transfer of bacterial DNA from one bacterium to another via a bacteriophage (bacterial virus). In generalised transduction, during the lytic cycle, the phage accidentally packages a random fragment of host bacterial DNA instead of its own genome into a new phage particle, which then injects this bacterial DNA into the next cell it infects — any bacterial gene can potentially be transferred this way. In specialised transduction, a prophage (integrated lysogenic phage) excises imprecisely from the bacterial chromosome, taking adjacent host genes with it. This means only genes flanking the prophage insertion site are transferred. Crucially, some bacterial toxin genes are actually phage-encoded: diphtheria toxin is carried by the beta-prophage of Corynebacterium diphtheriae, cholera toxin by the CTXφ phage, Shiga toxin by a lambdoid phage, and botulinum toxin by a phage as well.</p>
+    <p>Conjugation is the direct transfer of DNA (usually a plasmid) from a donor to a recipient cell through a sex pilus (F pilus). It is the most clinically important mechanism of HGT because R (resistance) plasmids carrying multiple antibiotic resistance genes can be transferred rapidly between bacteria, even across species boundaries, driving the antibiotic resistance crisis. Unlike transformation and transduction, conjugation requires direct cell-to-cell contact.</p>
+  </div>
+</div>
+
+</main>
+
+<script>
+function toggleSection(btn, type) {
+  const topic = btn.closest('.topic');
+  if (type === 'notes') {
+    const notes = topic.querySelector('.notes-content');
+    notes.classList.toggle('hidden');
+    btn.textContent = notes.classList.contains('hidden') ? 'Show Notes' : 'Hide Notes';
+  } else {
+    const answer = topic.querySelector('.practice-answer');
+    answer.classList.toggle('hidden');
+    btn.textContent = answer.classList.contains('hidden') ? 'Show Practice Answer' : 'Hide Practice Answer';
+  }
+}
+
+// Sidebar
+const links = document.querySelectorAll('nav a');
+const sections = document.querySelectorAll('.topic, .framework-box');
+links.forEach(l => l.addEventListener('click', () => document.querySelector('nav').classList.remove('open')));
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const id = entry.target.id;
+      const activeLink = document.querySelector(`nav a[href="#${id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) observer.observe(s); });
+</script>
+
+<script>
+if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){});}
+</script>
+</body>
+</html>

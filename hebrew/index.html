@@ -10,186 +10,218 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
+
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#0a0a0b;
-  --bg-surface:#111113;
-  --bg-hover:#1a1a1e;
-  --border:#222228;
-  --border-subtle:#18181c;
-  --text-primary:#ededef;
-  --text-secondary:#8b8b8e;
-  --text-tertiary:#5a5a5d;
-  --accent:#3b82f6;
-  --accent-dim:rgba(59,130,246,.12);
-  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
+  --bg-s:#111114;
+  --bg-h:#161619;
+  --border:#1d1d22;
+  --border-s:#141418;
+  --text-1:#f0f0f3;
+  --text-2:#8a8a90;
+  --text-3:#4e4e56;
+  --blue:#3b82f6;
+  --blue-dim:rgba(59,130,246,.12);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'JetBrains Mono',monospace;
 }
-html{font-size:15px}
-body{background:var(--bg);color:var(--text-primary);font-family:var(--font-sans);
+html{font-size:15px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-1);font-family:var(--font);
      line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:var(--text-primary);text-decoration:none;transition:color .15s}
-a:hover{color:var(--text-secondary)}
+a{color:inherit;text-decoration:none}
 
-/* ── Layout ── */
-.layout{display:flex;max-width:1200px;margin:0 auto;min-height:100vh}
+/* ─ Layout ─ */
+.layout{display:flex;max-width:1240px;margin:0 auto;min-height:100vh}
 
-/* ── Sidebar ── */
-.sidebar{
-  width:210px;flex-shrink:0;padding:36px 16px 40px 20px;
-  border-right:1px solid var(--border-subtle);
+/* ─ Sidebar ─ */
+.sb{
+  width:200px;flex-shrink:0;
+  padding:32px 12px 40px 18px;
+  border-right:1px solid var(--border-s);
   position:sticky;top:0;height:100vh;overflow-y:auto;
 }
-.sidebar-logo{
-  width:30px;height:30px;border-radius:7px;
+.sb-logo{
+  width:28px;height:28px;border-radius:7px;
   background:linear-gradient(135deg,#3b82f6,#8b5cf6);
-  margin-bottom:28px;display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:.8rem;color:#fff;text-decoration:none;
-  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.75rem;color:#fff;
+  margin-bottom:26px;flex-shrink:0;
 }
-.sidebar-logo:hover{opacity:.85;color:#fff}
-.nav-section{margin-bottom:20px}
-.nav-label{
-  font-size:.68rem;font-weight:600;color:var(--text-tertiary);
-  text-transform:uppercase;letter-spacing:.09em;
-  padding:0 12px;margin-bottom:5px;display:block;
+.sb-logo:hover{opacity:.85}
+.sb-section{margin-bottom:6px}
+.sb-label{
+  font-size:.65rem;font-weight:600;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.1em;
+  padding:0 10px;margin-bottom:4px;display:block;
 }
-.nav-list{list-style:none;display:flex;flex-direction:column;gap:1px}
-.nav-list a{
-  display:block;padding:6px 12px;border-radius:6px;font-size:.87rem;
-  color:var(--text-secondary);transition:background .12s,color .12s;
+.sb-nav{list-style:none;display:flex;flex-direction:column;gap:1px}
+.sb-nav a{
+  display:flex;align-items:center;gap:8px;
+  padding:5px 10px;border-radius:6px;font-size:.86rem;
+  color:var(--text-2);transition:background .12s,color .12s;
 }
-.nav-list a:hover{background:var(--bg-hover);color:var(--text-primary)}
-.nav-list a.active{color:var(--text-primary);background:var(--bg-hover);font-weight:500}
-.nav-list a.sub{
-  padding-left:22px;font-size:.81rem;color:var(--text-tertiary);
+.sb-nav a:hover{background:var(--bg-h);color:var(--text-1)}
+.sb-nav a.active{color:var(--text-1);background:var(--bg-h);font-weight:500}
+.sb-nav .dot{
+  width:6px;height:6px;border-radius:50%;flex-shrink:0;
+  background:var(--text-3);
 }
-.nav-list a.sub:hover{color:var(--text-secondary)}
-.nav-list a.sub.active{color:#60a5fa;background:var(--accent-dim)}
+.sb-nav a.active .dot,.sb-nav a:hover .dot{background:currentColor}
 
-/* TOC divider */
-.sidebar-sep{border:none;border-top:1px solid var(--border-subtle);margin:16px 0 10px}
-.toc-heading{
-  font-size:.68rem;font-weight:600;color:var(--text-tertiary);
-  text-transform:uppercase;letter-spacing:.09em;padding:0 12px;margin-bottom:4px;
+/* TOC */
+.sb-sep{border:none;border-top:1px solid var(--border-s);margin:14px 0 10px}
+.sb-toc-label{
+  font-size:.64rem;font-weight:600;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.1em;padding:0 10px;margin-bottom:4px;
 }
-.toc-list{list-style:none}
-.toc-list a{
-  display:block;padding:3px 12px;font-size:.76rem;
-  color:var(--text-tertiary);border-radius:4px;
-  transition:color .12s,background .12s;
+.sb-toc{list-style:none}
+.sb-toc a{
+  display:block;padding:2px 10px;font-size:.74rem;line-height:1.5;
+  color:var(--text-3);border-radius:4px;transition:color .12s,background .12s;
 }
-.toc-list a:hover{color:var(--text-secondary);background:var(--bg-hover)}
+.sb-toc a:hover{color:var(--text-2);background:var(--bg-h)}
 
-/* ── Main ── */
-.main{flex:1;padding:40px 44px 80px;min-width:0}
-.page-header{margin-bottom:32px}
-.page-header h1{font-size:1.45rem;font-weight:600;letter-spacing:-.025em}
-.page-header p{color:var(--text-secondary);font-size:.85rem;margin-top:5px}
+/* ─ Main ─ */
+.main{flex:1;padding:40px 48px 100px;min-width:0}
+.page-hd{margin-bottom:36px}
+.page-hd h1{font-size:1.55rem;font-weight:600;letter-spacing:-.025em;line-height:1.2}
+.page-hd p{color:var(--text-2);font-size:.875rem;margin-top:5px}
 
-/* ── Tool cards (listing pages) ── */
-.section-label{
-  font-size:.72rem;font-weight:600;color:var(--text-tertiary);
-  font-family:var(--font-mono);letter-spacing:.04em;
-  padding:18px 0 6px;border-top:1px solid var(--border-subtle);margin-top:8px;
+/* ─ Groups ─ */
+.group{margin-bottom:32px}
+.group-label{
+  display:flex;align-items:center;gap:7px;
+  font-size:.68rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:.09em;color:var(--text-3);
+  padding-bottom:10px;margin-bottom:6px;
+  border-bottom:1px solid var(--border-s);
 }
-.section-label:first-child{border-top:none;padding-top:0}
-.tool-list{display:flex;flex-direction:column;gap:2px;margin-bottom:4px}
-.tool-item{
-  display:flex;align-items:center;gap:14px;
-  padding:11px 14px;margin:0 -14px;border-radius:9px;
-  transition:background .12s;cursor:pointer;
+.group-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* ─ Items ─ */
+.item{
+  display:flex;align-items:center;gap:13px;
+  padding:10px 10px;margin:0 -10px;
+  border-radius:9px;transition:background .12s,transform .1s;
+  cursor:pointer;
 }
-.tool-item:hover{background:var(--bg-hover)}
-.tool-icon{
-  width:34px;height:34px;border-radius:7px;background:var(--bg-surface);
-  border:1px solid var(--border);display:flex;align-items:center;
-  justify-content:center;font-size:.95rem;flex-shrink:0;
+.item:hover{background:var(--bg-s);transform:translateX(2px)}
+.item-icon{
+  width:36px;height:36px;border-radius:8px;
+  background:var(--bg-s);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;flex-shrink:0;transition:border-color .12s;
 }
-.tool-body{flex:1;min-width:0}
-.tool-title{font-size:.92rem;color:var(--text-primary);font-weight:500;line-height:1.3}
-.tool-sub{font-size:.78rem;color:var(--text-secondary);margin-top:2px;line-height:1.4}
-.tool-meta{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.item:hover .item-icon{border-color:var(--border)}
+.item-body{flex:1;min-width:0}
+.item-title{font-size:.93rem;font-weight:500;color:var(--text-1);line-height:1.3}
+.item-sub{font-size:.79rem;color:var(--text-2);margin-top:2px;line-height:1.4}
+.item-meta{display:flex;align-items:center;gap:7px;flex-shrink:0}
 .badge{
-  font-size:.66rem;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:.02em;
+  font-size:.64rem;font-weight:600;padding:2px 7px;
+  border-radius:4px;letter-spacing:.02em;
 }
-.badge-new{background:var(--accent-dim);color:#60a5fa}
-.badge-wip{background:rgba(234,179,8,.1);color:#ca8a04}
-.tool-date{font-size:.76rem;color:var(--text-tertiary);font-family:var(--font-mono)}
+.badge-new{background:var(--blue-dim);color:#60a5fa}
+.badge-wip{background:rgba(234,179,8,.1);color:#b45309}
+.item-date{font-size:.74rem;color:var(--text-3);font-family:var(--mono)}
 
-/* ── Empty state ── */
-.empty-state{padding:48px 0;text-align:center;color:var(--text-tertiary)}
-.empty-icon{font-size:1.6rem;margin-bottom:8px}
-.empty-state p{font-size:.87rem;line-height:1.6}
+/* ─ Sub-items (nested, indented) ─ */
+.sub-item{padding-left:32px}
+.sub-item .item-icon{width:28px;height:28px;font-size:.75rem}
+.sub-item .item-title{font-size:.84rem}
 
-/* ── Mobile ── */
+/* ─ Home section cards ─ */
+.section-cards{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.s-card{
+  display:flex;align-items:center;gap:16px;
+  padding:16px 18px;border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--bg-s);
+  transition:background .12s,border-color .12s,transform .12s;
+  cursor:pointer;
+}
+.s-card:hover{background:var(--bg-h);border-color:var(--border);transform:translateY(-1px)}
+.s-card-icon{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;flex-shrink:0;
+}
+.s-card-body{flex:1;min-width:0}
+.s-card-title{font-size:1rem;font-weight:600;color:var(--text-1);margin-bottom:2px}
+.s-card-sub{font-size:.8rem;color:var(--text-2);line-height:1.4}
+.s-card-meta{flex-shrink:0;text-align:right}
+.s-card-count{font-size:.74rem;color:var(--text-3);font-family:var(--mono);margin-bottom:3px}
+.s-card-arrow{font-size:.85rem;color:var(--text-3)}
+
+/* ─ Mobile ─ */
 @media(max-width:768px){
-  .sidebar{display:none}
-  .mobile-nav{
+  .sb{display:none}
+  .mob-nav{
     display:flex !important;overflow-x:auto;gap:4px;
     padding:10px 14px;border-bottom:1px solid var(--border);
-    -webkit-overflow-scrolling:touch;position:sticky;top:0;
-    background:var(--bg);z-index:50;
+    position:sticky;top:0;background:var(--bg);z-index:50;
+    -webkit-overflow-scrolling:touch;
   }
-  .mobile-nav a{
-    white-space:nowrap;padding:5px 11px;border-radius:6px;
-    font-size:.81rem;color:var(--text-secondary);flex-shrink:0;
+  .mob-nav a{
+    white-space:nowrap;padding:5px 12px;border-radius:6px;
+    font-size:.8rem;color:var(--text-2);flex-shrink:0;
   }
-  .mobile-nav a.active{background:var(--bg-hover);color:var(--text-primary)}
-  .main{padding:24px 18px 60px}
-  .tool-item{padding:10px 10px;margin:0 -10px}
+  .mob-nav a.active{background:var(--bg-h);color:var(--text-1)}
+  .main{padding:24px 18px 80px}
 }
-@media(min-width:769px){.mobile-nav{display:none !important}}
+@media(min-width:769px){.mob-nav{display:none !important}}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+
 </style>
 </head>
 <body>
-<nav class="mobile-nav" style="display:none"><a href="../index.html">Anatomy</a><a href="../microbiology/index.html">Microbiology</a><a href="../hebrew/index.html" class="active">Hebrew</a></nav>
+<nav class="mob-nav" style="display:none"><a href="../anatomy/index.html">Anatomy</a><a href="../microbiology/index.html">Microbiology</a><a href="../hebrew/index.html" class="active">Hebrew</a></nav>
 <div class="layout">
-<aside class="sidebar">
-  <a class="sidebar-logo" href="../index.html">B</a>
-  <div class="nav-section">
-    <span class="nav-label">Subjects</span>
-    <ul class="nav-list">
-      <li><a href="../index.html">Anatomy</a></li>
-      <li><a href="../microbiology/index.html">Microbiology</a></li>
-      <li><a href="../hebrew/index.html" class="active">Hebrew</a></li>
+<aside class="sb">
+  <a class="sb-logo" href="../index.html">B</a>
+  <div class="sb-section">
+    <span class="sb-label">Subjects</span>
+    <ul class="sb-nav">
+      <li><a href="../anatomy/index.html"><span class="dot" ></span>Anatomy</a></li>
+      <li><a href="../microbiology/index.html"><span class="dot" ></span>Microbiology</a></li>
+      <li><a href="../hebrew/index.html" class="active"><span class="dot" style="background:#a78bfa"></span>Hebrew</a></li>
     </ul>
   </div>
-  
 </aside>
 <main class="main">
-
-<div class="page-header">
+<div class="page-hd">
   <h1>Hebrew</h1>
   <p>Vocabulary · Flashcards · Checklists — beginner level</p>
 </div>
 
-<div class="section-label">Vocabulary</div>
-<div class="tool-list">
-  <a class="tool-item" href="vocab.html">
-    <div class="tool-icon">📝</div>
-    <div class="tool-body">
-      <div class="tool-title">Vocab Flashcards</div>
-      <div class="tool-sub">Expandable cards · Copy export · Shuffle · Progress tracking</div>
-    </div>
-    <div class="tool-meta">
-      <span class="badge badge-new">Newest</span>
-      <span class="tool-date">Mar 29</span>
-    </div>
-  </a>
-  <a class="tool-item" href="checklist.html">
-    <div class="tool-icon">✅</div>
-    <div class="tool-body">
-      <div class="tool-title">Vocab Checklist</div>
-      <div class="tool-sub">Show/hide translations · Mark known vs learning</div>
-    </div>
-    <div class="tool-meta"><span class="tool-date">Mar 29</span></div>
-  </a>
+<div class="group">
+  <div class="group-label">
+    <span class="group-dot" style="background:#a78bfa"></span>
+    Vocabulary
+  </div>
+  <div class="group-items">
+    <a class="item" href="vocab.html">
+      <div class="item-icon">📝</div>
+      <div class="item-body">
+        <div class="item-title">Vocab Flashcards</div>
+        <div class="item-sub">Expandable cards · Shuffle · Progress tracking · Copy export</div>
+      </div>
+      <div class="item-meta"><span class="badge badge-new">Newest</span><span class="item-date">Mar 29</span></div>
+    </a>
+    <a class="item" href="checklist.html">
+      <div class="item-icon">✅</div>
+      <div class="item-body">
+        <div class="item-title">Vocab Checklist</div>
+        <div class="item-sub">Show/hide translations · Mark known vs learning</div>
+      </div>
+      <div class="item-meta"><span class="item-date">Mar 29</span></div>
+    </a>
+  </div>
 </div>
-
 </main>
 </div>
 <script>

@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Med Study Hub</title>
+<title>Anatomy — Study Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a0a0b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -179,68 +179,61 @@ a{color:inherit;text-decoration:none}
 </style>
 </head>
 <body>
-<nav class="mob-nav" style="display:none"><a href="anatomy/index.html">Anatomy</a><a href="microbiology/index.html">Microbiology</a><a href="hebrew/index.html">Hebrew</a></nav>
+<nav class="mob-nav" style="display:none"><a href="../anatomy/index.html" class="active">Anatomy</a><a href="../microbiology/index.html">Microbiology</a><a href="../hebrew/index.html">Hebrew</a></nav>
 <div class="layout">
 <aside class="sb">
-  <a class="sb-logo" href="index.html">B</a>
+  <a class="sb-logo" href="../index.html">B</a>
   <div class="sb-section">
     <span class="sb-label">Subjects</span>
     <ul class="sb-nav">
-      <li><a href="anatomy/index.html"><span class="dot" ></span>Anatomy</a></li>
-      <li><a href="microbiology/index.html"><span class="dot" ></span>Microbiology</a></li>
-      <li><a href="hebrew/index.html"><span class="dot" ></span>Hebrew</a></li>
+      <li><a href="../anatomy/index.html" class="active"><span class="dot" style="background:#f97316"></span>Anatomy</a></li>
+      <li><a href="../microbiology/index.html"><span class="dot" ></span>Microbiology</a></li>
+      <li><a href="../hebrew/index.html"><span class="dot" ></span>Hebrew</a></li>
     </ul>
   </div>
 </aside>
 <main class="main">
 <div class="page-hd">
-  <h1>Med Study Hub</h1>
-  <p>Year 2 · Pre-clinical · USMLE Step 1 prep</p>
+  <h1>Anatomy</h1>
+  <p>Exam prep · Active recall · Netter plates · Back</p>
 </div>
 
-<div class="section-cards">
-
-  <a class="s-card" href="anatomy/index.html">
-    <div class="s-card-icon" style="background:rgba(249,115,22,.12);color:#f97316">🦴</div>
-    <div class="s-card-body">
-      <div class="s-card-title">Anatomy</div>
-      <div class="s-card-sub">Back · Netter Plates · Exam Prep</div>
-    </div>
-    <div class="s-card-meta">
-      <div class="s-card-count">3 tools</div>
-      <div class="s-card-arrow">→</div>
-    </div>
-  </a>
-
-  <a class="s-card" href="microbiology/index.html">
-    <div class="s-card-icon" style="background:rgba(34,197,94,.12);color:#22c55e">🔬</div>
-    <div class="s-card-body">
-      <div class="s-card-title">Microbiology</div>
-      <div class="s-card-sub">Chapter Map · Study Hub · Exam Framework · Clostridium · Staph · Strep</div>
-    </div>
-    <div class="s-card-meta">
-      <div class="s-card-count">6 tools</div>
-      <div class="s-card-arrow">→</div>
-    </div>
-  </a>
-
-  <a class="s-card" href="hebrew/index.html">
-    <div class="s-card-icon" style="background:rgba(167,139,250,.12);color:#a78bfa">✡️</div>
-    <div class="s-card-body">
-      <div class="s-card-title">Hebrew</div>
-      <div class="s-card-sub">Vocab Flashcards · Checklist</div>
-    </div>
-    <div class="s-card-meta">
-      <div class="s-card-count">2 tools</div>
-      <div class="s-card-arrow">→</div>
-    </div>
-  </a>
-
+<div class="group">
+  <div class="group-label">
+    <span class="group-dot" style="background:#f97316"></span>
+    Study Tools
+  </div>
+  <div class="group-items">
+    <a class="item" href="back.html">
+      <div class="item-icon">🦴</div>
+      <div class="item-body">
+        <div class="item-title">Back — 67 Practice Questions</div>
+        <div class="item-sub">Vertebrae · Ligaments · Nerves · Spinal Cord · MCQ + Active recall</div>
+      </div>
+      <div class="item-meta"><span class="item-date">Mar 29</span></div>
+    </a>
+    <a class="item" href="netter.html">
+      <div class="item-icon">🗾</div>
+      <div class="item-body">
+        <div class="item-title">Netter Plates</div>
+        <div class="item-sub">Past exam questions linked to Netter plate references</div>
+      </div>
+      <div class="item-meta"><span class="item-date">Mar 29</span></div>
+    </a>
+    <a class="item" href="study-tool.html">
+      <div class="item-icon">📚</div>
+      <div class="item-body">
+        <div class="item-title">Exam Prep</div>
+        <div class="item-sub">4-week study plan · Topic cards · Quiz mode</div>
+      </div>
+      <div class="item-meta"><span class="item-date">Mar 29</span></div>
+    </a>
+  </div>
 </div>
 </main>
 </div>
 <script>
-if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}
+if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){});}
 </script>
 </body>
 </html>

@@ -1,8 +1,8 @@
-const CACHE = 'medstudy-v3';
+const CACHE = 'medstudy-v4';
 const URLS = [
   '.','./index.html',
-  './anatomy/back.html','./anatomy/netter.html','./anatomy/study-tool.html',
-  './microbiology/index.html','./microbiology/hub.html','./microbiology/chapters.html',
+  './anatomy/index.html','./anatomy/back.html','./anatomy/netter.html','./anatomy/study-tool.html',
+  './microbiology/index.html','./microbiology/hub.html','./microbiology/chapters.html','./microbiology/exam-framework.html',
   './hebrew/index.html','./hebrew/vocab.html','./hebrew/checklist.html',
   './tools/clostridium_MASTER.html',
   './tools/staph_aureus_MASTER.html',

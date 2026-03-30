@@ -1,13 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Anatomy Exam Prep</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Exam Prep — Anatomy — Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a0a0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0b;
+  --bg-surface:#111113;
+  --bg-hover:#1a1a1e;
+  --border:#222228;
+  --border-subtle:#18181c;
+  --text-primary:#ededef;
+  --text-secondary:#8b8b8e;
+  --text-tertiary:#5a5a5d;
+  --site-accent:#3b82f6;
+  --accent-dim:rgba(59,130,246,.12);
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{font-size:15px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-primary);font-family:var(--font-sans);
+     line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── Layout ── */
+.site-layout{display:flex;max-width:1200px;margin:0 auto;min-height:100vh}
+
+/* ── Sidebar ── */
+.sidebar{
+  width:210px;flex-shrink:0;padding:36px 16px 40px 20px;
+  border-right:1px solid var(--border-subtle);
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.sidebar-logo{
+  width:30px;height:30px;border-radius:7px;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  margin-bottom:28px;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.8rem;color:#fff;text-decoration:none;flex-shrink:0;
+}
+.sidebar-logo:hover{opacity:.85;color:#fff}
+.nav-section{margin-bottom:20px}
+.nav-label{
+  font-size:.68rem;font-weight:600;color:var(--text-tertiary);
+  text-transform:uppercase;letter-spacing:.09em;
+  padding:0 12px;margin-bottom:5px;display:block;
+}
+.nav-list{list-style:none;display:flex;flex-direction:column;gap:1px}
+.nav-list a{
+  display:block;padding:6px 12px;border-radius:6px;font-size:.87rem;
+  color:var(--text-secondary);transition:background .12s,color .12s;
+  text-decoration:none;
+}
+.nav-list a:hover{background:var(--bg-hover);color:var(--text-primary)}
+.nav-list a.active{color:var(--text-primary);background:var(--bg-hover);font-weight:500}
+
+/* TOC */
+.sidebar-sep{border:none;border-top:1px solid var(--border-subtle);margin:16px 0 10px}
+.toc-heading{
+  font-size:.68rem;font-weight:600;color:var(--text-tertiary);
+  text-transform:uppercase;letter-spacing:.09em;padding:0 12px;margin-bottom:4px;
+}
+.toc-list{list-style:none}
+.toc-list a{
+  display:block;padding:3px 12px;font-size:.76rem;
+  color:var(--text-tertiary);border-radius:4px;
+  transition:color .12s,background .12s;text-decoration:none;
+}
+.toc-list a:hover{color:var(--text-secondary);background:var(--bg-hover)}
+
+/* ── Main ── */
+.site-main{flex:1;min-width:0;overflow-x:hidden}
+
+/* ── Mobile ── */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .mobile-nav{
+    display:flex !important;overflow-x:auto;gap:4px;
+    padding:10px 14px;border-bottom:1px solid var(--border);
+    -webkit-overflow-scrolling:touch;position:sticky;top:0;
+    background:var(--bg);z-index:50;
+  }
+  .mobile-nav a{
+    white-space:nowrap;padding:5px 11px;border-radius:6px;
+    font-size:.81rem;color:var(--text-secondary);flex-shrink:0;
+    text-decoration:none;
+  }
+  .mobile-nav a.active{background:var(--bg-hover);color:var(--text-primary)}
+}
+@media(min-width:769px){.mobile-nav{display:none !important}}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+<style>
+/* ── Original page styles (scoped to .study-wrap) ── */
+.study-wrap {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.study-wrap *,.study-wrap *::before,.study-wrap *::after{ box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --bg:         #0c0f18;
@@ -30,8 +131,8 @@
     --radius-sm:  8px;
   }
 
-  html { scroll-behavior: smooth; }
-  body {
+  
+  .study-wrap{
     background: var(--bg);
     color: var(--text);
     font-family: var(--font-body);
@@ -467,13 +568,30 @@
     .header h1 { font-size: 22px; }
     .question-text { font-size: 14px; }
   }
+
 </style>
 </head>
 <body>
+<nav class="mobile-nav" style="display:none"><a href="../index.html" class="active">Anatomy</a><a href="../microbiology/index.html">Microbiology</a><a href="../hebrew/index.html">Hebrew</a></nav>
+<div class="site-layout">
+<aside class="sidebar">
+  <a class="sidebar-logo" href="../index.html">B</a>
+  <div class="nav-section">
+    <span class="nav-label">Subjects</span>
+    <ul class="nav-list">
+      <li><a href="../index.html" class="active">Anatomy</a></li>
+      <li><a href="../microbiology/index.html">Microbiology</a></li>
+      <li><a href="../hebrew/index.html">Hebrew</a></li>
+    </ul>
+  </div>
+</aside>
+<div class="site-main">
+<div class="study-wrap">
+
 
 <div id="app">
   <div class="header">
-    <h1>Anatomy Exam Prep</h1>
+    <h1 id="anatomy-exam-prep">Anatomy Exam Prep</h1>
     <div class="header-sub" id="stats-sub">loading...</div>
   </div>
 
@@ -517,6 +635,394 @@
   </div>
 </div>
 
+<script>
+const STUDY_DATA = {
+  "Back & Spine": { priority:1, week:1, color:"#a78bfa", topics:[
+    { name:"Conus medullaris at L1-L2", answer:"The conus medullaris (terminal end of spinal cord) is at L1-L2 in adults. This is why lumbar punctures are done at L3-L4 or below — to avoid the cord.", examFreq:3, graysQs:"Back: Q42, Q55", keyFact:"Adult conus = L1-L2. Newborn conus = L3.", video:"Anatomy of the vertebral canal", netter:"Plates 161-163 (Spinal cord)", questionBank:[
+      { q:"In an adult, the conus medullaris terminates at what vertebral level?", choices:["T12","L2","L4","L5","S1"], correct:1, explain:"The conus medullaris ends at L1-L2 in adults. It is higher (L3) in newborns." },
+      { q:"A lumbar puncture is performed at L3-L4. Why is this level chosen?", choices:["It's above the conus medullaris","It's below the conus medullaris, in the cauda equina","The spinal cord is thinnest here","The dura ends here","The epidural space is widest here"], correct:1, explain:"L3-L4 is below the conus medullaris (L1-L2), so the needle enters the cauda equina without risk to the cord." }
+    ]},
+    { name:"Lumbar puncture needle sequence", answer:"The needle passes through: skin → subcutaneous tissue → supraspinous ligament → interspinous ligament → ligamentum flavum → epidural space → dura mater → arachnoid mater → subarachnoid space (CSF).", examFreq:3, graysQs:"Back: Q7, Q8, Q10", keyFact:"After ligamentum flavum → epidural space → then dura mater.", video:"Anatomy clinical correlates: Vertebral canal", netter:"Plates 165-166 (Lumbar puncture)", questionBank:[
+      { q:"During lumbar puncture at L3-L4, after passing through the ligamentum flavum, the needle enters which space?", choices:["Subarachnoid space","Subdural space","Epidural (extradural) space","Dura mater","Pia mater"], correct:2, explain:"After the ligamentum flavum, the needle enters the epidural space, then pierces dura and arachnoid to reach the subarachnoid space." },
+      { q:"The ligamentum flavum connects which structures?", choices:["Spinous processes","Vertebral bodies","Laminae of adjacent vertebrae","Transverse processes","Pedicles"], correct:2, explain:"The ligamentum flavum connects laminae of adjacent vertebrae. It is elastic and helps maintain upright posture." }
+    ]},
+    { name:"Disc herniation & nerve root compression", answer:"A posterolateral disc herniation at L3-L4 compresses the L4 nerve root. A midline herniation can compress lower roots of the cauda equina.", examFreq:2, graysQs:"Back: Q5, Q6", keyFact:"Posterolateral L3-L4 disc → L4 root. L4-L5 disc → L5 root. C7-T1 IVF → C8 root.", video:"Anatomy clinical correlates: Bones, joints and muscles of the back", netter:"Plates 163-164", questionBank:[
+      { q:"A midline disc herniation at L3-L4 most likely compresses which nerve root?", choices:["L2","L3","L4","L5","S1"], correct:2, explain:"At L3-L4, the L4 nerve root is most vulnerable." },
+      { q:"Severe narrowing of the C7-T1 intervertebral foramen compresses which nerve?", choices:["C6","C7","C8","T1","T2"], correct:2, explain:"C8 exits through the C7-T1 foramen. Cervical nerves exit ABOVE the same-numbered vertebra, but C8 exits between C7 and T1." }
+    ]}
+  ]},
+  "Thorax & Heart": { priority:1, week:1, color:"#f87171", topics:[
+    { name:"SA node — location & blood supply", answer:"The SA node is at the junction of the SVC and the right atrium, near the superior crista terminalis. RCA supplies it in ~60%; circumflex in ~40%.", examFreq:4, graysQs:"Thorax: Q71, Q81, Q125", keyFact:"SA node = SVC + crista terminalis junction. RCA supplies in 60%.", video:"Anatomy of the heart", netter:"Plates 222-223", questionBank:[
+      { q:"The SA node is located between the SVC and which structure?", choices:["Crista terminalis (superior border)","Fossa ovalis","Coronary sinus","Right auricle","Inferior vena cava"], correct:0, explain:"The SA node sits at the junction of the SVC and the superior crista terminalis of the right atrium." },
+      { q:"The arterial supply to the SA node arises most commonly from which artery?", choices:["Left circumflex (40%)","Right coronary artery (60%)","Anterior interventricular","Posterior descending","Conus branch"], correct:1, explain:"The RCA supplies the SA node in approximately 60% of people; the circumflex supplies it in the remaining ~40%." }
+    ]},
+    { name:"Coronary artery territories", answer:"RCA supplies the diaphragmatic (inferior) surface. The posterior interventricular branch (RCA, right-dominant) supplies the posterior 1/3 of the IVS. LAD supplies the anterior 2/3.", examFreq:4, graysQs:"Thorax: Q28, Q53, Q62, Q69, Q70", keyFact:"Diaphragmatic MI = RCA. Posterior 1/3 septum = posterior IV artery (RCA). Anterior 2/3 septum = LAD.", video:"Anatomy of the coronary circulation", netter:"Plates 218-221", questionBank:[
+      { q:"A 72-year-old has MI of the diaphragmatic surface. Which artery is most likely occluded?", choices:["Left anterior descending","Right coronary artery","Left main coronary","Left circumflex","Acute marginal"], correct:1, explain:"The RCA supplies the diaphragmatic (inferior) surface of the heart." },
+      { q:"Infarction of the posterior 1/3 of the interventricular septum results from occlusion of which artery?", choices:["Anterior interventricular from LCA","Posterior interventricular from RCA","Circumflex from LCA","Anterior interventricular from RCA","Left main coronary"], correct:1, explain:"The posterior interventricular branch, usually from the RCA, supplies the posterior 1/3 of the septum." }
+    ]},
+    { name:"Heart sounds S1 & S2", answer:"S1 = closure of AV valves (mitral + tricuspid) at start of ventricular systole. S2 = closure of semilunar valves (aortic + pulmonary) at start of ventricular diastole.", examFreq:3, graysQs:"Thorax: Q55, Q72, Q73, Q121, Q122", keyFact:"S1 = mitral + tricuspid closure. S2 = aortic + pulmonary closure.", video:"Anatomy of the heart", netter:"Plates 224-225", questionBank:[
+      { q:"The first heart sound (S1) is produced by closure of which valves?", choices:["Aortic + pulmonary","Mitral only","Aortic only","Mitral + tricuspid","Tricuspid only"], correct:3, explain:"S1 results from closure of both AV valves — mitral and tricuspid — at the onset of ventricular systole." },
+      { q:"S2 is produced by closure of which valves?", choices:["Mitral + tricuspid","Aortic + pulmonary","Aortic only","Mitral only","Pulmonary only"], correct:1, explain:"S2 results from closure of the semilunar valves (aortic and pulmonary) at the end of ventricular systole." }
+    ]},
+    { name:"Moderator band", answer:"The moderator band carries part of the RIGHT bundle branch from the interventricular septum to the anterior papillary muscle of the RIGHT ventricle.", examFreq:2, graysQs:"Thorax: Q56", keyFact:"Moderator band = right bundle branch → anterior papillary muscle of RV.", video:"Anatomy of the heart", netter:"Plate 221", questionBank:[
+      { q:"The moderator band carries part of the right bundle branch to which papillary muscle?", choices:["Anterolateral of LV","Anterior papillary of RV","Posteromedial of LV","Septal papillary of RV","Conal papillary"], correct:1, explain:"The moderator band carries the right bundle branch to the anterior papillary muscle of the RV." }
+    ]},
+    { name:"Sternal angle (Angle of Louis)", answer:"The sternal angle marks the junction of the manubrium and body of the sternum at T4-T5: tracheal bifurcation, aortic arch begins/ends, 2nd rib articulates.", examFreq:2, graysQs:"Thorax: Q36, Q37", keyFact:"Sternal angle = 2nd rib, T4-T5, tracheal bifurcation, aortic arch.", video:"Bones and joints of the thoracic wall", netter:"Plate 190", questionBank:[
+      { q:"The sternal angle marks the articulation of which rib with the sternum?", choices:["First","Third","Second","Fourth","Fifth"], correct:2, explain:"The 2nd rib articulates at the sternal angle, making it a key landmark for rib counting." }
+    ]},
+    { name:"Azygos vein", answer:"The azygos vein arches over the right main bronchus to drain into the SVC.", examFreq:2, graysQs:"Thorax: Q107", keyFact:"Azygos arches over RIGHT main bronchus → drains into SVC.", video:"Anatomy of the superior mediastinum", netter:"Plate 239", questionBank:[
+      { q:"The azygos vein arches over which structure to drain into which vein?", choices:["Right main bronchus → IVC","Left main bronchus → SVC","Right main bronchus → SVC","Left main bronchus → IVC","Right main bronchus → brachiocephalic"], correct:2, explain:"The azygos vein arches over the right main bronchus to drain into the SVC." }
+    ]},
+    { name:"Patent ductus arteriosus", answer:"Contrast in the aortic arch immediately in both pulmonary arteries = PDA. The ductus arteriosus connects the aorta to the pulmonary trunk during fetal life.", examFreq:2, graysQs:"Thorax: Q11, Q18, Q24, Q25", keyFact:"Aorta → pulmonary arteries shunt = PDA. Postnatal if patent: left-to-right shunt.", video:"Anatomy clinical correlates: Heart", netter:"Plate 232", questionBank:[
+      { q:"Contrast injected into the aortic arch is immediately seen in both pulmonary arteries. This indicates:", choices:["ASD","VSD","Patent ductus arteriosus","Coarctation of aorta","Tetralogy of Fallot"], correct:2, explain:"A patent ductus arteriosus creates a direct communication between the aorta and pulmonary trunk." }
+    ]},
+    { name:"Left atrium compressing esophagus", answer:"A dilated left atrium lies directly anterior to the esophagus. Enlargement compresses it, causing dysphagia.", examFreq:2, graysQs:"Thorax: Q46, Q132", keyFact:"Dilated LA → compresses esophagus → dysphagia.", video:"Anatomy clinical correlates: Heart", netter:"Plate 237", questionBank:[
+      { q:"A 65-year-old has pain swallowing. Imaging shows a dilated left atrium. Which structure is being compressed?", choices:["Root of lung","Esophagus","Trachea","Superior vena cava","Inferior vena cava"], correct:1, explain:"The esophagus runs directly posterior to the left atrium. LA dilation compresses it, causing dysphagia." }
+    ]},
+    { name:"Aortic valve cusps", answer:"The aortic semilunar valve has three cusps: right, left, and posterior (non-coronary). Coronary arteries arise from right and left aortic sinuses.", examFreq:1, graysQs:"Thorax: Q58", keyFact:"Aortic valve = right + left + posterior (non-coronary) cusps.", video:"Anatomy of the heart", netter:"Plate 224", questionBank:[
+      { q:"The aortic semilunar valve consists of which cusps?", choices:["Right, left, and anterior","Anterior, posterior, and septal","Right, left, and posterior","Anterior, posterior, and right","Anterior, posterior, and left"], correct:2, explain:"The aortic valve has right, left, and posterior (non-coronary) cusps." }
+    ]},
+    { name:"Foramen ovale & fetal shunts", answer:"During fetal life, blood passes from right atrium to left atrium through the foramen ovale. The eustachian valve directs IVC blood toward the foramen ovale.", examFreq:2, graysQs:"Thorax: Q12", keyFact:"Eustachian valve directs IVC blood toward foramen ovale in fetal circulation.", video:"Anatomy of the heart", netter:"Plate 232", questionBank:[
+      { q:"In fetal circulation, which valve directs blood from the IVC toward the foramen ovale?", choices:["Eustachian valve","Thebesian valve","Mitral valve","Tricuspid valve","Pulmonary valve"], correct:0, explain:"The eustachian valve (valve of the IVC) directs oxygenated blood from the IVC toward the foramen ovale." }
+    ]}
+  ]},
+  "Abdomen": { priority:1, week:2, color:"#fbbf24", topics:[
+    { name:"Omental foramen boundaries", answer:"Anterior: hepatoduodenal ligament. Posterior: IVC. Superior: caudate lobe of liver. Inferior: first part of duodenum.", examFreq:4, graysQs:"Abdomen: Q30, Q31", keyFact:"Ant=hepatoduodenal lig. Post=IVC. Sup=caudate lobe. Inf=D1.", video:"Anatomy of the peritoneum and peritoneal cavity", netter:"Plates 273-274", questionBank:[
+      { q:"The posterior wall of the epiploic foramen (foramen of Winslow) is formed by:", choices:["Hepatic artery","Caudate lobe of liver","Inferior vena cava","Superior duodenum","Portal vein"], correct:2, explain:"The posterior boundary of the omental foramen is the IVC." },
+      { q:"The anterior boundary of the omental foramen is the:", choices:["IVC","Liver","Hepatoduodenal ligament","Duodenum","Aorta"], correct:2, explain:"The hepatoduodenal ligament forms the anterior boundary." }
+    ]},
+    { name:"Portal triad", answer:"The portal triad contains: portal vein (posterior), hepatic artery proper (left), and common bile duct (right). Clamped during Pringle maneuver.", examFreq:3, graysQs:"Abdomen: Q31, Q32", keyFact:"Portal triad = portal vein + hepatic artery proper + CBD.", video:"Anatomy of the abdominal viscera: Liver, biliary ducts and gallbladder", netter:"Plate 278", questionBank:[
+      { q:"During liver transplantation, the portal triad is clamped. It consists of the portal vein, common bile duct, and which artery?", choices:["Right gastric","Right hepatic","Gastroduodenal","Hepatic artery proper","Left hepatic"], correct:3, explain:"The portal triad contains the hepatic artery proper." }
+    ]},
+    { name:"Posterior gastric ulcer → lesser sac", answer:"A perforating ulcer in the posterior wall of the stomach erodes into the omental bursa (lesser sac), which lies directly posterior to the stomach.", examFreq:2, graysQs:"Abdomen: Q22, Q23", keyFact:"Posterior stomach ulcer → lesser sac. Anterior ulcer → greater sac.", video:"Anatomy of the abdominal viscera: Esophagus and stomach", netter:"Plate 273", questionBank:[
+      { q:"A perforating ulcer in the posterior wall of the stomach causes peritonitis first in which location?", choices:["Right subhepatic space","Omental bursa (lesser sac)","Hepatorenal space","Right subphrenic space","Greater sac"], correct:1, explain:"The lesser sac is directly posterior to the stomach. Posterior perforation enters it directly." }
+    ]},
+    { name:"Pancreatic head tumor → bile duct obstruction", answer:"A tumor at the head of the pancreas obstructs the bile duct (common bile duct), causing obstructive jaundice.", examFreq:2, graysQs:"Abdomen: Q40, Q41", keyFact:"Pancreatic head tumor → CBD obstruction → jaundice.", video:"Anatomy of the abdominal viscera: Pancreas and spleen", netter:"Plate 281", questionBank:[
+      { q:"A tumor at the head of the pancreas causing jaundice most likely obstructs which structure?", choices:["Left hepatic duct","Common hepatic duct","Bile duct (common bile duct)","Cystic duct","Right hepatic duct"], correct:2, explain:"The bile duct passes through or behind the head of the pancreas and is compressed by tumors there." }
+    ]},
+    { name:"Hepatopancreatic ampulla", answer:"The main pancreatic duct and bile duct unite to form the hepatopancreatic ampulla (of Vater), opening into the descending duodenum.", examFreq:1, graysQs:"Abdomen: Q42", keyFact:"Pancreatic duct + bile duct → hepatopancreatic ampulla (of Vater).", video:"Anatomy of the abdominal viscera: Liver, biliary ducts and gallbladder", netter:"Plate 281", questionBank:[
+      { q:"The main pancreatic duct and bile duct unite to form:", choices:["Common bile duct","Hepatic duct","Hepatopancreatic ampulla","Cystic duct","Accessory pancreatic duct"], correct:2, explain:"They form the hepatopancreatic ampulla (ampulla of Vater), opening into the second part of the duodenum." }
+    ]},
+    { name:"Portosystemic anastomoses — esophageal varices", answer:"Esophageal varices = collaterals between left gastric vein (portal) and esophageal tributaries (azygos/systemic). Develop in portal hypertension.", examFreq:2, graysQs:"Abdomen: Q24, Q38, Q48, Q51, Q123", keyFact:"Left gastric vein (portal) ↔ esophageal veins → azygos (systemic).", video:"Anatomy of the abdominal viscera: Blood supply of the foregut, midgut and hindgut", netter:"Plate 302", questionBank:[
+      { q:"Bleeding esophageal varices represent collaterals between left gastric (portal) veins and which systemic veins?", choices:["Internal thoracic veins","Submucosal esophageal → azygos system","Inferior phrenic veins","Short gastric veins","Left renal vein"], correct:1, explain:"Esophageal varices form between the left gastric vein and esophageal tributaries draining to the azygos system." }
+    ]},
+    { name:"Renal vein occlusion / SMA", answer:"The left renal vein crosses anterior to the aorta, posterior to the SMA. SMA aneurysm can compress the left renal vein (nutcracker syndrome).", examFreq:1, graysQs:"Abdomen: Q62", keyFact:"SMA aneurysm → compresses left renal vein (nutcracker syndrome).", video:"Anatomy of the abdominal viscera: Kidneys, ureters and suprarenal glands", netter:"Plate 322", questionBank:[
+      { q:"Occlusion of the left renal vein can result from aneurysm of which artery?", choices:["Inferior mesenteric","Superior mesenteric artery","Renal artery","Abdominal aorta","Celiac trunk"], correct:1, explain:"The left renal vein passes between the SMA anteriorly and the aorta posteriorly." }
+    ]},
+    { name:"Appendicitis — psoas sign", answer:"Pain on hip flexion against resistance (psoas test) with periumbilical pain migrating to RLQ = appendicitis. The appendix often lies retrocecally near the psoas major.", examFreq:1, graysQs:"Abdomen: Q3", keyFact:"Positive psoas sign + RLQ pain = retrocecal appendicitis.", video:"Anatomy of the abdominal viscera: Large intestine", netter:"Plate 283", questionBank:[
+      { q:"Flexion of the hip against resistance causes sharp RLQ pain. Which organ is most likely inflamed?", choices:["Pancreas","Urinary bladder","Gallbladder","Appendix","Uterus"], correct:3, explain:"The positive psoas sign indicates retrocecal appendicitis — the inflamed appendix irritates the psoas muscle." }
+    ]}
+  ]},
+  "Pelvis & Perineum": { priority:1, week:2, color:"#f472b6", topics:[
+    { name:"Rectouterine pouch (of Douglas)", answer:"The rectouterine pouch (of Douglas) is the lowest point of the peritoneal cavity in females. Accessed via the posterior vaginal fornix for culdocentesis. Male equivalent = rectovesical pouch.", examFreq:3, graysQs:"Pelvis: Q14, Q27", keyFact:"Needle through posterior vaginal fornix → rectouterine pouch = lowest peritoneal point in females.", video:"Anatomy of the female reproductive organs of the pelvis", netter:"Plate 356", questionBank:[
+      { q:"A needle through the posterior vaginal fornix to drain peritoneal fluid enters which space?", choices:["Urovesical pouch","Pararectal fossa","Paravesical space","Rectouterine pouch (of Douglas)","Superficial perineal space"], correct:3, explain:"The rectouterine pouch of Douglas is directly behind the posterior fornix — the lowest point of the female peritoneal cavity." },
+      { q:"During D&C, posterior perforation of the uterus risks entry into which pouch?", choices:["Vesicouterine pouch","Rectouterine pouch (of Douglas)","Pararectal fossa","Retropubic space","Supravesical fossa"], correct:1, explain:"The posterior surface of the uterus faces the rectouterine pouch (of Douglas)." }
+    ]},
+    { name:"Uterine artery & ureter", answer:"The ureter passes UNDER the uterine artery at the level of the cervix. 'Water (ureter) under the bridge (uterine artery).' Critical during hysterectomy.", examFreq:3, graysQs:"Pelvis: Q15, Q21", keyFact:"Ureter passes INFERIOR and POSTERIOR to uterine artery at cervix level.", video:"Arteries and veins of the pelvis", netter:"Plate 368", questionBank:[
+      { q:"During hysterectomy, the surgeon recalls the ureter passes in what relationship to the uterine artery?", choices:["Anterior and superior","Anterior and inferior","Posterior and inferior (water under the bridge)","Medial and posterior","Lateral and superior"], correct:2, explain:"The ureter passes posterior and inferior to the uterine artery — 'water (ureter) under the bridge (uterine artery).'" }
+    ]},
+    { name:"Inguinal hernias — direct vs indirect", answer:"Direct: passes MEDIAL to inferior epigastric vessels through Hesselbach's triangle. Indirect: passes LATERAL through deep inguinal ring. Indirect is most common in both sexes.", examFreq:3, graysQs:"Pelvis: Q1, Q2, Q3", keyFact:"Medial to inferior epigastric = DIRECT. Lateral = INDIRECT. Most common hernia in women = indirect inguinal.", video:"Anatomy clinical correlates: Inguinal region", netter:"Plates 258-261", questionBank:[
+      { q:"Intestine passing MEDIAL to the inferior epigastric vessels indicates which hernia?", choices:["Direct inguinal","Umbilical","Femoral","Lumbar","Indirect inguinal"], correct:0, explain:"Direct inguinal hernias pass medial to the inferior epigastric vessels through Hesselbach's triangle." },
+      { q:"What is the most common type of hernia in women?", choices:["Umbilical","Femoral","Direct inguinal","Indirect inguinal","Epigastric"], correct:3, explain:"Indirect inguinal hernia is the most common hernia in BOTH men and women." }
+    ]},
+    { name:"Femoral hernia", answer:"Presents as a mass BELOW the inguinal ligament. Femoral canal lies MEDIAL to the femoral vein. More common in women.", examFreq:2, graysQs:"Pelvis: Q4", keyFact:"Femoral hernia = below inguinal ligament, medial to femoral vein.", video:"Anatomy clinical correlates: Inguinal region", netter:"Plate 262", questionBank:[
+      { q:"A mass inferior to the inguinal ligament is a femoral hernia. The hernial sac passes medial to which structure?", choices:["Testicular artery","Femoral vein","Femoral nerve","Femoral artery","Superficial inguinal ring"], correct:1, explain:"The femoral canal is medial to the femoral vein within the femoral sheath." }
+    ]},
+    { name:"Testicular cancer lymph drainage", answer:"Testicular tumors metastasize to para-aortic (lumbar) nodes because the testes developed retroperitoneally and maintain their original lymphatic drainage.", examFreq:1, graysQs:"Pelvis: Q18", keyFact:"Testes drain to PARA-AORTIC nodes (not inguinal — those drain the scrotum).", video:"Nerves and lymphatics of the pelvis", netter:"Plate 390", questionBank:[
+      { q:"Testicular tumors most commonly metastasize to which lymph nodes?", choices:["Para-aortic nodes","Femoral nodes","Popliteal nodes","Superficial inguinal nodes","Deep inguinal nodes"], correct:0, explain:"Testes drain to para-aortic nodes because they develop retroperitoneally." }
+    ]}
+  ]},
+  "Lower Limb": { priority:1, week:3, color:"#34d399", topics:[
+    { name:"Trendelenburg sign", answer:"Positive Trendelenburg (pelvis drops on unsupported side) when standing on one leg = injury to the SUPERIOR GLUTEAL NERVE on the stance side. Supplies gluteus medius and minimus.", examFreq:3, graysQs:"Lower Limb: Q29, Q30", keyFact:"Trendelenburg on RIGHT leg = RIGHT superior gluteal nerve injury (stance side).", video:"Muscles of the gluteal region and posterior thigh", netter:"Plates 492-494", questionBank:[
+      { q:"Positive Trendelenburg sign when standing on the right limb indicates injury to which nerve?", choices:["Sciatic","Left superior gluteal","Left inferior gluteal","Right superior gluteal","Right inferior gluteal"], correct:3, explain:"The superior gluteal nerve on the STANCE side is damaged. It supplies gluteus medius/minimus, which stabilise the pelvis." }
+    ]},
+    { name:"Foot drop — common fibular nerve", answer:"Foot drop results from injury to the common fibular (peroneal) nerve, typically at the neck of the fibula. The deep fibular nerve supplies dorsiflexors.", examFreq:3, graysQs:"Lower Limb: Q35, Q36", keyFact:"Foot drop = common fibular nerve injury at fibular neck. Deep fibular branch = dorsiflexion.", video:"Anatomy clinical correlates: Leg and ankle", netter:"Plates 510-512", questionBank:[
+      { q:"Foot drop following a proximal fibular fracture results from damage to which nerve?", choices:["Superficial peroneal","Deep peroneal (fibular)","Tibial nerve","Sural nerve","Genitofemoral nerve"], correct:1, explain:"The deep peroneal nerve supplies dorsiflexors. Common fibular nerve injury at the fibular neck causes foot drop." }
+    ]},
+    { name:"ACL — anterior drawer test", answer:"Tibia slides anteriorly relative to femur = ACL torn. Tibia slides posteriorly = PCL torn.", examFreq:2, graysQs:"Lower Limb: Q47, Q48", keyFact:"Tibia ANTERIOR = ACL tear. Tibia POSTERIOR = PCL tear.", video:"Anatomy of the knee joint", netter:"Plates 504-506", questionBank:[
+      { q:"During the drawer test, the tibia moves anteriorly relative to the femur. Which structure is injured?", choices:["Lateral collateral","Anterior cruciate ligament","Medial collateral","Medial meniscus","Posterior cruciate ligament"], correct:1, explain:"Anterior translation of the tibia = torn ACL. The ACL prevents anterior displacement of the tibia." }
+    ]},
+    { name:"Femoral triangle", answer:"Borders: superior = inguinal ligament, lateral = sartorius, medial = adductor longus. Contents (NAVEL): Nerve, Artery, Vein, Empty, Lymphatics. Medial floor = pectineus + adductor longus.", examFreq:2, graysQs:"Lower Limb: Q1, Q2", keyFact:"NAVEL contents lateral to medial. Medial floor = pectineus + adductor longus.", video:"Anatomy of the anterior and medial thigh", netter:"Plate 500", questionBank:[
+      { q:"The femoral triangle's floor is formed laterally by iliopsoas and medially by:", choices:["Pectineus only","Adductor magnus","Sartorius","Pectineus and adductor longus","Vastus medialis"], correct:3, explain:"The medial floor of the femoral triangle is formed by pectineus and adductor longus." }
+    ]},
+    { name:"Patellar ligament insertion", answer:"The patellar ligament (continuation of quadriceps tendon distal to the patella) inserts on the tibial tuberosity.", examFreq:2, graysQs:"Lower Limb: Q25", keyFact:"Quadriceps → patella → patellar ligament → tibial tuberosity.", video:"Anatomy of the knee joint", netter:"Plate 497", questionBank:[
+      { q:"The patellar ligament inserts on the:", choices:["Lateral tibial condyle","Pes anserinus","Medial tibial condyle","Tibial tuberosity","Head of fibula"], correct:3, explain:"The patellar ligament inserts on the tibial tuberosity." }
+    ]},
+    { name:"Obturator nerve — hip adduction", answer:"The obturator nerve (L2-L4) innervates the adductor muscles. Injury during pelvic surgery causes loss of hip adduction.", examFreq:2, graysQs:"Lower Limb: Q20", keyFact:"Obturator nerve = hip adduction. Injury → loss of adduction.", video:"Anatomy of the anterior and medial thigh", netter:"Plate 498", questionBank:[
+      { q:"Loss of hip adduction after pelvic lymph node dissection indicates injury to the:", choices:["Superior gluteal nerve","Obturator nerve","Sciatic nerve","Lumbosacral trunk","Iliohypogastric nerve"], correct:1, explain:"The obturator nerve supplies the adductor muscles and is vulnerable during pelvic surgery." }
+    ]},
+    { name:"Hip dislocation — ligamentum teres", answer:"In posterior hip dislocation (dashboard injury), the ligamentum teres (round ligament of femoral head) is the first ligament torn.", examFreq:2, graysQs:"Lower Limb: Q15", keyFact:"Posterior hip dislocation → ligamentum teres torn first.", video:"Anatomy of the hip joint", netter:"Plate 486", questionBank:[
+      { q:"In a posterior hip dislocation, which ligament is most likely torn first?", choices:["Iliofemoral","Ischiofemoral","Pubofemoral","Ligamentum teres","Transverse acetabular"], correct:3, explain:"The ligamentum teres is an intracapsular ligament attached to the fovea of the femoral head. It tears first in posterior dislocations." }
+    ]},
+    { name:"Sciatic nerve — safe injection site", answer:"Safe gluteal injection = upper LATERAL (superolateral) quadrant of the buttock to avoid the sciatic nerve (runs inferiomedially).", examFreq:1, graysQs:"Lower Limb: Q31", keyFact:"Gluteal injection = upper lateral quadrant to avoid sciatic nerve.", video:"Vessels and nerves of the gluteal region and posterior thigh", netter:"Plate 492", questionBank:[
+      { q:"Correct positioning of an intramuscular gluteal injection to avoid the sciatic nerve:", choices:["Upper lateral quadrant","Lower lateral quadrant","Upper medial quadrant","Lower medial quadrant","Center of buttock"], correct:0, explain:"The upper lateral quadrant is safest — the sciatic nerve runs inferiomedially." }
+    ]},
+    { name:"Dorsal column lesion — vibratory sense", answer:"Loss of vibratory sense and proprioception with preserved pain = dorsal column lesion. Umbilicus = T10 dermatome.", examFreq:1, graysQs:"Back/Lower: related", keyFact:"Vibration/proprioception loss = dorsal columns. Umbilicus = T10.", video:"Anatomy of the ascending spinal cord pathways", netter:"Plate 169", questionBank:[
+      { q:"Bilateral loss of vibratory sense below the umbilicus with preserved pain suggests a dorsal column lesion at:", choices:["C7","T10","T12","L2","S1"], correct:1, explain:"The umbilicus is at the T10 dermatome level. Loss of vibration at this level suggests a T10 lesion." }
+    ]}
+  ]},
+  "Upper Limb": { priority:1, week:3, color:"#60a5fa", topics:[
+    { name:"Scaphoid fracture — anatomical snuffbox", answer:"Tenderness in the anatomical snuffbox after FOOSH = scaphoid fracture until proven otherwise. Risk of AVN due to retrograde blood supply.", examFreq:4, graysQs:"Upper Limb: Q68, Q69", keyFact:"Snuffbox tenderness + FOOSH = scaphoid. AVN risk because blood enters distally.", video:"Anatomy clinical correlates: Wrist and hand", netter:"Plates 454-455", questionBank:[
+      { q:"Tenderness in the anatomical snuffbox after FOOSH, with normal X-ray. Which bone is most likely fractured?", choices:["Lunate","Trapezoid","Capitate","Hamate","Scaphoid"], correct:4, explain:"Scaphoid fractures often don't show on initial X-ray. The scaphoid is at risk of AVN due to its retrograde blood supply." }
+    ]},
+    { name:"Winging scapula — long thoracic nerve", answer:"Winging worse with forward pushing = long thoracic nerve injury → serratus anterior paralysis. Winging worse with abduction = spinal accessory nerve (trapezius).", examFreq:3, graysQs:"Upper Limb: Q94, Q95", keyFact:"Winging + push = long thoracic nerve. Winging + abduction = spinal accessory.", video:"Anatomy of the pectoral and scapular regions", netter:"Plates 415-416", questionBank:[
+      { q:"Scapular winging that worsens with resisted forward pushing points to loss of the:", choices:["Spinal accessory nerve","Dorsal scapular nerve","Lower subscapular nerve","Long thoracic nerve","Suprascapular nerve"], correct:3, explain:"The long thoracic nerve supplies serratus anterior. Its loss causes winging worse with pushing." }
+    ]},
+    { name:"Ulnar nerve — pisiform & hamate", answer:"Fracture of the pisiform and hamate injures the ulnar nerve, which runs through Guyon's canal between these bones at the wrist.", examFreq:2, graysQs:"Upper Limb: Q60, Q61", keyFact:"Pisiform + hamate fracture → ulnar nerve injury (Guyon's canal).", video:"Anatomy clinical correlates: Median, ulnar and radial nerves", netter:"Plate 461", questionBank:[
+      { q:"Fractured pisiform and hamate bones most likely injure which nerve?", choices:["Median","Axillary","Radial","Musculocutaneous","Ulnar"], correct:4, explain:"The ulnar nerve passes through Guyon's canal between the pisiform and hook of hamate." }
+    ]},
+    { name:"Nursemaid's elbow", answer:"A child refusing to move the elbow after a sudden pull on the extended pronated forearm = subluxation of the radial head from the annular ligament.", examFreq:2, graysQs:"Upper Limb: Q14", keyFact:"Sudden pull on child's arm → radial head slips out of annular ligament.", video:"Anatomy clinical correlates: Arm, elbow and forearm", netter:"Plate 436", questionBank:[
+      { q:"A child refuses to move the elbow after being pulled by the arm. The injury is subluxation of the:", choices:["Ulnar head","Humeral trochlea","Radial head from annular ligament","Olecranon","Capitellum"], correct:2, explain:"Nursemaid's elbow = the radial head slips out from under the annular ligament in a young child." }
+    ]},
+    { name:"Axillary nerve — surgical neck of humerus", answer:"Fracture at the surgical neck risks axillary nerve injury (quadrangular space). Results in deltoid paralysis (loss of abduction 15-90°) and loss of sensation over the regimental badge area.", examFreq:3, graysQs:"Upper Limb: Q1, Q2, Q3", keyFact:"Surgical neck fracture → axillary nerve → deltoid paralysis → can't abduct 15-90°.", video:"Anatomy of the axilla", netter:"Plates 421-422", questionBank:[
+      { q:"A fracture at the surgical neck of the humerus most likely injures which nerve?", choices:["Axillary nerve","Ulnar nerve","Radial nerve","Musculocutaneous","Lower subscapular"], correct:0, explain:"The axillary nerve wraps around the surgical neck through the quadrangular space and is vulnerable to fractures here." }
+    ]},
+    { name:"Pancoast tumor — inferior trunk (C8-T1)", answer:"A Pancoast tumor (apex of lung) invades the inferior trunk of the brachial plexus (C8-T1), causing medial arm/hand pain. May also cause Horner syndrome.", examFreq:2, graysQs:"Upper Limb: Q10, Q11", keyFact:"Pancoast tumor → inferior trunk (C8-T1) → medial arm/hand symptoms.", video:"Anatomy of the brachial plexus", netter:"Plate 418", questionBank:[
+      { q:"A Pancoast tumor causing pain in the medial arm involves which brachial plexus component?", choices:["Inferior trunk (C8-T1)","Middle trunk","Superior trunk","Lateral cord","Musculocutaneous nerve"], correct:0, explain:"The inferior trunk (C8-T1) is at the thoracic inlet where Pancoast tumors invade." }
+    ]},
+    { name:"Interosseous membrane — force transmission", answer:"The interosseous membrane transmits axial loading from hand to humerus by directing force from the radius to the ulna.", examFreq:2, graysQs:"Upper Limb: Q50", keyFact:"Force transmission: radius → ulna (via interosseous membrane).", video:"Muscles of the forearm", netter:"Plate 437", questionBank:[
+      { q:"The interosseous membrane transmits axial loading primarily from:", choices:["Ulna to radius","Humerus to radius","Radius to ulna","Ulna to humerus","Capitellum to trochlea"], correct:2, explain:"Most load from the hand enters through the radius. The interosseous membrane transfers this force to the ulna." }
+    ]},
+    { name:"Suprascapular nerve — initial abduction", answer:"The suprascapular nerve innervates supraspinatus (abduction 0-15°) and infraspinatus (lateral rotation).", examFreq:2, graysQs:"Upper Limb: Q5, Q6", keyFact:"Abduction 0-15° = supraspinatus (suprascapular nerve). 15-90° = deltoid (axillary nerve).", video:"Anatomy of the pectoral and scapular regions", netter:"Plate 419", questionBank:[
+      { q:"Weakness during abduction from 0 to 15 degrees indicates injury to which nerve?", choices:["Radial","Axillary","Suprascapular","Long thoracic","Upper subscapular"], correct:2, explain:"Supraspinatus initiates abduction (0-15°) and is innervated by the suprascapular nerve." }
+    ]},
+    { name:"Scapular fracture — brachialis spared", answer:"With a scapular fracture, muscles originating from the scapula are impaired. The brachialis originates from the humerus and is LEAST likely impaired.", examFreq:1, graysQs:"Upper Limb: Q7", keyFact:"Brachialis originates from humerus → spared in scapular fracture.", video:"Anatomy of the arm", netter:"Plate 424", questionBank:[
+      { q:"After a scapular fracture, which muscle is LEAST likely impaired?", choices:["Biceps brachii","Deltoid","Pectoralis minor","Brachialis","Latissimus dorsi"], correct:3, explain:"Brachialis originates from the humerus shaft, not the scapula, so it is unaffected." }
+    ]}
+  ]},
+  "Head & Neck": { priority:1, week:4, color:"#c084fc", topics:[
+    { name:"Hypoglossal nerve — tongue deviation", answer:"Hypoglossal nerve (CN XII) innervates genioglossus. If damaged, tongue deviates TOWARD the side of the lesion on protrusion.", examFreq:4, graysQs:"Head & Neck: Q80, Q81", keyFact:"Hypoglossal lesion → tongue deviates TO the affected side.", video:"Anatomy of the spinal accessory (CN XI) and hypoglossal (CN XII) nerves", netter:"Plate 131", questionBank:[
+      { q:"Tongue deviates to the RIGHT on protrusion. Where is the lesion?", choices:["Left hypoglossal nucleus","Right hypoglossal nucleus","Right corticobulbar tract","Bilateral vagus nerves","Right glossopharyngeal"], correct:1, explain:"LMN hypoglossal lesion → tongue deviates TOWARD the lesion. Right deviation = right hypoglossal nerve/nucleus." },
+      { q:"A hypoglossal nerve lesion results in:", choices:["Deviation of tongue toward affected side","Deviation of tongue toward unaffected side","Loss of taste posterior 1/3","Inability to retract tongue","Loss of salivation"], correct:0, explain:"The genioglossus on the affected side is paralysed; the intact side pushes the tongue toward the lesion." }
+    ]},
+    { name:"Vagus nerve — uvula deviation", answer:"Vagus nerve (CN X) innervates levator veli palatini. If damaged, uvula deviates AWAY from the lesion (toward intact side) and soft palate droops on affected side.", examFreq:3, graysQs:"Head & Neck: Q78, Q79", keyFact:"Vagus lesion → uvula deviates AWAY from lesion. Left vagus lesion → uvula goes RIGHT.", video:"Anatomy of the vagus nerve (CN X)", netter:"Plate 71", questionBank:[
+      { q:"Uvula deviates to the RIGHT when patient says 'ah'. Where is the lesion?", choices:["Left vagus nerve","Right recurrent laryngeal","Right nucleus ambiguus","Left glossopharyngeal","Left hypoglossal"], correct:0, explain:"LEFT vagus lesion → left palate droops → uvula is pulled to the RIGHT (intact side)." },
+      { q:"Sagging soft palate, uvula deviation, and hoarseness suggest a lesion of which nerve?", choices:["Vagus nerve","Glossopharyngeal","Facial","Accessory","Hypoglossal"], correct:0, explain:"The vagus innervates palatal muscles, pharyngeal constrictors, and via recurrent laryngeal the laryngeal muscles." }
+    ]},
+    { name:"Chorda tympani — taste anterior 2/3 tongue", answer:"Taste in anterior 2/3 of tongue = chorda tympani (CN VII). General sensation in anterior 2/3 = lingual nerve (CN V3).", examFreq:3, graysQs:"Head & Neck: Q94, Q95", keyFact:"Taste lost but sensation intact in anterior 2/3 = chorda tympani lesion within facial canal.", video:"Anatomy of the facial nerve (CN VII)", netter:"Plate 46", questionBank:[
+      { q:"Taste in the anterior 2/3 of the tongue is lost but general sensation remains. The lesion is in the:", choices:["Chorda tympani within facial canal","Glossopharyngeal nerve","Facial nerve proximal to chorda tympani","Vagus nerve","Superior laryngeal nerve"], correct:0, explain:"If only taste is lost (not general sensation), the chorda tympani itself is damaged within the facial canal." }
+    ]},
+    { name:"Inferior alveolar nerve block", answer:"For mandibular molar teeth, the dentist blocks the inferior alveolar nerve (branch of CN V3). This nerve enters the mandibular foramen and runs in the mandibular canal.", examFreq:2, graysQs:"Head & Neck: Q108, Q109", keyFact:"Mandibular molars = inferior alveolar nerve block (V3).", video:"Anatomy of the trigeminal nerve (CN V)", netter:"Plate 42", questionBank:[
+      { q:"To treat caries in a mandibular molar, which nerve must be anesthetised?", choices:["Lingual","Mental","Buccal","Inferior alveolar","Mylohyoid"], correct:3, explain:"The inferior alveolar nerve supplies all mandibular teeth. It is blocked at the mandibular foramen." }
+    ]},
+    { name:"Posterior cricoarytenoid — only vocal fold abductor", answer:"The posterior cricoarytenoid is the ONLY muscle that abducts (opens) the vocal folds. Critical in bilateral vocal cord paralysis.", examFreq:2, graysQs:"Head & Neck: Q115, Q116", keyFact:"Posterior cricoarytenoid = ONLY abductor of vocal folds.", video:"Anatomy of the larynx and trachea", netter:"Plates 80-81", questionBank:[
+      { q:"The only intrinsic laryngeal muscle that abducts the vocal folds is the:", choices:["Cricothyroid","Posterior cricoarytenoid","Lateral cricoarytenoid","Thyroarytenoid","Interarytenoid"], correct:1, explain:"The posterior cricoarytenoid is the sole abductor of the vocal folds — critical for breathing." }
+    ]},
+    { name:"Cricothyroid — primary tensor of vocal folds", answer:"Cricothyroid is the primary tensor of the vocal folds. Only laryngeal muscle innervated by the external branch of the superior laryngeal nerve.", examFreq:2, graysQs:"Head & Neck: Q117", keyFact:"Cricothyroid = tenses vocal folds. Innervated by EXTERNAL laryngeal nerve.", video:"Anatomy of the larynx and trachea", netter:"Plate 80", questionBank:[
+      { q:"Which muscle is the primary tensor of the vocal folds?", choices:["Aryepiglottic","Thyroarytenoid","Vocalis","Cricothyroid","Posterior cricoarytenoid"], correct:3, explain:"The cricothyroid tilts the thyroid cartilage forward, stretching and tensing the vocal folds." }
+    ]},
+    { name:"Rima glottidis — narrowest adult larynx", answer:"The rima glottidis (opening between vocal folds) is the narrowest part of the adult laryngeal airway. In children, the narrowest part is the subglottic region at the cricoid.", examFreq:2, graysQs:"Head & Neck: Q118", keyFact:"Adult narrowest = rima glottidis. Child narrowest = subglottic (cricoid level).", video:"Anatomy of the larynx and trachea", netter:"Plate 79", questionBank:[
+      { q:"The narrowest part of the adult laryngeal airway is the:", choices:["Rima vestibuli","Rima glottidis","Laryngeal inlet","Subglottic cavity at cricoid","Cricothyroid membrane"], correct:1, explain:"In adults, the rima glottidis is the narrowest point. In children it is the subglottic region at the cricoid ring." }
+    ]},
+    { name:"Carotid sheath contents", answer:"Within the carotid sheath: carotid arteries (medially), internal jugular vein (laterally), vagus nerve (posteriorly between them).", examFreq:1, graysQs:"Head & Neck: Q55, Q56", keyFact:"Carotid sheath: artery MEDIAL, IJV LATERAL, vagus POSTERIOR.", video:"Fascia and spaces of the neck", netter:"Plate 34", questionBank:[
+      { q:"In the carotid sheath, the relationship of structures is:", choices:["Arteries medially, IJV laterally, vagus posteriorly","Arteries medially, IJV laterally, vagus anteriorly","Arteries laterally, IJV medially, vagus posteriorly","Arteries laterally, IJV medially, vagus anteriorly","Arteries posteriorly, IJV medially, vagus medially"], correct:0, explain:"The carotid arteries are medial, the IJV is lateral, and the vagus nerve lies posteriorly between them." }
+    ]},
+    { name:"Lower lip cancer — submental nodes", answer:"Squamous cell carcinoma of the lower lip drains first to the submental lymph nodes.", examFreq:1, graysQs:"Head & Neck: Q82", keyFact:"Lower lip cancer → submental lymph nodes first.", video:"Anatomy of the lymphatics of the neck", netter:"Plate 75", questionBank:[
+      { q:"A growth on the lower lip is diagnosed as squamous cell carcinoma. Which lymph nodes are involved first?", choices:["Submental","Parotid","Retropharyngeal","Jugulodigastric","Occipital"], correct:0, explain:"The lower lip drains to submental lymph nodes. The upper lip drains to submandibular nodes." }
+    ]},
+    { name:"Phrenic nerve — C3, C4, C5", answer:"The phrenic nerve arises from C3, C4, C5 ('C3, 4, 5 keeps the diaphragm alive'). Injury in the posterior triangle causes hemidiaphragm paralysis.", examFreq:2, graysQs:"Head & Neck: Q22", keyFact:"Phrenic nerve = C3, C4, C5. Posterior triangle injury → diaphragm paralysis.", video:"Superficial structures of the neck: Cervical plexus", netter:"Plate 33", questionBank:[
+      { q:"A penetrating injury to the posterior triangle causes diaphragmatic paralysis. The damaged nerve roots arise from:", choices:["C2-C3","C3-C4","C3-C5","C4-C5","C5-C6"], correct:2, explain:"The phrenic nerve arises from C3, C4, C5." }
+    ]},
+    { name:"Maxillary sinus — orbital floor blowout", answer:"A blowout fracture of the orbit involves the thin orbital floor, which is the roof of the maxillary sinus. Contents can herniate into the maxillary sinus.", examFreq:2, graysQs:"Head & Neck: Q40", keyFact:"Orbital floor fracture → maxillary sinus involvement.", video:"Anatomy of the nose and paranasal sinuses", netter:"Plate 4", questionBank:[
+      { q:"In a blowout fracture of the orbit, the fracture extends into which sinus?", choices:["Frontal","Ethmoid","Sphenoid","Maxillary","Mastoid"], correct:3, explain:"The orbital floor is the roof of the maxillary sinus — the thinnest wall of the orbit." }
+    ]}
+  ]}
+};
+
+// HELPERS
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function getAllQuestions() {
+  const qs = [];
+  Object.entries(STUDY_DATA).forEach(([section, data]) => {
+    data.topics.forEach(topic => {
+      topic.questionBank.forEach(q => qs.push({ ...q, section, topicName: topic.name, color: data.color }));
+    });
+  });
+  return qs;
+}
+function starsHTML(n, total=4) {
+  return '&#9733;'.repeat(n) + '<span class="empty-star">' + '&#9733;'.repeat(total-n) + '</span>';
+}
+
+// STATS
+(function() {
+  const totalTopics = Object.values(STUDY_DATA).reduce((s,d)=>s+d.topics.length,0);
+  const totalQs = getAllQuestions().length;
+  document.getElementById('stats-sub').innerHTML = `<span>${totalTopics}</span> high-yield topics &middot; <span>${totalQs}</span> practice questions`;
+})();
+
+// TABS
+const tabBtns = document.querySelectorAll('.tab-btn');
+let quizBuilt = false, cardsBuilt = false;
+function switchTab(i) {
+  tabBtns.forEach((b,j) => b.classList.toggle('active', i===j));
+  document.querySelectorAll('.panel').forEach((p,j) => p.classList.toggle('active', i===j));
+  if (i===1 && !quizBuilt) buildQuiz();
+  if (i===2 && !cardsBuilt) buildCards();
+}
+
+// STUDY PLAN
+const WEEKS = [
+  { num:1, label:"Foundations", sections:["Back & Spine","Thorax & Heart"] },
+  { num:2, label:"Core Regions", sections:["Abdomen","Pelvis & Perineum"] },
+  { num:3, label:"Limbs",        sections:["Lower Limb","Upper Limb"] },
+  { num:4, label:"Head & Neck + Review", sections:["Head & Neck"] },
+];
+(function buildStudyPlan() {
+  const container = document.getElementById('study-plan-content');
+  let html = '';
+  WEEKS.forEach(week => {
+    html += `<div class="week-block"><div class="week-header"><span class="week-badge">WEEK ${week.num}</span><span class="week-label">${week.label}</span></div>`;
+    week.sections.forEach(sname => {
+      const sec = STUDY_DATA[sname]; if(!sec) return;
+      html += `<div class="section-card"><div class="section-header" style="background:${sec.color}12"><div class="section-dot" style="background:${sec.color}"></div><span class="section-name">${sname}</span><span class="section-count">${sec.topics.length} topics</span></div><div>`;
+      sec.topics.forEach(topic => {
+        html += `<div class="topic-row"><span class="stars">${starsHTML(topic.examFreq)}</span><div style="flex:1"><div class="topic-name">${topic.name}</div><div class="topic-meta">Gray's: ${topic.graysQs} &middot; ${topic.video}</div></div><span class="q-count">${topic.questionBank.length} Qs</span></div>`;
+      });
+      html += `</div></div>`;
+    });
+    html += `</div>`;
+  });
+  container.innerHTML = html;
+})();
+
+// QUIZ
+let allQs=[], filteredQs=[], quizIdx=0, quizSelected=null, quizScore={correct:0,total:0}, quizFilter='All';
+function buildQuiz() {
+  quizBuilt = true;
+  allQs = shuffle(getAllQuestions());
+  filteredQs = [...allQs];
+  let fhtml = `<button class="filter-btn active" data-section="All" onclick="setFilter('All')" style="color:#a78bfa;border-color:#a78bfa66;background:#a78bfa18">All</button>`;
+  Object.entries(STUDY_DATA).forEach(([name,data]) => {
+    fhtml += `<button class="filter-btn" data-section="${name}" onclick="setFilter('${name.replace(/'/g,"\\'")}')">${name}</button>`;
+  });
+  document.getElementById('filter-row').innerHTML = fhtml;
+  renderQuestion();
+}
+function setFilter(section) {
+  quizFilter = section;
+  filteredQs = section==='All' ? [...allQs] : allQs.filter(q=>q.section===section);
+  quizIdx=0; quizSelected=null;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    const active = b.dataset.section===section;
+    b.classList.toggle('active', active);
+    const color = STUDY_DATA[b.dataset.section]?.color || '#a78bfa';
+    b.style.color = active ? color : '';
+    b.style.borderColor = active ? color+'66' : '';
+    b.style.background = active ? color+'18' : '';
+  });
+  renderQuestion();
+}
+function renderQuestion() {
+  if(!filteredQs.length) return;
+  const q = filteredQs[quizIdx % filteredQs.length];
+  const pos = (quizIdx % filteredQs.length)+1;
+  const pct = quizScore.total>0 ? Math.round(quizScore.correct/quizScore.total*100) : null;
+  document.getElementById('quiz-progress').style.width = `${(pos/filteredQs.length)*100}%`;
+  document.getElementById('quiz-pos').textContent = `Q${pos} of ${filteredQs.length}`;
+  const scoreEl = document.getElementById('quiz-score');
+  scoreEl.textContent = pct!==null ? `${quizScore.correct}/${quizScore.total} correct (${pct}%)` : `0/0 correct`;
+  scoreEl.className = pct===null?'':pct>=80?'score-good':pct>=60?'score-ok':'score-bad';
+  document.getElementById('quiz-topic-pill').innerHTML = `<div class="topic-pill" style="background:${q.color}18;color:${q.color}">${q.section} — ${q.topicName}</div>`;
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-choices').innerHTML = q.choices.map((c,i)=>
+    `<button class="choice-btn" onclick="selectAnswer(${i})" id="choice-${i}"><span class="choice-letter">${String.fromCharCode(65+i)}.</span><span>${c}</span></button>`
+  ).join('');
+  document.getElementById('quiz-explain').innerHTML = '';
+  document.getElementById('quiz-next').style.display = 'none';
+  quizSelected = null;
+}
+function selectAnswer(i) {
+  if(quizSelected!==null) return;
+  quizSelected = i;
+  const q = filteredQs[quizIdx % filteredQs.length];
+  const isCorrect = i===q.correct;
+  quizScore.total++; if(isCorrect) quizScore.correct++;
+  q.choices.forEach((_,ci) => {
+    const btn = document.getElementById(`choice-${ci}`);
+    btn.disabled = true;
+    if(ci===q.correct) btn.classList.add('correct');
+    else if(ci===i) btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+  document.getElementById('quiz-explain').innerHTML = `<div class="explain-box ${isCorrect?'correct-box':'wrong-box'}"><div class="verdict">${isCorrect?'✓ Correct!':'✗ Incorrect'}</div><div>${q.explain}</div></div>`;
+  document.getElementById('quiz-next').style.display = 'block';
+  const pct = Math.round(quizScore.correct/quizScore.total*100);
+  const scoreEl = document.getElementById('quiz-score');
+  scoreEl.textContent = `${quizScore.correct}/${quizScore.total} correct (${pct}%)`;
+  scoreEl.className = pct>=80?'score-good':pct>=60?'score-ok':'score-bad';
+}
+function nextQuestion() { quizIdx++; renderQuestion(); }
+
+// TOPIC CARDS
+let activeSection = Object.keys(STUDY_DATA)[0];
+function buildCards() {
+  cardsBuilt = true;
+  const el = document.getElementById('section-tabs');
+  el.innerHTML = Object.entries(STUDY_DATA).map(([name,data]) => {
+    const active = name===activeSection;
+    return `<button class="sec-tab ${active?'active':''}" onclick="setCardsSection('${name.replace(/'/g,"\\'")}')" data-sec="${name}" style="${active?`color:${data.color};border-color:${data.color}66;background:${data.color}18`:''}">${name}</button>`;
+  }).join('');
+  buildCardsList();
+}
+function setCardsSection(name) {
+  activeSection = name;
+  document.querySelectorAll('.sec-tab').forEach(b => {
+    const active = b.dataset.sec===name;
+    b.classList.toggle('active', active);
+    const color = STUDY_DATA[b.dataset.sec]?.color||'#a78bfa';
+    b.style.color = active?color:''; b.style.borderColor = active?color+'66':''; b.style.background = active?color+'18':'';
+  });
+  buildCardsList();
+}
+function buildCardsList() {
+  const sec = STUDY_DATA[activeSection];
+  const el = document.getElementById('cards-content');
+  if(!sec){el.innerHTML='';return;}
+  const safeKey = activeSection.replace(/\s/g,'').replace(/[^a-zA-Z0-9]/g,'');
+  el.innerHTML = sec.topics.map((topic,i) =>
+    `<div class="card-accordion">
+      <button class="card-trigger" onclick="toggleCard('${safeKey}',${i})">
+        <span class="card-stars">${starsHTML(topic.examFreq)}</span>
+        <span class="card-topic-name">${topic.name}</span>
+        <span class="card-chevron" id="chev-${safeKey}-${i}">&#9660;</span>
+      </button>
+      <div class="card-body" id="card-body-${safeKey}-${i}">
+        <div class="key-fact-box" style="border-color:${sec.color}">
+          <div class="key-fact-label" style="color:${sec.color}">KEY FACT</div>
+          <div class="key-fact-text">${topic.keyFact}</div>
+        </div>
+        <div class="card-answer">${topic.answer}</div>
+        <div class="card-refs">
+          <div class="ref-row"><span class="ref-label">Gray's</span><span class="ref-val">${topic.graysQs}</span></div>
+          <div class="ref-row"><span class="ref-label">Watch</span><span class="ref-val">${topic.video}</span></div>
+          <div class="ref-row"><span class="ref-label">Netter's</span><span class="ref-val">${topic.netter}</span></div>
+        </div>
+      </div>
+    </div>`
+  ).join('');
+}
+function toggleCard(safeKey, i) {
+  const body = document.getElementById(`card-body-${safeKey}-${i}`);
+  const chev = document.getElementById(`chev-${safeKey}-${i}`);
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+</script>
+
+</div>
+</div>
+</div>
+<script>
+if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){});}
+</script>
 <script>
 const STUDY_DATA = {
   "Back & Spine": { priority:1, week:1, color:"#a78bfa", topics:[

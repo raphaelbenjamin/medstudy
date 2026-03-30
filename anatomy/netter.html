@@ -2,14 +2,115 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anatomy Study Hub</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Netter Plates — Anatomy — Study Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a0a0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0b;
+  --bg-surface:#111113;
+  --bg-hover:#1a1a1e;
+  --border:#222228;
+  --border-subtle:#18181c;
+  --text-primary:#ededef;
+  --text-secondary:#8b8b8e;
+  --text-tertiary:#5a5a5d;
+  --site-accent:#3b82f6;
+  --accent-dim:rgba(59,130,246,.12);
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{font-size:15px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-primary);font-family:var(--font-sans);
+     line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── Layout ── */
+.site-layout{display:flex;max-width:1200px;margin:0 auto;min-height:100vh}
+
+/* ── Sidebar ── */
+.sidebar{
+  width:210px;flex-shrink:0;padding:36px 16px 40px 20px;
+  border-right:1px solid var(--border-subtle);
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.sidebar-logo{
+  width:30px;height:30px;border-radius:7px;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  margin-bottom:28px;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.8rem;color:#fff;text-decoration:none;flex-shrink:0;
+}
+.sidebar-logo:hover{opacity:.85;color:#fff}
+.nav-section{margin-bottom:20px}
+.nav-label{
+  font-size:.68rem;font-weight:600;color:var(--text-tertiary);
+  text-transform:uppercase;letter-spacing:.09em;
+  padding:0 12px;margin-bottom:5px;display:block;
+}
+.nav-list{list-style:none;display:flex;flex-direction:column;gap:1px}
+.nav-list a{
+  display:block;padding:6px 12px;border-radius:6px;font-size:.87rem;
+  color:var(--text-secondary);transition:background .12s,color .12s;
+  text-decoration:none;
+}
+.nav-list a:hover{background:var(--bg-hover);color:var(--text-primary)}
+.nav-list a.active{color:var(--text-primary);background:var(--bg-hover);font-weight:500}
+
+/* TOC */
+.sidebar-sep{border:none;border-top:1px solid var(--border-subtle);margin:16px 0 10px}
+.toc-heading{
+  font-size:.68rem;font-weight:600;color:var(--text-tertiary);
+  text-transform:uppercase;letter-spacing:.09em;padding:0 12px;margin-bottom:4px;
+}
+.toc-list{list-style:none}
+.toc-list a{
+  display:block;padding:3px 12px;font-size:.76rem;
+  color:var(--text-tertiary);border-radius:4px;
+  transition:color .12s,background .12s;text-decoration:none;
+}
+.toc-list a:hover{color:var(--text-secondary);background:var(--bg-hover)}
+
+/* ── Main ── */
+.site-main{flex:1;min-width:0;overflow-x:hidden}
+
+/* ── Mobile ── */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .mobile-nav{
+    display:flex !important;overflow-x:auto;gap:4px;
+    padding:10px 14px;border-bottom:1px solid var(--border);
+    -webkit-overflow-scrolling:touch;position:sticky;top:0;
+    background:var(--bg);z-index:50;
+  }
+  .mobile-nav a{
+    white-space:nowrap;padding:5px 11px;border-radius:6px;
+    font-size:.81rem;color:var(--text-secondary);flex-shrink:0;
+    text-decoration:none;
+  }
+  .mobile-nav a.active{background:var(--bg-hover);color:var(--text-primary)}
+}
+@media(min-width:769px){.mobile-nav{display:none !important}}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+<style>
+/* ── Original page styles (scoped to .study-wrap) ── */
+.study-wrap {
+  width: 100%;
+  min-height: 100vh;
+}
+
 :root{--bg-deep:#0d1117;--bg-card:#161b22;--bg-card-hover:#1c2230;--bg-elevated:#21262d;--border:#30363d;--border-light:#3a424d;--text-primary:#e6edf3;--text-secondary:#8b949e;--text-muted:#6e7681;--accent-blue:#58a6ff;--accent-green:#3fb950;--accent-orange:#d29922;--accent-red:#f85149;--accent-purple:#bc8cff;--accent-teal:#39d2c0;--accent-pink:#f778ba;--accent-coral:#f0883e;--accent-yellow:#e3b341}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg-deep);color:var(--text-primary);font-family:'IBM Plex Sans',sans-serif;font-weight:400;line-height:1.6;min-height:100vh}
-body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.study-wrap *{margin:0;padding:0;box-sizing:border-box}
+.study-wrap{background:var(--bg-deep);color:var(--text-primary);font-family:'IBM Plex Sans',sans-serif;font-weight:400;line-height:1.6;min-height:100vh}
+.study-wrap::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
 .container{max-width:920px;margin:0 auto;padding:40px 24px 80px}
 .site-header{text-align:center;margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid var(--border);position:relative}
 .site-header::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--accent-red),transparent)}
@@ -87,12 +188,40 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-
 .ctrl-btn:hover{border-color:var(--accent-red);color:var(--accent-red)}
 .topic-item.hidden,.category.hidden,.exam-section.hidden{display:none}
 @media(max-width:600px){.container{padding:24px 16px 60px}.site-header h1{font-size:1.8rem}.topic-header{padding:12px 14px}.topic-name{font-size:0.85rem}}
+
 </style>
 </head>
 <body>
+<nav class="mobile-nav" style="display:none"><a href="../index.html" class="active">Anatomy</a><a href="../microbiology/index.html">Microbiology</a><a href="../hebrew/index.html">Hebrew</a></nav>
+<div class="site-layout">
+<aside class="sidebar">
+  <a class="sidebar-logo" href="../index.html">B</a>
+  <div class="nav-section">
+    <span class="nav-label">Subjects</span>
+    <ul class="nav-list">
+      <li><a href="../index.html" class="active">Anatomy</a></li>
+      <li><a href="../microbiology/index.html">Microbiology</a></li>
+      <li><a href="../hebrew/index.html">Hebrew</a></li>
+    </ul>
+  </div>
+  <hr class="sidebar-sep">
+  <div class="toc-heading">On this page</div>
+  <ul class="toc-list">
+    <li><a href="#i-thorax-heart-lungs-mediastinum">I. Thorax Heart · Lungs · Mediastinum</a></li>
+    <li><a href="#ii-abdomen-gi-peritoneum-abdominal-wall">II. Abdomen GI · Peritoneum · Abdominal Wall</a></li>
+    <li><a href="#iii-pelvis-perineum-uterus-bladder-testis">III. Pelvis & Perineum Uterus · Bladder · Testis</a></li>
+    <li><a href="#iv-head-neck-cranial-nerves-larynx-teeth">IV. Head & Neck Cranial Nerves · Larynx · Teeth</a></li>
+    <li><a href="#v-upper-limb-brachial-plexus-shoulder-hand">V. Upper Limb Brachial Plexus · Shoulder · Hand</a></li>
+    <li><a href="#vi-lower-limb-hip-knee-nerves">VI. Lower Limb Hip · Knee · Nerves</a></li>
+    <li><a href="#vii-back-spinal-cord-vertebrae-spinal-nerves-lp">VII. Back & Spinal Cord Vertebrae · Spinal Nerves </a></li>
+  </ul>
+</aside>
+<div class="site-main">
+<div class="study-wrap">
+
 <div class="container">
 <header class="site-header">
-<h1>Anatomy Study Hub</h1>
+<h1 id="anatomy-study-hub">Anatomy Study Hub</h1>
 <p>Clinical deduction · High-yield facts · Netter plate refs · Exam prep</p>
 <div class="progress-bar">
 <span id="progressLabel">0 / 0 topics reviewed</span>
@@ -112,7 +241,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-
 
 <!-- ===== SECTION 1: THORAX ===== -->
 <div class="exam-section">
-<h2 class="exam-title">I. Thorax <span class="badge badge-thorax">Heart · Lungs · Mediastinum</span></h2>
+<h2 id="i-thorax-heart-lungs-mediastinum"  class="exam-title">I. Thorax <span class="badge badge-thorax">Heart · Lungs · Mediastinum</span></h2>
 <p class="exam-subtitle">Coronary arteries, cardiac veins, valves, conducting system, lungs, great vessels</p>
 
 <div class="category cat-heart">
@@ -297,7 +426,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-
 
 <!-- ===== SECTION 2: ABDOMEN ===== -->
 <div class="exam-section">
-<h2 class="exam-title">II. Abdomen <span class="badge badge-abd">GI · Peritoneum · Abdominal Wall</span></h2>
+<h2 id="ii-abdomen-gi-peritoneum-abdominal-wall"  class="exam-title">II. Abdomen <span class="badge badge-abd">GI · Peritoneum · Abdominal Wall</span></h2>
 
 <div class="category cat-gut">
 <div class="category-label">Peritoneum, Omental Foramen & Clinical Scenarios</div>
@@ -391,7 +520,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-
 
 <!-- ===== SECTION 3: PELVIS ===== -->
 <div class="exam-section">
-<h2 class="exam-title">III. Pelvis & Perineum <span class="badge badge-pelvis">Uterus · Bladder · Testis</span></h2>
+<h2 id="iii-pelvis-perineum-uterus-bladder-testis"  class="exam-title">III. Pelvis & Perineum <span class="badge badge-pelvis">Uterus · Bladder · Testis</span></h2>
 
 <div class="category cat-pelvis">
 <div class="category-label">Pelvic Anatomy & Clinical</div>
@@ -427,7 +556,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-
 
 <!-- ===== SECTION 4: HEAD & NECK ===== -->
 <div class="exam-section">
-<h2 class="exam-title">IV. Head & Neck <span class="badge badge-hn">Cranial Nerves · Larynx · Teeth</span></h2>
+<h2 id="iv-head-neck-cranial-nerves-larynx-teeth"  class="exam-title">IV. Head & Neck <span class="badge badge-hn">Cranial Nerves · Larynx · Teeth</span></h2>
 
 <div class="category cat-cranial">
 <div class="category-label">Cranial Nerves — Clinical Scenarios</div>
@@ -533,7 +662,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-
 
 <!-- ===== SECTION 5: UPPER LIMB ===== -->
 <div class="exam-section">
-<h2 class="exam-title">V. Upper Limb <span class="badge badge-ul">Brachial Plexus · Shoulder · Hand</span></h2>
+<h2 id="v-upper-limb-brachial-plexus-shoulder-hand"  class="exam-title">V. Upper Limb <span class="badge badge-ul">Brachial Plexus · Shoulder · Hand</span></h2>
 
 <div class="category cat-upper">
 <div class="category-label">Nerves, Fractures & Clinical Scenarios</div>
@@ -582,7 +711,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-
 
 <!-- ===== SECTION 6: LOWER LIMB ===== -->
 <div class="exam-section">
-<h2 class="exam-title">VI. Lower Limb <span class="badge badge-ll">Hip · Knee · Nerves</span></h2>
+<h2 id="vi-lower-limb-hip-knee-nerves"  class="exam-title">VI. Lower Limb <span class="badge badge-ll">Hip · Knee · Nerves</span></h2>
 
 <div class="category cat-lower">
 <div class="category-label">Hip, Knee & Lower Limb Nerves</div>
@@ -630,7 +759,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-
 
 <!-- ===== SECTION 7: BACK & SPINAL CORD ===== -->
 <div class="exam-section">
-<h2 class="exam-title">VII. Back & Spinal Cord <span class="badge badge-back">Vertebrae · Spinal Nerves · LP</span></h2>
+<h2 id="vii-back-spinal-cord-vertebrae-spinal-nerves-lp"  class="exam-title">VII. Back & Spinal Cord <span class="badge badge-back">Vertebrae · Spinal Nerves · LP</span></h2>
 
 <div class="category cat-back">
 <div class="category-label">Spinal Cord, Nerve Roots & Lumbar Puncture</div>
@@ -665,6 +794,25 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-
 </div><!-- end topicContainer -->
 </div><!-- end container -->
 
+<script>
+function getCompleted(){try{return JSON.parse(localStorage.getItem('anat-completed')||'{}')}catch(e){return{}}}
+function saveCompleted(o){localStorage.setItem('anat-completed',JSON.stringify(o))}
+function updateProgress(){var c=getCompleted(),t=0,d=0;document.querySelectorAll('.topic-item').forEach(function(el){t++;if(c[el.dataset.slug]){d++;el.classList.add('completed')}else{el.classList.remove('completed')}});document.getElementById('progressLabel').textContent=d+' / '+t+' topics reviewed';document.getElementById('progressFill').style.width=t>0?(d/t*100)+'%':'0%'}
+function toggleComplete(slug,e){e.stopPropagation();var c=getCompleted();c[slug]=!c[slug];saveCompleted(c);updateProgress()}
+function toggleTopic(el){el.classList.toggle('open')}
+function expandAll(){document.querySelectorAll('.topic-item:not(.hidden)').forEach(function(el){el.classList.add('open')})}
+function collapseAll(){document.querySelectorAll('.topic-item').forEach(function(el){el.classList.remove('open')})}
+function resetProgress(){if(confirm('Reset all progress?')){localStorage.removeItem('anat-completed');updateProgress()}}
+document.getElementById('searchInput').addEventListener('input',function(){var q=this.value.toLowerCase().trim();document.querySelectorAll('.topic-item').forEach(function(el){el.classList.toggle('hidden',q&&!el.dataset.name.includes(q))});document.querySelectorAll('.category').forEach(function(c){c.classList.toggle('hidden',c.querySelectorAll('.topic-item:not(.hidden)').length===0)});document.querySelectorAll('.exam-section').forEach(function(s){s.classList.toggle('hidden',s.querySelectorAll('.topic-item:not(.hidden)').length===0)})});
+updateProgress();
+</script>
+
+</div>
+</div>
+</div>
+<script>
+if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){});}
+</script>
 <script>
 function getCompleted(){try{return JSON.parse(localStorage.getItem('anat-completed')||'{}')}catch(e){return{}}}
 function saveCompleted(o){localStorage.setItem('anat-completed',JSON.stringify(o))}

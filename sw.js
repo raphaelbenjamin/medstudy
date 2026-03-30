@@ -1,4 +1,4 @@
-const CACHE = 'medstudy-v2';
+const CACHE = 'medstudy-v3';
 const URLS = [
   '.','./index.html',
   './anatomy/back.html','./anatomy/netter.html','./anatomy/study-tool.html',

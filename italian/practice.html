@@ -1,0 +1,2582 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Language Practice — Italian — Study Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0c0c0e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- ════════════════════ SITE NAV CHROME ════════════════════ -->
+<style>
+/* ── Site layout tokens ── */
+:root{
+  --bg:#0c0c0e;--bg-card:#141417;--bg-hover:#1b1b1f;
+  --bg-overlay:rgba(0,0,0,.65);
+  --border:#22222a;--border-sub:#1a1a22;
+  --text-1:#f0f0f4;--text-2:#8a8a96;--text-3:#50505c;
+  --blue:#3b82f6;--blue-dim:rgba(59,130,246,.14);
+  --shadow:0 4px 24px rgba(0,0,0,.45);
+  --shadow-sm:0 2px 10px rgba(0,0,0,.35);
+  --r:14px;--r-sm:9px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+}
+[data-theme="light"]{
+  --bg:#f5f5f7;--bg-card:#fff;--bg-hover:#eaeaee;
+  --bg-overlay:rgba(0,0,0,.35);
+  --border:#dddde8;--border-sub:#e8e8f0;
+  --text-1:#111118;--text-2:#55555e;--text-3:#9090a0;
+  --shadow:0 4px 24px rgba(0,0,0,.08);--shadow-sm:0 2px 10px rgba(0,0,0,.06);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-1);font-family:var(--font);
+     line-height:1.65;-webkit-font-smoothing:antialiased;
+     transition:background .2s,color .2s}
+a{color:inherit;text-decoration:none}
+
+/* ── Sidebar ── */
+.sb{
+  width:210px;flex-shrink:0;padding:28px 12px 32px 18px;
+  border-right:1px solid var(--border-sub);
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  background:var(--bg);display:flex;flex-direction:column;gap:0;
+  transition:transform .25s ease,background .2s;z-index:100;
+}
+.sb-logo{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.8rem;color:#fff;margin-bottom:24px;flex-shrink:0;
+}
+.sb-logo:hover{opacity:.85}
+.sb-label{font-size:.65rem;font-weight:600;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.12em;padding:0 10px;margin-bottom:4px;display:block}
+.sb-nav{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:16px}
+.sb-nav a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r-sm);
+  font-size:.9rem;color:var(--text-2);transition:background .12s,color .12s}
+.sb-nav a:hover{background:var(--bg-hover);color:var(--text-1)}
+.sb-nav a.active{color:var(--text-1);background:var(--bg-hover);font-weight:500}
+.sb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--text-3);transition:background .12s}
+.sb-nav a.active .sb-dot,.sb-nav a:hover .sb-dot{background:currentColor}
+.sb-spacer{flex:1}
+.sb-theme{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r-sm);
+  font-size:.85rem;color:var(--text-2);cursor:pointer;background:none;border:none;
+  font-family:var(--font);width:100%;transition:background .12s,color .12s}
+.sb-theme:hover{background:var(--bg-hover);color:var(--text-1)}
+.sb-theme-icon{font-size:1rem;line-height:1;width:18px;text-align:center}
+
+/* ── Mobile ── */
+.sb-overlay{display:none;position:fixed;inset:0;background:var(--bg-overlay);z-index:90;
+  opacity:0;pointer-events:none;transition:opacity .25s}
+.sb-overlay.open{opacity:1;pointer-events:all}
+.mob-header{display:none;position:sticky;top:0;z-index:80;height:52px;padding:0 16px;
+  background:var(--bg);border-bottom:1px solid var(--border-sub);
+  align-items:center;justify-content:space-between;transition:background .2s}
+.mob-logo{width:28px;height:28px;border-radius:7px;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.75rem;color:#fff}
+.mob-right{display:flex;align-items:center;gap:8px}
+.mob-theme-btn,.ham-btn{width:34px;height:34px;border-radius:var(--r-sm);
+  background:var(--bg-card);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:.9rem;transition:background .12s,border-color .12s}
+.mob-theme-btn:hover,.ham-btn:hover{background:var(--bg-hover)}
+
+/* ── Layout ── */
+.layout{display:flex;min-height:100vh}
+.main{flex:1;min-width:0;padding:40px 40px 80px}
+
+/* ── Responsive ── */
+@media(max-width:820px){
+  .main{padding:20px 16px 80px}
+  .sb{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sb.open{transform:translateX(0)}
+  .sb-overlay{display:block}
+  .mob-header{display:flex}
+  .layout{flex-direction:column}
+}
+@media(min-width:821px){
+  .mob-header{display:none}
+  .sb-overlay{display:none !important}
+}
+
+/* ── Override original bg/body so it inherits site theme ── */
+.main-inner{background:transparent!important}
+</style>
+
+<style>
+/* ── App styles (original) ── */
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181a22;
+    --surface2: #1e2028;
+    --border: #2a2d38;
+    --text: #e2e4ea;
+    --text-dim: #7a7e8c;
+    --text-faint: #4a4e5c;
+    --accent-it: #5b8fd9;
+    --accent-es: #d4845a;
+    --accent-speech: #6bc77a;
+    --accent-batch2: #b57bee;
+    --accent-active: var(--accent-it);
+    --copy-bg: #252830;
+    --copy-hover: #2e3140;
+    --toast-bg: #2e3140;
+  }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 0.875rem;
+    margin-bottom: 32px;
+  }
+
+  /* ---- TABS ---- */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    position: relative;
+    bottom: -1px;
+  }
+
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--text); border-bottom-color: var(--accent-active); }
+
+  .tab[data-tab="italian"] { --tab-accent: var(--accent-it); }
+  .tab[data-tab="spanish"] { --tab-accent: var(--accent-es); }
+  .tab[data-tab="speech"] { --tab-accent: var(--accent-speech); }
+  .tab[data-tab="batch2"] { --tab-accent: var(--accent-batch2); }
+  .tab.active { border-bottom-color: var(--tab-accent); }
+
+  /* ---- COPY ALL ---- */
+  .top-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 0 8px;
+  }
+
+  .btn-copy {
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    background: var(--copy-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-copy:hover { background: var(--copy-hover); color: var(--text); }
+  .btn-copy.copied { color: #6bc77a; border-color: #3a5c40; }
+
+  .btn-copy svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  /* ---- CONTENT ---- */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .section-block {
+    margin-bottom: 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent-active);
+    letter-spacing: -0.01em;
+  }
+
+  [data-tab-content="italian"] .section-title { color: var(--accent-it); }
+  [data-tab-content="spanish"] .section-title { color: var(--accent-es); }
+  [data-tab-content="speech"] .section-title { color: var(--accent-speech); }
+  [data-tab-content="batch2"] .section-title { color: var(--accent-batch2); }
+
+  .sentence-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid #1c1e26;
+    font-size: 0.875rem;
+    transition: background 0.1s;
+  }
+
+  .sentence-row:hover {
+    background: var(--surface);
+    margin: 0 -12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+
+  .sentence-row:last-child { border-bottom: none; }
+
+  .lang-text { color: var(--text); }
+  .eng-text { color: var(--text-dim); font-style: italic; }
+
+  /* ---- TOC ---- */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    font-size: 0.8rem;
+  }
+
+  .toc-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 10px;
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 3px 16px;
+  }
+
+  .toc-link {
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 3px 0;
+    display: block;
+    transition: color 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .toc-link:hover { color: var(--text); }
+
+  /* ---- TOAST ---- */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--toast-bg);
+    color: #6bc77a;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+    border: 1px solid #3a5c40;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 600px) {
+    .container { padding: 24px 16px 60px; }
+    h1 { font-size: 1.4rem; }
+    .sentence-row { grid-template-columns: 1fr; gap: 2px; }
+    .tab { padding: 8px 14px; font-size: 0.8rem; }
+  }
+
+/* ── Dark mode override: force app bg transparent so site theme shows ── */
+body { background: var(--bg) !important; color: var(--text) !important; }
+[data-theme="light"] body { --bg: #f5f5f7; --surface: #ffffff; --surface2: #f0f0f5; --border: #dddde8; --text: #111118; --text-dim: #55555e; --text-faint: #9090a0; }
+.container { padding-top: 24px; }
+</style>
+</head>
+<body>
+
+<div class="sb-overlay"></div>
+<header class="mob-header">
+  <a class="mob-logo" href="../index.html">B</a>
+  <div class="mob-right">
+    <button class="mob-theme-btn" onclick="toggleTheme()" title="Toggle theme">
+      <span class="mob-theme-icon">☀</span>
+    </button>
+    <button class="ham-btn" title="Menu">☰</button>
+  </div>
+</header>
+<div class="layout">
+<aside class="sb">
+  <a class="sb-logo" href="../index.html">B</a>
+  <span class="sb-label">Subjects</span>
+  <ul class="sb-nav">
+    <li><a href="../anatomy/index.html"><span class="sb-dot"></span>Anatomy</a></li>
+    <li><a href="../microbiology/index.html"><span class="sb-dot"></span>Microbiology</a></li>
+    <li><a href="../hebrew/index.html"><span class="sb-dot"></span>Hebrew</a></li>
+    <li><a href="../italian/index.html" class="active"><span class="sb-dot" style="background:#5b8fd9"></span>Italian</a></li>
+  </ul>
+  <div class="sb-spacer"></div>
+  <button class="sb-theme" onclick="toggleTheme()" title="Toggle theme">
+    <span class="sb-theme-icon">☀</span>
+    <span>Toggle theme</span>
+  </button>
+</aside>
+<main class="main">
+
+<div class="main-inner">
+<div class="container">
+  <h1>Language Practice Sentences</h1>
+  <p class="subtitle">Italian structures · Spanish structures · Italian from speech</p>
+
+  <div class="tab-bar">
+    <button class="tab active" data-tab="italian" onclick="switchTab('italian')">Italian</button>
+    <button class="tab" data-tab="spanish" onclick="switchTab('spanish')">Spanish</button>
+    <button class="tab" data-tab="speech" onclick="switchTab('speech')">From Speech</button>
+    <button class="tab" data-tab="batch2" onclick="switchTab('batch2')">Batch 2</button>
+  </div>
+
+  <!-- ITALIAN -->
+  <div class="tab-content active" id="italian" data-tab-content="italian">
+    <div class="top-actions">
+      <button class="btn-copy" onclick="copyAll('italian')">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy all
+      </button>
+    </div>
+  </div>
+
+  <!-- SPANISH -->
+  <div class="tab-content" id="spanish" data-tab-content="spanish">
+    <div class="top-actions">
+      <button class="btn-copy" onclick="copyAll('spanish')">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy all
+      </button>
+    </div>
+  </div>
+
+  <!-- FROM SPEECH -->
+  <div class="tab-content" id="speech" data-tab-content="speech">
+    <div class="top-actions">
+      <button class="btn-copy" onclick="copyAll('speech')">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy all
+      </button>
+    </div>
+  </div>
+
+  <!-- BATCH 2 -->
+  <div class="tab-content" id="batch2" data-tab-content="batch2">
+    <div class="top-actions">
+      <button class="btn-copy" onclick="copyAll('batch2')">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy all
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+const data = {
+  italian: {
+    "SECTION 01 — Ce la faccio / Non ce la faccio (I can handle it / I can't take it)": [
+      ["Non ce la faccio più.", "I can't take it anymore."],
+      ["Ce la fai a venire domani?", "Can you make it tomorrow?"],
+      ["Ce l'ho fatta!", "I did it! I made it!"],
+      ["Ce la metti tutta?", "Are you giving it your all?"],
+      ["Non ce la faccio a stare qui ancora.", "I can't stand being here any longer."],
+      ["Ce la possiamo fare se ci organizziamo.", "We can do it if we get organized."],
+      ["Ce la fai a finire per domani?", "Can you manage to finish by tomorrow?"],
+      ["Non ce la facevo più ad aspettare.", "I couldn't stand waiting any longer."],
+      ["Dai, ce la fai, manca poco.", "Come on, you can do it, almost there."],
+      ["Ce l'abbiamo fatta per un pelo.", "We made it by a hair."]
+    ],
+    "SECTION 02 — Mi va / Non mi va di (I feel like / I don't feel like)": [
+      ["Non mi va di uscire stasera.", "I don't feel like going out tonight."],
+      ["Ti va di prendere un caffè?", "Do you feel like getting a coffee?"],
+      ["Non mi va di cucinare.", "I don't feel like cooking."],
+      ["Ti va un gelato?", "Do you feel like an ice cream?"],
+      ["Non mi va di parlarne adesso.", "I don't feel like talking about it now."],
+      ["Non mi va proprio, scusa.", "I really don't feel like it, sorry."],
+      ["Ti va di fare due passi?", "Do you feel like going for a walk?"],
+      ["Non mi andava di restare.", "I didn't feel like staying."],
+      ["Se ti va, possiamo vederci dopo.", "If you're up for it, we can meet later."],
+      ["Non mi va mai di fare niente il lunedì.", "I never feel like doing anything on Mondays."]
+    ],
+    "SECTION 03 — Mi sa che (I think / I reckon)": [
+      ["Mi sa che pioverà.", "I think it's going to rain."],
+      ["Mi sa che ha ragione.", "I reckon he's right."],
+      ["Mi sa che non ce la faccio.", "I don't think I can make it."],
+      ["Mi sa che abbiamo sbagliato strada.", "I think we went the wrong way."],
+      ["Mi sa che è meglio così.", "I think it's better this way."],
+      ["Mi sa che non viene nessuno.", "I don't think anyone's coming."],
+      ["Mi sa che ci vorrà più tempo del previsto.", "I think it'll take longer than expected."],
+      ["Mi sa che l'ho lasciato a casa.", "I think I left it at home."],
+      ["Mi sa che hanno chiuso.", "I think they closed."],
+      ["Mi sa che ti sei sbagliato.", "I think you got it wrong."]
+    ],
+    "SECTION 04 — Magari (maybe / I wish / if only)": [
+      ["Magari ci andiamo domani.", "Maybe we'll go tomorrow."],
+      ["Magari fosse così semplice!", "If only it were that simple!"],
+      ["Magari la prossima volta.", "Maybe next time."],
+      ["— Vuoi venire? — Magari!", "— Want to come? — I wish!"],
+      ["Magari mi sbaglio, ma...", "Maybe I'm wrong, but..."],
+      ["Magari potremmo trovare un compromesso.", "Maybe we could find a compromise."],
+      ["Magari avessi più tempo!", "If only I had more time!"],
+      ["Magari prova a chiedere a lui.", "Maybe try asking him."],
+      ["Magari possiamo parlarne dopo.", "Maybe we can talk about it later."],
+      ["Magari avessi i soldi per farlo.", "If only I had the money to do it."]
+    ],
+    "SECTION 05 — Ci vuole / Ci vogliono / Ci metto (it takes)": [
+      ["Ci vuole pazienza.", "It takes patience."],
+      ["Ci metto mezz'ora per arrivare.", "It takes me half an hour to get there."],
+      ["Quanto ci vuole?", "How long does it take?"],
+      ["Ci vogliono almeno due ore.", "It takes at least two hours."],
+      ["Ci ho messo troppo tempo.", "I took too long."],
+      ["Quanto ci metti?", "How long will you take?"],
+      ["Ci vuole un sacco di tempo per imparare.", "It takes a lot of time to learn."],
+      ["Ci metto un attimo, aspetta.", "I'll be just a second, wait."],
+      ["Ci mettiamo troppo, andiamo più veloci.", "We're taking too long, let's go faster."],
+      ["Ci vuole coraggio per fare una cosa del genere.", "It takes courage to do something like that."]
+    ],
+    "SECTION 06 — Riuscire a (to manage to / to be able to)": [
+      ["Non riesco a dormire.", "I can't sleep."],
+      ["Non riesco a capire cosa vuol dire.", "I can't figure out what it means."],
+      ["Riesci a sentirmi?", "Can you hear me?"],
+      ["Non sono riuscito a trovare parcheggio.", "I couldn't find parking."],
+      ["Riesci a venire domani?", "Can you make it tomorrow?"],
+      ["Non riesco a concentrarmi.", "I can't concentrate."],
+      ["Sono riuscito a finire tutto in tempo.", "I managed to finish everything on time."],
+      ["Non riesco a crederci.", "I can't believe it."],
+      ["Riesci a spiegarmi come hai fatto?", "Can you explain how you did it?"],
+      ["Non riesco a togliermi questa cosa dalla testa.", "I can't get this thing out of my head."],
+      ["Non ci riesco, è troppo difficile.", "I can't do it, it's too hard."]
+    ],
+    "SECTION 07 — Basta / Basta che (it's enough / as long as)": [
+      ["Basta chiedere.", "You just have to ask."],
+      ["Basta, non ne posso più.", "Enough, I can't take it anymore."],
+      ["Basta pensarci un attimo per capire.", "You just need to think about it for a second."],
+      ["Basta che mi avvisi prima.", "As long as you let me know ahead of time."],
+      ["Basta così, grazie.", "That's enough, thanks."],
+      ["Basta che tu sia onesto.", "As long as you're honest."],
+      ["Non basta volerlo, bisogna farlo.", "It's not enough to want it, you have to do it."],
+      ["Basta lamentarsi, agisci.", "Enough complaining, act."],
+      ["Basta poco per rovinarti la giornata.", "It doesn't take much to ruin your day."],
+      ["Basta che funzioni, non deve essere perfetto.", "As long as it works, it doesn't have to be perfect."]
+    ],
+    "SECTION 08 — Tocca a / Tocca + infinitivo (it's up to / you have to)": [
+      ["Tocca a te.", "It's your turn."],
+      ["Tocca a noi decidere.", "It's up to us to decide."],
+      ["Tocca sempre a me fare tutto.", "I always end up doing everything."],
+      ["A chi tocca?", "Whose turn is it?"],
+      ["Tocca aspettare, non c'è altro da fare.", "You have to wait, there's nothing else to do."],
+      ["Tocca a te guidare, io sono stanco.", "It's your turn to drive, I'm tired."],
+      ["Tocca svegliarsi presto domani.", "We have to wake up early tomorrow."],
+      ["Tocca pagare, non c'è scelta.", "You have to pay, there's no choice."],
+      ["Mi tocca lavorare anche sabato.", "I have to work Saturday too."],
+      ["Tocca arrangiarsi.", "You have to figure it out."]
+    ],
+    "SECTION 09 — Piacere / Interessare / Mancare (backwards verbs)": [
+      ["Mi piace come la pensi.", "I like the way you think."],
+      ["Non mi piace per niente.", "I don't like it at all."],
+      ["Ti è piaciuto il film?", "Did you like the movie?"],
+      ["Mi piacerebbe tantissimo.", "I'd love that."],
+      ["Mi manca casa.", "I miss home."],
+      ["Mi mancate tutti.", "I miss all of you."],
+      ["Ti manca qualcosa?", "Are you missing anything?"],
+      ["Mi interessa capire di più.", "I'm interested in understanding more."],
+      ["Non mi interessa quello che pensano gli altri.", "I don't care what others think."],
+      ["Mi servono le chiavi.", "I need the keys."],
+      ["Mi fa piacere sentirti.", "It's nice to hear from you."]
+    ],
+    "SECTION 10 — Me ne vado / Andarsene / Cavarsela (pronominal combos)": [
+      ["Me ne vado, sono stanco.", "I'm leaving, I'm tired."],
+      ["Me la cavo con l'inglese.", "I get by with English."],
+      ["Se ne sono andati senza dire niente.", "They left without saying anything."],
+      ["Te la sei cavata bene.", "You managed pretty well."],
+      ["Non me ne importa niente.", "I don't care at all."],
+      ["Vattene.", "Get out of here."],
+      ["Me la prendo troppo per queste cose.", "I take these things too personally."],
+      ["Se ne frega di tutto.", "He doesn't give a damn about anything."],
+      ["Ce ne andiamo?", "Shall we leave?"],
+      ["Non te la prendere.", "Don't take it personally."]
+    ],
+    "SECTION 11 — Far fare / Lasciar fare (make / let / have done)": [
+      ["Mi fai ridere.", "You make me laugh."],
+      ["Fammi sapere.", "Let me know."],
+      ["Fammi capire una cosa.", "Help me understand something."],
+      ["Mi ha fatto aspettare un'ora.", "He made me wait an hour."],
+      ["Lasciami finire.", "Let me finish."],
+      ["Lascia perdere.", "Forget about it. / Drop it."],
+      ["Mi fa impazzire questo caldo.", "This heat is driving me crazy."],
+      ["Fammi pensare un attimo.", "Let me think for a second."],
+      ["Non farmi preoccupare.", "Don't make me worry."],
+      ["Si è fatto tagliare i capelli.", "He got his hair cut."],
+      ["Lo faccio riparare domani.", "I'll have it repaired tomorrow."],
+      ["Non mi far dire cose che non penso.", "Don't make me say things I don't mean."]
+    ],
+    "SECTION 12 — Stare per + infinito (about to)": [
+      ["Sto per uscire, ci sentiamo dopo.", "I'm about to leave, we'll talk later."],
+      ["Stavo per chiamarti.", "I was about to call you."],
+      ["Sto per impazzire con questo problema.", "I'm about to lose my mind with this problem."],
+      ["Stavo per dire la stessa cosa.", "I was about to say the same thing."],
+      ["Sto per finire, dammi due minuti.", "I'm about to finish, give me two minutes."],
+      ["Stava per piovere, quindi siamo rientrati.", "It was about to rain, so we went back inside."],
+      ["Stavo per addormentarmi quando mi hai scritto.", "I was about to fall asleep when you texted."],
+      ["Stavo per rinunciare, ma ci ho riprovato.", "I was about to give up, but I tried again."],
+      ["Sto per ordinare, vuoi qualcosa?", "I'm about to order, do you want something?"],
+      ["Stavamo per andarcene.", "We were about to leave."]
+    ],
+    "SECTION 13 — Mica (not at all / softener)": [
+      ["Non è mica facile.", "It's not easy at all."],
+      ["Mica male!", "Not bad at all!"],
+      ["Non sarà mica arrabbiato?", "He's not angry, is he?"],
+      ["Non è mica colpa mia.", "It's not my fault at all."],
+      ["Non è mica stupido, sa quello che fa.", "He's not stupid, he knows what he's doing."],
+      ["Mica puoi fare tutto da solo.", "You can't do everything by yourself, you know."],
+      ["Non è mica la fine del mondo.", "It's not the end of the world."],
+      ["Non vorrai mica andartene adesso?", "You're not thinking of leaving now, are you?"],
+      ["Mica tanto.", "Not really."],
+      ["Non è mica detto che funzioni.", "It's not a given that it'll work."]
+    ],
+    "SECTION 14 — Figurati / Ma figurati (don't mention it / no way)": [
+      ["— Grazie mille! — Ma figurati!", "— Thanks so much! — Don't mention it!"],
+      ["Figurati se mi offendo per una cosa del genere.", "As if I'd be offended by something like that."],
+      ["Ma figurati, non è niente.", "Oh please, it's nothing."],
+      ["Figurati se lui si fa vivo.", "As if he'd show up."],
+      ["Figurati se lo ammette.", "As if he'd admit it."],
+      ["— Ti ho disturbato? — Ma figurati!", "— Did I bother you? — Not at all!"],
+      ["Figurati che non sapeva nemmeno dove fosse.", "Get this — he didn't even know where it was."],
+      ["Ma figurati se funziona al primo colpo.", "As if it would work the first time."],
+      ["Figurati, ci mancherebbe.", "Of course, don't even worry about it."],
+      ["Figurati se mi dice la verità.", "As if he'd tell me the truth."]
+    ],
+    "SECTION 15 — Meno male / Per fortuna (thank God / luckily)": [
+      ["Meno male che sei arrivato.", "Thank God you got here."],
+      ["Meno male, stavo per impazzire.", "Thank God, I was about to lose it."],
+      ["Per fortuna non è successo niente di grave.", "Luckily nothing serious happened."],
+      ["Meno male che me l'hai detto.", "Good thing you told me."],
+      ["Per fortuna c'era ancora un posto.", "Luckily there was still a spot."],
+      ["Meno male che non piove.", "Thank God it's not raining."],
+      ["Per fortuna ho controllato prima di uscire.", "Luckily I checked before leaving."],
+      ["Meno male che ci sei tu.", "Thank God for you."],
+      ["Per fortuna è andato tutto bene.", "Luckily everything went well."],
+      ["Meno male che non ho detto niente.", "Good thing I didn't say anything."]
+    ],
+    "SECTION 16 — Appena / Non appena (as soon as / just)": [
+      ["Appena arrivo, ti chiamo.", "As soon as I get there, I'll call you."],
+      ["Appena l'ho visto, ho capito.", "As soon as I saw it, I understood."],
+      ["Appena posso, te lo mando.", "As soon as I can, I'll send it to you."],
+      ["Non appena ha saputo, è venuto subito.", "As soon as he found out, he came right away."],
+      ["Sono appena arrivato.", "I just got here."],
+      ["Ho appena finito.", "I just finished."],
+      ["Appena finisco questo, passo da te.", "As soon as I finish this, I'll come by."],
+      ["L'ho appena visto, era qui un secondo fa.", "I just saw him, he was here a second ago."],
+      ["Appena smette di piovere, usciamo.", "As soon as it stops raining, let's go out."],
+      ["Avevo appena chiuso gli occhi quando ha suonato il telefono.", "I had just closed my eyes when the phone rang."]
+    ],
+    "SECTION 17 — Dato che / Visto che / Siccome (since / given that)": [
+      ["Dato che sei qui, ne approfitto per chiederti una cosa.", "Since you're here, I'll take the chance to ask you something."],
+      ["Visto che piove, restiamo a casa.", "Since it's raining, let's stay home."],
+      ["Siccome non avevo niente da fare, sono uscito.", "Since I had nothing to do, I went out."],
+      ["Dato che hai esperienza, potresti darmi un consiglio?", "Since you have experience, could you give me advice?"],
+      ["Visto che non mi hai risposto, ho pensato che non ti interessasse.", "Since you didn't reply, I thought you weren't interested."],
+      ["Siccome domani è festa, possiamo uscire stasera.", "Since tomorrow's a holiday, we can go out tonight."],
+      ["Dato che ci siamo, parliamone adesso.", "Since we're here, let's talk about it now."],
+      ["Visto che lo conosci, potresti presentarmelo?", "Since you know him, could you introduce me?"],
+      ["Siccome ero in zona, sono passato a salutare.", "Since I was in the area, I stopped by to say hi."],
+      ["Dato che non hai altro da fare, vieni con noi.", "Since you have nothing else to do, come with us."]
+    ],
+    "SECTION 18 — Per caso (by any chance)": [
+      ["Per caso sai dov'è la fermata?", "By any chance, do you know where the stop is?"],
+      ["Per caso hai visto le mie chiavi?", "By any chance, have you seen my keys?"],
+      ["Per caso questo posto è libero?", "By any chance, is this seat free?"],
+      ["Per caso sai a che ora apre?", "By any chance, do you know what time it opens?"],
+      ["Per caso conosci qualcuno che affitta?", "By any chance, do you know anyone who rents?"],
+      ["Per caso stai andando in centro?", "By any chance, are you heading downtown?"],
+      ["Per caso hai un caricatore?", "By any chance, do you have a charger?"],
+      ["Per caso sai la password del Wi-Fi?", "By any chance, do you know the Wi-Fi password?"],
+      ["Per caso è passato Marco?", "By any chance, did Marco come by?"],
+      ["Per caso ti ricordi come si chiamava?", "By any chance, do you remember what his name was?"]
+    ],
+    "SECTION 19 — Volevo + infinito (I wanted to — polite softener)": [
+      ["Volevo chiederti una cosa.", "I wanted to ask you something."],
+      ["Volevo sapere se è ancora disponibile.", "I wanted to know if it's still available."],
+      ["Ti volevo dire che domani non posso.", "I wanted to tell you I can't make it tomorrow."],
+      ["Volevo solo informarti.", "I just wanted to let you know."],
+      ["Volevo solo assicurarmi.", "I just wanted to make sure."],
+      ["Volevo ringraziarti per ieri.", "I wanted to thank you for yesterday."],
+      ["Ti volevo chiedere un favore.", "I wanted to ask you a favor."],
+      ["Volevo passare a salutare.", "I wanted to stop by and say hi."],
+      ["Volevo dirti che mi dispiace.", "I wanted to tell you I'm sorry."],
+      ["Volevo capire meglio come funziona.", "I wanted to understand better how it works."]
+    ],
+    "SECTION 20 — Non è che (it's not that)": [
+      ["Non è che non mi interessi, è che sono stanco.", "It's not that I'm not interested, it's that I'm tired."],
+      ["Non è che sia difficile, è che richiede tempo.", "It's not that it's hard, it's that it takes time."],
+      ["Non è che non voglia venire, è che ho già un impegno.", "It's not that I don't want to come, I already have plans."],
+      ["Non è che mi stia lamentando, sto solo dicendo.", "It's not that I'm complaining, I'm just saying."],
+      ["Non è che sia colpa tua.", "It's not like it's your fault."],
+      ["Non è che non lo sappia, è che non ci avevo pensato.", "It's not that I don't know, it's that I hadn't thought of it."],
+      ["Non è che mi faccia schifo, solo non è il mio genere.", "It's not that I hate it, it's just not my thing."],
+      ["Non è che non mi fido, preferisco verificare.", "It's not that I don't trust you, I prefer to check."],
+      ["Non è che sia impossibile, è che nessuno ci ha provato.", "It's not that it's impossible, nobody's tried."],
+      ["Non è che non capisca, è che non sono d'accordo.", "It's not that I don't understand, I just don't agree."]
+    ],
+    "SECTION 21 — Secondo me / Per me (in my opinion)": [
+      ["Secondo me, non ne vale la pena.", "In my opinion, it's not worth it."],
+      ["Secondo me, dovremmo andare prima.", "I think we should go earlier."],
+      ["Secondo me, ha ragione lui.", "I think he's right."],
+      ["Per me è uguale, decidi tu.", "It's the same to me, you decide."],
+      ["Per me va benissimo.", "That works perfectly for me."],
+      ["Secondo me, stai esagerando.", "I think you're overreacting."],
+      ["Secondo me, il problema è un altro.", "I think the problem is something else."],
+      ["Per me sarebbe meglio di domenica.", "For me, Sunday would be better."],
+      ["Secondo me, non ha senso farlo adesso.", "I think it doesn't make sense to do it now."],
+      ["Per me puoi fare come vuoi.", "As far as I'm concerned, do whatever you want."]
+    ],
+    "SECTION 22 — Che ne dici / Facciamo che / E se (how about / what if)": [
+      ["Che ne dici di provare quel posto nuovo?", "What do you think about trying that new place?"],
+      ["Facciamo che ci vediamo alle otto?", "How about we meet at eight?"],
+      ["E se andassimo al cinema?", "What if we went to the movies?"],
+      ["Facciamo così: tu pensi a quello, io a questo.", "Let's do this: you handle that, I handle this."],
+      ["E se provassimo un'altra strada?", "What if we tried a different approach?"],
+      ["Che ne dici di rimandare a domani?", "What do you think about postponing to tomorrow?"],
+      ["Facciamo che ti faccio sapere domani.", "Let's say I'll let you know tomorrow."],
+      ["E se chiedessimo a qualcun altro?", "What if we asked someone else?"],
+      ["Che ne pensi?", "What do you think?"],
+      ["Facciamo un compromesso.", "Let's compromise."]
+    ],
+    "SECTION 23 — Ci tengo a / Mi fa piacere (it means a lot / it makes me happy)": [
+      ["Ci tengo a essere presente.", "It means a lot to me to be there."],
+      ["Ci tengo a fare le cose per bene.", "I really care about doing things properly."],
+      ["Mi fa piacere sentirti dire così.", "It makes me happy to hear you say that."],
+      ["Ci tengo molto a questo progetto.", "This project means a lot to me."],
+      ["Mi farebbe piacere vederti.", "I'd love to see you."],
+      ["Ci tengo che tu sappia la verità.", "It's important to me that you know the truth."],
+      ["Mi fa piacere che tu sia venuto.", "I'm glad you came."],
+      ["Ci tengo a dirtelo di persona.", "I want to tell you in person, it matters to me."],
+      ["Mi farebbe piacere se venissi anche tu.", "I'd love it if you came too."],
+      ["Ci tengo, non è una cosa da poco per me.", "It matters to me, it's not a small thing."]
+    ],
+    "SECTION 24 — Tanto / Comunque / Ormai (anyway / at this point)": [
+      ["Tanto non cambia niente.", "It doesn't change anything anyway."],
+      ["Comunque, volevo dirti una cosa.", "Anyway, I wanted to tell you something."],
+      ["Ormai è troppo tardi.", "At this point it's too late."],
+      ["Tanto lo sapevi già.", "You already knew anyway."],
+      ["Comunque vada, andrà bene.", "However it goes, it'll be fine."],
+      ["Ormai ci siamo, non possiamo tornare indietro.", "At this point we're in it, we can't go back."],
+      ["Tanto vale provarci.", "We might as well try."],
+      ["Comunque, non importa.", "Anyway, it doesn't matter."],
+      ["Ormai mi sono abituato.", "By now I've gotten used to it."],
+      ["Tanto non serve a niente lamentarsi.", "It's pointless to complain anyway."],
+      ["Comunque, fai come vuoi.", "Anyway, do whatever you want."],
+      ["Ormai è fatta, andiamo avanti.", "What's done is done, let's move on."]
+    ]
+  },
+
+  spanish: {
+    "SECTION 01 — Tener que + infinitivo (have to)": [
+      ["Tengo que irme ya.", "I have to go now."],
+      ["Tienes que dejar de quejarte.", "You have to stop complaining."],
+      ["Tenemos que hablar de algo importante.", "We need to talk about something important."],
+      ["Tengo que encontrar la manera de resolver esto.", "I have to find a way to solve this."],
+      ["Tienes que salir de tu zona de confort.", "You have to get out of your comfort zone."],
+      ["Tengo que dejar de pensar tanto.", "I have to stop thinking so much."],
+      ["Tienes que hacerte cargo de tu vida.", "You have to take charge of your life."],
+      ["Tengo que pasar por la farmacia antes de que cierre.", "I have to stop by the pharmacy before it closes."],
+      ["Tenemos que decidir hoy, no mañana.", "We have to decide today, not tomorrow."],
+      ["Tengo que acordarme de llamar al médico.", "I have to remember to call the doctor."]
+    ],
+    "SECTION 02 — Estar a punto de + infinitivo (about to)": [
+      ["Estoy a punto de salir, hablamos luego.", "I'm about to leave, we'll talk later."],
+      ["Estaba a punto de llamarte.", "I was about to call you."],
+      ["Estoy a punto de perder la paciencia.", "I'm about to lose my patience."],
+      ["Estábamos a punto de irnos cuando llegaste.", "We were about to leave when you showed up."],
+      ["Estoy a punto de terminar, dame un minuto.", "I'm about to finish, give me a minute."],
+      ["Estaba a punto de decir lo mismo.", "I was about to say the same thing."],
+      ["Estoy a punto de pedir, ¿quieres algo?", "I'm about to order, do you want something?"],
+      ["Estaba a punto de dormirme cuando me escribiste.", "I was about to fall asleep when you texted me."],
+      ["Estaba a punto de rendirme, pero lo intenté una vez más.", "I was about to give up, but I tried one more time."],
+      ["Está a punto de llover.", "It's about to rain."]
+    ],
+    "SECTION 03 — Poder / No poder + infinitivo (can / can't)": [
+      ["No puedo dormir.", "I can't sleep."],
+      ["¿Puedo hacerte una pregunta?", "Can I ask you a question?"],
+      ["No puedo creerlo.", "I can't believe it."],
+      ["¿Puedes repetir eso más despacio?", "Can you repeat that more slowly?"],
+      ["No pude hacer nada.", "There was nothing I could do."],
+      ["¿Puedes venir mañana?", "Can you come tomorrow?"],
+      ["No puedo concentrarme con tanto ruido.", "I can't concentrate with all this noise."],
+      ["Puedes hacer lo que quieras.", "You can do whatever you want."],
+      ["No puedo quitarme esta canción de la cabeza.", "I can't get this song out of my head."],
+      ["Podríamos probar ese restaurante nuevo.", "We could try that new restaurant."]
+    ],
+    "SECTION 04 — Querer / No querer + infinitivo (want to)": [
+      ["Solo quiero entender qué pasó.", "I just want to understand what happened."],
+      ["No quiero hablar de eso ahora.", "I don't want to talk about that now."],
+      ["¿Qué quieres hacer esta noche?", "What do you want to do tonight?"],
+      ["No quería ofenderte.", "I didn't mean to offend you."],
+      ["Quiero encontrar algo que me apasione.", "I want to find something I'm passionate about."],
+      ["Solo quería asegurarme.", "I just wanted to make sure."],
+      ["No quiero seguir así.", "I don't want to keep going like this."],
+      ["¿Quieres que te acompañe?", "Do you want me to go with you?"],
+      ["Quiero dejar de dar vueltas y actuar.", "I want to stop going in circles and act."],
+      ["No quiero quedarme con la duda.", "I don't want to be left wondering."]
+    ],
+    "SECTION 05 — Deber / Debería + infinitivo (should / must)": [
+      ["Deberías intentarlo.", "You should try it."],
+      ["No deberías preocuparte tanto.", "You shouldn't worry so much."],
+      ["Debería haber pensado en eso antes.", "I should have thought about that earlier."],
+      ["Deberías decirle la verdad.", "You should tell him the truth."],
+      ["Debe ser un malentendido.", "It must be a misunderstanding."],
+      ["Debería llamar al doctor.", "I should call the doctor."],
+      ["Deberías empezar a tomártelo en serio.", "You should start taking it seriously."],
+      ["Debería haberme quedado callado.", "I should have kept my mouth shut."],
+      ["No deberías dejar que te afecte tanto.", "You shouldn't let it affect you so much."],
+      ["Deberíamos irnos antes de que sea tarde.", "We should leave before it gets late."]
+    ],
+    "SECTION 06 — Me parece que / Creo que (I think / It seems)": [
+      ["Me parece que tiene razón.", "I think he's right."],
+      ["Creo que es mejor esperar.", "I think it's better to wait."],
+      ["Me parece una buena idea.", "It seems like a good idea to me."],
+      ["Creo que estás exagerando.", "I think you're exaggerating."],
+      ["Me parece raro que no haya respondido.", "It seems weird that he hasn't responded."],
+      ["Creo que el problema es otro.", "I think the problem is something else."],
+      ["Me parece que no tiene sentido hacerlo ahora.", "I don't think it makes sense to do it now."],
+      ["Creo que deberías pensarlo mejor.", "I think you should think it over."],
+      ["Me parece absurdo.", "It seems absurd to me."],
+      ["Creo que ya lo sabías.", "I think you already knew."]
+    ],
+    "SECTION 07 — Estar + gerundio (progressive)": [
+      ["Estoy comiendo, te llamo luego.", "I'm eating, I'll call you later."],
+      ["¿Qué estás haciendo?", "What are you doing?"],
+      ["Estaba trabajando cuando llegó.", "I was working when he arrived."],
+      ["Estoy intentando organizar todo.", "I'm trying to organize everything."],
+      ["Estás mejorando mucho.", "You're improving a lot."],
+      ["Estábamos hablando justo de ti.", "We were just talking about you."],
+      ["Estoy buscando la manera de resolverlo.", "I'm looking for a way to solve it."],
+      ["¿Estás bromeando, verdad?", "You're joking, right?"],
+      ["Estaba a punto de decírtelo.", "I was about to tell you."],
+      ["Estoy yendo, llego en diez minutos.", "I'm on my way, ten minutes."]
+    ],
+    "SECTION 08 — Dejar de / Seguir / Empezar a (stop / keep / start)": [
+      ["Deja de quejarte.", "Stop complaining."],
+      ["Dejé de fumar hace tres años.", "I quit smoking three years ago."],
+      ["No puedo dejar de pensar en eso.", "I can't stop thinking about it."],
+      ["Sigue hablando, te escucho.", "Keep talking, I'm listening."],
+      ["No entiendo por qué sigues haciéndolo.", "I don't understand why you keep doing it."],
+      ["Siguió trabajando como si nada.", "He kept working as if nothing happened."],
+      ["Estoy empezando a entender cómo funciona.", "I'm starting to understand how it works."],
+      ["Empezó a llover de repente.", "It started raining out of nowhere."],
+      ["Empieza a hacer frío.", "It's starting to get cold."],
+      ["Empecé a estudiar español el año pasado.", "I started studying Spanish last year."],
+      ["Dejó de llover, podemos salir.", "It stopped raining, we can go out."]
+    ],
+    "SECTION 09 — Intentar / Tratar de + infinitivo (try to)": [
+      ["Voy a intentar llamarlo.", "I'm going to try calling him."],
+      ["Estoy tratando de entender.", "I'm trying to understand."],
+      ["Intenta apagarlo y encenderlo de nuevo.", "Try turning it off and on again."],
+      ["Trato de no pensarlo demasiado.", "I try not to think about it too much."],
+      ["Intenté hacerlo solo, pero no pude.", "I tried doing it alone, but I couldn't."],
+      ["Intenta preguntarle directamente.", "Try asking him directly."],
+      ["Traté de explicárselo, pero no me escucha.", "I tried explaining it to him, but he won't listen."],
+      ["Vamos a intentarlo así y vemos qué pasa.", "Let's try it this way and see what happens."],
+      ["Intento ser más paciente.", "I'm trying to be more patient."],
+      ["Intenté de todo, nada funciona.", "I tried everything, nothing works."]
+    ],
+    "SECTION 10 — Lo que pasa es que / Es que (the thing is)": [
+      ["Lo que pasa es que no tengo tiempo.", "The thing is, I don't have time."],
+      ["Es que no funciona así.", "The thing is, it doesn't work like that."],
+      ["Lo que pasa es que nadie me lo dijo.", "The thing is, nobody told me."],
+      ["Es que depende de muchas cosas.", "The thing is, it depends on a lot of things."],
+      ["Lo que pasa es que ya lo intenté.", "The thing is, I already tried."],
+      ["Es que no sé por dónde empezar.", "The thing is, I don't know where to start."],
+      ["Lo que pasa es que no es solo un problema de dinero.", "The thing is, it's not just a money problem."],
+      ["Es que no me convence del todo.", "The thing is, it doesn't fully convince me."],
+      ["Lo que pasa es que la gente no quiere escuchar.", "The thing is, people don't want to listen."],
+      ["Es que siempre hay una excusa.", "The thing is, there's always an excuse."]
+    ],
+    "SECTION 11 — No es que... es que (it's not that... it's that)": [
+      ["No es que no me interese, es que estoy cansado.", "It's not that I'm not interested, it's that I'm tired."],
+      ["No es que sea difícil, es que toma tiempo.", "It's not that it's hard, it's that it takes time."],
+      ["No es que no quiera ir, es que ya tengo planes.", "It's not that I don't want to go, it's that I have plans."],
+      ["No es que me esté quejando, solo digo.", "It's not that I'm complaining, I'm just saying."],
+      ["No es que sea culpa tuya.", "It's not like it's your fault."],
+      ["No es que no lo sepa, es que no lo había pensado.", "It's not that I don't know, it's that I hadn't thought of it."],
+      ["No es que me caiga mal, solo no es lo mío.", "It's not that I hate it, it's just not my thing."],
+      ["No es que no pueda, es que no quiero.", "It's not that I can't, it's that I don't want to."],
+      ["No es que no confíe en ti, es que prefiero verlo yo mismo.", "It's not that I don't trust you, I prefer to see it myself."],
+      ["No es que sea imposible, es que nadie lo ha intentado.", "It's not that it's impossible, nobody's tried."]
+    ],
+    "SECTION 12 — Si + imperfecto subjuntivo, condicional (if I..., I would)": [
+      ["Si tuviera más tiempo, viajaría más.", "If I had more time, I'd travel more."],
+      ["Si fuera tú, lo pensaría bien.", "If I were you, I'd think it through."],
+      ["Si pudiera elegir, me quedaría con ese.", "If I could choose, I'd take that one."],
+      ["Si no lloviera, saldríamos.", "If it weren't raining, we'd go out."],
+      ["Si lo supiera, te lo diría.", "If I knew, I'd tell you."],
+      ["Si hubiera sabido, no habría venido.", "If I had known, I wouldn't have come."],
+      ["Si no fuera tan caro, lo compraría.", "If it weren't so expensive, I'd buy it."],
+      ["Si hablara mejor el español, me mudaría a Madrid.", "If I spoke Spanish better, I'd move to Madrid."],
+      ["Si cambiaras de trabajo, ¿qué harías?", "If you changed jobs, what would you do?"],
+      ["Si me hubiera dicho la verdad, lo habría entendido.", "If he had told me the truth, I would have understood."]
+    ],
+    "SECTION 13 — Si + presente, presente/futuro (real if-then)": [
+      ["Si tienes hambre, preparo algo.", "If you're hungry, I'll make something."],
+      ["Si quieres, te acompaño.", "If you want, I'll go with you."],
+      ["Si no te gusta, dímelo.", "If you don't like it, tell me."],
+      ["Si terminas temprano, damos una vuelta.", "If you finish early, let's go for a walk."],
+      ["Si necesitas algo, avísame.", "If you need anything, let me know."],
+      ["Si cambias de opinión, escríbeme.", "If you change your mind, text me."],
+      ["Si no funciona, lo intentamos de nuevo.", "If it doesn't work, we'll try again."],
+      ["Si sigue así, hay que buscar otra solución.", "If it keeps going like this, we need another solution."],
+      ["Si puedes, pasa por aquí.", "If you can, swing by here."],
+      ["Si te sirve de algo, yo también pasé por eso.", "If it helps, I went through that too."]
+    ],
+    "SECTION 14 — Me cuesta + infinitivo (I find it hard to)": [
+      ["Me cuesta mucho hablar en público.", "I find it really hard to speak in public."],
+      ["Me cuesta concentrarme cuando hay ruido.", "I find it hard to concentrate when there's noise."],
+      ["Me resulta difícil confiar en la gente.", "I find it hard to trust people."],
+      ["Me cuesta levantarme temprano.", "I have a hard time getting up early."],
+      ["Me cuesta entender lo que quiere decir.", "I have a hard time understanding what he means."],
+      ["Me resulta imposible no pensar en eso.", "I find it impossible not to think about it."],
+      ["Me cuesta mucho pedir ayuda.", "I find it really hard to ask for help."],
+      ["Me resulta raro que no haya dicho nada.", "I find it strange that he didn't say anything."],
+      ["Me cuesta aceptar que no puedo controlarlo todo.", "I find it hard to accept I can't control everything."],
+      ["Me cuesta trabajo mantener la calma a veces.", "I have a hard time keeping my cool sometimes."]
+    ],
+    "SECTION 15 — Acabar de + infinitivo (to have just done)": [
+      ["Acabo de llegar.", "I just got here."],
+      ["Acabo de hablar con él.", "I just talked to him."],
+      ["Acabamos de comer, gracias.", "We just ate, thanks."],
+      ["Acabo de enterarme.", "I just found out."],
+      ["Acaba de salir, lo acabas de perder.", "He just left, you just missed him."],
+      ["Acabo de mandar el mensaje.", "I just sent the message."],
+      ["Acababa de dormirme cuando sonó el teléfono.", "I had just fallen asleep when the phone rang."],
+      ["Acabo de darme cuenta de algo.", "I just realized something."],
+      ["Acabo de terminar, ¿necesitas algo?", "I just finished, do you need anything?"],
+      ["Acabamos de mudarnos.", "We just moved."]
+    ],
+    "SECTION 16 — Llevar + tiempo + gerundio (been doing for)": [
+      ["Llevo una hora esperando.", "I've been waiting for an hour."],
+      ["Llevo tres años estudiando español.", "I've been studying Spanish for three years."],
+      ["Llevamos dos horas aquí sentados.", "We've been sitting here for two hours."],
+      ["Llevo toda la mañana intentando llamarte.", "I've been trying to call you all morning."],
+      ["Llevo mucho tiempo pensando en esto.", "I've been thinking about this for a long time."],
+      ["¿Cuánto tiempo llevas viviendo aquí?", "How long have you been living here?"],
+      ["Llevo días sin dormir bien.", "I haven't slept well in days."],
+      ["Llevamos meses trabajando en este proyecto.", "We've been working on this project for months."],
+      ["Llevo rato buscándolo y no lo encuentro.", "I've been looking for it and I can't find it."],
+      ["Lleva años diciendo lo mismo.", "He's been saying the same thing for years."]
+    ],
+    "SECTION 17 — Me da / Me hace (it makes me / it gives me)": [
+      ["Me da miedo hablar en público.", "Speaking in public scares me."],
+      ["Me da pereza salir hoy.", "I'm too lazy to go out today."],
+      ["Me da igual, decide tú.", "I don't care, you decide."],
+      ["Me da vergüenza admitirlo.", "I'm embarrassed to admit it."],
+      ["Me hace gracia cómo lo dice.", "The way he says it cracks me up."],
+      ["Me da rabia que no hagan nada.", "It makes me angry that they don't do anything."],
+      ["Me da la sensación de que algo no está bien.", "I get the feeling something's not right."],
+      ["Me hace feliz verte así.", "It makes me happy to see you like this."],
+      ["Me da cosa decírselo a la cara.", "I feel weird telling him to his face."],
+      ["Me da lo mismo, como quieras.", "It's all the same to me, whatever you want."]
+    ],
+    "SECTION 18 — Ponerse a / Echarse a (to start suddenly)": [
+      ["Se puso a llover de repente.", "It suddenly started raining."],
+      ["Se echó a reír sin razón.", "He burst out laughing for no reason."],
+      ["Me puse a pensar y me di cuenta de algo.", "I started thinking and I realized something."],
+      ["Se puso a gritar como loco.", "He started screaming like a madman."],
+      ["No te pongas a discutir ahora.", "Don't start arguing now."],
+      ["Se echó a llorar cuando se enteró.", "She burst into tears when she found out."],
+      ["Me puse a limpiar y encontré tus llaves.", "I started cleaning and found your keys."],
+      ["Se puso a hablar y no paró en dos horas.", "He started talking and didn't stop for two hours."],
+      ["No te pongas a pensar demasiado.", "Don't start overthinking."],
+      ["Se echaron a correr cuando oyeron el ruido.", "They started running when they heard the noise."]
+    ],
+    "SECTION 19 — Hace falta / No hace falta (necessary / not necessary)": [
+      ["Hace falta más tiempo.", "More time is needed."],
+      ["No hace falta que vengas.", "You don't need to come."],
+      ["Hace falta mucha paciencia para esto.", "You need a lot of patience for this."],
+      ["No hace falta que me lo expliques.", "You don't need to explain it to me."],
+      ["Hace falta gente que quiera trabajar de verdad.", "People who actually want to work are needed."],
+      ["No hace falta gritar.", "There's no need to shout."],
+      ["Hace falta ser valiente para hacer eso.", "You have to be brave to do that."],
+      ["No hace falta ser perfecto.", "You don't have to be perfect."],
+      ["Hace falta que alguien tome la iniciativa.", "Someone needs to take the initiative."],
+      ["No hacía falta que hicieras eso.", "You didn't need to do that."]
+    ],
+    "SECTION 20 — Quedar / Quedarse (to stay / meet up / be left)": [
+      ["¿Quedamos a las ocho?", "Shall we meet at eight?"],
+      ["Me quedé en casa todo el día.", "I stayed home all day."],
+      ["¿Dónde quedamos?", "Where should we meet?"],
+      ["Se quedó callado.", "He went quiet."],
+      ["No me queda claro.", "It's not clear to me."],
+      ["Nos quedamos sin gasolina.", "We ran out of gas."],
+      ["Quédate un rato más.", "Stay a bit longer."],
+      ["Me quedé dormido en el sofá.", "I fell asleep on the couch."],
+      ["¿Te queda algo de dinero?", "Do you have any money left?"],
+      ["Quedamos en que yo traigo las bebidas.", "We agreed that I'd bring the drinks."],
+      ["Se quedó pensando un buen rato.", "He sat there thinking for a good while."]
+    ],
+    "SECTION 21 — Resulta que / Resulta ser (it turns out)": [
+      ["Resulta que ya lo sabía.", "It turns out he already knew."],
+      ["Resulta que el vuelo se canceló.", "It turns out the flight got cancelled."],
+      ["Resulta que no era tan difícil.", "It turns out it wasn't that hard."],
+      ["Resulta que nos conocíamos de antes.", "It turns out we knew each other from before."],
+      ["Resulta ser más complicado de lo que pensaba.", "It turns out to be more complicated than I thought."],
+      ["Resulta que me habían mandado el correo equivocado.", "It turns out they sent me the wrong email."],
+      ["Resulta que tenía razón desde el principio.", "It turns out he was right from the beginning."],
+      ["Resulta que el restaurante estaba cerrado.", "It turns out the restaurant was closed."],
+      ["Resulta que vivimos en la misma calle.", "It turns out we live on the same street."],
+      ["Resulta que todo fue un malentendido.", "It turns out it was all a misunderstanding."]
+    ],
+    "SECTION 22 — Valer la pena / Dar igual (worth it / doesn't matter)": [
+      ["No vale la pena preocuparse por eso.", "It's not worth worrying about that."],
+      ["Me da igual, tú decides.", "I don't care, you decide."],
+      ["¿De verdad vale la pena?", "Is it really worth it?"],
+      ["No me importa lo que piensen los demás.", "I don't care what other people think."],
+      ["Valió la pena esperar.", "It was worth the wait."],
+      ["No importa cuántas veces te caigas, levántate.", "It doesn't matter how many times you fall, get back up."],
+      ["No vale la pena discutir por eso.", "It's not worth arguing about that."],
+      ["A mí me da lo mismo.", "It's all the same to me."],
+      ["Lo que importa es que lo intentaste.", "What matters is that you tried."],
+      ["No vale la pena perder el tiempo con eso.", "It's not worth wasting time on that."]
+    ],
+    "SECTION 23 — Soler + infinitivo (usually / tend to)": [
+      ["Suelo despertarme temprano.", "I usually wake up early."],
+      ["No suelo beber café después de las tres.", "I don't usually drink coffee after three."],
+      ["Suele llegar tarde.", "He usually arrives late."],
+      ["Solíamos ir a la playa cada verano.", "We used to go to the beach every summer."],
+      ["No suelo quejarme, pero esto es demasiado.", "I don't usually complain, but this is too much."],
+      ["Suelo pensar demasiado las cosas.", "I tend to overthink things."],
+      ["¿Sueles cocinar o pides comida?", "Do you usually cook or order food?"],
+      ["Solía ser más paciente.", "I used to be more patient."],
+      ["Suelo estar más cansado los lunes.", "I'm usually more tired on Mondays."],
+      ["No suele hablar mucho en público.", "He doesn't usually talk much in public."]
+    ],
+    "SECTION 24 — Hacerse / Volverse / Ponerse (to become)": [
+      ["Se hizo rico trabajando desde casa.", "He got rich working from home."],
+      ["Se volvió loco con todo el estrés.", "He went crazy from all the stress."],
+      ["Se puso nervioso cuando le preguntaron.", "He got nervous when they asked him."],
+      ["Me estoy haciendo viejo.", "I'm getting old."],
+      ["Se volvió muy negativo con el tiempo.", "He became very negative over time."],
+      ["Se puso rojo de vergüenza.", "He turned red from embarrassment."],
+      ["La situación se puso fea.", "The situation got ugly."],
+      ["Se hizo famoso de la noche a la mañana.", "He became famous overnight."],
+      ["No te pongas así, tranquilo.", "Don't get like that, calm down."],
+      ["Se volvió cada vez más difícil.", "It became harder and harder."]
+    ]
+  },
+
+  speech: {
+    "SECTION 01 — Making a Point": [
+      ["Il fatto è che la gente non vuole mettersi in gioco.", "The thing is, people don't want to put themselves out there."],
+      ["Il punto è che nessuno vuole fare il primo passo.", "The point is, nobody wants to take the first step."],
+      ["Il problema è che tutti vogliono risultati subito.", "The problem is, everyone wants results immediately."],
+      ["Il fatto è che se non esci di casa, non succede niente.", "The thing is, if you don't leave your house, nothing happens."],
+      ["Il punto è che non puoi aspettare che qualcuno ti salvi.", "The point is, you can't wait for someone to save you."],
+      ["Il fatto è che la maggior parte della gente si è arresa.", "The thing is, most people have given up."],
+      ["Il punto non è essere perfetti, è muoversi.", "The point isn't being perfect, it's moving."],
+      ["Il problema è che passiamo troppo tempo nella nostra testa.", "The problem is we spend too much time in our heads."],
+      ["Il fatto è che nessuno ti deve niente.", "The thing is, nobody owes you anything."],
+      ["Il punto è che devi creare tu le opportunità.", "The point is, you have to create the opportunities yourself."]
+    ],
+    "SECTION 02 — Calling Things Out": [
+      ["Non capisco come la gente possa vivere così.", "I don't understand how people can live like this."],
+      ["Mi sembra assurdo che nessuno ne parli.", "It seems absurd to me that nobody talks about it."],
+      ["Non ha senso lamentarsi senza fare niente.", "It makes no sense to complain without doing anything."],
+      ["È pazzesco quanta gente finge di essere felice.", "It's crazy how many people pretend to be happy."],
+      ["Non capisco come fai a stare così tranquillo.", "I don't understand how you can be so calm about it."],
+      ["Mi fa impazzire vedere la gente sprecare il proprio tempo.", "It drives me crazy to see people waste their time."],
+      ["È assurdo che tutti vogliano le scorciatoie.", "It's absurd that everyone wants shortcuts."],
+      ["Non ha senso nascondersi dietro uno schermo.", "It makes no sense to hide behind a screen."],
+      ["Mi sembra incredibile che la gente accetti tutto senza fiatare.", "It blows my mind that people accept everything without a word."],
+      ["Non capisco come puoi dire di voler cambiare e poi non fare niente.", "I don't get how you can say you want to change and then do nothing."]
+    ],
+    "SECTION 03 — Describing What People Do": [
+      ["La maggior parte della gente non ha una passione vera.", "Most people don't have a real passion."],
+      ["Il ragazzo medio non sa cosa vuole dalla vita.", "The average guy doesn't know what he wants from life."],
+      ["La gente preferisce restare comoda piuttosto che rischiare.", "People prefer to stay comfortable rather than take risks."],
+      ["Tanti ragazzi si nascondono dietro la routine.", "A lot of guys hide behind routine."],
+      ["La maggior parte delle persone aspetta che succeda qualcosa.", "Most people wait for something to happen."],
+      ["Il ragazzo medio passa le giornate senza fare niente di significativo.", "The average guy spends his days without doing anything meaningful."],
+      ["La gente si lamenta sempre ma non agisce mai.", "People always complain but never act."],
+      ["Tanti usano la religione come scusa per non fare niente.", "A lot of people use religion as an excuse to do nothing."],
+      ["La maggior parte della gente ha perso la capacità di giocare.", "Most people have lost the ability to play."],
+      ["Il ragazzo medio non ha nemmeno una bella storia da raccontare.", "The average guy doesn't even have a good story to tell."]
+    ],
+    "SECTION 04 — Giving Direct Advice": [
+      ["Devi uscire di casa, fratello.", "You have to leave your house, brother."],
+      ["Smettila di aspettare il momento perfetto.", "Stop waiting for the perfect moment."],
+      ["Devi smettere di nasconderti.", "You have to stop hiding."],
+      ["Buttati, non pensarci troppo.", "Just go for it, don't overthink it."],
+      ["Devi farti vedere dalla gente.", "You need to let people see you."],
+      ["Smettila di cercare scuse.", "Stop looking for excuses."],
+      ["Devi trovare qualcosa su cui lavorare ogni giorno.", "You need to find something to work on every day."],
+      ["Muoviti, fratello. Non puoi restare fermo.", "Move, brother. You can't stay still."],
+      ["Devi metterti in gioco anche se hai paura.", "You have to put yourself out there even if you're scared."],
+      ["Smettila di fare finta che vada tutto bene.", "Stop pretending everything's fine."],
+      ["Devi accettare che sarà scomodo.", "You have to accept that it's going to be uncomfortable."],
+      ["Alzati dal divano e fai qualcosa.", "Get off the couch and do something."]
+    ],
+    "SECTION 05 — Purpose & Meaning": [
+      ["Siamo fatti per andare là fuori e rischiare.", "We're built to go out there and take risks."],
+      ["Non siamo fatti per stare seduti tutto il giorno.", "We're not meant to sit around all day."],
+      ["Il tuo corpo è fatto per muoversi, non per restare fermo.", "Your body is built to move, not to stay still."],
+      ["Siamo fatti per la caccia, per la sfida.", "We're built for the hunt, for the challenge."],
+      ["Non sei fatto per vivere così, e lo sai.", "You're not meant to live like this, and you know it."],
+      ["Siamo fatti per creare, per costruire qualcosa.", "We're built to create, to build something."],
+      ["La vita non dovrebbe essere solo sopravvivenza.", "Life shouldn't be just survival."],
+      ["Non siamo fatti per restare nella nostra testa.", "We're not built to stay stuck in our heads."],
+      ["Siamo fatti per essere visti, per farci sentire.", "We're built to be seen, to make ourselves heard."],
+      ["Non sei fatto per restare nell'ombra.", "You're not meant to stay in the shadows."]
+    ],
+    "SECTION 06 — Past vs. Present": [
+      ["Una volta dovevi uscire di casa per avere informazioni.", "Back in the day you had to leave your house to get information."],
+      ["Prima dovevi alzare il telefono e parlare con qualcuno.", "You used to have to pick up the phone and talk to someone."],
+      ["Una volta, se volevi comprare qualcosa, dovevi andarci di persona.", "If you wanted to buy something, you had to go in person."],
+      ["Adesso puoi fare tutto senza mai farti vedere.", "Now you can do everything without ever being seen."],
+      ["Prima dovevi affrontare l'imbarazzo per ottenere quello che volevi.", "You used to have to face embarrassment to get what you wanted."],
+      ["Una volta la gente si incontrava nei bar, nelle botteghe.", "People used to meet in bars, in shops."],
+      ["Adesso invece tutti si nascondono dietro uno schermo.", "Now instead everyone hides behind a screen."],
+      ["Prima dovevi guadagnarti la saggezza vivendo.", "You used to have to earn wisdom through living."],
+      ["Una volta c'erano i terzi spazi — il barbiere, la palestra, il bar.", "There used to be third spaces — the barber, the gym, the bar."],
+      ["Adesso non c'è più niente che ti costringa a uscire.", "Now there's nothing left that forces you to go out."]
+    ],
+    "SECTION 07 — The Internet & Modern Comfort": [
+      ["Internet ha reso possibile raccogliere informazioni senza mai farsi vedere.", "The internet made it possible to gather info without ever being seen."],
+      ["Il problema è che tutto è troppo comodo.", "The problem is that everything is too comfortable."],
+      ["La comodità sta uccidendo l'anima della gente.", "Comfort is killing people's souls."],
+      ["La velocità non ti permette di sviluppare niente di vero.", "Speed doesn't allow you to develop anything real."],
+      ["Puoi ordinare da mangiare senza parlare con nessuno.", "You can order food without talking to anyone."],
+      ["Tutti hanno accesso a tutto, ma nessuno fa niente.", "Everyone has access to everything, but nobody does anything."],
+      ["Il telefono è diventato una sfera di cristallo.", "The phone has become a crystal ball."],
+      ["Siamo tutti maghi con i nostri dispositivi, ma non viviamo.", "We're all wizards with our devices, but we don't live."],
+      ["La rapidità uccide sempre l'anima.", "Speed always kills the soul."],
+      ["La gente non esce più, ha tutto a portata di mano.", "People don't go out anymore, everything's at their fingertips."]
+    ],
+    "SECTION 08 — Energy & Getting Started": [
+      ["Non puoi aspettare che qualcuno ti motivi.", "You can't wait for someone to motivate you."],
+      ["Devi essere tu a dare energia, non a riceverla.", "You have to be the one giving energy, not receiving it."],
+      ["Quante volte puoi restare seduto ad aspettare?", "How many times can you sit around and wait?"],
+      ["Niente si muove finché non ti muovi tu.", "Nothing moves until you move."],
+      ["Perché aspetti sempre che qualcun altro inizi?", "Why do you always wait for someone else to start?"],
+      ["Devi diventare dipendente dal fare, dal creare.", "You have to get addicted to doing, to creating."],
+      ["Smettila di cercare motivazione e inizia a fare.", "Stop looking for motivation and start doing."],
+      ["La gente si arrende troppo in fretta.", "People give up too quickly."],
+      ["Se non è veloce, dicono 'non fa per me'.", "If it's not fast, they say 'it's not for me'."],
+      ["Devi spedire. Devi mandare fuori le cose. Basta pensare.", "You have to ship it. Put things out. Enough thinking."],
+      ["Sii tu quello che crea l'energia nella stanza.", "Be the one who creates the energy in the room."]
+    ],
+    "SECTION 09 — Being Real vs. Being Fake": [
+      ["La gente finge di avere tutto sotto controllo.", "People pretend to have everything under control."],
+      ["Non puoi vivere nascondendoti per sempre.", "You can't live hiding forever."],
+      ["Se non mostri la faccia, non sei davvero presente.", "If you don't show your face, you're not truly present."],
+      ["Tanti si nascondono dietro la disciplina per non vivere.", "A lot of people hide behind discipline to avoid living."],
+      ["È più facile dire 'sono nichilista' che fare qualcosa.", "It's easier to say 'I'm nihilistic' than to do something."],
+      ["La gente usa la routine per sentirsi in controllo.", "People use routine to feel in control."],
+      ["Ma il controllo è un'illusione.", "But control is an illusion."],
+      ["Devi lasciar andare il bisogno di avere tutto chiaro.", "You have to let go of needing to have everything figured out."],
+      ["La gente si mette addosso una maschera e ci si abitua.", "People put on a mask and get used to it."],
+      ["Non puoi essere una forza nel mondo se nessuno sa chi sei.", "You can't be a force in the world if nobody knows who you are."],
+      ["Fai vedere chi sei davvero, smettila di nasconderti.", "Show who you really are, stop hiding."]
+    ],
+    "SECTION 10 — Connecting with People": [
+      ["È difficile connettersi con qualcuno che non vive davvero.", "It's hard to connect with someone who doesn't truly live."],
+      ["Non riesci a parlare con qualcuno che non ha niente da dire.", "You can't even talk to someone who has nothing to say."],
+      ["La gente ripete sempre le stesse cose, le stesse lamentele.", "People always repeat the same things, the same complaints."],
+      ["Ti connetti con chi sta affrontando qualcosa di vero.", "You connect with people who are dealing with something real."],
+      ["Non c'è passione, non c'è entusiasmo in quello che dicono.", "There's no passion, no excitement in what they say."],
+      ["Il ragazzo medio non ha nemmeno un hobby che lo appassiona.", "The average guy doesn't even have a hobby he's passionate about."],
+      ["Parli con la gente e senti sempre le stesse frasi fatte.", "You talk to people and you always hear the same clichés."],
+      ["La vita quotidiana ha perso il suo incanto per tanti.", "Daily life has lost its enchantment for many."],
+      ["La gente aspetta che qualcuno la porti fuori, la inviti.", "People wait for someone to take them out, to invite them."],
+      ["Se non hai energia da dare, nessuno vorrà starti intorno.", "If you have no energy to give, nobody will want to be around you."]
+    ],
+    "SECTION 11 — Being a Force": [
+      ["Devi guardarti allo specchio e dirti che sei qui per un motivo.", "You need to look in the mirror and tell yourself you're here for a reason."],
+      ["Sei una forza, ma il mondo ti ha convinto del contrario.", "You're a force, but the world convinced you otherwise."],
+      ["Devi diventare un'icona per te stesso.", "You have to become an icon for yourself."],
+      ["Guardati allo specchio e chiediti: sono ispirato dalla mia vita?", "Look in the mirror and ask yourself: am I inspired by my life?"],
+      ["Il mondo ti mette addosso un sacco di roba — scrollatela di dosso.", "The world piles stuff on you — shake it off."],
+      ["Non lasciare che la depressione ti faccia dimenticare chi sei.", "Don't let depression make you forget who you are."],
+      ["Sei qui, sei vivo, sei in salute — questo conta.", "You're here, you're alive, you're healthy — that matters."],
+      ["La nebbia ti fa sentire piccolo, ma non lo sei.", "The fog makes you feel small, but you're not."],
+      ["Devi toglierti di dosso quel mantello di nichilismo.", "You have to take off that coat of nihilism."],
+      ["Tutto il resto è solo un modo per anestetizzarsi.", "Everything else is just a way to numb yourself."]
+    ],
+    "SECTION 12 — Craft, Mastery & Showing Up": [
+      ["Devi trovare qualcosa su cui lavorare ogni singolo giorno.", "You need to find something to work on every single day."],
+      ["Non tutti i giorni devono essere entusiasmanti.", "Not every day has to be exciting."],
+      ["Ci vuole pazienza per sviluppare qualcosa di vero.", "It takes patience to develop something real."],
+      ["La gente salta da una cosa all'altra senza mai approfondire.", "People jump from one thing to the next without ever going deep."],
+      ["La monotonia va bene se è al servizio di qualcosa.", "Monotony is fine if it serves something."],
+      ["Devi fare i lavori di merda. Devi affrontare l'imbarazzo.", "You have to do the crappy jobs. You have to face embarrassment."],
+      ["Non c'è maestria senza ripetizione.", "There's no mastery without repetition."],
+      ["La gente vuole la velocità, ma la velocità non paga mai.", "People want speed, but speed never pays off."],
+      ["Devi sporcarti le mani, non basta leggere.", "You have to get your hands dirty, reading isn't enough."],
+      ["Trova qualcosa e armeggiaci ogni giorno.", "Find something and tinker with it every day."],
+      ["Il punto è presentarsi, ogni giorno, anche quando non hai voglia.", "The point is showing up, every day, even when you don't feel like it."]
+    ]
+  },
+
+  batch2: {
+    "SECTION 01 — Technology & What It Does to Your Brain": [
+      ["Il problema è che nessuno sa davvero quanto sia pericoloso.", "The problem is that nobody really knows how dangerous it is."],
+      ["La cosa spaventosa è che non abbiamo dati sufficienti.", "The scary thing is that we don't have enough data."],
+      ["Come fai a dire che è sicuro se non lo stai misurando?", "How can you say it's safe if you're not measuring it?"],
+      ["Non puoi fare un'affermazione del genere senza le prove.", "You can't make a statement like that without the evidence."],
+      ["Il fatto è che queste aziende non stanno facendo ricerca.", "The thing is, these companies aren't doing research."],
+      ["Stanno basando le loro conclusioni su articoli di giornale.", "They're basing their conclusions on newspaper articles."],
+      ["Come fanno a sapere che il loro prodotto è sicuro?", "How do they know their product is safe?"],
+      ["È come dire che le sigarette non causano il cancro.", "It's like saying cigarettes don't cause cancer."],
+      ["La tecnologia sta cambiando il nostro cervello e non ce ne rendiamo conto.", "Technology is changing our brains and we don't even realize it."],
+      ["Il vero pericolo è quello che non si vede.", "The real danger is what you can't see."],
+      ["Quante persone stanno soffrendo in silenzio senza che nessuno se ne accorga?", "How many people are suffering in silence without anyone noticing?"],
+      ["Non possiamo semplicemente ignorare il problema e sperare che vada via.", "We can't just ignore the problem and hope it goes away."]
+    ],
+    "SECTION 02 — The Problem With Willpower & Discipline": [
+      ["Il problema della forza di volontà è che domani ne avrai bisogno ancora di più.", "The problem with willpower is that tomorrow you'll need even more of it."],
+      ["Più ti sforzi, più ti esaurisci.", "The more you force yourself, the more you burn out."],
+      ["La disciplina non ti porta all'eccellenza, ti porta al burnout.", "Discipline doesn't get you to excellence, it gets you to burnout."],
+      ["Se devi costringerti a fare qualcosa ogni giorno, qualcosa non va.", "If you have to force yourself to do something every day, something's off."],
+      ["La forza di volontà è un fattore di rischio indipendente per la stagnazione.", "Willpower is an independent risk factor for stagnation."],
+      ["Costringersi a fare qualcosa oggi significa doversi costringere anche domani.", "Forcing yourself to do something today means forcing yourself tomorrow too."],
+      ["Le abitudini alzano il pavimento, ma non ti portano mai al massimo.", "Habits raise the floor, but they never get you to the top."],
+      ["La costanza non viene dalla disciplina, viene dal volere qualcosa.", "Consistency doesn't come from discipline, it comes from wanting something."],
+      ["Chi ha problemi di costanza con i videogiochi? Nessuno.", "Who has consistency problems with video games? Nobody."],
+      ["La motivazione controllata non si traduce mai in sforzo reale.", "Controlled motivation never translates into real effort."],
+      ["Smetti di usare la forza di volontà e chiediti cosa vuoi davvero.", "Stop using willpower and ask yourself what you really want."]
+    ],
+    "SECTION 03 — What Actually Drives You (Autonomous Motivation)": [
+      ["Devi chiederti cosa vuoi davvero.", "You have to ask yourself what you really want."],
+      ["Perché lo vuoi? Cosa lo rende importante per te?", "Why do you want it? What makes it important to you?"],
+      ["Se vuoi una motivazione sostenibile, devi scavare più a fondo.", "If you want sustainable motivation, you have to dig deeper."],
+      ["L'eccellenza non viene dalle abitudini, viene dalla motivazione interna.", "Excellence doesn't come from habits, it comes from internal motivation."],
+      ["Quando vuoi davvero qualcosa, la costanza viene da sola.", "When you truly want something, consistency comes naturally."],
+      ["Non stai cercando di costruire abitudini, stai cercando di trovare un motivo.", "You're not trying to build habits, you're trying to find a reason."],
+      ["Se fai un piano e non lo segui, il problema non è il piano.", "If you make a plan and don't follow it, the problem isn't the plan."],
+      ["Tanta gente pensa di dover cambiare comportamento, ma il problema è la motivazione.", "A lot of people think they need to change behavior, but the problem is motivation."],
+      ["Devi coltivare quello che vuoi dal basso, non dall'alto.", "You have to cultivate what you want from the bottom, not the top."],
+      ["Se insegui uno stato d'animo, stai andando nella direzione sbagliata.", "If you're chasing a feeling, you're going in the wrong direction."]
+    ],
+    "SECTION 04 — How the World Actually Works (Cheating & Systems)": [
+      ["Il motivo per cui la gente copia è che funziona.", "The reason people cheat is that it works."],
+      ["La realtà è che chi imbroglia in modo intelligente non viene mai beccato.", "The reality is that smart cheaters never get caught."],
+      ["Se rubi cento euro, vai in prigione. Se rubi un miliardo, ti salvano.", "If you steal a hundred euros, you go to jail. If you steal a billion, they bail you out."],
+      ["Non sto dicendo che sia giusto, sto dicendo che è così che funziona.", "I'm not saying it's right, I'm saying that's how it works."],
+      ["Spiegare un fenomeno non significa approvarlo.", "Explaining a phenomenon doesn't mean you approve of it."],
+      ["I truffatori più bravi sono quelli che non esagerano.", "The best cheaters are the ones who don't get greedy."],
+      ["Il problema è che il sistema premia chi sa giocarci.", "The problem is that the system rewards those who know how to play it."],
+      ["Prendi una laurea senza imparare niente, ed entri nel mondo con una mappa falsa.", "Get a degree without learning anything, and you enter the world with a fake map."],
+      ["La vera domanda è: perché il sistema lo permette?", "The real question is: why does the system allow it?"],
+      ["C'è una differenza enorme tra quello che è giusto e quello che funziona.", "There's an enormous difference between what's right and what works."]
+    ],
+    "SECTION 05 — Nihilism, Meaning & the Search for Purpose": [
+      ["E se il senso della vita fosse solo un'illusione biologica?", "What if the meaning of life is just a biological illusion?"],
+      ["Il problema è che non sappiamo se lo scopo esista davvero.", "The problem is we don't know if purpose actually exists."],
+      ["Siamo programmati per sopravvivere, ma sappiamo che moriremo.", "We're wired to survive, but we know we're going to die."],
+      ["Come fa un organismo a riconciliare l'istinto di sopravvivenza con la certezza della morte?", "How does an organism reconcile the survival instinct with the certainty of death?"],
+      ["Forse il senso della vita è solo il modo in cui il cervello gestisce la paura della morte.", "Maybe the meaning of life is just the brain's way of managing the fear of death."],
+      ["Non ho risposte definitive, e penso che sia onesto dirlo.", "I don't have definitive answers, and I think it's honest to say that."],
+      ["C'è una parte di me che crede che ci sia qualcosa di più.", "There's a part of me that believes there's something more."],
+      ["Ma c'è anche una parte di me che dubita di tutto.", "But there's also a part of me that doubts everything."],
+      ["La cosa più spaventosa è che quello per cui lottiamo potrebbe essere un'illusione.", "The scariest thing is that what we strive for could be a delusion."],
+      ["Eppure, anche sapendolo, non riesco a smettere di cercare.", "And yet, even knowing that, I can't stop searching."],
+      ["Quello che ammiriamo di più nelle persone è la capacità di dare tutto.", "What we admire most in people is the ability to give it their all."]
+    ],
+    "SECTION 06 — You Can Actually Change What You Feel": [
+      ["Puoi davvero cambiare quello che provi.", "You can actually change what you feel."],
+      ["Non è vero che le emozioni non si possono controllare.", "It's not true that emotions can't be controlled."],
+      ["Non parlo di sopprimere, parlo di generare emozioni diverse.", "I'm not talking about suppressing, I'm talking about generating different emotions."],
+      ["Pensiamo che le nostre emozioni siano fisse, ma non lo sono.", "We think our emotions are fixed, but they're not."],
+      ["Due persone vivono la stessa situazione e provano cose completamente diverse.", "Two people experience the same situation and feel completely different things."],
+      ["Se puoi allenare il corpo, puoi allenare anche le emozioni.", "If you can train your body, you can train your emotions too."],
+      ["La prima volta che pensi in modo diverso è la più difficile.", "The first time you think differently is the hardest."],
+      ["Poi diventa automatico, come qualsiasi altra cosa.", "Then it becomes automatic, like anything else."],
+      ["La terapia non fa altro che cambiare la risposta emotiva di base.", "Therapy does nothing other than change the baseline emotional response."],
+      ["Se guardi qualcun altro avere successo, provi ammirazione. Se guardi te stesso, provi panico.", "If you watch someone else succeed, you feel admiration. If you watch yourself, you feel panic."],
+      ["Quella è la sindrome dell'impostore, e si può cambiare.", "That's impostor syndrome, and it can be changed."]
+    ],
+    "SECTION 07 — Feeling Numb (Why Nothing Hits the Same)": [
+      ["Non sento niente, e non so perché.", "I don't feel anything, and I don't know why."],
+      ["Il problema è che se non senti niente, non sai cosa correggere.", "The problem is that if you don't feel anything, you don't know what to fix."],
+      ["Non tutte le forme di torpore sono uguali.", "Not all forms of numbness are the same."],
+      ["C'è una differenza tra non provare piacere e non avere motivazione.", "There's a difference between not feeling pleasure and not having motivation."],
+      ["Se non ti va di fare niente, ma quando lo fai ti diverti, è un problema di motivazione.", "If you don't feel like doing anything, but when you do it you enjoy it, it's a motivation problem."],
+      ["La tecnologia sta esaurendo il nostro sistema di dopamina.", "Technology is draining our dopamine system."],
+      ["Il cervello è come un limone: se lo spremi troppo, non esce più niente.", "The brain is like a lemon: if you squeeze it too much, nothing comes out."],
+      ["Tante persone si intorpidiscono di proposito per evitare le emozioni negative.", "A lot of people numb themselves on purpose to avoid negative emotions."],
+      ["Se ti disconnetti mentalmente durante la giornata, il cervello si disconnette del tutto.", "If you mentally check out during the day, your brain checks out entirely."],
+      ["Metti un podcast per non soffrire mentre lavi i piatti — e poi ti chiedi perché non senti niente.", "You put on a podcast to avoid suffering while doing dishes — then you wonder why you don't feel anything."],
+      ["Devi smettere di scappare dalle esperienze negative.", "You have to stop running from negative experiences."],
+      ["Se dai al cervello delle opzioni, è più probabile che agisca.", "If you give the brain options, it's more likely to act."]
+    ],
+    "SECTION 08 — Keeping It Together (High Functioning Depression)": [
+      ["Sembra che tutto vada bene, ma sotto la superficie sta crollando.", "It looks like everything's fine, but underneath they're falling apart."],
+      ["Il problema è che i meccanismi di coping non risolvono i problemi di fondo.", "The problem is that coping mechanisms don't solve the underlying problems."],
+      ["Se la tua barca fa acqua, non puoi solo svuotarla — devi riparare lo scafo.", "If your boat is taking on water, you can't just bail — you have to fix the hull."],
+      ["Queste persone si aggrappano al ruolo che vogliono interpretare.", "These people cling to the role they want to play."],
+      ["Non vogliono essere quelli che mollano.", "They don't want to be the ones who quit."],
+      ["Raddoppiano gli sforzi invece di chiedersi se sono sulla strada giusta.", "They double down instead of asking themselves if they're on the right path."],
+      ["In psicologia si chiama sublimazione: trasformi il dolore in produttività.", "In psychology it's called sublimation: you turn pain into productivity."],
+      ["Il problema è che finisci in una carriera che non ti piace da dieci anni.", "The problem is you end up in a career you don't like for ten years."],
+      ["L'evitamento è in realtà un fattore di rischio per la suicidalità.", "Avoidance is actually a risk factor for suicidality."],
+      ["La positività tossica non è forza, è negazione.", "Toxic positivity isn't strength, it's denial."],
+      ["Devi ammettere che hai dei problemi prima di poterli risolvere.", "You have to admit you have problems before you can solve them."],
+      ["Mantenere il ruolo vale la pena di sacrificare la tua vita?", "Is maintaining the role worth sacrificing your life?"]
+    ],
+    "SECTION 09 — Explaining Complex Ideas (Breaking Things Down)": [
+      ["In pratica, quello che succede è che il cervello si adatta.", "Basically, what happens is the brain adapts."],
+      ["Quello che la ricerca dimostra è che non funziona come pensiamo.", "What the research shows is that it doesn't work the way we think."],
+      ["Lasciami spiegare perché questo è importante.", "Let me explain why this is important."],
+      ["Sembra controintuitivo, ma i dati dicono il contrario.", "It seems counterintuitive, but the data says the opposite."],
+      ["Il punto chiave è che non sono la stessa cosa.", "The key point is that they're not the same thing."],
+      ["La gente confonde queste due cose, ma sono completamente diverse.", "People confuse these two things, but they're completely different."],
+      ["In parole semplici, stai inseguendo la cosa sbagliata.", "In simple terms, you're chasing the wrong thing."],
+      ["Il motivo per cui è così importante è che cambia tutto il quadro.", "The reason this is so important is that it changes the whole picture."],
+      ["Se capisci questo concetto, tutto il resto ha senso.", "If you understand this concept, everything else makes sense."],
+      ["È come quando... lasciami fare un esempio.", "It's like when... let me give you an example."],
+      ["Quello che intendo dire è che non è così semplice come sembra.", "What I'm trying to say is that it's not as simple as it looks."]
+    ],
+    "SECTION 10 — Asking the Hard Questions (Socratic Style)": [
+      ["Ma ti sei mai chiesto perché fai quello che fai?", "But have you ever asked yourself why you do what you do?"],
+      ["E se in realtà non fosse la tua motivazione, ma quella di qualcun altro?", "What if it's actually not your motivation, but someone else's?"],
+      ["Sei sicuro che è questo che vuoi, o è quello che ti hanno detto di volere?", "Are you sure this is what you want, or is it what you were told to want?"],
+      ["Come fai a sapere la differenza?", "How do you know the difference?"],
+      ["Ti sei mai fermato a pensare se sei sulla strada giusta?", "Have you ever stopped to think if you're on the right path?"],
+      ["Stai correndo verso qualcosa o stai scappando da qualcos'altro?", "Are you running towards something or running away from something else?"],
+      ["Cosa succederebbe se smettessi di fare finta che va tutto bene?", "What would happen if you stopped pretending everything's fine?"],
+      ["Quand'è l'ultima volta che ti sei chiesto cosa vuoi davvero?", "When's the last time you asked yourself what you truly want?"],
+      ["Perché hai così paura di sbagliare?", "Why are you so afraid of making a mistake?"],
+      ["E se il motivo per cui sei bloccato è che stai usando la forza di volontà?", "What if the reason you're stuck is that you're using willpower?"],
+      ["Ti sei mai chiesto se il ruolo che interpreti ti rende felice?", "Have you ever asked yourself if the role you play makes you happy?"]
+    ],
+    "SECTION 11 — Uncomfortable Truths (The Dark Side of Success)": [
+      ["La verità è che la ricerca sulla sociopatia viene dalle prigioni.", "The truth is that research on sociopathy comes from prisons."],
+      ["Stiamo studiando solo i sociopatici stupidi, non quelli intelligenti.", "We're only studying the stupid sociopaths, not the smart ones."],
+      ["Quelli che vengono beccati non sono quelli che dovrebbero preoccuparci.", "The ones who get caught aren't the ones who should worry us."],
+      ["I truffatori più pericolosi sono quelli che sanno quando fermarsi.", "The most dangerous cheaters are the ones who know when to stop."],
+      ["Quello che nessuno ti dice è che la corruzione è ovunque.", "What nobody tells you is that corruption is everywhere."],
+      ["C'è un'enorme differenza tra chi viene punito e chi la fa franca.", "There's an enormous difference between who gets punished and who gets away with it."],
+      ["Non sto giustificando niente, sto solo descrivendo la realtà.", "I'm not justifying anything, I'm just describing reality."],
+      ["Il sistema non è progettato per essere giusto.", "The system isn't designed to be fair."],
+      ["Se vuoi arrivare in alto in modo onesto, sappi che non tutti lo fanno.", "If you want to get to the top honestly, know that not everyone does."],
+      ["La vera domanda non è se sia giusto, ma se tu riesca a conviverci.", "The real question isn't whether it's right, but whether you can live with it."]
+    ],
+    "SECTION 12 — Coming Alive (What It Takes to Really Feel)": [
+      ["A volte ci vuole quasi morire per iniziare a vivere davvero.", "Sometimes it takes almost dying to really start living."],
+      ["La cosa strana è che chi ha rischiato la vita apprezza di più le cose semplici.", "The weird thing is that people who've risked their lives appreciate simple things more."],
+      ["Dopo un'esperienza di quasi-morte, il denaro e il successo contano meno.", "After a near-death experience, money and success matter less."],
+      ["Non ti rende una persona migliore, ma ti fa capire cosa conta davvero.", "It doesn't make you a better person, but it makes you understand what truly matters."],
+      ["Qualcosa dentro di me vuole vivere più di quanto io voglia arrendermi.", "Something inside me wants to live more than I want to give up."],
+      ["Il mio cuore continua a battere anche quando la mia mente vuole fermarsi.", "My heart keeps beating even when my mind wants to stop."],
+      ["La passione per la vita a volte nasce dal toccare il fondo.", "A passion for life sometimes comes from hitting rock bottom."],
+      ["La crisi ti costringe a capire cosa è davvero importante.", "Crisis forces you to understand what's truly important."],
+      ["Se non hai mai rischiato niente, non sai cosa significa vivere.", "If you've never risked anything, you don't know what it means to live."],
+      ["Il vero cambiamento arriva quando smetti di aggrapparti a quello che non funziona.", "Real change comes when you stop clinging to what doesn't work."]
+    ],
+    "SECTION 13 — Therapy Speak & Cultural Critique": [
+      ["Il problema è che abbiamo trasformato le emozioni in qualcosa di intoccabile.", "The problem is we've turned emotions into something untouchable."],
+      ["La gente dice 'le tue emozioni sono valide' come se fosse la fine della conversazione.", "People say 'your feelings are valid' as if that's the end of the conversation."],
+      ["Accettare le emozioni non significa non poterle cambiare.", "Accepting emotions doesn't mean you can't change them."],
+      ["Abbiamo confuso la validazione con la rassegnazione.", "We've confused validation with resignation."],
+      ["La cultura moderna ti dice di accettare tutto e non lottare per niente.", "Modern culture tells you to accept everything and fight for nothing."],
+      ["La positività tossica è solo un altro modo per evitare i problemi.", "Toxic positivity is just another way to avoid problems."],
+      ["Non tutte le emozioni meritano di essere seguite.", "Not all emotions deserve to be followed."],
+      ["Il Buddha non ha mai detto che tutte le emozioni vanno bene.", "The Buddha never said all emotions are fine."],
+      ["Puoi scegliere come reagire, e questo non è soppressione.", "You can choose how to react, and that's not suppression."],
+      ["Il vero lavoro non è accettare quello che provi, è imparare a provare qualcosa di diverso.", "The real work isn't accepting what you feel, it's learning to feel something different."]
+    ],
+    "SECTION 14 — Identity Traps (When Your Role Becomes a Cage)": [
+      ["Ti sei intrappolato in un ruolo che non ti appartiene.", "You've trapped yourself in a role that isn't yours."],
+      ["Il ruolo che interpreti ti sta consumando.", "The role you play is consuming you."],
+      ["Non vuoi essere quello che molla, e allora continui.", "You don't want to be the one who quits, so you keep going."],
+      ["Ma a che prezzo?", "But at what cost?"],
+      ["Hai investito così tanto che sembra impossibile cambiare.", "You've invested so much that it seems impossible to change."],
+      ["Il fatto che hai già dato tanto non significa che devi continuare.", "The fact that you've already given a lot doesn't mean you have to keep going."],
+      ["Stai vivendo la vita che vuoi o quella che gli altri si aspettano?", "Are you living the life you want or the one others expect?"],
+      ["La motivazione introiettata è quando pensi che sia la tua, ma in realtà viene da fuori.", "Introjected motivation is when you think it's yours, but it actually comes from outside."],
+      ["Tua nonna ti ha detto che saresti diventato un bravo dottore — ma tu lo volevi?", "Your grandma told you you'd be a great doctor — but did you want it?"],
+      ["A volte le nostre motivazioni più profonde non sono nostre.", "Sometimes our deepest motivations aren't ours."],
+      ["Devi capire la differenza tra quello che vuoi e quello che credi di dovere.", "You need to understand the difference between what you want and what you think you owe."]
+    ]
+  }
+};
+
+// ---- RENDER ----
+function renderTab(tabId) {
+  const container = document.getElementById(tabId);
+  const actionsDiv = container.querySelector('.top-actions');
+  const sections = data[tabId];
+
+  // Build TOC
+  const toc = document.createElement('div');
+  toc.className = 'toc';
+  const tocTitle = document.createElement('div');
+  tocTitle.className = 'toc-title';
+  tocTitle.textContent = 'Jump to section';
+  toc.appendChild(tocTitle);
+  const tocGrid = document.createElement('div');
+  tocGrid.className = 'toc-grid';
+  toc.appendChild(tocGrid);
+  container.insertBefore(toc, actionsDiv);
+
+  for (const [title, pairs] of Object.entries(sections)) {
+    // TOC entry
+    const anchor = 'sec-' + tabId + '-' + title.replace(/[^a-zA-Z0-9]/g, '-').slice(0, 40);
+    const tocLink = document.createElement('a');
+    tocLink.className = 'toc-link';
+    tocLink.href = '#' + anchor;
+    // Show just a short label: grab content between em dashes or first part
+    const label = title.replace(/^SECTION \d+\s*[—–-]\s*/i, '');
+    tocLink.textContent = title.match(/^SECTION \d+/i)?.[0] + ' · ' + label;
+    tocLink.onclick = (e) => {
+      e.preventDefault();
+      document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    tocGrid.appendChild(tocLink);
+
+    const block = document.createElement('div');
+    block.className = 'section-block';
+    block.id = anchor;
+
+    const header = document.createElement('div');
+    header.className = 'section-header';
+
+    const h3 = document.createElement('span');
+    h3.className = 'section-title';
+    h3.textContent = title;
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'btn-copy';
+    copyBtn.innerHTML = `<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy`;
+    copyBtn.onclick = () => copySection(title, pairs, copyBtn);
+
+    header.appendChild(h3);
+    header.appendChild(copyBtn);
+    block.appendChild(header);
+
+    for (const [lang, eng] of pairs) {
+      const row = document.createElement('div');
+      row.className = 'sentence-row';
+      row.innerHTML = `<span class="lang-text">${lang}</span><span class="eng-text">${eng}</span>`;
+      block.appendChild(row);
+    }
+
+    container.appendChild(block);
+  }
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+function formatForCopy(sections) {
+  let text = '';
+  for (const [title, pairs] of Object.entries(sections)) {
+    text += title + '\n';
+    for (const [lang, eng] of pairs) {
+      text += `${lang}  |  ${eng}\n`;
+    }
+    text += '\n';
+  }
+  return text.trim();
+}
+
+function formatSectionForCopy(title, pairs) {
+  let text = title + '\n';
+  for (const [lang, eng] of pairs) {
+    text += `${lang}  |  ${eng}\n`;
+  }
+  return text.trim();
+}
+
+function copyAll(tabId) {
+  const text = formatForCopy(data[tabId]);
+  navigator.clipboard.writeText(text).then(() => showToast('All sentences copied!'));
+}
+
+function copySection(title, pairs, btn) {
+  const text = formatSectionForCopy(title, pairs);
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Copied`;
+    showToast('Section copied!');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy`;
+    }, 2000);
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
+// Init
+renderTab('italian');
+renderTab('spanish');
+renderTab('speech');
+renderTab('batch2');
+</script>
+</div>
+
+</main>
+</div>
+
+<script>
+
+const data = {
+  italian: {
+    "SECTION 01 — Ce la faccio / Non ce la faccio (I can handle it / I can't take it)": [
+      ["Non ce la faccio più.", "I can't take it anymore."],
+      ["Ce la fai a venire domani?", "Can you make it tomorrow?"],
+      ["Ce l'ho fatta!", "I did it! I made it!"],
+      ["Ce la metti tutta?", "Are you giving it your all?"],
+      ["Non ce la faccio a stare qui ancora.", "I can't stand being here any longer."],
+      ["Ce la possiamo fare se ci organizziamo.", "We can do it if we get organized."],
+      ["Ce la fai a finire per domani?", "Can you manage to finish by tomorrow?"],
+      ["Non ce la facevo più ad aspettare.", "I couldn't stand waiting any longer."],
+      ["Dai, ce la fai, manca poco.", "Come on, you can do it, almost there."],
+      ["Ce l'abbiamo fatta per un pelo.", "We made it by a hair."]
+    ],
+    "SECTION 02 — Mi va / Non mi va di (I feel like / I don't feel like)": [
+      ["Non mi va di uscire stasera.", "I don't feel like going out tonight."],
+      ["Ti va di prendere un caffè?", "Do you feel like getting a coffee?"],
+      ["Non mi va di cucinare.", "I don't feel like cooking."],
+      ["Ti va un gelato?", "Do you feel like an ice cream?"],
+      ["Non mi va di parlarne adesso.", "I don't feel like talking about it now."],
+      ["Non mi va proprio, scusa.", "I really don't feel like it, sorry."],
+      ["Ti va di fare due passi?", "Do you feel like going for a walk?"],
+      ["Non mi andava di restare.", "I didn't feel like staying."],
+      ["Se ti va, possiamo vederci dopo.", "If you're up for it, we can meet later."],
+      ["Non mi va mai di fare niente il lunedì.", "I never feel like doing anything on Mondays."]
+    ],
+    "SECTION 03 — Mi sa che (I think / I reckon)": [
+      ["Mi sa che pioverà.", "I think it's going to rain."],
+      ["Mi sa che ha ragione.", "I reckon he's right."],
+      ["Mi sa che non ce la faccio.", "I don't think I can make it."],
+      ["Mi sa che abbiamo sbagliato strada.", "I think we went the wrong way."],
+      ["Mi sa che è meglio così.", "I think it's better this way."],
+      ["Mi sa che non viene nessuno.", "I don't think anyone's coming."],
+      ["Mi sa che ci vorrà più tempo del previsto.", "I think it'll take longer than expected."],
+      ["Mi sa che l'ho lasciato a casa.", "I think I left it at home."],
+      ["Mi sa che hanno chiuso.", "I think they closed."],
+      ["Mi sa che ti sei sbagliato.", "I think you got it wrong."]
+    ],
+    "SECTION 04 — Magari (maybe / I wish / if only)": [
+      ["Magari ci andiamo domani.", "Maybe we'll go tomorrow."],
+      ["Magari fosse così semplice!", "If only it were that simple!"],
+      ["Magari la prossima volta.", "Maybe next time."],
+      ["— Vuoi venire? — Magari!", "— Want to come? — I wish!"],
+      ["Magari mi sbaglio, ma...", "Maybe I'm wrong, but..."],
+      ["Magari potremmo trovare un compromesso.", "Maybe we could find a compromise."],
+      ["Magari avessi più tempo!", "If only I had more time!"],
+      ["Magari prova a chiedere a lui.", "Maybe try asking him."],
+      ["Magari possiamo parlarne dopo.", "Maybe we can talk about it later."],
+      ["Magari avessi i soldi per farlo.", "If only I had the money to do it."]
+    ],
+    "SECTION 05 — Ci vuole / Ci vogliono / Ci metto (it takes)": [
+      ["Ci vuole pazienza.", "It takes patience."],
+      ["Ci metto mezz'ora per arrivare.", "It takes me half an hour to get there."],
+      ["Quanto ci vuole?", "How long does it take?"],
+      ["Ci vogliono almeno due ore.", "It takes at least two hours."],
+      ["Ci ho messo troppo tempo.", "I took too long."],
+      ["Quanto ci metti?", "How long will you take?"],
+      ["Ci vuole un sacco di tempo per imparare.", "It takes a lot of time to learn."],
+      ["Ci metto un attimo, aspetta.", "I'll be just a second, wait."],
+      ["Ci mettiamo troppo, andiamo più veloci.", "We're taking too long, let's go faster."],
+      ["Ci vuole coraggio per fare una cosa del genere.", "It takes courage to do something like that."]
+    ],
+    "SECTION 06 — Riuscire a (to manage to / to be able to)": [
+      ["Non riesco a dormire.", "I can't sleep."],
+      ["Non riesco a capire cosa vuol dire.", "I can't figure out what it means."],
+      ["Riesci a sentirmi?", "Can you hear me?"],
+      ["Non sono riuscito a trovare parcheggio.", "I couldn't find parking."],
+      ["Riesci a venire domani?", "Can you make it tomorrow?"],
+      ["Non riesco a concentrarmi.", "I can't concentrate."],
+      ["Sono riuscito a finire tutto in tempo.", "I managed to finish everything on time."],
+      ["Non riesco a crederci.", "I can't believe it."],
+      ["Riesci a spiegarmi come hai fatto?", "Can you explain how you did it?"],
+      ["Non riesco a togliermi questa cosa dalla testa.", "I can't get this thing out of my head."],
+      ["Non ci riesco, è troppo difficile.", "I can't do it, it's too hard."]
+    ],
+    "SECTION 07 — Basta / Basta che (it's enough / as long as)": [
+      ["Basta chiedere.", "You just have to ask."],
+      ["Basta, non ne posso più.", "Enough, I can't take it anymore."],
+      ["Basta pensarci un attimo per capire.", "You just need to think about it for a second."],
+      ["Basta che mi avvisi prima.", "As long as you let me know ahead of time."],
+      ["Basta così, grazie.", "That's enough, thanks."],
+      ["Basta che tu sia onesto.", "As long as you're honest."],
+      ["Non basta volerlo, bisogna farlo.", "It's not enough to want it, you have to do it."],
+      ["Basta lamentarsi, agisci.", "Enough complaining, act."],
+      ["Basta poco per rovinarti la giornata.", "It doesn't take much to ruin your day."],
+      ["Basta che funzioni, non deve essere perfetto.", "As long as it works, it doesn't have to be perfect."]
+    ],
+    "SECTION 08 — Tocca a / Tocca + infinitivo (it's up to / you have to)": [
+      ["Tocca a te.", "It's your turn."],
+      ["Tocca a noi decidere.", "It's up to us to decide."],
+      ["Tocca sempre a me fare tutto.", "I always end up doing everything."],
+      ["A chi tocca?", "Whose turn is it?"],
+      ["Tocca aspettare, non c'è altro da fare.", "You have to wait, there's nothing else to do."],
+      ["Tocca a te guidare, io sono stanco.", "It's your turn to drive, I'm tired."],
+      ["Tocca svegliarsi presto domani.", "We have to wake up early tomorrow."],
+      ["Tocca pagare, non c'è scelta.", "You have to pay, there's no choice."],
+      ["Mi tocca lavorare anche sabato.", "I have to work Saturday too."],
+      ["Tocca arrangiarsi.", "You have to figure it out."]
+    ],
+    "SECTION 09 — Piacere / Interessare / Mancare (backwards verbs)": [
+      ["Mi piace come la pensi.", "I like the way you think."],
+      ["Non mi piace per niente.", "I don't like it at all."],
+      ["Ti è piaciuto il film?", "Did you like the movie?"],
+      ["Mi piacerebbe tantissimo.", "I'd love that."],
+      ["Mi manca casa.", "I miss home."],
+      ["Mi mancate tutti.", "I miss all of you."],
+      ["Ti manca qualcosa?", "Are you missing anything?"],
+      ["Mi interessa capire di più.", "I'm interested in understanding more."],
+      ["Non mi interessa quello che pensano gli altri.", "I don't care what others think."],
+      ["Mi servono le chiavi.", "I need the keys."],
+      ["Mi fa piacere sentirti.", "It's nice to hear from you."]
+    ],
+    "SECTION 10 — Me ne vado / Andarsene / Cavarsela (pronominal combos)": [
+      ["Me ne vado, sono stanco.", "I'm leaving, I'm tired."],
+      ["Me la cavo con l'inglese.", "I get by with English."],
+      ["Se ne sono andati senza dire niente.", "They left without saying anything."],
+      ["Te la sei cavata bene.", "You managed pretty well."],
+      ["Non me ne importa niente.", "I don't care at all."],
+      ["Vattene.", "Get out of here."],
+      ["Me la prendo troppo per queste cose.", "I take these things too personally."],
+      ["Se ne frega di tutto.", "He doesn't give a damn about anything."],
+      ["Ce ne andiamo?", "Shall we leave?"],
+      ["Non te la prendere.", "Don't take it personally."]
+    ],
+    "SECTION 11 — Far fare / Lasciar fare (make / let / have done)": [
+      ["Mi fai ridere.", "You make me laugh."],
+      ["Fammi sapere.", "Let me know."],
+      ["Fammi capire una cosa.", "Help me understand something."],
+      ["Mi ha fatto aspettare un'ora.", "He made me wait an hour."],
+      ["Lasciami finire.", "Let me finish."],
+      ["Lascia perdere.", "Forget about it. / Drop it."],
+      ["Mi fa impazzire questo caldo.", "This heat is driving me crazy."],
+      ["Fammi pensare un attimo.", "Let me think for a second."],
+      ["Non farmi preoccupare.", "Don't make me worry."],
+      ["Si è fatto tagliare i capelli.", "He got his hair cut."],
+      ["Lo faccio riparare domani.", "I'll have it repaired tomorrow."],
+      ["Non mi far dire cose che non penso.", "Don't make me say things I don't mean."]
+    ],
+    "SECTION 12 — Stare per + infinito (about to)": [
+      ["Sto per uscire, ci sentiamo dopo.", "I'm about to leave, we'll talk later."],
+      ["Stavo per chiamarti.", "I was about to call you."],
+      ["Sto per impazzire con questo problema.", "I'm about to lose my mind with this problem."],
+      ["Stavo per dire la stessa cosa.", "I was about to say the same thing."],
+      ["Sto per finire, dammi due minuti.", "I'm about to finish, give me two minutes."],
+      ["Stava per piovere, quindi siamo rientrati.", "It was about to rain, so we went back inside."],
+      ["Stavo per addormentarmi quando mi hai scritto.", "I was about to fall asleep when you texted."],
+      ["Stavo per rinunciare, ma ci ho riprovato.", "I was about to give up, but I tried again."],
+      ["Sto per ordinare, vuoi qualcosa?", "I'm about to order, do you want something?"],
+      ["Stavamo per andarcene.", "We were about to leave."]
+    ],
+    "SECTION 13 — Mica (not at all / softener)": [
+      ["Non è mica facile.", "It's not easy at all."],
+      ["Mica male!", "Not bad at all!"],
+      ["Non sarà mica arrabbiato?", "He's not angry, is he?"],
+      ["Non è mica colpa mia.", "It's not my fault at all."],
+      ["Non è mica stupido, sa quello che fa.", "He's not stupid, he knows what he's doing."],
+      ["Mica puoi fare tutto da solo.", "You can't do everything by yourself, you know."],
+      ["Non è mica la fine del mondo.", "It's not the end of the world."],
+      ["Non vorrai mica andartene adesso?", "You're not thinking of leaving now, are you?"],
+      ["Mica tanto.", "Not really."],
+      ["Non è mica detto che funzioni.", "It's not a given that it'll work."]
+    ],
+    "SECTION 14 — Figurati / Ma figurati (don't mention it / no way)": [
+      ["— Grazie mille! — Ma figurati!", "— Thanks so much! — Don't mention it!"],
+      ["Figurati se mi offendo per una cosa del genere.", "As if I'd be offended by something like that."],
+      ["Ma figurati, non è niente.", "Oh please, it's nothing."],
+      ["Figurati se lui si fa vivo.", "As if he'd show up."],
+      ["Figurati se lo ammette.", "As if he'd admit it."],
+      ["— Ti ho disturbato? — Ma figurati!", "— Did I bother you? — Not at all!"],
+      ["Figurati che non sapeva nemmeno dove fosse.", "Get this — he didn't even know where it was."],
+      ["Ma figurati se funziona al primo colpo.", "As if it would work the first time."],
+      ["Figurati, ci mancherebbe.", "Of course, don't even worry about it."],
+      ["Figurati se mi dice la verità.", "As if he'd tell me the truth."]
+    ],
+    "SECTION 15 — Meno male / Per fortuna (thank God / luckily)": [
+      ["Meno male che sei arrivato.", "Thank God you got here."],
+      ["Meno male, stavo per impazzire.", "Thank God, I was about to lose it."],
+      ["Per fortuna non è successo niente di grave.", "Luckily nothing serious happened."],
+      ["Meno male che me l'hai detto.", "Good thing you told me."],
+      ["Per fortuna c'era ancora un posto.", "Luckily there was still a spot."],
+      ["Meno male che non piove.", "Thank God it's not raining."],
+      ["Per fortuna ho controllato prima di uscire.", "Luckily I checked before leaving."],
+      ["Meno male che ci sei tu.", "Thank God for you."],
+      ["Per fortuna è andato tutto bene.", "Luckily everything went well."],
+      ["Meno male che non ho detto niente.", "Good thing I didn't say anything."]
+    ],
+    "SECTION 16 — Appena / Non appena (as soon as / just)": [
+      ["Appena arrivo, ti chiamo.", "As soon as I get there, I'll call you."],
+      ["Appena l'ho visto, ho capito.", "As soon as I saw it, I understood."],
+      ["Appena posso, te lo mando.", "As soon as I can, I'll send it to you."],
+      ["Non appena ha saputo, è venuto subito.", "As soon as he found out, he came right away."],
+      ["Sono appena arrivato.", "I just got here."],
+      ["Ho appena finito.", "I just finished."],
+      ["Appena finisco questo, passo da te.", "As soon as I finish this, I'll come by."],
+      ["L'ho appena visto, era qui un secondo fa.", "I just saw him, he was here a second ago."],
+      ["Appena smette di piovere, usciamo.", "As soon as it stops raining, let's go out."],
+      ["Avevo appena chiuso gli occhi quando ha suonato il telefono.", "I had just closed my eyes when the phone rang."]
+    ],
+    "SECTION 17 — Dato che / Visto che / Siccome (since / given that)": [
+      ["Dato che sei qui, ne approfitto per chiederti una cosa.", "Since you're here, I'll take the chance to ask you something."],
+      ["Visto che piove, restiamo a casa.", "Since it's raining, let's stay home."],
+      ["Siccome non avevo niente da fare, sono uscito.", "Since I had nothing to do, I went out."],
+      ["Dato che hai esperienza, potresti darmi un consiglio?", "Since you have experience, could you give me advice?"],
+      ["Visto che non mi hai risposto, ho pensato che non ti interessasse.", "Since you didn't reply, I thought you weren't interested."],
+      ["Siccome domani è festa, possiamo uscire stasera.", "Since tomorrow's a holiday, we can go out tonight."],
+      ["Dato che ci siamo, parliamone adesso.", "Since we're here, let's talk about it now."],
+      ["Visto che lo conosci, potresti presentarmelo?", "Since you know him, could you introduce me?"],
+      ["Siccome ero in zona, sono passato a salutare.", "Since I was in the area, I stopped by to say hi."],
+      ["Dato che non hai altro da fare, vieni con noi.", "Since you have nothing else to do, come with us."]
+    ],
+    "SECTION 18 — Per caso (by any chance)": [
+      ["Per caso sai dov'è la fermata?", "By any chance, do you know where the stop is?"],
+      ["Per caso hai visto le mie chiavi?", "By any chance, have you seen my keys?"],
+      ["Per caso questo posto è libero?", "By any chance, is this seat free?"],
+      ["Per caso sai a che ora apre?", "By any chance, do you know what time it opens?"],
+      ["Per caso conosci qualcuno che affitta?", "By any chance, do you know anyone who rents?"],
+      ["Per caso stai andando in centro?", "By any chance, are you heading downtown?"],
+      ["Per caso hai un caricatore?", "By any chance, do you have a charger?"],
+      ["Per caso sai la password del Wi-Fi?", "By any chance, do you know the Wi-Fi password?"],
+      ["Per caso è passato Marco?", "By any chance, did Marco come by?"],
+      ["Per caso ti ricordi come si chiamava?", "By any chance, do you remember what his name was?"]
+    ],
+    "SECTION 19 — Volevo + infinito (I wanted to — polite softener)": [
+      ["Volevo chiederti una cosa.", "I wanted to ask you something."],
+      ["Volevo sapere se è ancora disponibile.", "I wanted to know if it's still available."],
+      ["Ti volevo dire che domani non posso.", "I wanted to tell you I can't make it tomorrow."],
+      ["Volevo solo informarti.", "I just wanted to let you know."],
+      ["Volevo solo assicurarmi.", "I just wanted to make sure."],
+      ["Volevo ringraziarti per ieri.", "I wanted to thank you for yesterday."],
+      ["Ti volevo chiedere un favore.", "I wanted to ask you a favor."],
+      ["Volevo passare a salutare.", "I wanted to stop by and say hi."],
+      ["Volevo dirti che mi dispiace.", "I wanted to tell you I'm sorry."],
+      ["Volevo capire meglio come funziona.", "I wanted to understand better how it works."]
+    ],
+    "SECTION 20 — Non è che (it's not that)": [
+      ["Non è che non mi interessi, è che sono stanco.", "It's not that I'm not interested, it's that I'm tired."],
+      ["Non è che sia difficile, è che richiede tempo.", "It's not that it's hard, it's that it takes time."],
+      ["Non è che non voglia venire, è che ho già un impegno.", "It's not that I don't want to come, I already have plans."],
+      ["Non è che mi stia lamentando, sto solo dicendo.", "It's not that I'm complaining, I'm just saying."],
+      ["Non è che sia colpa tua.", "It's not like it's your fault."],
+      ["Non è che non lo sappia, è che non ci avevo pensato.", "It's not that I don't know, it's that I hadn't thought of it."],
+      ["Non è che mi faccia schifo, solo non è il mio genere.", "It's not that I hate it, it's just not my thing."],
+      ["Non è che non mi fido, preferisco verificare.", "It's not that I don't trust you, I prefer to check."],
+      ["Non è che sia impossibile, è che nessuno ci ha provato.", "It's not that it's impossible, nobody's tried."],
+      ["Non è che non capisca, è che non sono d'accordo.", "It's not that I don't understand, I just don't agree."]
+    ],
+    "SECTION 21 — Secondo me / Per me (in my opinion)": [
+      ["Secondo me, non ne vale la pena.", "In my opinion, it's not worth it."],
+      ["Secondo me, dovremmo andare prima.", "I think we should go earlier."],
+      ["Secondo me, ha ragione lui.", "I think he's right."],
+      ["Per me è uguale, decidi tu.", "It's the same to me, you decide."],
+      ["Per me va benissimo.", "That works perfectly for me."],
+      ["Secondo me, stai esagerando.", "I think you're overreacting."],
+      ["Secondo me, il problema è un altro.", "I think the problem is something else."],
+      ["Per me sarebbe meglio di domenica.", "For me, Sunday would be better."],
+      ["Secondo me, non ha senso farlo adesso.", "I think it doesn't make sense to do it now."],
+      ["Per me puoi fare come vuoi.", "As far as I'm concerned, do whatever you want."]
+    ],
+    "SECTION 22 — Che ne dici / Facciamo che / E se (how about / what if)": [
+      ["Che ne dici di provare quel posto nuovo?", "What do you think about trying that new place?"],
+      ["Facciamo che ci vediamo alle otto?", "How about we meet at eight?"],
+      ["E se andassimo al cinema?", "What if we went to the movies?"],
+      ["Facciamo così: tu pensi a quello, io a questo.", "Let's do this: you handle that, I handle this."],
+      ["E se provassimo un'altra strada?", "What if we tried a different approach?"],
+      ["Che ne dici di rimandare a domani?", "What do you think about postponing to tomorrow?"],
+      ["Facciamo che ti faccio sapere domani.", "Let's say I'll let you know tomorrow."],
+      ["E se chiedessimo a qualcun altro?", "What if we asked someone else?"],
+      ["Che ne pensi?", "What do you think?"],
+      ["Facciamo un compromesso.", "Let's compromise."]
+    ],
+    "SECTION 23 — Ci tengo a / Mi fa piacere (it means a lot / it makes me happy)": [
+      ["Ci tengo a essere presente.", "It means a lot to me to be there."],
+      ["Ci tengo a fare le cose per bene.", "I really care about doing things properly."],
+      ["Mi fa piacere sentirti dire così.", "It makes me happy to hear you say that."],
+      ["Ci tengo molto a questo progetto.", "This project means a lot to me."],
+      ["Mi farebbe piacere vederti.", "I'd love to see you."],
+      ["Ci tengo che tu sappia la verità.", "It's important to me that you know the truth."],
+      ["Mi fa piacere che tu sia venuto.", "I'm glad you came."],
+      ["Ci tengo a dirtelo di persona.", "I want to tell you in person, it matters to me."],
+      ["Mi farebbe piacere se venissi anche tu.", "I'd love it if you came too."],
+      ["Ci tengo, non è una cosa da poco per me.", "It matters to me, it's not a small thing."]
+    ],
+    "SECTION 24 — Tanto / Comunque / Ormai (anyway / at this point)": [
+      ["Tanto non cambia niente.", "It doesn't change anything anyway."],
+      ["Comunque, volevo dirti una cosa.", "Anyway, I wanted to tell you something."],
+      ["Ormai è troppo tardi.", "At this point it's too late."],
+      ["Tanto lo sapevi già.", "You already knew anyway."],
+      ["Comunque vada, andrà bene.", "However it goes, it'll be fine."],
+      ["Ormai ci siamo, non possiamo tornare indietro.", "At this point we're in it, we can't go back."],
+      ["Tanto vale provarci.", "We might as well try."],
+      ["Comunque, non importa.", "Anyway, it doesn't matter."],
+      ["Ormai mi sono abituato.", "By now I've gotten used to it."],
+      ["Tanto non serve a niente lamentarsi.", "It's pointless to complain anyway."],
+      ["Comunque, fai come vuoi.", "Anyway, do whatever you want."],
+      ["Ormai è fatta, andiamo avanti.", "What's done is done, let's move on."]
+    ]
+  },
+
+  spanish: {
+    "SECTION 01 — Tener que + infinitivo (have to)": [
+      ["Tengo que irme ya.", "I have to go now."],
+      ["Tienes que dejar de quejarte.", "You have to stop complaining."],
+      ["Tenemos que hablar de algo importante.", "We need to talk about something important."],
+      ["Tengo que encontrar la manera de resolver esto.", "I have to find a way to solve this."],
+      ["Tienes que salir de tu zona de confort.", "You have to get out of your comfort zone."],
+      ["Tengo que dejar de pensar tanto.", "I have to stop thinking so much."],
+      ["Tienes que hacerte cargo de tu vida.", "You have to take charge of your life."],
+      ["Tengo que pasar por la farmacia antes de que cierre.", "I have to stop by the pharmacy before it closes."],
+      ["Tenemos que decidir hoy, no mañana.", "We have to decide today, not tomorrow."],
+      ["Tengo que acordarme de llamar al médico.", "I have to remember to call the doctor."]
+    ],
+    "SECTION 02 — Estar a punto de + infinitivo (about to)": [
+      ["Estoy a punto de salir, hablamos luego.", "I'm about to leave, we'll talk later."],
+      ["Estaba a punto de llamarte.", "I was about to call you."],
+      ["Estoy a punto de perder la paciencia.", "I'm about to lose my patience."],
+      ["Estábamos a punto de irnos cuando llegaste.", "We were about to leave when you showed up."],
+      ["Estoy a punto de terminar, dame un minuto.", "I'm about to finish, give me a minute."],
+      ["Estaba a punto de decir lo mismo.", "I was about to say the same thing."],
+      ["Estoy a punto de pedir, ¿quieres algo?", "I'm about to order, do you want something?"],
+      ["Estaba a punto de dormirme cuando me escribiste.", "I was about to fall asleep when you texted me."],
+      ["Estaba a punto de rendirme, pero lo intenté una vez más.", "I was about to give up, but I tried one more time."],
+      ["Está a punto de llover.", "It's about to rain."]
+    ],
+    "SECTION 03 — Poder / No poder + infinitivo (can / can't)": [
+      ["No puedo dormir.", "I can't sleep."],
+      ["¿Puedo hacerte una pregunta?", "Can I ask you a question?"],
+      ["No puedo creerlo.", "I can't believe it."],
+      ["¿Puedes repetir eso más despacio?", "Can you repeat that more slowly?"],
+      ["No pude hacer nada.", "There was nothing I could do."],
+      ["¿Puedes venir mañana?", "Can you come tomorrow?"],
+      ["No puedo concentrarme con tanto ruido.", "I can't concentrate with all this noise."],
+      ["Puedes hacer lo que quieras.", "You can do whatever you want."],
+      ["No puedo quitarme esta canción de la cabeza.", "I can't get this song out of my head."],
+      ["Podríamos probar ese restaurante nuevo.", "We could try that new restaurant."]
+    ],
+    "SECTION 04 — Querer / No querer + infinitivo (want to)": [
+      ["Solo quiero entender qué pasó.", "I just want to understand what happened."],
+      ["No quiero hablar de eso ahora.", "I don't want to talk about that now."],
+      ["¿Qué quieres hacer esta noche?", "What do you want to do tonight?"],
+      ["No quería ofenderte.", "I didn't mean to offend you."],
+      ["Quiero encontrar algo que me apasione.", "I want to find something I'm passionate about."],
+      ["Solo quería asegurarme.", "I just wanted to make sure."],
+      ["No quiero seguir así.", "I don't want to keep going like this."],
+      ["¿Quieres que te acompañe?", "Do you want me to go with you?"],
+      ["Quiero dejar de dar vueltas y actuar.", "I want to stop going in circles and act."],
+      ["No quiero quedarme con la duda.", "I don't want to be left wondering."]
+    ],
+    "SECTION 05 — Deber / Debería + infinitivo (should / must)": [
+      ["Deberías intentarlo.", "You should try it."],
+      ["No deberías preocuparte tanto.", "You shouldn't worry so much."],
+      ["Debería haber pensado en eso antes.", "I should have thought about that earlier."],
+      ["Deberías decirle la verdad.", "You should tell him the truth."],
+      ["Debe ser un malentendido.", "It must be a misunderstanding."],
+      ["Debería llamar al doctor.", "I should call the doctor."],
+      ["Deberías empezar a tomártelo en serio.", "You should start taking it seriously."],
+      ["Debería haberme quedado callado.", "I should have kept my mouth shut."],
+      ["No deberías dejar que te afecte tanto.", "You shouldn't let it affect you so much."],
+      ["Deberíamos irnos antes de que sea tarde.", "We should leave before it gets late."]
+    ],
+    "SECTION 06 — Me parece que / Creo que (I think / It seems)": [
+      ["Me parece que tiene razón.", "I think he's right."],
+      ["Creo que es mejor esperar.", "I think it's better to wait."],
+      ["Me parece una buena idea.", "It seems like a good idea to me."],
+      ["Creo que estás exagerando.", "I think you're exaggerating."],
+      ["Me parece raro que no haya respondido.", "It seems weird that he hasn't responded."],
+      ["Creo que el problema es otro.", "I think the problem is something else."],
+      ["Me parece que no tiene sentido hacerlo ahora.", "I don't think it makes sense to do it now."],
+      ["Creo que deberías pensarlo mejor.", "I think you should think it over."],
+      ["Me parece absurdo.", "It seems absurd to me."],
+      ["Creo que ya lo sabías.", "I think you already knew."]
+    ],
+    "SECTION 07 — Estar + gerundio (progressive)": [
+      ["Estoy comiendo, te llamo luego.", "I'm eating, I'll call you later."],
+      ["¿Qué estás haciendo?", "What are you doing?"],
+      ["Estaba trabajando cuando llegó.", "I was working when he arrived."],
+      ["Estoy intentando organizar todo.", "I'm trying to organize everything."],
+      ["Estás mejorando mucho.", "You're improving a lot."],
+      ["Estábamos hablando justo de ti.", "We were just talking about you."],
+      ["Estoy buscando la manera de resolverlo.", "I'm looking for a way to solve it."],
+      ["¿Estás bromeando, verdad?", "You're joking, right?"],
+      ["Estaba a punto de decírtelo.", "I was about to tell you."],
+      ["Estoy yendo, llego en diez minutos.", "I'm on my way, ten minutes."]
+    ],
+    "SECTION 08 — Dejar de / Seguir / Empezar a (stop / keep / start)": [
+      ["Deja de quejarte.", "Stop complaining."],
+      ["Dejé de fumar hace tres años.", "I quit smoking three years ago."],
+      ["No puedo dejar de pensar en eso.", "I can't stop thinking about it."],
+      ["Sigue hablando, te escucho.", "Keep talking, I'm listening."],
+      ["No entiendo por qué sigues haciéndolo.", "I don't understand why you keep doing it."],
+      ["Siguió trabajando como si nada.", "He kept working as if nothing happened."],
+      ["Estoy empezando a entender cómo funciona.", "I'm starting to understand how it works."],
+      ["Empezó a llover de repente.", "It started raining out of nowhere."],
+      ["Empieza a hacer frío.", "It's starting to get cold."],
+      ["Empecé a estudiar español el año pasado.", "I started studying Spanish last year."],
+      ["Dejó de llover, podemos salir.", "It stopped raining, we can go out."]
+    ],
+    "SECTION 09 — Intentar / Tratar de + infinitivo (try to)": [
+      ["Voy a intentar llamarlo.", "I'm going to try calling him."],
+      ["Estoy tratando de entender.", "I'm trying to understand."],
+      ["Intenta apagarlo y encenderlo de nuevo.", "Try turning it off and on again."],
+      ["Trato de no pensarlo demasiado.", "I try not to think about it too much."],
+      ["Intenté hacerlo solo, pero no pude.", "I tried doing it alone, but I couldn't."],
+      ["Intenta preguntarle directamente.", "Try asking him directly."],
+      ["Traté de explicárselo, pero no me escucha.", "I tried explaining it to him, but he won't listen."],
+      ["Vamos a intentarlo así y vemos qué pasa.", "Let's try it this way and see what happens."],
+      ["Intento ser más paciente.", "I'm trying to be more patient."],
+      ["Intenté de todo, nada funciona.", "I tried everything, nothing works."]
+    ],
+    "SECTION 10 — Lo que pasa es que / Es que (the thing is)": [
+      ["Lo que pasa es que no tengo tiempo.", "The thing is, I don't have time."],
+      ["Es que no funciona así.", "The thing is, it doesn't work like that."],
+      ["Lo que pasa es que nadie me lo dijo.", "The thing is, nobody told me."],
+      ["Es que depende de muchas cosas.", "The thing is, it depends on a lot of things."],
+      ["Lo que pasa es que ya lo intenté.", "The thing is, I already tried."],
+      ["Es que no sé por dónde empezar.", "The thing is, I don't know where to start."],
+      ["Lo que pasa es que no es solo un problema de dinero.", "The thing is, it's not just a money problem."],
+      ["Es que no me convence del todo.", "The thing is, it doesn't fully convince me."],
+      ["Lo que pasa es que la gente no quiere escuchar.", "The thing is, people don't want to listen."],
+      ["Es que siempre hay una excusa.", "The thing is, there's always an excuse."]
+    ],
+    "SECTION 11 — No es que... es que (it's not that... it's that)": [
+      ["No es que no me interese, es que estoy cansado.", "It's not that I'm not interested, it's that I'm tired."],
+      ["No es que sea difícil, es que toma tiempo.", "It's not that it's hard, it's that it takes time."],
+      ["No es que no quiera ir, es que ya tengo planes.", "It's not that I don't want to go, it's that I have plans."],
+      ["No es que me esté quejando, solo digo.", "It's not that I'm complaining, I'm just saying."],
+      ["No es que sea culpa tuya.", "It's not like it's your fault."],
+      ["No es que no lo sepa, es que no lo había pensado.", "It's not that I don't know, it's that I hadn't thought of it."],
+      ["No es que me caiga mal, solo no es lo mío.", "It's not that I hate it, it's just not my thing."],
+      ["No es que no pueda, es que no quiero.", "It's not that I can't, it's that I don't want to."],
+      ["No es que no confíe en ti, es que prefiero verlo yo mismo.", "It's not that I don't trust you, I prefer to see it myself."],
+      ["No es que sea imposible, es que nadie lo ha intentado.", "It's not that it's impossible, nobody's tried."]
+    ],
+    "SECTION 12 — Si + imperfecto subjuntivo, condicional (if I..., I would)": [
+      ["Si tuviera más tiempo, viajaría más.", "If I had more time, I'd travel more."],
+      ["Si fuera tú, lo pensaría bien.", "If I were you, I'd think it through."],
+      ["Si pudiera elegir, me quedaría con ese.", "If I could choose, I'd take that one."],
+      ["Si no lloviera, saldríamos.", "If it weren't raining, we'd go out."],
+      ["Si lo supiera, te lo diría.", "If I knew, I'd tell you."],
+      ["Si hubiera sabido, no habría venido.", "If I had known, I wouldn't have come."],
+      ["Si no fuera tan caro, lo compraría.", "If it weren't so expensive, I'd buy it."],
+      ["Si hablara mejor el español, me mudaría a Madrid.", "If I spoke Spanish better, I'd move to Madrid."],
+      ["Si cambiaras de trabajo, ¿qué harías?", "If you changed jobs, what would you do?"],
+      ["Si me hubiera dicho la verdad, lo habría entendido.", "If he had told me the truth, I would have understood."]
+    ],
+    "SECTION 13 — Si + presente, presente/futuro (real if-then)": [
+      ["Si tienes hambre, preparo algo.", "If you're hungry, I'll make something."],
+      ["Si quieres, te acompaño.", "If you want, I'll go with you."],
+      ["Si no te gusta, dímelo.", "If you don't like it, tell me."],
+      ["Si terminas temprano, damos una vuelta.", "If you finish early, let's go for a walk."],
+      ["Si necesitas algo, avísame.", "If you need anything, let me know."],
+      ["Si cambias de opinión, escríbeme.", "If you change your mind, text me."],
+      ["Si no funciona, lo intentamos de nuevo.", "If it doesn't work, we'll try again."],
+      ["Si sigue así, hay que buscar otra solución.", "If it keeps going like this, we need another solution."],
+      ["Si puedes, pasa por aquí.", "If you can, swing by here."],
+      ["Si te sirve de algo, yo también pasé por eso.", "If it helps, I went through that too."]
+    ],
+    "SECTION 14 — Me cuesta + infinitivo (I find it hard to)": [
+      ["Me cuesta mucho hablar en público.", "I find it really hard to speak in public."],
+      ["Me cuesta concentrarme cuando hay ruido.", "I find it hard to concentrate when there's noise."],
+      ["Me resulta difícil confiar en la gente.", "I find it hard to trust people."],
+      ["Me cuesta levantarme temprano.", "I have a hard time getting up early."],
+      ["Me cuesta entender lo que quiere decir.", "I have a hard time understanding what he means."],
+      ["Me resulta imposible no pensar en eso.", "I find it impossible not to think about it."],
+      ["Me cuesta mucho pedir ayuda.", "I find it really hard to ask for help."],
+      ["Me resulta raro que no haya dicho nada.", "I find it strange that he didn't say anything."],
+      ["Me cuesta aceptar que no puedo controlarlo todo.", "I find it hard to accept I can't control everything."],
+      ["Me cuesta trabajo mantener la calma a veces.", "I have a hard time keeping my cool sometimes."]
+    ],
+    "SECTION 15 — Acabar de + infinitivo (to have just done)": [
+      ["Acabo de llegar.", "I just got here."],
+      ["Acabo de hablar con él.", "I just talked to him."],
+      ["Acabamos de comer, gracias.", "We just ate, thanks."],
+      ["Acabo de enterarme.", "I just found out."],
+      ["Acaba de salir, lo acabas de perder.", "He just left, you just missed him."],
+      ["Acabo de mandar el mensaje.", "I just sent the message."],
+      ["Acababa de dormirme cuando sonó el teléfono.", "I had just fallen asleep when the phone rang."],
+      ["Acabo de darme cuenta de algo.", "I just realized something."],
+      ["Acabo de terminar, ¿necesitas algo?", "I just finished, do you need anything?"],
+      ["Acabamos de mudarnos.", "We just moved."]
+    ],
+    "SECTION 16 — Llevar + tiempo + gerundio (been doing for)": [
+      ["Llevo una hora esperando.", "I've been waiting for an hour."],
+      ["Llevo tres años estudiando español.", "I've been studying Spanish for three years."],
+      ["Llevamos dos horas aquí sentados.", "We've been sitting here for two hours."],
+      ["Llevo toda la mañana intentando llamarte.", "I've been trying to call you all morning."],
+      ["Llevo mucho tiempo pensando en esto.", "I've been thinking about this for a long time."],
+      ["¿Cuánto tiempo llevas viviendo aquí?", "How long have you been living here?"],
+      ["Llevo días sin dormir bien.", "I haven't slept well in days."],
+      ["Llevamos meses trabajando en este proyecto.", "We've been working on this project for months."],
+      ["Llevo rato buscándolo y no lo encuentro.", "I've been looking for it and I can't find it."],
+      ["Lleva años diciendo lo mismo.", "He's been saying the same thing for years."]
+    ],
+    "SECTION 17 — Me da / Me hace (it makes me / it gives me)": [
+      ["Me da miedo hablar en público.", "Speaking in public scares me."],
+      ["Me da pereza salir hoy.", "I'm too lazy to go out today."],
+      ["Me da igual, decide tú.", "I don't care, you decide."],
+      ["Me da vergüenza admitirlo.", "I'm embarrassed to admit it."],
+      ["Me hace gracia cómo lo dice.", "The way he says it cracks me up."],
+      ["Me da rabia que no hagan nada.", "It makes me angry that they don't do anything."],
+      ["Me da la sensación de que algo no está bien.", "I get the feeling something's not right."],
+      ["Me hace feliz verte así.", "It makes me happy to see you like this."],
+      ["Me da cosa decírselo a la cara.", "I feel weird telling him to his face."],
+      ["Me da lo mismo, como quieras.", "It's all the same to me, whatever you want."]
+    ],
+    "SECTION 18 — Ponerse a / Echarse a (to start suddenly)": [
+      ["Se puso a llover de repente.", "It suddenly started raining."],
+      ["Se echó a reír sin razón.", "He burst out laughing for no reason."],
+      ["Me puse a pensar y me di cuenta de algo.", "I started thinking and I realized something."],
+      ["Se puso a gritar como loco.", "He started screaming like a madman."],
+      ["No te pongas a discutir ahora.", "Don't start arguing now."],
+      ["Se echó a llorar cuando se enteró.", "She burst into tears when she found out."],
+      ["Me puse a limpiar y encontré tus llaves.", "I started cleaning and found your keys."],
+      ["Se puso a hablar y no paró en dos horas.", "He started talking and didn't stop for two hours."],
+      ["No te pongas a pensar demasiado.", "Don't start overthinking."],
+      ["Se echaron a correr cuando oyeron el ruido.", "They started running when they heard the noise."]
+    ],
+    "SECTION 19 — Hace falta / No hace falta (necessary / not necessary)": [
+      ["Hace falta más tiempo.", "More time is needed."],
+      ["No hace falta que vengas.", "You don't need to come."],
+      ["Hace falta mucha paciencia para esto.", "You need a lot of patience for this."],
+      ["No hace falta que me lo expliques.", "You don't need to explain it to me."],
+      ["Hace falta gente que quiera trabajar de verdad.", "People who actually want to work are needed."],
+      ["No hace falta gritar.", "There's no need to shout."],
+      ["Hace falta ser valiente para hacer eso.", "You have to be brave to do that."],
+      ["No hace falta ser perfecto.", "You don't have to be perfect."],
+      ["Hace falta que alguien tome la iniciativa.", "Someone needs to take the initiative."],
+      ["No hacía falta que hicieras eso.", "You didn't need to do that."]
+    ],
+    "SECTION 20 — Quedar / Quedarse (to stay / meet up / be left)": [
+      ["¿Quedamos a las ocho?", "Shall we meet at eight?"],
+      ["Me quedé en casa todo el día.", "I stayed home all day."],
+      ["¿Dónde quedamos?", "Where should we meet?"],
+      ["Se quedó callado.", "He went quiet."],
+      ["No me queda claro.", "It's not clear to me."],
+      ["Nos quedamos sin gasolina.", "We ran out of gas."],
+      ["Quédate un rato más.", "Stay a bit longer."],
+      ["Me quedé dormido en el sofá.", "I fell asleep on the couch."],
+      ["¿Te queda algo de dinero?", "Do you have any money left?"],
+      ["Quedamos en que yo traigo las bebidas.", "We agreed that I'd bring the drinks."],
+      ["Se quedó pensando un buen rato.", "He sat there thinking for a good while."]
+    ],
+    "SECTION 21 — Resulta que / Resulta ser (it turns out)": [
+      ["Resulta que ya lo sabía.", "It turns out he already knew."],
+      ["Resulta que el vuelo se canceló.", "It turns out the flight got cancelled."],
+      ["Resulta que no era tan difícil.", "It turns out it wasn't that hard."],
+      ["Resulta que nos conocíamos de antes.", "It turns out we knew each other from before."],
+      ["Resulta ser más complicado de lo que pensaba.", "It turns out to be more complicated than I thought."],
+      ["Resulta que me habían mandado el correo equivocado.", "It turns out they sent me the wrong email."],
+      ["Resulta que tenía razón desde el principio.", "It turns out he was right from the beginning."],
+      ["Resulta que el restaurante estaba cerrado.", "It turns out the restaurant was closed."],
+      ["Resulta que vivimos en la misma calle.", "It turns out we live on the same street."],
+      ["Resulta que todo fue un malentendido.", "It turns out it was all a misunderstanding."]
+    ],
+    "SECTION 22 — Valer la pena / Dar igual (worth it / doesn't matter)": [
+      ["No vale la pena preocuparse por eso.", "It's not worth worrying about that."],
+      ["Me da igual, tú decides.", "I don't care, you decide."],
+      ["¿De verdad vale la pena?", "Is it really worth it?"],
+      ["No me importa lo que piensen los demás.", "I don't care what other people think."],
+      ["Valió la pena esperar.", "It was worth the wait."],
+      ["No importa cuántas veces te caigas, levántate.", "It doesn't matter how many times you fall, get back up."],
+      ["No vale la pena discutir por eso.", "It's not worth arguing about that."],
+      ["A mí me da lo mismo.", "It's all the same to me."],
+      ["Lo que importa es que lo intentaste.", "What matters is that you tried."],
+      ["No vale la pena perder el tiempo con eso.", "It's not worth wasting time on that."]
+    ],
+    "SECTION 23 — Soler + infinitivo (usually / tend to)": [
+      ["Suelo despertarme temprano.", "I usually wake up early."],
+      ["No suelo beber café después de las tres.", "I don't usually drink coffee after three."],
+      ["Suele llegar tarde.", "He usually arrives late."],
+      ["Solíamos ir a la playa cada verano.", "We used to go to the beach every summer."],
+      ["No suelo quejarme, pero esto es demasiado.", "I don't usually complain, but this is too much."],
+      ["Suelo pensar demasiado las cosas.", "I tend to overthink things."],
+      ["¿Sueles cocinar o pides comida?", "Do you usually cook or order food?"],
+      ["Solía ser más paciente.", "I used to be more patient."],
+      ["Suelo estar más cansado los lunes.", "I'm usually more tired on Mondays."],
+      ["No suele hablar mucho en público.", "He doesn't usually talk much in public."]
+    ],
+    "SECTION 24 — Hacerse / Volverse / Ponerse (to become)": [
+      ["Se hizo rico trabajando desde casa.", "He got rich working from home."],
+      ["Se volvió loco con todo el estrés.", "He went crazy from all the stress."],
+      ["Se puso nervioso cuando le preguntaron.", "He got nervous when they asked him."],
+      ["Me estoy haciendo viejo.", "I'm getting old."],
+      ["Se volvió muy negativo con el tiempo.", "He became very negative over time."],
+      ["Se puso rojo de vergüenza.", "He turned red from embarrassment."],
+      ["La situación se puso fea.", "The situation got ugly."],
+      ["Se hizo famoso de la noche a la mañana.", "He became famous overnight."],
+      ["No te pongas así, tranquilo.", "Don't get like that, calm down."],
+      ["Se volvió cada vez más difícil.", "It became harder and harder."]
+    ]
+  },
+
+  speech: {
+    "SECTION 01 — Making a Point": [
+      ["Il fatto è che la gente non vuole mettersi in gioco.", "The thing is, people don't want to put themselves out there."],
+      ["Il punto è che nessuno vuole fare il primo passo.", "The point is, nobody wants to take the first step."],
+      ["Il problema è che tutti vogliono risultati subito.", "The problem is, everyone wants results immediately."],
+      ["Il fatto è che se non esci di casa, non succede niente.", "The thing is, if you don't leave your house, nothing happens."],
+      ["Il punto è che non puoi aspettare che qualcuno ti salvi.", "The point is, you can't wait for someone to save you."],
+      ["Il fatto è che la maggior parte della gente si è arresa.", "The thing is, most people have given up."],
+      ["Il punto non è essere perfetti, è muoversi.", "The point isn't being perfect, it's moving."],
+      ["Il problema è che passiamo troppo tempo nella nostra testa.", "The problem is we spend too much time in our heads."],
+      ["Il fatto è che nessuno ti deve niente.", "The thing is, nobody owes you anything."],
+      ["Il punto è che devi creare tu le opportunità.", "The point is, you have to create the opportunities yourself."]
+    ],
+    "SECTION 02 — Calling Things Out": [
+      ["Non capisco come la gente possa vivere così.", "I don't understand how people can live like this."],
+      ["Mi sembra assurdo che nessuno ne parli.", "It seems absurd to me that nobody talks about it."],
+      ["Non ha senso lamentarsi senza fare niente.", "It makes no sense to complain without doing anything."],
+      ["È pazzesco quanta gente finge di essere felice.", "It's crazy how many people pretend to be happy."],
+      ["Non capisco come fai a stare così tranquillo.", "I don't understand how you can be so calm about it."],
+      ["Mi fa impazzire vedere la gente sprecare il proprio tempo.", "It drives me crazy to see people waste their time."],
+      ["È assurdo che tutti vogliano le scorciatoie.", "It's absurd that everyone wants shortcuts."],
+      ["Non ha senso nascondersi dietro uno schermo.", "It makes no sense to hide behind a screen."],
+      ["Mi sembra incredibile che la gente accetti tutto senza fiatare.", "It blows my mind that people accept everything without a word."],
+      ["Non capisco come puoi dire di voler cambiare e poi non fare niente.", "I don't get how you can say you want to change and then do nothing."]
+    ],
+    "SECTION 03 — Describing What People Do": [
+      ["La maggior parte della gente non ha una passione vera.", "Most people don't have a real passion."],
+      ["Il ragazzo medio non sa cosa vuole dalla vita.", "The average guy doesn't know what he wants from life."],
+      ["La gente preferisce restare comoda piuttosto che rischiare.", "People prefer to stay comfortable rather than take risks."],
+      ["Tanti ragazzi si nascondono dietro la routine.", "A lot of guys hide behind routine."],
+      ["La maggior parte delle persone aspetta che succeda qualcosa.", "Most people wait for something to happen."],
+      ["Il ragazzo medio passa le giornate senza fare niente di significativo.", "The average guy spends his days without doing anything meaningful."],
+      ["La gente si lamenta sempre ma non agisce mai.", "People always complain but never act."],
+      ["Tanti usano la religione come scusa per non fare niente.", "A lot of people use religion as an excuse to do nothing."],
+      ["La maggior parte della gente ha perso la capacità di giocare.", "Most people have lost the ability to play."],
+      ["Il ragazzo medio non ha nemmeno una bella storia da raccontare.", "The average guy doesn't even have a good story to tell."]
+    ],
+    "SECTION 04 — Giving Direct Advice": [
+      ["Devi uscire di casa, fratello.", "You have to leave your house, brother."],
+      ["Smettila di aspettare il momento perfetto.", "Stop waiting for the perfect moment."],
+      ["Devi smettere di nasconderti.", "You have to stop hiding."],
+      ["Buttati, non pensarci troppo.", "Just go for it, don't overthink it."],
+      ["Devi farti vedere dalla gente.", "You need to let people see you."],
+      ["Smettila di cercare scuse.", "Stop looking for excuses."],
+      ["Devi trovare qualcosa su cui lavorare ogni giorno.", "You need to find something to work on every day."],
+      ["Muoviti, fratello. Non puoi restare fermo.", "Move, brother. You can't stay still."],
+      ["Devi metterti in gioco anche se hai paura.", "You have to put yourself out there even if you're scared."],
+      ["Smettila di fare finta che vada tutto bene.", "Stop pretending everything's fine."],
+      ["Devi accettare che sarà scomodo.", "You have to accept that it's going to be uncomfortable."],
+      ["Alzati dal divano e fai qualcosa.", "Get off the couch and do something."]
+    ],
+    "SECTION 05 — Purpose & Meaning": [
+      ["Siamo fatti per andare là fuori e rischiare.", "We're built to go out there and take risks."],
+      ["Non siamo fatti per stare seduti tutto il giorno.", "We're not meant to sit around all day."],
+      ["Il tuo corpo è fatto per muoversi, non per restare fermo.", "Your body is built to move, not to stay still."],
+      ["Siamo fatti per la caccia, per la sfida.", "We're built for the hunt, for the challenge."],
+      ["Non sei fatto per vivere così, e lo sai.", "You're not meant to live like this, and you know it."],
+      ["Siamo fatti per creare, per costruire qualcosa.", "We're built to create, to build something."],
+      ["La vita non dovrebbe essere solo sopravvivenza.", "Life shouldn't be just survival."],
+      ["Non siamo fatti per restare nella nostra testa.", "We're not built to stay stuck in our heads."],
+      ["Siamo fatti per essere visti, per farci sentire.", "We're built to be seen, to make ourselves heard."],
+      ["Non sei fatto per restare nell'ombra.", "You're not meant to stay in the shadows."]
+    ],
+    "SECTION 06 — Past vs. Present": [
+      ["Una volta dovevi uscire di casa per avere informazioni.", "Back in the day you had to leave your house to get information."],
+      ["Prima dovevi alzare il telefono e parlare con qualcuno.", "You used to have to pick up the phone and talk to someone."],
+      ["Una volta, se volevi comprare qualcosa, dovevi andarci di persona.", "If you wanted to buy something, you had to go in person."],
+      ["Adesso puoi fare tutto senza mai farti vedere.", "Now you can do everything without ever being seen."],
+      ["Prima dovevi affrontare l'imbarazzo per ottenere quello che volevi.", "You used to have to face embarrassment to get what you wanted."],
+      ["Una volta la gente si incontrava nei bar, nelle botteghe.", "People used to meet in bars, in shops."],
+      ["Adesso invece tutti si nascondono dietro uno schermo.", "Now instead everyone hides behind a screen."],
+      ["Prima dovevi guadagnarti la saggezza vivendo.", "You used to have to earn wisdom through living."],
+      ["Una volta c'erano i terzi spazi — il barbiere, la palestra, il bar.", "There used to be third spaces — the barber, the gym, the bar."],
+      ["Adesso non c'è più niente che ti costringa a uscire.", "Now there's nothing left that forces you to go out."]
+    ],
+    "SECTION 07 — The Internet & Modern Comfort": [
+      ["Internet ha reso possibile raccogliere informazioni senza mai farsi vedere.", "The internet made it possible to gather info without ever being seen."],
+      ["Il problema è che tutto è troppo comodo.", "The problem is that everything is too comfortable."],
+      ["La comodità sta uccidendo l'anima della gente.", "Comfort is killing people's souls."],
+      ["La velocità non ti permette di sviluppare niente di vero.", "Speed doesn't allow you to develop anything real."],
+      ["Puoi ordinare da mangiare senza parlare con nessuno.", "You can order food without talking to anyone."],
+      ["Tutti hanno accesso a tutto, ma nessuno fa niente.", "Everyone has access to everything, but nobody does anything."],
+      ["Il telefono è diventato una sfera di cristallo.", "The phone has become a crystal ball."],
+      ["Siamo tutti maghi con i nostri dispositivi, ma non viviamo.", "We're all wizards with our devices, but we don't live."],
+      ["La rapidità uccide sempre l'anima.", "Speed always kills the soul."],
+      ["La gente non esce più, ha tutto a portata di mano.", "People don't go out anymore, everything's at their fingertips."]
+    ],
+    "SECTION 08 — Energy & Getting Started": [
+      ["Non puoi aspettare che qualcuno ti motivi.", "You can't wait for someone to motivate you."],
+      ["Devi essere tu a dare energia, non a riceverla.", "You have to be the one giving energy, not receiving it."],
+      ["Quante volte puoi restare seduto ad aspettare?", "How many times can you sit around and wait?"],
+      ["Niente si muove finché non ti muovi tu.", "Nothing moves until you move."],
+      ["Perché aspetti sempre che qualcun altro inizi?", "Why do you always wait for someone else to start?"],
+      ["Devi diventare dipendente dal fare, dal creare.", "You have to get addicted to doing, to creating."],
+      ["Smettila di cercare motivazione e inizia a fare.", "Stop looking for motivation and start doing."],
+      ["La gente si arrende troppo in fretta.", "People give up too quickly."],
+      ["Se non è veloce, dicono 'non fa per me'.", "If it's not fast, they say 'it's not for me'."],
+      ["Devi spedire. Devi mandare fuori le cose. Basta pensare.", "You have to ship it. Put things out. Enough thinking."],
+      ["Sii tu quello che crea l'energia nella stanza.", "Be the one who creates the energy in the room."]
+    ],
+    "SECTION 09 — Being Real vs. Being Fake": [
+      ["La gente finge di avere tutto sotto controllo.", "People pretend to have everything under control."],
+      ["Non puoi vivere nascondendoti per sempre.", "You can't live hiding forever."],
+      ["Se non mostri la faccia, non sei davvero presente.", "If you don't show your face, you're not truly present."],
+      ["Tanti si nascondono dietro la disciplina per non vivere.", "A lot of people hide behind discipline to avoid living."],
+      ["È più facile dire 'sono nichilista' che fare qualcosa.", "It's easier to say 'I'm nihilistic' than to do something."],
+      ["La gente usa la routine per sentirsi in controllo.", "People use routine to feel in control."],
+      ["Ma il controllo è un'illusione.", "But control is an illusion."],
+      ["Devi lasciar andare il bisogno di avere tutto chiaro.", "You have to let go of needing to have everything figured out."],
+      ["La gente si mette addosso una maschera e ci si abitua.", "People put on a mask and get used to it."],
+      ["Non puoi essere una forza nel mondo se nessuno sa chi sei.", "You can't be a force in the world if nobody knows who you are."],
+      ["Fai vedere chi sei davvero, smettila di nasconderti.", "Show who you really are, stop hiding."]
+    ],
+    "SECTION 10 — Connecting with People": [
+      ["È difficile connettersi con qualcuno che non vive davvero.", "It's hard to connect with someone who doesn't truly live."],
+      ["Non riesci a parlare con qualcuno che non ha niente da dire.", "You can't even talk to someone who has nothing to say."],
+      ["La gente ripete sempre le stesse cose, le stesse lamentele.", "People always repeat the same things, the same complaints."],
+      ["Ti connetti con chi sta affrontando qualcosa di vero.", "You connect with people who are dealing with something real."],
+      ["Non c'è passione, non c'è entusiasmo in quello che dicono.", "There's no passion, no excitement in what they say."],
+      ["Il ragazzo medio non ha nemmeno un hobby che lo appassiona.", "The average guy doesn't even have a hobby he's passionate about."],
+      ["Parli con la gente e senti sempre le stesse frasi fatte.", "You talk to people and you always hear the same clichés."],
+      ["La vita quotidiana ha perso il suo incanto per tanti.", "Daily life has lost its enchantment for many."],
+      ["La gente aspetta che qualcuno la porti fuori, la inviti.", "People wait for someone to take them out, to invite them."],
+      ["Se non hai energia da dare, nessuno vorrà starti intorno.", "If you have no energy to give, nobody will want to be around you."]
+    ],
+    "SECTION 11 — Being a Force": [
+      ["Devi guardarti allo specchio e dirti che sei qui per un motivo.", "You need to look in the mirror and tell yourself you're here for a reason."],
+      ["Sei una forza, ma il mondo ti ha convinto del contrario.", "You're a force, but the world convinced you otherwise."],
+      ["Devi diventare un'icona per te stesso.", "You have to become an icon for yourself."],
+      ["Guardati allo specchio e chiediti: sono ispirato dalla mia vita?", "Look in the mirror and ask yourself: am I inspired by my life?"],
+      ["Il mondo ti mette addosso un sacco di roba — scrollatela di dosso.", "The world piles stuff on you — shake it off."],
+      ["Non lasciare che la depressione ti faccia dimenticare chi sei.", "Don't let depression make you forget who you are."],
+      ["Sei qui, sei vivo, sei in salute — questo conta.", "You're here, you're alive, you're healthy — that matters."],
+      ["La nebbia ti fa sentire piccolo, ma non lo sei.", "The fog makes you feel small, but you're not."],
+      ["Devi toglierti di dosso quel mantello di nichilismo.", "You have to take off that coat of nihilism."],
+      ["Tutto il resto è solo un modo per anestetizzarsi.", "Everything else is just a way to numb yourself."]
+    ],
+    "SECTION 12 — Craft, Mastery & Showing Up": [
+      ["Devi trovare qualcosa su cui lavorare ogni singolo giorno.", "You need to find something to work on every single day."],
+      ["Non tutti i giorni devono essere entusiasmanti.", "Not every day has to be exciting."],
+      ["Ci vuole pazienza per sviluppare qualcosa di vero.", "It takes patience to develop something real."],
+      ["La gente salta da una cosa all'altra senza mai approfondire.", "People jump from one thing to the next without ever going deep."],
+      ["La monotonia va bene se è al servizio di qualcosa.", "Monotony is fine if it serves something."],
+      ["Devi fare i lavori di merda. Devi affrontare l'imbarazzo.", "You have to do the crappy jobs. You have to face embarrassment."],
+      ["Non c'è maestria senza ripetizione.", "There's no mastery without repetition."],
+      ["La gente vuole la velocità, ma la velocità non paga mai.", "People want speed, but speed never pays off."],
+      ["Devi sporcarti le mani, non basta leggere.", "You have to get your hands dirty, reading isn't enough."],
+      ["Trova qualcosa e armeggiaci ogni giorno.", "Find something and tinker with it every day."],
+      ["Il punto è presentarsi, ogni giorno, anche quando non hai voglia.", "The point is showing up, every day, even when you don't feel like it."]
+    ]
+  },
+
+  batch2: {
+    "SECTION 01 — Technology & What It Does to Your Brain": [
+      ["Il problema è che nessuno sa davvero quanto sia pericoloso.", "The problem is that nobody really knows how dangerous it is."],
+      ["La cosa spaventosa è che non abbiamo dati sufficienti.", "The scary thing is that we don't have enough data."],
+      ["Come fai a dire che è sicuro se non lo stai misurando?", "How can you say it's safe if you're not measuring it?"],
+      ["Non puoi fare un'affermazione del genere senza le prove.", "You can't make a statement like that without the evidence."],
+      ["Il fatto è che queste aziende non stanno facendo ricerca.", "The thing is, these companies aren't doing research."],
+      ["Stanno basando le loro conclusioni su articoli di giornale.", "They're basing their conclusions on newspaper articles."],
+      ["Come fanno a sapere che il loro prodotto è sicuro?", "How do they know their product is safe?"],
+      ["È come dire che le sigarette non causano il cancro.", "It's like saying cigarettes don't cause cancer."],
+      ["La tecnologia sta cambiando il nostro cervello e non ce ne rendiamo conto.", "Technology is changing our brains and we don't even realize it."],
+      ["Il vero pericolo è quello che non si vede.", "The real danger is what you can't see."],
+      ["Quante persone stanno soffrendo in silenzio senza che nessuno se ne accorga?", "How many people are suffering in silence without anyone noticing?"],
+      ["Non possiamo semplicemente ignorare il problema e sperare che vada via.", "We can't just ignore the problem and hope it goes away."]
+    ],
+    "SECTION 02 — The Problem With Willpower & Discipline": [
+      ["Il problema della forza di volontà è che domani ne avrai bisogno ancora di più.", "The problem with willpower is that tomorrow you'll need even more of it."],
+      ["Più ti sforzi, più ti esaurisci.", "The more you force yourself, the more you burn out."],
+      ["La disciplina non ti porta all'eccellenza, ti porta al burnout.", "Discipline doesn't get you to excellence, it gets you to burnout."],
+      ["Se devi costringerti a fare qualcosa ogni giorno, qualcosa non va.", "If you have to force yourself to do something every day, something's off."],
+      ["La forza di volontà è un fattore di rischio indipendente per la stagnazione.", "Willpower is an independent risk factor for stagnation."],
+      ["Costringersi a fare qualcosa oggi significa doversi costringere anche domani.", "Forcing yourself to do something today means forcing yourself tomorrow too."],
+      ["Le abitudini alzano il pavimento, ma non ti portano mai al massimo.", "Habits raise the floor, but they never get you to the top."],
+      ["La costanza non viene dalla disciplina, viene dal volere qualcosa.", "Consistency doesn't come from discipline, it comes from wanting something."],
+      ["Chi ha problemi di costanza con i videogiochi? Nessuno.", "Who has consistency problems with video games? Nobody."],
+      ["La motivazione controllata non si traduce mai in sforzo reale.", "Controlled motivation never translates into real effort."],
+      ["Smetti di usare la forza di volontà e chiediti cosa vuoi davvero.", "Stop using willpower and ask yourself what you really want."]
+    ],
+    "SECTION 03 — What Actually Drives You (Autonomous Motivation)": [
+      ["Devi chiederti cosa vuoi davvero.", "You have to ask yourself what you really want."],
+      ["Perché lo vuoi? Cosa lo rende importante per te?", "Why do you want it? What makes it important to you?"],
+      ["Se vuoi una motivazione sostenibile, devi scavare più a fondo.", "If you want sustainable motivation, you have to dig deeper."],
+      ["L'eccellenza non viene dalle abitudini, viene dalla motivazione interna.", "Excellence doesn't come from habits, it comes from internal motivation."],
+      ["Quando vuoi davvero qualcosa, la costanza viene da sola.", "When you truly want something, consistency comes naturally."],
+      ["Non stai cercando di costruire abitudini, stai cercando di trovare un motivo.", "You're not trying to build habits, you're trying to find a reason."],
+      ["Se fai un piano e non lo segui, il problema non è il piano.", "If you make a plan and don't follow it, the problem isn't the plan."],
+      ["Tanta gente pensa di dover cambiare comportamento, ma il problema è la motivazione.", "A lot of people think they need to change behavior, but the problem is motivation."],
+      ["Devi coltivare quello che vuoi dal basso, non dall'alto.", "You have to cultivate what you want from the bottom, not the top."],
+      ["Se insegui uno stato d'animo, stai andando nella direzione sbagliata.", "If you're chasing a feeling, you're going in the wrong direction."]
+    ],
+    "SECTION 04 — How the World Actually Works (Cheating & Systems)": [
+      ["Il motivo per cui la gente copia è che funziona.", "The reason people cheat is that it works."],
+      ["La realtà è che chi imbroglia in modo intelligente non viene mai beccato.", "The reality is that smart cheaters never get caught."],
+      ["Se rubi cento euro, vai in prigione. Se rubi un miliardo, ti salvano.", "If you steal a hundred euros, you go to jail. If you steal a billion, they bail you out."],
+      ["Non sto dicendo che sia giusto, sto dicendo che è così che funziona.", "I'm not saying it's right, I'm saying that's how it works."],
+      ["Spiegare un fenomeno non significa approvarlo.", "Explaining a phenomenon doesn't mean you approve of it."],
+      ["I truffatori più bravi sono quelli che non esagerano.", "The best cheaters are the ones who don't get greedy."],
+      ["Il problema è che il sistema premia chi sa giocarci.", "The problem is that the system rewards those who know how to play it."],
+      ["Prendi una laurea senza imparare niente, ed entri nel mondo con una mappa falsa.", "Get a degree without learning anything, and you enter the world with a fake map."],
+      ["La vera domanda è: perché il sistema lo permette?", "The real question is: why does the system allow it?"],
+      ["C'è una differenza enorme tra quello che è giusto e quello che funziona.", "There's an enormous difference between what's right and what works."]
+    ],
+    "SECTION 05 — Nihilism, Meaning & the Search for Purpose": [
+      ["E se il senso della vita fosse solo un'illusione biologica?", "What if the meaning of life is just a biological illusion?"],
+      ["Il problema è che non sappiamo se lo scopo esista davvero.", "The problem is we don't know if purpose actually exists."],
+      ["Siamo programmati per sopravvivere, ma sappiamo che moriremo.", "We're wired to survive, but we know we're going to die."],
+      ["Come fa un organismo a riconciliare l'istinto di sopravvivenza con la certezza della morte?", "How does an organism reconcile the survival instinct with the certainty of death?"],
+      ["Forse il senso della vita è solo il modo in cui il cervello gestisce la paura della morte.", "Maybe the meaning of life is just the brain's way of managing the fear of death."],
+      ["Non ho risposte definitive, e penso che sia onesto dirlo.", "I don't have definitive answers, and I think it's honest to say that."],
+      ["C'è una parte di me che crede che ci sia qualcosa di più.", "There's a part of me that believes there's something more."],
+      ["Ma c'è anche una parte di me che dubita di tutto.", "But there's also a part of me that doubts everything."],
+      ["La cosa più spaventosa è che quello per cui lottiamo potrebbe essere un'illusione.", "The scariest thing is that what we strive for could be a delusion."],
+      ["Eppure, anche sapendolo, non riesco a smettere di cercare.", "And yet, even knowing that, I can't stop searching."],
+      ["Quello che ammiriamo di più nelle persone è la capacità di dare tutto.", "What we admire most in people is the ability to give it their all."]
+    ],
+    "SECTION 06 — You Can Actually Change What You Feel": [
+      ["Puoi davvero cambiare quello che provi.", "You can actually change what you feel."],
+      ["Non è vero che le emozioni non si possono controllare.", "It's not true that emotions can't be controlled."],
+      ["Non parlo di sopprimere, parlo di generare emozioni diverse.", "I'm not talking about suppressing, I'm talking about generating different emotions."],
+      ["Pensiamo che le nostre emozioni siano fisse, ma non lo sono.", "We think our emotions are fixed, but they're not."],
+      ["Due persone vivono la stessa situazione e provano cose completamente diverse.", "Two people experience the same situation and feel completely different things."],
+      ["Se puoi allenare il corpo, puoi allenare anche le emozioni.", "If you can train your body, you can train your emotions too."],
+      ["La prima volta che pensi in modo diverso è la più difficile.", "The first time you think differently is the hardest."],
+      ["Poi diventa automatico, come qualsiasi altra cosa.", "Then it becomes automatic, like anything else."],
+      ["La terapia non fa altro che cambiare la risposta emotiva di base.", "Therapy does nothing other than change the baseline emotional response."],
+      ["Se guardi qualcun altro avere successo, provi ammirazione. Se guardi te stesso, provi panico.", "If you watch someone else succeed, you feel admiration. If you watch yourself, you feel panic."],
+      ["Quella è la sindrome dell'impostore, e si può cambiare.", "That's impostor syndrome, and it can be changed."]
+    ],
+    "SECTION 07 — Feeling Numb (Why Nothing Hits the Same)": [
+      ["Non sento niente, e non so perché.", "I don't feel anything, and I don't know why."],
+      ["Il problema è che se non senti niente, non sai cosa correggere.", "The problem is that if you don't feel anything, you don't know what to fix."],
+      ["Non tutte le forme di torpore sono uguali.", "Not all forms of numbness are the same."],
+      ["C'è una differenza tra non provare piacere e non avere motivazione.", "There's a difference between not feeling pleasure and not having motivation."],
+      ["Se non ti va di fare niente, ma quando lo fai ti diverti, è un problema di motivazione.", "If you don't feel like doing anything, but when you do it you enjoy it, it's a motivation problem."],
+      ["La tecnologia sta esaurendo il nostro sistema di dopamina.", "Technology is draining our dopamine system."],
+      ["Il cervello è come un limone: se lo spremi troppo, non esce più niente.", "The brain is like a lemon: if you squeeze it too much, nothing comes out."],
+      ["Tante persone si intorpidiscono di proposito per evitare le emozioni negative.", "A lot of people numb themselves on purpose to avoid negative emotions."],
+      ["Se ti disconnetti mentalmente durante la giornata, il cervello si disconnette del tutto.", "If you mentally check out during the day, your brain checks out entirely."],
+      ["Metti un podcast per non soffrire mentre lavi i piatti — e poi ti chiedi perché non senti niente.", "You put on a podcast to avoid suffering while doing dishes — then you wonder why you don't feel anything."],
+      ["Devi smettere di scappare dalle esperienze negative.", "You have to stop running from negative experiences."],
+      ["Se dai al cervello delle opzioni, è più probabile che agisca.", "If you give the brain options, it's more likely to act."]
+    ],
+    "SECTION 08 — Keeping It Together (High Functioning Depression)": [
+      ["Sembra che tutto vada bene, ma sotto la superficie sta crollando.", "It looks like everything's fine, but underneath they're falling apart."],
+      ["Il problema è che i meccanismi di coping non risolvono i problemi di fondo.", "The problem is that coping mechanisms don't solve the underlying problems."],
+      ["Se la tua barca fa acqua, non puoi solo svuotarla — devi riparare lo scafo.", "If your boat is taking on water, you can't just bail — you have to fix the hull."],
+      ["Queste persone si aggrappano al ruolo che vogliono interpretare.", "These people cling to the role they want to play."],
+      ["Non vogliono essere quelli che mollano.", "They don't want to be the ones who quit."],
+      ["Raddoppiano gli sforzi invece di chiedersi se sono sulla strada giusta.", "They double down instead of asking themselves if they're on the right path."],
+      ["In psicologia si chiama sublimazione: trasformi il dolore in produttività.", "In psychology it's called sublimation: you turn pain into productivity."],
+      ["Il problema è che finisci in una carriera che non ti piace da dieci anni.", "The problem is you end up in a career you don't like for ten years."],
+      ["L'evitamento è in realtà un fattore di rischio per la suicidalità.", "Avoidance is actually a risk factor for suicidality."],
+      ["La positività tossica non è forza, è negazione.", "Toxic positivity isn't strength, it's denial."],
+      ["Devi ammettere che hai dei problemi prima di poterli risolvere.", "You have to admit you have problems before you can solve them."],
+      ["Mantenere il ruolo vale la pena di sacrificare la tua vita?", "Is maintaining the role worth sacrificing your life?"]
+    ],
+    "SECTION 09 — Explaining Complex Ideas (Breaking Things Down)": [
+      ["In pratica, quello che succede è che il cervello si adatta.", "Basically, what happens is the brain adapts."],
+      ["Quello che la ricerca dimostra è che non funziona come pensiamo.", "What the research shows is that it doesn't work the way we think."],
+      ["Lasciami spiegare perché questo è importante.", "Let me explain why this is important."],
+      ["Sembra controintuitivo, ma i dati dicono il contrario.", "It seems counterintuitive, but the data says the opposite."],
+      ["Il punto chiave è che non sono la stessa cosa.", "The key point is that they're not the same thing."],
+      ["La gente confonde queste due cose, ma sono completamente diverse.", "People confuse these two things, but they're completely different."],
+      ["In parole semplici, stai inseguendo la cosa sbagliata.", "In simple terms, you're chasing the wrong thing."],
+      ["Il motivo per cui è così importante è che cambia tutto il quadro.", "The reason this is so important is that it changes the whole picture."],
+      ["Se capisci questo concetto, tutto il resto ha senso.", "If you understand this concept, everything else makes sense."],
+      ["È come quando... lasciami fare un esempio.", "It's like when... let me give you an example."],
+      ["Quello che intendo dire è che non è così semplice come sembra.", "What I'm trying to say is that it's not as simple as it looks."]
+    ],
+    "SECTION 10 — Asking the Hard Questions (Socratic Style)": [
+      ["Ma ti sei mai chiesto perché fai quello che fai?", "But have you ever asked yourself why you do what you do?"],
+      ["E se in realtà non fosse la tua motivazione, ma quella di qualcun altro?", "What if it's actually not your motivation, but someone else's?"],
+      ["Sei sicuro che è questo che vuoi, o è quello che ti hanno detto di volere?", "Are you sure this is what you want, or is it what you were told to want?"],
+      ["Come fai a sapere la differenza?", "How do you know the difference?"],
+      ["Ti sei mai fermato a pensare se sei sulla strada giusta?", "Have you ever stopped to think if you're on the right path?"],
+      ["Stai correndo verso qualcosa o stai scappando da qualcos'altro?", "Are you running towards something or running away from something else?"],
+      ["Cosa succederebbe se smettessi di fare finta che va tutto bene?", "What would happen if you stopped pretending everything's fine?"],
+      ["Quand'è l'ultima volta che ti sei chiesto cosa vuoi davvero?", "When's the last time you asked yourself what you truly want?"],
+      ["Perché hai così paura di sbagliare?", "Why are you so afraid of making a mistake?"],
+      ["E se il motivo per cui sei bloccato è che stai usando la forza di volontà?", "What if the reason you're stuck is that you're using willpower?"],
+      ["Ti sei mai chiesto se il ruolo che interpreti ti rende felice?", "Have you ever asked yourself if the role you play makes you happy?"]
+    ],
+    "SECTION 11 — Uncomfortable Truths (The Dark Side of Success)": [
+      ["La verità è che la ricerca sulla sociopatia viene dalle prigioni.", "The truth is that research on sociopathy comes from prisons."],
+      ["Stiamo studiando solo i sociopatici stupidi, non quelli intelligenti.", "We're only studying the stupid sociopaths, not the smart ones."],
+      ["Quelli che vengono beccati non sono quelli che dovrebbero preoccuparci.", "The ones who get caught aren't the ones who should worry us."],
+      ["I truffatori più pericolosi sono quelli che sanno quando fermarsi.", "The most dangerous cheaters are the ones who know when to stop."],
+      ["Quello che nessuno ti dice è che la corruzione è ovunque.", "What nobody tells you is that corruption is everywhere."],
+      ["C'è un'enorme differenza tra chi viene punito e chi la fa franca.", "There's an enormous difference between who gets punished and who gets away with it."],
+      ["Non sto giustificando niente, sto solo descrivendo la realtà.", "I'm not justifying anything, I'm just describing reality."],
+      ["Il sistema non è progettato per essere giusto.", "The system isn't designed to be fair."],
+      ["Se vuoi arrivare in alto in modo onesto, sappi che non tutti lo fanno.", "If you want to get to the top honestly, know that not everyone does."],
+      ["La vera domanda non è se sia giusto, ma se tu riesca a conviverci.", "The real question isn't whether it's right, but whether you can live with it."]
+    ],
+    "SECTION 12 — Coming Alive (What It Takes to Really Feel)": [
+      ["A volte ci vuole quasi morire per iniziare a vivere davvero.", "Sometimes it takes almost dying to really start living."],
+      ["La cosa strana è che chi ha rischiato la vita apprezza di più le cose semplici.", "The weird thing is that people who've risked their lives appreciate simple things more."],
+      ["Dopo un'esperienza di quasi-morte, il denaro e il successo contano meno.", "After a near-death experience, money and success matter less."],
+      ["Non ti rende una persona migliore, ma ti fa capire cosa conta davvero.", "It doesn't make you a better person, but it makes you understand what truly matters."],
+      ["Qualcosa dentro di me vuole vivere più di quanto io voglia arrendermi.", "Something inside me wants to live more than I want to give up."],
+      ["Il mio cuore continua a battere anche quando la mia mente vuole fermarsi.", "My heart keeps beating even when my mind wants to stop."],
+      ["La passione per la vita a volte nasce dal toccare il fondo.", "A passion for life sometimes comes from hitting rock bottom."],
+      ["La crisi ti costringe a capire cosa è davvero importante.", "Crisis forces you to understand what's truly important."],
+      ["Se non hai mai rischiato niente, non sai cosa significa vivere.", "If you've never risked anything, you don't know what it means to live."],
+      ["Il vero cambiamento arriva quando smetti di aggrapparti a quello che non funziona.", "Real change comes when you stop clinging to what doesn't work."]
+    ],
+    "SECTION 13 — Therapy Speak & Cultural Critique": [
+      ["Il problema è che abbiamo trasformato le emozioni in qualcosa di intoccabile.", "The problem is we've turned emotions into something untouchable."],
+      ["La gente dice 'le tue emozioni sono valide' come se fosse la fine della conversazione.", "People say 'your feelings are valid' as if that's the end of the conversation."],
+      ["Accettare le emozioni non significa non poterle cambiare.", "Accepting emotions doesn't mean you can't change them."],
+      ["Abbiamo confuso la validazione con la rassegnazione.", "We've confused validation with resignation."],
+      ["La cultura moderna ti dice di accettare tutto e non lottare per niente.", "Modern culture tells you to accept everything and fight for nothing."],
+      ["La positività tossica è solo un altro modo per evitare i problemi.", "Toxic positivity is just another way to avoid problems."],
+      ["Non tutte le emozioni meritano di essere seguite.", "Not all emotions deserve to be followed."],
+      ["Il Buddha non ha mai detto che tutte le emozioni vanno bene.", "The Buddha never said all emotions are fine."],
+      ["Puoi scegliere come reagire, e questo non è soppressione.", "You can choose how to react, and that's not suppression."],
+      ["Il vero lavoro non è accettare quello che provi, è imparare a provare qualcosa di diverso.", "The real work isn't accepting what you feel, it's learning to feel something different."]
+    ],
+    "SECTION 14 — Identity Traps (When Your Role Becomes a Cage)": [
+      ["Ti sei intrappolato in un ruolo che non ti appartiene.", "You've trapped yourself in a role that isn't yours."],
+      ["Il ruolo che interpreti ti sta consumando.", "The role you play is consuming you."],
+      ["Non vuoi essere quello che molla, e allora continui.", "You don't want to be the one who quits, so you keep going."],
+      ["Ma a che prezzo?", "But at what cost?"],
+      ["Hai investito così tanto che sembra impossibile cambiare.", "You've invested so much that it seems impossible to change."],
+      ["Il fatto che hai già dato tanto non significa che devi continuare.", "The fact that you've already given a lot doesn't mean you have to keep going."],
+      ["Stai vivendo la vita che vuoi o quella che gli altri si aspettano?", "Are you living the life you want or the one others expect?"],
+      ["La motivazione introiettata è quando pensi che sia la tua, ma in realtà viene da fuori.", "Introjected motivation is when you think it's yours, but it actually comes from outside."],
+      ["Tua nonna ti ha detto che saresti diventato un bravo dottore — ma tu lo volevi?", "Your grandma told you you'd be a great doctor — but did you want it?"],
+      ["A volte le nostre motivazioni più profonde non sono nostre.", "Sometimes our deepest motivations aren't ours."],
+      ["Devi capire la differenza tra quello che vuoi e quello che credi di dovere.", "You need to understand the difference between what you want and what you think you owe."]
+    ]
+  }
+};
+
+// ---- RENDER ----
+function renderTab(tabId) {
+  const container = document.getElementById(tabId);
+  const actionsDiv = container.querySelector('.top-actions');
+  const sections = data[tabId];
+
+  // Build TOC
+  const toc = document.createElement('div');
+  toc.className = 'toc';
+  const tocTitle = document.createElement('div');
+  tocTitle.className = 'toc-title';
+  tocTitle.textContent = 'Jump to section';
+  toc.appendChild(tocTitle);
+  const tocGrid = document.createElement('div');
+  tocGrid.className = 'toc-grid';
+  toc.appendChild(tocGrid);
+  container.insertBefore(toc, actionsDiv);
+
+  for (const [title, pairs] of Object.entries(sections)) {
+    // TOC entry
+    const anchor = 'sec-' + tabId + '-' + title.replace(/[^a-zA-Z0-9]/g, '-').slice(0, 40);
+    const tocLink = document.createElement('a');
+    tocLink.className = 'toc-link';
+    tocLink.href = '#' + anchor;
+    // Show just a short label: grab content between em dashes or first part
+    const label = title.replace(/^SECTION \d+\s*[—–-]\s*/i, '');
+    tocLink.textContent = title.match(/^SECTION \d+/i)?.[0] + ' · ' + label;
+    tocLink.onclick = (e) => {
+      e.preventDefault();
+      document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    tocGrid.appendChild(tocLink);
+
+    const block = document.createElement('div');
+    block.className = 'section-block';
+    block.id = anchor;
+
+    const header = document.createElement('div');
+    header.className = 'section-header';
+
+    const h3 = document.createElement('span');
+    h3.className = 'section-title';
+    h3.textContent = title;
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'btn-copy';
+    copyBtn.innerHTML = `<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy`;
+    copyBtn.onclick = () => copySection(title, pairs, copyBtn);
+
+    header.appendChild(h3);
+    header.appendChild(copyBtn);
+    block.appendChild(header);
+
+    for (const [lang, eng] of pairs) {
+      const row = document.createElement('div');
+      row.className = 'sentence-row';
+      row.innerHTML = `<span class="lang-text">${lang}</span><span class="eng-text">${eng}</span>`;
+      block.appendChild(row);
+    }
+
+    container.appendChild(block);
+  }
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+function formatForCopy(sections) {
+  let text = '';
+  for (const [title, pairs] of Object.entries(sections)) {
+    text += title + '\n';
+    for (const [lang, eng] of pairs) {
+      text += `${lang}  |  ${eng}\n`;
+    }
+    text += '\n';
+  }
+  return text.trim();
+}
+
+function formatSectionForCopy(title, pairs) {
+  let text = title + '\n';
+  for (const [lang, eng] of pairs) {
+    text += `${lang}  |  ${eng}\n`;
+  }
+  return text.trim();
+}
+
+function copyAll(tabId) {
+  const text = formatForCopy(data[tabId]);
+  navigator.clipboard.writeText(text).then(() => showToast('All sentences copied!'));
+}
+
+function copySection(title, pairs, btn) {
+  const text = formatSectionForCopy(title, pairs);
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Copied`;
+    showToast('Section copied!');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy`;
+    }, 2000);
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
+// Init
+renderTab('italian');
+renderTab('spanish');
+renderTab('speech');
+renderTab('batch2');
+
+</script>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var saved=localStorage.getItem('msTheme')||'dark';
+  root.dataset.theme=saved;
+  function updateIcons(){
+    var isDark=root.dataset.theme==='dark';
+    document.querySelectorAll('.sb-theme-icon,.mob-theme-icon').forEach(function(el){
+      el.textContent=isDark?'☀':'🌙';
+    });
+  }
+  window.toggleTheme=function(){
+    root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';
+    localStorage.setItem('msTheme',root.dataset.theme);
+    updateIcons();
+  };
+  updateIcons();
+  window.addEventListener('DOMContentLoaded',function(){
+    updateIcons();
+    var sb=document.querySelector('.sb');
+    var overlay=document.querySelector('.sb-overlay');
+    var hamBtn=document.querySelector('.ham-btn');
+    if(!sb||!overlay||!hamBtn)return;
+    function openSb(){sb.classList.add('open');overlay.classList.add('open');}
+    function closeSb(){sb.classList.remove('open');overlay.classList.remove('open');}
+    hamBtn.addEventListener('click',function(){sb.classList.contains('open')?closeSb():openSb();});
+    overlay.addEventListener('click',closeSb);
+    document.querySelectorAll('.sb-nav a').forEach(function(a){a.addEventListener('click',closeSb);});
+  });
+})();
+</script>
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('../sw.js').catch(function(){});}
+</script>
+
+</body>
+</html>

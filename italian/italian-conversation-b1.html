@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italian Conversational Practice — B1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0f;
+    --surface: #161618;
+    --card: #1c1c1f;
+    --border: #2a2a2e;
+    --accent: #c8a96e;
+    --accent2: #6e9ec8;
+    --text: #e8e6e0;
+    --muted: #888;
+    --success: #5a9e6e;
+    --tag-bg: #232328;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  header {
+    padding: 60px 40px 36px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: 'B1';
+    position: absolute;
+    right: -10px;
+    top: -20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    font-weight: 700;
+    color: rgba(200,169,110,0.045);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .controls select, .controls input[type="text"] {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.83rem;
+    padding: 7px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color 0.2s;
+  }
+
+  .controls select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
+    min-width: 170px;
+  }
+
+  .controls input[type="text"] {
+    flex: 1;
+    min-width: 180px;
+    max-width: 300px;
+  }
+
+  .controls select:hover, .controls input:hover,
+  .controls select:focus, .controls input:focus {
+    border-color: var(--accent);
+    outline: none;
+  }
+
+  .controls label {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .toggle-btn:hover, .toggle-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .count-label {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+
+  .section-block {
+    margin-bottom: 56px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .section-heading .scount {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .copy-section-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .copy-section-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .copy-section-btn.copied { border-color: var(--success); color: var(--success); }
+
+  .sentence-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sentence-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 14px 18px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: background 0.15s;
+    position: relative;
+  }
+
+  .sentence-card:hover {
+    background: #202025;
+  }
+
+  .sentence-card .num {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    opacity: 0.5;
+    min-width: 24px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .sentence-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .italian {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .english {
+    font-size: 0.83rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .english.hidden {
+    filter: blur(5px);
+    user-select: none;
+    cursor: pointer;
+    transition: filter 0.2s;
+  }
+
+  .english.hidden:hover {
+    filter: blur(2px);
+  }
+
+  .english.revealed {
+    filter: none;
+    cursor: default;
+  }
+
+  .tag-pill {
+    font-size: 0.6rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: var(--tag-bg);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    header, .controls, main { padding-left: 20px; padding-right: 20px; }
+    .controls { gap: 8px; }
+    .count-label { margin-left: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Conversazione Italiana</h1>
+  <p>B1 Practice Sentences &mdash; Everyday Italian</p>
+</header>
+
+<div class="controls">
+  <label>Topic</label>
+  <select id="filter-topic">
+    <option value="all">All topics</option>
+  </select>
+  <input type="text" id="search" placeholder="Search Italian or English…">
+  <button class="toggle-btn" id="blur-toggle">Hide translations</button>
+  <span class="count-label" id="count-label"></span>
+</div>
+
+<main id="main"></main>
+
+<footer>Italian Conversational Practice &mdash; B1 Level</footer>
+
+<script>
+const data = [
+  {
+    topic: "Daily routines",
+    sentences: [
+      ["Di solito mi sveglio alle sette, ma il fine settimana dormo fino alle nove.", "I usually wake up at seven, but on weekends I sleep until nine."],
+      ["Faccio colazione velocemente perché devo prendere il treno delle otto.", "I have breakfast quickly because I have to catch the eight o'clock train."],
+      ["Ogni mattina leggo le notizie sul telefono mentre bevo il caffè.", "Every morning I read the news on my phone while I drink coffee."],
+      ["Di solito pranzo alla scrivania quando ho molto lavoro.", "I usually eat lunch at my desk when I have a lot of work."],
+      ["La sera mi rilasso guardando qualcosa in tv oppure leggendo un libro.", "In the evening I relax by watching something on TV or reading a book."],
+      ["Non riesco ad addormentarmi se non mi stanco abbastanza durante il giorno.", "I can't fall asleep if I haven't tired myself out enough during the day."],
+      ["Faccio la spesa due volte a settimana, di solito il martedì e il sabato.", "I do the shopping twice a week, usually on Tuesday and Saturday."],
+      ["Ho preso l'abitudine di camminare per almeno trenta minuti ogni giorno.", "I've got into the habit of walking for at least thirty minutes every day."],
+    ]
+  },
+  {
+    topic: "Work & study",
+    sentences: [
+      ["Lavoro da casa tre giorni a settimana e in ufficio gli altri due.", "I work from home three days a week and in the office the other two."],
+      ["Ho una riunione importante oggi pomeriggio e devo prepararmi.", "I have an important meeting this afternoon and I need to prepare."],
+      ["Sto cercando un nuovo lavoro da qualche mese ma non è facile.", "I've been looking for a new job for a few months but it isn't easy."],
+      ["Mi piacerebbe cambiare settore, ma ho paura di ricominciare da zero.", "I'd like to change sectors, but I'm afraid of starting from scratch."],
+      ["Ho mandato il curriculum a diverse aziende ma non ho ancora ricevuto risposta.", "I've sent my CV to several companies but haven't had a reply yet."],
+      ["Il mio capo mi ha chiesto di finire il progetto entro venerdì.", "My boss asked me to finish the project by Friday."],
+      ["Studio italiano da due anni e sento che sto facendo progressi.", "I've been studying Italian for two years and I feel I'm making progress."],
+      ["Devo passare un esame la prossima settimana, quindi sto studiando molto.", "I have an exam next week, so I'm studying a lot."],
+      ["Ho difficoltà con la grammatica, ma la pronuncia va abbastanza bene.", "I struggle with grammar, but my pronunciation is quite good."],
+      ["Il professore ci ha assegnato un compito per il giorno dopo.", "The teacher assigned us homework for the next day."],
+    ]
+  },
+  {
+    topic: "Food & restaurants",
+    sentences: [
+      ["Cosa mi consiglia? È la prima volta che vengo in questo ristorante.", "What do you recommend? It's my first time at this restaurant."],
+      ["Sono allergico alle noci, c'è qualcosa che posso mangiare senza problemi?", "I'm allergic to nuts — is there something I can eat without a problem?"],
+      ["Il risotto era buonissimo, ma il dolce era un po' troppo dolce per i miei gusti.", "The risotto was delicious, but the dessert was a bit too sweet for my taste."],
+      ["Possiamo avere il conto, per favore? Vorremmo pagare separatamente.", "Could we have the bill, please? We'd like to pay separately."],
+      ["Preferisco la cucina del sud Italia — mi piacciono i sapori forti.", "I prefer southern Italian cooking — I like strong flavours."],
+      ["Non mangio carne da tre anni, quindi cerco sempre ristoranti con opzioni vegetariane.", "I haven't eaten meat for three years, so I always look for restaurants with vegetarian options."],
+      ["Ho provato a fare la pasta fatta in casa, ma è venuta troppo spessa.", "I tried making homemade pasta, but it came out too thick."],
+      ["Stasera non ho voglia di cucinare — ordiniamo qualcosa?", "Tonight I don't feel like cooking — shall we order something?"],
+      ["Questo vino si abbina bene con il pesce che hai ordinato.", "This wine pairs well with the fish you ordered."],
+      ["Il servizio era lento, ma il cibo valeva l'attesa.", "The service was slow, but the food was worth the wait."],
+    ]
+  },
+  {
+    topic: "Travel & places",
+    sentences: [
+      ["Ho prenotato un appartamento vicino al centro storico per quattro notti.", "I booked an apartment near the old town for four nights."],
+      ["Il treno per Napoli è in ritardo di venti minuti a causa di un guasto tecnico.", "The train to Naples is twenty minutes late due to a technical fault."],
+      ["Puoi dirmi come si arriva alla stazione più vicina a piedi?", "Can you tell me how to get to the nearest station on foot?"],
+      ["Ho perso il portafoglio da qualche parte in centro — non so come fare.", "I've lost my wallet somewhere in the centre — I don't know what to do."],
+      ["La città è molto più grande di quello che pensavo, ci vogliono almeno tre giorni.", "The city is much bigger than I thought — you need at least three days."],
+      ["Preferirei evitare i posti troppo turistici e vedere qualcosa di più autentico.", "I'd rather avoid the very touristy places and see something more authentic."],
+      ["Siamo rimasti bloccati nel traffico per due ore, quindi abbiamo perso il volo.", "We were stuck in traffic for two hours, so we missed the flight."],
+      ["Mi piace viaggiare leggero — porto sempre solo il bagaglio a mano.", "I like travelling light — I always take only hand luggage."],
+      ["L'albergo era comodo ma rumoroso perché era vicino alla strada principale.", "The hotel was comfortable but noisy because it was near the main road."],
+      ["Quando viaggio, cerco sempre di parlare la lingua locale almeno un po'.", "When I travel, I always try to speak the local language at least a little."],
+      ["Hai già visitato la Sicilia? È assolutamente da non perdere.", "Have you visited Sicily yet? It's absolutely not to be missed."],
+    ]
+  },
+  {
+    topic: "Health & body",
+    sentences: [
+      ["Ho mal di testa da stamattina — forse ho dormito poco.", "I've had a headache since this morning — maybe I didn't sleep enough."],
+      ["Il medico mi ha detto di riposarmi e bere molta acqua.", "The doctor told me to rest and drink plenty of water."],
+      ["Ho preso un raffreddore e mi sento senza energie.", "I've caught a cold and I feel completely drained."],
+      ["Devo fissare una visita dal dentista — è un po' che non ci vado.", "I need to book an appointment at the dentist — it's been a while."],
+      ["Cerco di fare sport almeno tre volte a settimana per stare in forma.", "I try to do sport at least three times a week to stay in shape."],
+      ["Ultimamente mi stanco più in fretta del solito — forse è lo stress.", "Lately I get tired more quickly than usual — maybe it's the stress."],
+      ["Ho smesso di fumare sei mesi fa e mi sento già molto meglio.", "I stopped smoking six months ago and I already feel much better."],
+      ["Mi fa male la schiena da qualche giorno, probabilmente ho fatto uno sforzo.", "My back has been hurting for a few days — I probably overdid it."],
+    ]
+  },
+  {
+    topic: "Family & relationships",
+    sentences: [
+      ["Mia sorella si è sposata l'anno scorso e ora aspetta il primo figlio.", "My sister got married last year and is now expecting her first child."],
+      ["Vado a trovare i miei genitori una volta al mese, abitano a due ore da qui.", "I visit my parents once a month — they live two hours away."],
+      ["Mi sono trasferito in questa città per lavoro e all'inizio mi sentivo solo.", "I moved to this city for work and at first I felt lonely."],
+      ["Io e il mio compagno abitiamo insieme da tre anni e andiamo molto d'accordo.", "My partner and I have been living together for three years and we get on really well."],
+      ["Ho litigato con il mio migliore amico ma speriamo di risolvere la cosa presto.", "I had an argument with my best friend but we hope to sort things out soon."],
+      ["Mio nonno aveva novant'anni quando è venuto a mancare — ci manca tantissimo.", "My grandfather was ninety when he passed away — we miss him so much."],
+      ["I miei figli sono ancora piccoli, quindi le serate libere sono rare.", "My children are still young, so free evenings are rare."],
+      ["Ci siamo conosciuti per caso in treno — sembrava una scena di un film.", "We met by chance on the train — it felt like a scene from a film."],
+    ]
+  },
+  {
+    topic: "Opinions & preferences",
+    sentences: [
+      ["Secondo me, viaggiare è il modo migliore per imparare qualcosa di nuovo.", "In my opinion, travelling is the best way to learn something new."],
+      ["Non sono sicuro di essere d'accordo — mi sembra una soluzione troppo semplicistica.", "I'm not sure I agree — it seems too simplistic a solution to me."],
+      ["Hai ragione su molte cose, ma su questo punto la penso diversamente.", "You're right about many things, but on this point I think differently."],
+      ["Dipende dalla situazione — non si può generalizzare troppo.", "It depends on the situation — you can't generalise too much."],
+      ["Personalmente preferisco la qualità alla quantità, anche se costa di più.", "Personally I prefer quality over quantity, even if it costs more."],
+      ["Non mi piace per niente quel film — l'ho trovato noioso e troppo lungo.", "I don't like that film at all — I found it boring and too long."],
+      ["Trovo che sia importante ascoltare gli altri prima di esprimere la propria opinione.", "I think it's important to listen to others before expressing your own opinion."],
+      ["Non capisco come si possa vivere senza musica — per me è essenziale.", "I can't understand how people can live without music — for me it's essential."],
+      ["Dal mio punto di vista, lavorare troppo non porta a nulla di buono.", "From my point of view, working too much leads to nothing good."],
+    ]
+  },
+  {
+    topic: "Shopping & money",
+    sentences: [
+      ["Questo vestito mi piace molto ma è troppo caro per il mio budget.", "I really like this dress but it's too expensive for my budget."],
+      ["Ho comprato tutto online ultimamente perché è più comodo e spesso più economico.", "I've been buying everything online lately because it's more convenient and often cheaper."],
+      ["Mi hanno regalato un buono regalo ma non so ancora cosa comprare.", "I've been given a gift voucher but I don't know yet what to buy."],
+      ["Potrei avere lo scontrino? Ho bisogno di conservarlo per la garanzia.", "Could I have the receipt? I need to keep it for the warranty."],
+      ["Sto cercando di risparmiare di più, quindi sto limitando le spese superflue.", "I'm trying to save more, so I'm cutting back on unnecessary spending."],
+      ["Ho trovato le scarpe che cercavo in saldo — le ho pagate la metà.", "I found the shoes I was looking for in the sale — I paid half price."],
+      ["Devo cambiare dei soldi — c'è un cambio valuta qui vicino?", "I need to change some money — is there a currency exchange nearby?"],
+      ["Ho controllato il conto in banca e mi sembra che manchino dei soldi.", "I checked my bank account and it seems like some money is missing."],
+    ]
+  },
+  {
+    topic: "Weather & seasons",
+    sentences: [
+      ["In estate qui fa un caldo insopportabile — preferisco il nord.", "In summer it's unbearably hot here — I prefer the north."],
+      ["Hanno previsto temporali per questo fine settimana, forse dobbiamo rimandare.", "They've forecast storms for this weekend — maybe we should postpone."],
+      ["L'autunno è la mia stagione preferita — mi piacciono i colori e l'aria fresca.", "Autumn is my favourite season — I love the colours and the fresh air."],
+      ["Non mi aspettavo questo freddo a maggio — è insolito per questo periodo.", "I didn't expect this cold in May — it's unusual for this time of year."],
+      ["Ha nevicato tutta la notte e stamattina le strade erano bloccate.", "It snowed all night and this morning the roads were blocked."],
+      ["Con questo caldo non ho fame — bevo solo molta acqua e mangio frutta.", "In this heat I have no appetite — I just drink lots of water and eat fruit."],
+      ["Si dice che quest'estate sarà particolarmente secca a causa del clima.", "They say this summer will be particularly dry because of the climate."],
+    ]
+  },
+  {
+    topic: "Technology & media",
+    sentences: [
+      ["Passo troppo tempo sul telefono — sto cercando di ridurlo un po'.", "I spend too much time on my phone — I'm trying to cut back a bit."],
+      ["Ho visto una serie bellissima su una piattaforma di streaming — te la consiglio.", "I watched a great series on a streaming platform — I recommend it to you."],
+      ["Non riesco a capire come funziona questo programma, potresti aiutarmi?", "I can't work out how this programme works — could you help me?"],
+      ["Ho dimenticato la password ancora una volta — devo trovare un sistema migliore.", "I've forgotten my password again — I need to find a better system."],
+      ["Leggo ancora il giornale cartaceo la domenica mattina — è una piccola abitudine.", "I still read the paper copy of the newspaper on Sunday morning — it's a small habit."],
+      ["Preferisco i podcast alle notizie in tv — posso ascoltarli mentre cammino.", "I prefer podcasts to TV news — I can listen to them while I walk."],
+      ["Mio padre non vuole imparare ad usare lo smartphone — dice che è troppo complicato.", "My father refuses to learn to use a smartphone — he says it's too complicated."],
+      ["Ho ricevuto un'email sospetta — penso che sia phishing, quindi non l'ho aperta.", "I received a suspicious email — I think it's phishing, so I didn't open it."],
+    ]
+  },
+  {
+    topic: "Describing people & personality",
+    sentences: [
+      ["Il mio collega è molto competente ma a volte è difficile da gestire.", "My colleague is very competent but sometimes difficult to deal with."],
+      ["È una persona di cui mi fido ciecamente — non mi ha mai deluso.", "She's a person I trust completely — she's never let me down."],
+      ["Sembra timido all'inizio, ma quando lo conosci è molto divertente.", "He seems shy at first, but once you get to know him he's very funny."],
+      ["Ha un carattere forte, sa sempre quello che vuole e non ha paura di dirlo.", "She has a strong character — she always knows what she wants and isn't afraid to say it."],
+      ["È uno di quei tipi che non si lamentano mai anche quando le cose vanno male.", "He's one of those people who never complain even when things go badly."],
+      ["Mi ricorda molto mia madre — hanno lo stesso modo di affrontare i problemi.", "She reminds me a lot of my mother — they have the same way of dealing with problems."],
+      ["Trovo difficile lavorare con persone che non rispettano le scadenze.", "I find it hard to work with people who don't respect deadlines."],
+      ["È la persona più generosa che conosca — darebbe tutto agli altri.", "She's the most generous person I know — she'd give everything to others."],
+    ]
+  },
+  {
+    topic: "Making plans & arrangements",
+    sentences: [
+      ["Sei libero sabato sera? Pensavo di organizzare una cena a casa mia.", "Are you free Saturday evening? I was thinking of organising a dinner at mine."],
+      ["Purtroppo non posso venire — ho già un impegno che non riesco a spostare.", "Unfortunately I can't come — I already have a commitment I can't move."],
+      ["Che ne dici di vederci nel pomeriggio invece che la mattina?", "How about meeting in the afternoon instead of the morning?"],
+      ["Ci vediamo alle sei davanti alla stazione, va bene per te?", "Let's meet at six outside the station — does that work for you?"],
+      ["Non ho ancora deciso dove andare in vacanza quest'estate — ci stai pensando anche tu?", "I haven't decided yet where to go on holiday this summer — are you thinking about it too?"],
+      ["Potremmo andare al cinema venerdì — c'è un film che voglio vedere da un po'.", "We could go to the cinema on Friday — there's a film I've been wanting to see for a while."],
+      ["Fammi sapere appena sai se puoi — devo confermare il numero di persone.", "Let me know as soon as you know if you can make it — I need to confirm the number of people."],
+      ["Sarebbe bello organizzare qualcosa per il compleanno di Marco — hai idee?", "It would be great to organise something for Marco's birthday — do you have any ideas?"],
+    ]
+  },
+  {
+    topic: "Feelings & emotions",
+    sentences: [
+      ["Mi sento un po' giù ultimamente, non so bene perché.", "I've been feeling a bit down lately, I'm not really sure why."],
+      ["Sono entusiasta di questo nuovo progetto — è proprio quello che cercavo.", "I'm really excited about this new project — it's exactly what I was looking for."],
+      ["Mi ha fatto molto piacere rivederti dopo così tanto tempo.", "It was really lovely to see you again after such a long time."],
+      ["Sono rimasto deluso dal risultato — mi aspettavo di meglio.", "I was disappointed by the result — I expected better."],
+      ["Non riesco a smettere di preoccuparmi per quella situazione al lavoro.", "I can't stop worrying about that situation at work."],
+      ["Mi ha fatto ridere tantissimo — non ridevo così da mesi.", "It made me laugh so much — I hadn't laughed like that in months."],
+      ["Sono orgoglioso di quello che abbiamo fatto insieme, è stato un lavoro di squadra.", "I'm proud of what we achieved together — it was real teamwork."],
+      ["Ogni tanto mi manca la mia città natale, anche se qui sto bene.", "Sometimes I miss my home city, even though I'm happy here."],
+      ["Mi sento in colpa per non aver chiamato prima — avrei dovuto farlo.", "I feel guilty for not calling sooner — I should have."],
+    ]
+  },
+  {
+    topic: "Asking for help & clarification",
+    sentences: [
+      ["Scusa, non ho capito bene — potresti ripetere più lentamente?", "Sorry, I didn't quite understand — could you repeat that more slowly?"],
+      ["Cosa vuol dire 'accidenti'? Non l'ho mai sentita prima.", "What does 'accidenti' mean? I've never heard it before."],
+      ["Potresti spiegarmi come funziona? Non sono sicuro di aver capito.", "Could you explain to me how it works? I'm not sure I understood."],
+      ["Mi potresti aiutare con questo? Non me la cavo molto bene con i computer.", "Could you help me with this? I'm not very good with computers."],
+      ["Hai detto 'giovedì' o 'venerdì'? Voglio essere sicuro di non confondermi.", "Did you say 'Thursday' or 'Friday'? I want to make sure I don't mix it up."],
+      ["Non capisco questa parte del contratto — potresti darmi una mano?", "I don't understand this part of the contract — could you give me a hand?"],
+      ["Sai per caso dove si trova la farmacia più vicina?", "Do you happen to know where the nearest pharmacy is?"],
+      ["Potresti darmi un consiglio? Sono in una situazione un po' difficile.", "Could you give me some advice? I'm in a bit of a tricky situation."],
+    ]
+  },
+  {
+    topic: "Past experiences",
+    sentences: [
+      ["L'anno scorso ho fatto un corso di cucina e mi è piaciuto moltissimo.", "Last year I did a cooking course and I loved it."],
+      ["Quando ero piccolo abitavamo in campagna — era una vita completamente diversa.", "When I was young we lived in the countryside — it was a completely different life."],
+      ["Ho vissuto all'estero per due anni e quella esperienza mi ha cambiato.", "I lived abroad for two years and that experience changed me."],
+      ["Non dimenticherò mai quel viaggio — è stato uno dei momenti più belli della mia vita.", "I'll never forget that trip — it was one of the most beautiful moments of my life."],
+      ["Ho sbagliato scelta, ma almeno ho imparato qualcosa di importante da quell'errore.", "I made the wrong choice, but at least I learned something important from that mistake."],
+      ["Avevo smesso di suonare la chitarra per anni, poi l'ho ripreso durante il lockdown.", "I had stopped playing the guitar for years, then I picked it back up during lockdown."],
+      ["Quando ho iniziato questo lavoro, non sapevo quasi niente del settore.", "When I started this job, I knew almost nothing about the sector."],
+      ["Siamo andati a Venezia il giorno del Carnevale — era pieno di gente ma straordinario.", "We went to Venice on the day of Carnival — it was packed but extraordinary."],
+    ]
+  },
+  {
+    topic: "Future plans & ambitions",
+    sentences: [
+      ["L'anno prossimo vorrei finalmente imparare a nuotare — è una cosa che rimando da sempre.", "Next year I'd really like to finally learn to swim — it's something I've always put off."],
+      ["Penso di trasferirmi in una città più grande nei prossimi anni.", "I'm thinking of moving to a bigger city in the next few years."],
+      ["Se tutto va bene, a ottobre mi laureo e poi cercherò un lavoro nel mio campo.", "If all goes well, I graduate in October and then I'll look for a job in my field."],
+      ["Sogno di aprire un piccolo locale tutto mio un giorno — chissà.", "I dream of opening a small place of my own one day — who knows."],
+      ["Sto risparmiando per comprare casa, ma i prezzi sono alle stelle.", "I'm saving up to buy a home, but prices are sky-high."],
+      ["Spero che la situazione migliori presto — non si può andare avanti così.", "I hope the situation improves soon — things can't go on like this."],
+      ["Ho intenzione di iscrivermi a un corso di italiano più avanzato il prossimo semestre.", "I intend to sign up for a more advanced Italian course next semester."],
+      ["Tra qualche anno mi piacerebbe abitare vicino al mare, se riesco.", "In a few years I'd like to live by the sea, if I can manage it."],
+    ]
+  },
+  {
+    topic: "Agreeing, disagreeing & discussing",
+    sentences: [
+      ["Sono completamente d'accordo con te su questo — hai colto il punto.", "I completely agree with you on this — you've hit the nail on the head."],
+      ["In parte sì, ma non dimentichiamo che ci sono anche altri aspetti da considerare.", "Partly yes, but let's not forget there are other aspects to consider too."],
+      ["Non riesco a capire il tuo ragionamento — puoi spiegarmi meglio?", "I can't follow your reasoning — can you explain it to me better?"],
+      ["Capisco il tuo punto di vista, ma per me la situazione è diversa.", "I understand your point of view, but for me the situation is different."],
+      ["È una questione complicata — non penso ci sia una risposta semplice.", "It's a complicated issue — I don't think there's a simple answer."],
+      ["Devo dire che hai ragione — non avevo considerato questa possibilità.", "I have to say you're right — I hadn't considered that possibility."],
+      ["Mi sembra che tu stia esagerando un po' — le cose non stanno proprio così.", "I think you might be exaggerating a little — things aren't quite like that."],
+      ["Preferirei non parlare di politica adesso — è un argomento troppo divisivo.", "I'd rather not talk about politics now — it's too divisive a topic."],
+    ]
+  },
+  {
+    topic: "Giving & receiving news",
+    sentences: [
+      ["Hai sentito? Marco e Laura si sono separati dopo dieci anni insieme.", "Have you heard? Marco and Laura have separated after ten years together."],
+      ["Non ci posso credere — non sembrava che avessero problemi.", "I can't believe it — they didn't seem to have any problems."],
+      ["Ti volevo dire una cosa — ho ricevuto una buona notizia stamattina.", "I wanted to tell you something — I received some good news this morning."],
+      ["Mi hanno offerto quel lavoro che stavo aspettando da mesi.", "I've been offered that job I've been waiting for for months."],
+      ["Purtroppo ho una brutta notizia — mia zia è finita in ospedale.", "Unfortunately I have some bad news — my aunt has ended up in hospital."],
+      ["Non preoccuparti troppo — di solito queste cose si risolvono.", "Don't worry too much — these things usually sort themselves out."],
+      ["Davvero? Non sapevo — nessuno me lo aveva detto.", "Really? I didn't know — nobody had told me."],
+      ["Speriamo che le cose migliorino presto — tienimi aggiornato.", "Let's hope things improve soon — keep me posted."],
+    ]
+  },
+  {
+    topic: "Housing & neighbourhood",
+    sentences: [
+      ["Sto cercando casa da due mesi ma gli affitti in questa zona sono altissimi.", "I've been looking for a flat for two months but the rents in this area are very high."],
+      ["Ho trovato un bilocale carino non troppo lontano dal centro — penso di prenderlo.", "I've found a nice one-bedroom flat not too far from the centre — I think I'll take it."],
+      ["Il mio vicino fa rumore fino a tarda notte — non so come dirgli qualcosa.", "My neighbour makes noise until late at night — I don't know how to say something to him."],
+      ["Il quartiere dove abito è tranquillo e c'è tutto quello che serve a pochi passi.", "The neighbourhood where I live is quiet and there's everything you need within walking distance."],
+      ["L'appartamento è bello ma non ha abbastanza luce naturale.", "The flat is nice but doesn't get enough natural light."],
+      ["Stiamo pensando di ristrutturare il bagno — è rimasto uguale da vent'anni.", "We're thinking of renovating the bathroom — it's been the same for twenty years."],
+      ["Il riscaldamento non funziona bene da settimane e il proprietario non risponde.", "The heating hasn't been working properly for weeks and the landlord isn't responding."],
+    ]
+  },
+  {
+    topic: "Sports & hobbies",
+    sentences: [
+      ["Ho iniziato a giocare a tennis l'anno scorso e sono già dipendente.", "I started playing tennis last year and I'm already addicted."],
+      ["Vado in palestra tre volte a settimana, ma odio il cardio — preferisco i pesi.", "I go to the gym three times a week, but I hate cardio — I prefer weights."],
+      ["Mi piace molto leggere, soprattutto romanzi storici e libri di viaggio.", "I really enjoy reading, especially historical novels and travel books."],
+      ["Ho smesso di giocare a calcio per un infortunio al ginocchio e non sono ancora tornato.", "I stopped playing football because of a knee injury and haven't gone back yet."],
+      ["Dipingo nel tempo libero — non sono bravo, ma mi aiuta a rilassarmi.", "I paint in my spare time — I'm not good, but it helps me relax."],
+      ["Mio figlio vuole imparare a suonare la batteria — sono un po' preoccupato per i vicini.", "My son wants to learn to play the drums — I'm a bit worried about the neighbours."],
+      ["La domenica andiamo spesso in bicicletta lungo il fiume con tutta la famiglia.", "On Sundays we often cycle along the river as a whole family."],
+    ]
+  },
+  {
+    topic: "Comparing & contrasting",
+    sentences: [
+      ["Questa versione è molto migliore di quella vecchia — hanno risolto tutti i problemi.", "This version is much better than the old one — they've fixed all the problems."],
+      ["Tra i due appartamenti, preferisco il secondo, anche se è un po' più piccolo.", "Between the two flats, I prefer the second one, even if it's a bit smaller."],
+      ["Vivere in città è più comodo ma anche più stressante rispetto alla campagna.", "Living in the city is more convenient but also more stressful than the countryside."],
+      ["Il film era diverso da come me l'aspettavo — non nel senso migliore.", "The film was different from how I expected — not in the best sense."],
+      ["Il prezzo è lo stesso, ma la qualità di questo prodotto è nettamente superiore.", "The price is the same, but the quality of this product is clearly superior."],
+      ["Non è tanto una questione di soldi, quanto di tempo libero.", "It's not so much a question of money as of free time."],
+      ["Rispetto all'anno scorso, le cose sono cambiate molto in meglio.", "Compared to last year, things have changed a lot for the better."],
+    ]
+  },
+  {
+    topic: "Apologising & making excuses",
+    sentences: [
+      ["Mi dispiace molto per il ritardo — ho avuto un problema in macchina.", "I'm really sorry for being late — I had a problem with the car."],
+      ["Scusa se non ti ho risposto prima — ero completamente sopraffatto dal lavoro.", "Sorry for not replying sooner — I was completely overwhelmed with work."],
+      ["Non era mia intenzione offenderti — mi sono espresso male.", "It wasn't my intention to offend you — I expressed myself badly."],
+      ["Ho dimenticato il nostro appuntamento — non ho scuse, mi dispiace davvero.", "I forgot our appointment — I have no excuse, I'm really sorry."],
+      ["Non avevo capito che fosse così importante per te — avrei fatto diversamente.", "I hadn't realised it was that important to you — I would have done things differently."],
+      ["Capisco che tu sia arrabbiato — ci mancherebbe, hai tutte le ragioni.", "I understand you're angry — of course, you have every right to be."],
+    ]
+  },
+  {
+    topic: "Describing experiences & sensations",
+    sentences: [
+      ["È stata un'esperienza che non mi aspettavo — mi ha completamente sorpreso.", "It was an experience I wasn't expecting — it completely surprised me."],
+      ["Quel posto ha qualcosa di speciale — difficile da spiegare, ma si sente nell'aria.", "That place has something special about it — hard to explain, but you can feel it."],
+      ["Il concerto è stato straordinario — l'atmosfera era qualcosa che non dimenticherò.", "The concert was extraordinary — the atmosphere was something I won't forget."],
+      ["Ho provato un piatto piccantissimo e mi è bruciata la bocca per un'ora intera.", "I tried an incredibly spicy dish and my mouth was burning for a whole hour."],
+      ["Camminare in montagna mi dà una sensazione di libertà che non trovo altrove.", "Walking in the mountains gives me a sense of freedom I don't find anywhere else."],
+      ["Quando ho saputo che avevo passato l'esame, ero così sollevato che quasi piangevo.", "When I found out I'd passed the exam, I was so relieved I almost cried."],
+    ]
+  },
+];
+
+let blurMode = false;
+let currentTopic = 'all';
+let searchQuery = '';
+
+function buildPage() {
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+
+  let visibleCount = 0;
+  let hasAny = false;
+
+  data.forEach(section => {
+    if (currentTopic !== 'all' && section.topic !== currentTopic) return;
+
+    const filtered = section.sentences.filter(([it, en]) => {
+      if (!searchQuery) return true;
+      const q = searchQuery.toLowerCase();
+      return it.toLowerCase().includes(q) || en.toLowerCase().includes(q);
+    });
+
+    if (filtered.length === 0) return;
+    hasAny = true;
+    visibleCount += filtered.length;
+
+    const block = document.createElement('div');
+    block.className = 'section-block';
+
+    const heading = document.createElement('div');
+    heading.className = 'section-heading';
+    heading.innerHTML = `
+      <h2>${section.topic}</h2>
+      <span class="scount">${filtered.length}</span>
+      <button class="copy-section-btn" data-topic="${section.topic}">Copy</button>
+    `;
+    heading.querySelector('.copy-section-btn').addEventListener('click', function() {
+      const text = section.topic + '\n\n' + filtered.map(([it,en],i) => `${i+1}. ${it}\n   ${en}`).join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        this.textContent = 'Copied!';
+        this.classList.add('copied');
+        setTimeout(() => { this.textContent = 'Copy'; this.classList.remove('copied'); }, 2000);
+      });
+    });
+
+    const list = document.createElement('div');
+    list.className = 'sentence-list';
+
+    filtered.forEach(([it, en], i) => {
+      const card = document.createElement('div');
+      card.className = 'sentence-card';
+
+      const enClass = blurMode ? 'english hidden' : 'english revealed';
+      card.innerHTML = `
+        <span class="num">${i + 1}</span>
+        <div class="sentence-content">
+          <span class="italian">${it}</span>
+          <span class="${enClass}">${en}</span>
+        </div>
+        <span class="tag-pill">${section.topic}</span>
+      `;
+
+      if (blurMode) {
+        const enEl = card.querySelector('.english');
+        enEl.addEventListener('click', () => {
+          enEl.classList.remove('hidden');
+          enEl.classList.add('revealed');
+        });
+      }
+
+      list.appendChild(card);
+    });
+
+    block.appendChild(heading);
+    block.appendChild(list);
+    main.appendChild(block);
+  });
+
+  if (!hasAny) {
+    main.innerHTML = '<div class="empty-state">No sentences match your search.</div>';
+  }
+
+  document.getElementById('count-label').textContent = `${visibleCount} sentence${visibleCount !== 1 ? 's' : ''}`;
+}
+
+// Populate topic dropdown
+const topicSelect = document.getElementById('filter-topic');
+data.forEach(s => {
+  const opt = document.createElement('option');
+  opt.value = s.topic;
+  opt.textContent = s.topic;
+  topicSelect.appendChild(opt);
+});
+
+topicSelect.addEventListener('change', () => {
+  currentTopic = topicSelect.value;
+  buildPage();
+});
+
+document.getElementById('search').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  buildPage();
+});
+
+document.getElementById('blur-toggle').addEventListener('click', function() {
+  blurMode = !blurMode;
+  this.textContent = blurMode ? 'Show translations' : 'Hide translations';
+  this.classList.toggle('active', blurMode);
+  buildPage();
+});
+
+buildPage();
+</script>
+</body>
+</html>

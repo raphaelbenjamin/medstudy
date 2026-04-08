@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Grammatica Italiana — Italian — Study Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0c0c0e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<style>
+/* ── Site layout tokens ── */
+:root{
+  --bg:#0c0c0e;--bg-card:#141417;--bg-hover:#1b1b1f;
+  --bg-overlay:rgba(0,0,0,.65);
+  --border:#22222a;--border-sub:#1a1a22;
+  --text-1:#f0f0f4;--text-2:#8a8a96;--text-3:#50505c;
+  --shadow:0 4px 24px rgba(0,0,0,.45);--shadow-sm:0 2px 10px rgba(0,0,0,.35);
+  --r:14px;--r-sm:9px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+}
+[data-theme="light"]{
+  --bg:#f5f5f7;--bg-card:#fff;--bg-hover:#eaeaee;
+  --bg-overlay:rgba(0,0,0,.35);
+  --border:#dddde8;--border-sub:#e8e8f0;
+  --text-1:#111118;--text-2:#55555e;--text-3:#9090a0;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-1);font-family:var(--font);
+     line-height:1.65;-webkit-font-smoothing:antialiased;
+     transition:background .2s,color .2s;margin:0}
+a{color:inherit;text-decoration:none}
+
+/* ── Sidebar ── */
+.sb{width:210px;flex-shrink:0;padding:28px 12px 32px 18px;
+  border-right:1px solid var(--border-sub);position:sticky;top:0;
+  height:100vh;overflow-y:auto;background:var(--bg);
+  display:flex;flex-direction:column;gap:0;
+  transition:transform .25s ease,background .2s;z-index:100}
+.sb-logo{width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.8rem;color:#fff;margin-bottom:24px;flex-shrink:0}
+.sb-logo:hover{opacity:.85}
+.sb-label{font-size:.65rem;font-weight:600;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.12em;padding:0 10px;margin-bottom:4px;display:block}
+.sb-nav{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:16px}
+.sb-nav a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r-sm);
+  font-size:.9rem;color:var(--text-2);transition:background .12s,color .12s}
+.sb-nav a:hover{background:var(--bg-hover);color:var(--text-1)}
+.sb-nav a.active{color:var(--text-1);background:var(--bg-hover);font-weight:500}
+.sb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--text-3);transition:background .12s}
+.sb-nav a.active .sb-dot,.sb-nav a:hover .sb-dot{background:currentColor}
+.sb-spacer{flex:1}
+.sb-theme{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r-sm);
+  font-size:.85rem;color:var(--text-2);cursor:pointer;background:none;border:none;
+  font-family:var(--font);width:100%;transition:background .12s,color .12s}
+.sb-theme:hover{background:var(--bg-hover);color:var(--text-1)}
+.sb-theme-icon{font-size:1rem;line-height:1;width:18px;text-align:center}
+.sb-overlay{display:none;position:fixed;inset:0;background:var(--bg-overlay);z-index:90;
+  opacity:0;pointer-events:none;transition:opacity .25s}
+.sb-overlay.open{opacity:1;pointer-events:all}
+.mob-header{display:none;position:sticky;top:0;z-index:80;height:52px;padding:0 16px;
+  background:var(--bg);border-bottom:1px solid var(--border-sub);
+  align-items:center;justify-content:space-between;transition:background .2s}
+.mob-logo{width:28px;height:28px;border-radius:7px;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.75rem;color:#fff}
+.mob-right{display:flex;align-items:center;gap:8px}
+.mob-theme-btn,.ham-btn{width:34px;height:34px;border-radius:var(--r-sm);
+  background:var(--bg-card);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:.9rem;transition:background .12s,border-color .12s}
+.mob-theme-btn:hover,.ham-btn:hover{background:var(--bg-hover)}
+.layout{display:flex;min-height:100vh}
+.main{flex:1;min-width:0;padding:0}
+@media(max-width:820px){
+  .sb{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sb.open{transform:translateX(0)}
+  .sb-overlay{display:block}
+  .mob-header{display:flex}
+  .layout{flex-direction:column}
+}
+@media(min-width:821px){
+  .mob-header{display:none}
+  .sb-overlay{display:none !important}
+}
+
+/* ── Grammar app overrides for dark/light mode ── */
+[data-theme="light"] .grammar-wrap{
+  --gm-bg:#f5f5f7;--gm-surface:#eaeaee;--gm-card:#ffffff;
+  --gm-border:#dddde8;--gm-text:#111118;--gm-muted:#55555e;
+  --gm-accent:#9a6b20;
+}
+[data-theme="dark"] .grammar-wrap,
+.grammar-wrap{
+  --gm-bg:#0c0c0e;--gm-surface:#161618;--gm-card:#1c1c1f;
+  --gm-border:#2a2a2e;--gm-text:#e8e6e0;--gm-muted:#888;
+  --gm-accent:#c8a96e;
+}
+</style>
+
+
+<style>
+.grammar-wrap *{box-sizing:border-box}
+.grammar-wrap{
+  background:var(--gm-bg);
+  color:var(--gm-text);
+  font-family:'Lato',sans-serif;
+  font-weight:300;
+  line-height:1.6;
+  min-height:100vh;
+  transition:background .2s,color .2s;
+}
+.grammar-wrap .g-header{
+  padding:60px 40px 40px;
+  border-bottom:1px solid var(--gm-border);
+  position:relative;overflow:hidden;
+  background:var(--gm-bg);
+}
+.grammar-wrap .g-header::before{
+  content:'IT';position:absolute;right:-20px;top:-30px;
+  font-family:'Playfair Display',serif;font-size:220px;font-weight:700;
+  color:rgba(200,169,110,0.04);line-height:1;pointer-events:none;user-select:none;
+}
+.grammar-wrap .g-header h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,3.5rem);font-weight:400;
+  letter-spacing:-0.02em;color:var(--gm-accent);margin-bottom:8px;
+}
+.grammar-wrap .g-header p{
+  color:var(--gm-muted);font-size:0.95rem;
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+.grammar-wrap .g-jumper{
+  padding:14px 40px;border-bottom:1px solid var(--gm-border);
+  background:var(--gm-surface);position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;gap:12px;
+}
+.grammar-wrap .g-jumper-label{
+  font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--gm-muted);white-space:nowrap;flex-shrink:0;
+}
+.grammar-wrap .g-jumper select{
+  background:var(--gm-card);color:var(--gm-text);
+  border:1px solid var(--gm-border);
+  font-family:'Lato',sans-serif;font-size:0.85rem;
+  padding:7px 32px 7px 12px;border-radius:2px;cursor:pointer;
+  flex:1;max-width:480px;appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;
+  transition:border-color .2s;
+}
+.grammar-wrap .g-jumper select:hover,.grammar-wrap .g-jumper select:focus{
+  border-color:var(--gm-accent);outline:none;
+}
+.grammar-wrap .g-main{
+  max-width:1100px;margin:0 auto;padding:60px 40px;
+  display:flex;flex-direction:column;gap:60px;
+}
+.grammar-wrap section{
+  animation:gFadeIn .5s ease forwards;opacity:0;
+}
+@keyframes gFadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.grammar-wrap section:nth-child(1){animation-delay:.05s}
+.grammar-wrap section:nth-child(2){animation-delay:.10s}
+.grammar-wrap section:nth-child(3){animation-delay:.15s}
+.grammar-wrap section:nth-child(4){animation-delay:.20s}
+.grammar-wrap section:nth-child(5){animation-delay:.25s}
+.grammar-wrap section:nth-child(6){animation-delay:.30s}
+.grammar-wrap section:nth-child(7){animation-delay:.35s}
+.grammar-wrap section:nth-child(8){animation-delay:.40s}
+.grammar-wrap section:nth-child(9){animation-delay:.45s}
+.grammar-wrap section:nth-child(10){animation-delay:.50s}
+.grammar-wrap section:nth-child(n+11){animation-delay:.55s}
+
+.grammar-wrap .sec-header{
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:20px;gap:16px;flex-wrap:wrap;
+}
+.grammar-wrap .sec-title{display:flex;align-items:baseline;gap:14px}
+.grammar-wrap .sec-num{
+  font-family:'Source Code Pro',monospace;font-size:0.7rem;
+  color:var(--gm-accent);letter-spacing:0.1em;opacity:.7;
+}
+.grammar-wrap h2{
+  font-family:'Playfair Display',serif;font-size:1.4rem;
+  font-weight:400;color:var(--gm-text);letter-spacing:-0.01em;
+}
+.grammar-wrap .copy-btn{
+  background:transparent;border:1px solid var(--gm-border);
+  color:var(--gm-muted);font-family:'Lato',sans-serif;
+  font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;
+  padding:6px 14px;cursor:pointer;border-radius:2px;
+  transition:all .2s;white-space:nowrap;flex-shrink:0;
+}
+.grammar-wrap .copy-btn:hover{border-color:var(--gm-accent);color:var(--gm-accent)}
+.grammar-wrap .copy-btn.copied{border-color:#5a9e6e;color:#5a9e6e}
+.grammar-wrap table{
+  width:100%;border-collapse:collapse;
+  background:var(--gm-card);border:1px solid var(--gm-border);
+}
+.grammar-wrap thead tr{background:var(--gm-surface)}
+.grammar-wrap th{
+  padding:12px 18px;text-align:left;font-size:.7rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gm-muted);font-weight:400;
+  border-bottom:1px solid var(--gm-border);
+}
+.grammar-wrap th:first-child{width:44px;text-align:center}
+.grammar-wrap td{
+  padding:13px 18px;border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:.9rem;vertical-align:top;
+}
+[data-theme="light"] .grammar-wrap td{border-bottom:1px solid rgba(0,0,0,0.05)}
+.grammar-wrap td:first-child{
+  font-family:'Source Code Pro',monospace;font-size:.7rem;
+  color:var(--gm-accent);opacity:.5;text-align:center;width:44px;
+}
+.grammar-wrap td:nth-child(2){font-weight:400;color:var(--gm-text)}
+.grammar-wrap td:nth-child(3){color:var(--gm-muted);font-style:italic;font-size:.85rem}
+.grammar-wrap tr:last-child td{border-bottom:none}
+.grammar-wrap tr:hover{background:rgba(200,169,110,0.04)}
+.grammar-wrap .count-badge{
+  font-family:'Source Code Pro',monospace;font-size:.65rem;
+  color:var(--gm-muted);background:var(--gm-surface);
+  border:1px solid var(--gm-border);padding:2px 8px;
+  border-radius:10px;margin-left:8px;vertical-align:middle;
+}
+.grammar-wrap .g-footer{
+  text-align:center;padding:40px;color:var(--gm-muted);
+  font-size:.75rem;letter-spacing:.08em;
+  border-top:1px solid var(--gm-border);
+  background:var(--gm-bg);
+}
+@media(max-width:600px){
+  .grammar-wrap .g-header,.grammar-wrap .g-jumper,.grammar-wrap .g-main{padding-left:20px;padding-right:20px}
+  .grammar-wrap h2{font-size:1.2rem}
+  .grammar-wrap td{padding:10px 12px;font-size:.82rem}
+}
+</style>
+
+</head>
+<body>
+
+<div class="sb-overlay"></div>
+<header class="mob-header">
+  <a class="mob-logo" href="../index.html">B</a>
+  <div class="mob-right">
+    <button class="mob-theme-btn" onclick="toggleTheme()"><span class="mob-theme-icon">☀</span></button>
+    <button class="ham-btn">☰</button>
+  </div>
+</header>
+<div class="layout">
+<aside class="sb">
+  <a class="sb-logo" href="../index.html">B</a>
+  <span class="sb-label">Subjects</span>
+  <ul class="sb-nav">
+    <li><a href="../anatomy/index.html"><span class="sb-dot"></span>Anatomy</a></li>
+    <li><a href="../microbiology/index.html"><span class="sb-dot"></span>Microbiology</a></li>
+    <li><a href="../hebrew/index.html"><span class="sb-dot"></span>Hebrew</a></li>
+    <li><a href="../italian/index.html" class="active"><span class="sb-dot" style="background:#5b8fd9"></span>Italian</a></li>
+  </ul>
+  <div class="sb-spacer"></div>
+  <button class="sb-theme" onclick="toggleTheme()">
+    <span class="sb-theme-icon">☀</span><span>Toggle theme</span>
+  </button>
+</aside>
+<main class="main">
+
+
+<div class="grammar-wrap">
+<div class="g-header">
+  <h1>Grammatica Italiana</h1>
+  <p>Grammar Reference &mdash; 22 Topics</p>
+</div>
+<div class="g-jumper">
+  <span class="g-jumper-label">Jump to</span>
+  <select id="gnav" onchange="if(this.value){document.getElementById(this.value).scrollIntoView({behavior:'smooth'});this.value=''}">
+    <option value="">— Select a topic —</option>
+  </select>
+</div>
+<div class="g-main" id="g-main"></div>
+<div class="g-footer">Grammatica Italiana &mdash; Reference Guide</div>
+</div>
+
+</main>
+</div>
+
+<script>
+const gsections = [
+  {title:"Subject-verb agreement",rows:[["Io mangio la pasta ogni giorno.","I eat pasta every day."],["Tu parli molto bene.","You speak very well."],["Lei lavora in banca.","She works in a bank."],["Noi andiamo al mare d'estate.","We go to the sea in summer."],["Voi capite quello che dico?","Do you all understand what I'm saying?"],["Loro abitano fuori città.","They live outside the city."],["Io non capisco il problema.","I don't understand the problem."],["Tu esci spesso la sera?","Do you go out often in the evening?"]]},
+  {title:"Articles: definite & indefinite",rows:[["Il cane è in giardino.","The dog is in the garden."],["Lo zaino è pesante.","The backpack is heavy."],["La finestra è aperta.","The window is open."],["Gli amici vengono stasera.","The friends are coming tonight."],["Ho comprato un libro interessante.","I bought an interesting book."],["C'è una borsa sul tavolo.","There's a bag on the table."],["Ho visto un'aquila in montagna.","I saw an eagle in the mountains."],["I prezzi sono aumentati.","Prices have gone up."]]},
+  {title:"Present tense: essere vs avere",rows:[["Sono stanco dopo il lavoro.","I'm tired after work."],["Ho trent'anni.","I'm thirty years old."],["Sei di Roma?","Are you from Rome?"],["Abbiamo fame.","We're hungry."],["Il treno è già partito.","The train has already left."],["Ho mangiato troppo.","I ate too much."],["Hai paura del buio?","Are you afraid of the dark?"],["Dov'è la stazione?","Where is the station?"]]},
+  {title:"Passato prossimo (perfect past)",rows:[["Ho visto un bel film ieri sera.","I saw a good film last night."],["Sono andato al supermercato stamattina.","I went to the supermarket this morning."],["Siamo arrivati in ritardo.","We arrived late."],["Ha telefonato il tuo capo.","Your boss called."],["Ti sei divertita?","Did you have fun? (fem.)"],["Non ho dormito bene.","I didn't sleep well."],["Quanto tempo sei rimasto?","How long did you stay?"],["Ci siamo conosciuti a Napoli.","We met each other in Naples."]]},
+  {title:"Imperfetto (imperfect)",rows:[["Da bambino andavo al mare ogni estate.","As a child I went to the sea every summer."],["Stavo leggendo quando è arrivato.","I was reading when he arrived."],["Prima lavorava in banca, poi ha cambiato lavoro.","Before she worked in a bank, then she changed jobs."],["Quando abitavo a Milano, prendevo il tram.","When I lived in Milan, I used to take the tram."],["Eri stanco ieri?","Were you tired yesterday?"],["Il cielo era nuvoloso ma non pioveva.","The sky was cloudy but it wasn't raining."]]},
+  {title:"Direct & indirect object pronouns",rows:[["Lo conosco da anni.","I've known him for years."],["Le ho mandato un messaggio.","I sent her a message."],["Non li ho ancora visti.","I haven't seen them yet."],["Mi puoi aiutare?","Can you help me?"],["Te lo dico subito.","I'll tell you right away."],["Gliel'ho detto ieri.","I told him/her it yesterday."],["Ce la mandi via email?","Can you send it to us by email?"],["Non mi ricordo il suo nome.","I don't remember his/her name."]]},
+  {title:"Reflexive verbs",rows:[["Mi sveglio sempre alle sette.","I always wake up at seven."],["Si è vestita in fretta.","She got dressed quickly."],["Come ti chiami?","What's your name?"],["Ci siamo innamorati a prima vista.","We fell in love at first sight."],["Non si parla così con me.","You don't talk to me like that."],["Vi divertite stasera?","Are you all having fun tonight?"],["Si vende casa in questa via.","A house is for sale on this street."]]},
+  {title:"Congiuntivo (subjunctive)",rows:[["Spero che tu stia bene.","I hope you're doing well."],["È importante che arriviate in orario.","It's important that you arrive on time."],["Non credo che sia giusto.","I don't think it's right."],["Sebbene sia tardi, resto ancora un po'.","Although it's late, I'll stay a bit longer."],["Cerco qualcuno che parli giapponese.","I'm looking for someone who speaks Japanese."],["Mi fa piacere che siate qui.","I'm glad you're here."],["Prima che parta, dimmi la verità.","Before you leave, tell me the truth."]]},
+  {title:"Condizionale (conditional)",rows:[["Vorrei un caffè, per favore.","I'd like a coffee, please."],["Potrebbe ripetere, per piacere?","Could you repeat that, please?"],["Se potessi, vivrei all'estero.","If I could, I'd live abroad."],["Dovresti chiamarlo tu.","You should call him."],["Al tuo posto non lo farei.","In your place I wouldn't do it."],["Secondo il giornale ci sarebbe uno sciopero.","According to the newspaper there would be a strike."]]},
+  {title:"Modal verbs: volere, potere, dovere",rows:[["Devo partire domani mattina.","I have to leave tomorrow morning."],["Puoi venire con noi stasera?","Can you come with us tonight?"],["Vuole parlare con il direttore.","He wants to speak with the director."],["Non ho potuto dormire.","I couldn't sleep."],["Sei dovuto andare dal medico?","Did you have to go to the doctor?"],["Voglio che tu sappia la verità.","I want you to know the truth."],["Non si deve fumare qui dentro.","You can't smoke in here."]]},
+  {title:"Noun gender & plural",rows:[["I libri sono sul tavolo.","The books are on the table."],["Le finestre sono aperte.","The windows are open."],["Ho perso le chiavi.","I lost the keys."],["I problemi sono complessi.","The problems are complex."],["Le mani mi fanno male.","My hands hurt."],["Gli uomini aspettano fuori.","The men are waiting outside."],["Ho comprato due camicie nuove.","I bought two new shirts."]]},
+  {title:"Prepositions + articles (articolate)",rows:[["Il libro è sul tavolo.","The book is on the table."],["Vengo dal lavoro adesso.","I'm coming from work now."],["Andiamo al cinema stasera.","We're going to the cinema tonight."],["Parla del suo lavoro tutto il giorno.","He talks about his work all day."],["Vivono nel centro storico.","They live in the historic centre."],["Ho preso il treno delle otto.","I took the eight o'clock train."],["Esco dagli uffici alle cinque.","I leave the offices at five."]]},
+  {title:"Future tense",rows:[["Domani sarà una bella giornata.","Tomorrow will be a beautiful day."],["Ti chiamerò appena arrivo.","I'll call you as soon as I arrive."],["Avranno già mangiato quando arriveremo.","They'll have eaten by the time we arrive."],["Dove saranno le mie chiavi?","Where can my keys be?"],["Vedrai, andrà tutto bene.","You'll see, everything will be fine."]]},
+  {title:"Relative clauses: che, cui, il quale",rows:[["La ragazza che lavora qui è mia cugina.","The girl who works here is my cousin."],["Il libro che ti ho prestato è di Calvino.","The book I lent you is by Calvino."],["La città in cui vivo è molto vivace.","The city in which I live is very lively."],["La persona con cui lavoro è simpatica.","The person I work with is nice."],["È un motivo per cui vale la pena.","It's a reason why it's worth it."]]},
+  {title:"The Causative — Far + Infinitive",rows:[["Ti faccio sapere domani.","I'll let you know tomorrow."],["Mi faccio tagliare i capelli.","I'm getting my hair cut."],["Faccio riparare la macchina.","I'm having the car repaired."],["Mi fai impazzire.","You drive me crazy."],["Lo facciamo sedere.","We make him sit down."],["Le ho fatto leggere il documento.","I had her read the document."],["Ha fatto piangere il bambino.","He made the child cry."],["Fallo entrare.","Let him in."],["Non farti ingannare.","Don't let yourself be fooled."],["Ci siamo fatti portare la colazione.","We had breakfast brought to us."],["Ho fatto lavorare il team tutta la notte.","I had the team work all night."],["La maestra fa leggere gli studenti ad alta voce.","The teacher has the students read aloud."],["Mi ha fatto aspettare un'ora.","She made me wait an hour."],["Il medico mi ha fatto fare le analisi.","The doctor had me run some tests."],["Lo faccio studiare ogni sera.","I make him study every evening."],["Ci hanno fatto firmare il contratto.","They made us sign the contract."],["Ho fatto stampare le foto.","I had the photos printed."],["Dobbiamo far revisionare il documento.","We need to have the document reviewed."],["Ha fatto costruire una villa.","He had a villa built."],["Faccio pulire l'appartamento ogni settimana.","I have the apartment cleaned every week."],["Hai fatto controllare i freni?","Did you have the brakes checked?"],["Facciamo spedire il pacco domani.","We'll have the parcel sent tomorrow."],["Mi sono fatto tagliare la barba.","I got my beard trimmed."],["Si fa sempre rispettare.","He always makes himself respected."],["Non farti sentire in colpa.","Don't let yourself feel guilty."],["Mi fai ridere!","You make me laugh!"],["Quella musica mi fa venire la pelle d'oca.","That music gives me goosebumps."],["Mi stai facendo innervosire.","You're making me nervous."],["Faccio lavare la macchina.","I'm going to have my car washed."],["Ha fatto mangiare le verdure ai bambini.","She made the children eat their vegetables."],["Abbiamo fatto tinteggiare la casa l'estate scorsa.","We had the house painted last summer."],["Non farti ingannare da loro!","Don't let them fool you!"],["Mi fa ridere ogni giorno.","He makes me laugh every day."],["Faccio mandare il rapporto entro domani.","I'll have the report sent by tomorrow."],["Ci hanno fatto aspettare fuori per un'ora.","They had us wait outside for an hour."],["Si fa fare il vestito da un sarto.","She's getting her dress made by a tailor."],["La maestra ha fatto rifare l'esercizio a tutta la classe.","The teacher made the whole class redo the exercise."],["Mi faccio portare una pizza.","I'm going to have a pizza delivered."]]},
+  {title:"The Pro-Complements Ci and Ne",rows:[["Ci penso io.","I'll take care of it."],["Non ne posso più.","I can't take it anymore."],["Ci vuole pazienza.","It takes patience."],["Non ci credo.","I don't believe it."],["Ne vale la pena.","It's worth it."],["Cosa ci fai qui?","What are you doing here?"],["Quanti ne vuoi? — Ne voglio tre.","How many do you want? — I want three (of them)."],["Non ci capisco niente.","I don't understand anything about it."],["Me ne vado.","I'm leaving / getting out of here."],["Ci mettiamo un'ora.","It takes us an hour."],["Ci sei mai stato a Napoli?","Have you ever been to Naples?"],["No, non ci sono mai stato.","No, I've never been (there)."],["Ci ho pensato tutta la notte.","I thought about it all night."],["Ci contiamo su di te.","We're counting on you."],["Non ci riesco!","I can't manage it!"],["Ci metti poco a imparare.","It doesn't take you long to learn."],["Non ci sento bene da quest'orecchio.","I don't hear well from this ear."],["Ci vuole coraggio per farlo.","It takes courage to do that."],["Quanto ci vuole per arrivare?","How long does it take to get there?"],["Ci sto pensando ancora.","I'm still thinking about it."],["Ne hai parlato con lui?","Have you talked to him about it?"],["Ne ho sentito parlare molto.","I've heard a lot about it."],["Quante pizze avete ordinato? — Ne abbiamo ordinate due.","How many pizzas did you order? — We ordered two (of them)."],["Non ne so niente.","I don't know anything about it."],["Ne ho abbastanza.","I've had enough of it."],["Ne ha bisogno urgentemente.","She urgently needs some of it."],["Cosa ne pensi?","What do you think about it?"],["Ne comprerei di più se costasse meno.","I'd buy more of it if it cost less."],["Ne ho preso solo un po'.","I took only a little of it."],["Non ne voglio sapere.","I don't want to know about it."],["Ce la faccio.","I can manage it / cope."],["Ce l'ho con lui.","I have it in for him."],["Ci vuole / ci vogliono.","It takes / it requires."],["Ci metto dieci minuti.","It takes me ten minutes."],["Non c'entra niente.","It has nothing to do with it."],["Non me ne frega niente.","I don't care at all."],["Me ne intendo.","I know about it / I'm an expert."],["Sei mai stato a Roma? — Sì, ci sono stato tre volte.","Have you been to Rome? — Yes, I've been there three times."],["Quanti ne vuoi? — Ne prendo due.","How many do you want? — I'll take two of them."],["Non ci credo per niente.","I don't believe it at all."],["Ci vogliono almeno due ore.","It takes at least two hours."],["Non ne posso più.","I'm fed up with it."],["Me ne sono occupato.","I took care of it."],["Noi andiamo — ci vieni anche tu?","We're going — are you coming too?"],["Quanto ci metti a prepararti?","How long does it take you to get ready?"],["Ne ho sentito parlare molto di quel ristorante.","I've heard a lot about that restaurant."]]},
+  {title:"The Hypothetical — Periodo Ipotetico Type 2",rows:[["Se avessi tempo, lo farei.","If I had time, I would do it."],["Se fossi in te, non ci andrei.","If I were you, I wouldn't go there."],["Se potessi, viaggerei di più.","If I could, I would travel more."],["Cosa faresti se vincessi alla lotteria?","What would you do if you won the lottery?"],["Se piovesse, resteremmo a casa.","If it rained, we would stay home."],["Se lo sapessi, te lo direi.","If I knew it, I would tell you."],["Se non fossi stanco, uscirei.","If I weren't tired, I would go out."],["Se lei studiasse di più, passerebbe l'esame.","If she studied more, she would pass the exam."],["Se avessimo soldi, compreremmo una casa.","If we had money, we would buy a house."],["Se tu mi ascoltassi, capiresti.","If you listened to me, you would understand."],["Se vivessi in Italia, parlerei italiano ogni giorno.","If I lived in Italy, I would speak Italian every day."],["Se avessi una macchina, ti porterei io.","If I had a car, I'd give you a lift."],["Se non lavorassi tanto, starei meglio.","If I didn't work so much, I'd be better off."],["Se potessi scegliere, vivrei al mare.","If I could choose, I'd live by the sea."],["Se facesse bel tempo, andremmo al parco.","If the weather were nice, we'd go to the park."],["Se mi dessi retta, non ti pentirei.","If you listened to me, you wouldn't regret it."],["Se lui fosse più puntuale, sarebbe più affidabile.","If he were more punctual, he would be more reliable."],["Se mangiassi meno dolci, ti sentiresti meglio.","If you ate fewer sweets, you'd feel better."],["Se potessi parlare con chiunque nella storia, chi sceglieresti?","If you could speak to anyone in history, who would you choose?"],["Se non dovessi lavorare, cosa faresti?","If you didn't have to work, what would you do?"],["Se avessi una bacchetta magica, cosa cambieresti?","If you had a magic wand, what would you change?"],["Se vivessi in un altro paese, dove andresti?","If you lived in another country, where would you go?"],["Se potessi tornare indietro nel tempo, cambieresti qualcosa?","If you could go back in time, would you change anything?"],["Se vincessi un milione, lo risparmieresti o lo spenderesti?","If you won a million, would you save it or spend it?"],["Se avessi più coraggio, cosa faresti?","If you had more courage, what would you do?"],["Se potessi avere un superpotere, quale sceglieresti?","If you could have a superpower, which would you choose?"],["Se non fossi così stanco, verrei volentieri.","If I weren't so tired, I'd gladly come."],["Se non piovesse, potremmo uscire.","If it weren't raining, we could go out."],["Se non avessi paura, lo farei subito.","If I weren't afraid, I'd do it right away."],["Se non costasse così tanto, lo comprerei.","If it didn't cost so much, I'd buy it."],["Se non dovessimo lavorare domani, resteremmo più a lungo.","If we didn't have to work tomorrow, we'd stay longer."],["Se non si lamentasse sempre, sarebbe più simpatico.","If he didn't always complain, he'd be more likeable."],["Se avessi più tempo libero, cosa faresti?","What would you do if you had more free time?"],["Se non piovesse, andremmo in spiaggia.","If it weren't raining, we would go to the beach."],["Se fossi in te, mi scuserei.","If I were you, I would apologise."],["Se studiasse di più, passerebbe l'esame.","If she studied harder, she would pass the exam."],["Se avessimo un giardino, coltiveremmo le verdure.","If we had a garden, we would grow vegetables."],["Se sapessi la risposta, te la direi.","If I knew the answer, I would tell you."],["Se ascoltassero, capirebbero.","If they listened, they would understand."],["Se potessi vivere dovunque, dove andresti?","If you could live anywhere, where would you go?"],["Se non fosse così impegnato, chiamerebbe più spesso.","If he weren't so busy, he would call more often."],["Se vincessi alla lotteria, viaggerei per il mondo.","If I won the lottery, I would travel the world."]]},
+  {title:"Double Object Pronouns",rows:[["Te lo dico subito.","I'll tell you right away."],["Me lo dai?","Will you give it to me?"],["Glielo mando domani.","I'll send it to him/her tomorrow."],["Ce lo hanno spiegato.","They explained it to us."],["Ve la porto io.","I'll bring it to you (all)."],["Me ne parli dopo?","Will you tell me about it later?"],["Gliene ho parlato ieri.","I spoke to him/her about it yesterday."],["Te li mando per email.","I'll send them to you by email."],["Ce lo puoi lasciare?","Can you leave it for us?"],["Gliela faccio vedere.","I'll show it to him/her."],["Me l'ha data.","She gave it to me."],["Te li ho mandati.","I sent them to you."],["Gliele ho comprate.","I bought them for her."],["Ce l'ha spiegato bene.","He explained it to us well."],["Ve la sono portata.","I brought it to you."],["Devo dirtelo.","I have to tell it to you."],["Puoi mandarmelo?","Can you send it to me?"],["Voglio farglielo sapere.","I want to let him/her know it."],["Non riesco a spiegarglielo.","I can't explain it to him/her."],["Cerca di farmelo capire.","Try to make me understand it."],["Prova a dircelo.","Try to tell us it."],["Glielo do.","I give it to him."],["Te la mando. / Me la mandi.","I send it to you. / You send it to me."],["Ve lo spiego.","I explain it to you."],["Glieli ha portati.","He brought them to her."],["Puoi dirmela?","Can you tell it to me?"],["Gliele mostro.","I'll show them to them."],["Ce l'ha lasciato.","He left it for us."],["Devo spiegartela.","I need to explain it to you."],["Gliela racconta.","Tell it to them."],["Gliel'hai mandato?","Did you send it to her?"]]},
+  {title:"The Impersonal Si",rows:[["In Italia si mangia bene.","In Italy, one eats well."],["Come si dice 'hello' in italiano?","How do you say 'hello' in Italian?"],["Si parla italiano qui.","Italian is spoken here."],["Non si fa così.","You don't do it like that."],["Si dice che sia molto bravo.","They say he's very good."],["Si vende.","For sale."],["Si affitta.","For rent."],["Qui si lavora duro.","People work hard here."],["Come si scrive?","How do you write/spell it?"],["Si può sapere perché?","May one ask why?"],["Si mangia una pizza.","You eat a pizza."],["Si mangiano le pizze.","You eat pizzas."],["Si compra il biglietto alla cassa.","You buy the ticket at the desk."],["Si comprano i biglietti alla cassa.","You buy the tickets at the desk."],["In Italia si beve molto vino.","In Italy, a lot of wine is drunk."],["In questa zona si trovano molti ristoranti.","In this area, many restaurants are found."],["Si usa una forchetta.","You use a fork."],["Si usano le forchette.","You use forks."],["Si è mangiato bene ieri sera.","People ate well last night."],["Si è parlato per ore.","People talked for hours."],["Si sono visti molti turisti.","Many tourists were seen."],["Non si è capito niente.","Nothing was understood."],["Si è arrivati tardi.","People arrived late."],["Si è deciso di partire.","It was decided to leave."],["Ci si sveglia tardi il weekend.","One wakes up late on weekends."],["Ci si abitua a tutto.","One gets used to everything."],["Ci si annoia facilmente.","One gets bored easily."],["Ci si diverte molto alla festa.","People have a great time at the party."],["Ci si veste bene in questa città.","People dress well in this city."],["Qui si parla inglese.","People speak English here."],["Come si scrive il tuo nome?","How do you spell your name?"],["In Francia si beve molto vino.","In France, people drink a lot of wine."],["Si trova il buon caffè ovunque.","You can find good coffee everywhere."],["Non si deve correre nel museo.","One should not run inside the museum."],["A Roma si vedono molti edifici antichi.","Many old buildings are seen in Rome."],["Ci si è svegliati presto per la partita.","People woke up early for the match."],["Si dice che l'estate sarà calda.","They say the summer will be hot."],["Si compra il pane fresco in panetteria.","You buy fresh bread at the bakery."],["In Italia si lavora molto.","People work a lot in Italy."]]},
+  {title:"Stare + Gerundio (The Progressive)",rows:[["Sto mangiando.","I am eating (right now)."],["Sta dormendo.","He/She is sleeping."],["Stiamo lavorando.","We are working."],["Cosa stai facendo?","What are you doing?"],["Stanno parlando al telefono.","They are talking on the phone."],["Sto leggendo un libro interessante.","I am reading an interesting book."],["State scherzando?","Are you joking?"],["Il bambino sta piangendo.","The child is crying."],["Sto cercando le chiavi.","I am looking for the keys."],["Non sto capendo niente.","I'm not understanding anything."],["Stavo dormendo quando hai chiamato.","I was sleeping when you called."],["Stava leggendo tutto il pomeriggio.","He was reading all afternoon."],["Stavamo mangiando quando è arrivata.","We were eating when she arrived."],["Cosa stavi facendo ieri sera alle otto?","What were you doing last night at eight?"],["Stavano discutendo da ore.","They had been arguing for hours."],["Stavo guidando quando ha smesso di piovere.","I was driving when it stopped raining."],["Lo sto leggendo. / Sto leggendolo.","I am reading it."],["Ti sto ascoltando. / Sto ascoltandoti.","I am listening to you."],["Lo stava aspettando. / Stava aspettandolo.","He was waiting for it."],["Me lo stai dicendo davvero? / Stai dicendomelo davvero?","Are you really telling me that?"],["Si sta vestendo. / Sta vestendosi.","He/She is getting dressed."],["Sta scrivendo un'email.","She is writing an email."],["Stiamo aspettando l'autobus.","We are waiting for the bus."],["Cosa state facendo?","What are you (plural) doing?"],["Stavo guardando la TV quando sei arrivato.","I was watching TV when you arrived."],["Stavano mangiando quando ha cominciato a piovere.","They were eating when it started to rain."],["Lo sta leggendo proprio adesso.","He is reading it right now."],["Non ti sto ascoltando.","I'm not listening to you."],["Si stava vestendo quando ha squillato il telefono.","She was getting dressed when the phone rang."],["Stai ancora lavorando?","Are you still working?"],["Stavamo parlando di te.","We were talking about you (just now)."]]},
+  {title:"The Subjunctive After Opinion, Doubt & Emotion Verbs",rows:[["Penso che abbia ragione.","I think he/she is right."],["Credo che sia stanco.","I think he is tired."],["Non sono sicuro che venga.","I'm not sure he/she will come."],["Mi sembra che ci sia un problema.","It seems to me there is a problem."],["Suppongo che tu sappia già.","I suppose you already know."],["Ritengo che la decisione sia giusta.","I believe the decision is correct."],["Dubito che finisca in tempo.","I doubt it'll finish on time."],["Non credo che sia vero.","I don't think it's true."],["Voglio che tu venga con me.","I want you to come with me."],["Spero che tutto vada bene.","I hope everything goes well."],["Ho paura che si sia perso.","I'm afraid he's got lost."],["Sono contenta che tu sia qui.","I'm glad you're here."],["È necessario che tu studi.","It's necessary that you study."],["Bisogna che partiamo subito.","We need to leave immediately."],["È possibile che piova domani.","It's possible it will rain tomorrow."],["Peccato che non possiate restare.","What a shame you can't stay."],["È meglio che tu glielo dica.","It's better that you tell him/her."],["Mi dispiace che tu stia male.","I'm sorry you're not feeling well."],["Penso di avere ragione.","I think I am right."],["Spero di vederti presto.","I hope to see you soon."],["Ho paura di sbagliare.","I'm afraid of making a mistake."],["Credo che sia già partito.","I think he has already left."],["Penso che abbiano capito.","I think they understood."],["Non sono sicuro che l'abbia fatto.","I'm not sure he did it."],["Mi sembra che siano arrivati ieri.","It seems they arrived yesterday."],["Spero che tu abbia dormito bene.","I hope you slept well."],["Penso che lei abbia ragione.","I think she is right."],["Ho paura che lui non venga.","I'm afraid he won't come."],["È necessario che tu riposi.","It's necessary that you rest."],["Credo che abbiano già mangiato.","I believe they have already eaten."],["È contenta che tu sia qui.","She's glad you are here."],["Penso di avere bisogno di più tempo.","I think I need more time."],["Sembra che ci sia un problema.","It seems there is a problem."],["Peccato che non possano venire.","What a shame they can't come."],["Non sono sicuro che abbia capito.","I'm not sure he understood."]]},
+  {title:"The Passive Voice (Essere and Venire + Participio Passato)",rows:[["La lettera è stata scritta da lui.","The letter was written by him."],["Il film è stato girato a Roma.","The film was shot in Rome."],["La torta è stata mangiata dai bambini.","The cake was eaten by the children."],["I biglietti sono stati venduti.","The tickets have been sold."],["La porta era chiusa a chiave.","The door was locked."],["I documenti sono stati firmati.","The documents have been signed."],["La notizia è stata confermata.","The news has been confirmed."],["Le finestre sono state rotte.","The windows have been broken."],["La posta viene consegnata ogni mattina.","The post is delivered every morning."],["I rifiuti vengono raccolti il martedì.","The rubbish is collected on Tuesdays."],["Le regole vengono rispettate.","The rules are respected."],["Il premio viene assegnato ogni anno.","The prize is awarded every year."],["L'edificio veniva pulito ogni settimana.","The building was cleaned every week."],["Il contratto verrà firmato domani.","The contract will be signed tomorrow."],["I risultati vengono pubblicati online.","The results are published online."],["Questo modulo va compilato in stampatello.","This form must be filled in in block capitals."],["I rifiuti non vanno lasciati per terra.","Rubbish must not be left on the ground."],["Le istruzioni vanno lette con attenzione.","The instructions must be read carefully."],["Il medicinale va preso due volte al giorno.","The medicine must be taken twice a day."],["Questi documenti andavano consegnati ieri.","These documents had to be delivered yesterday."],["Il libro è stato scritto.","The book was written."],["La lettera è stata scritta.","The letter was written."],["I libri sono stati scritti.","The books were written."],["Le lettere sono state scritte.","The letters were written."],["La cena viene preparata dal cuoco ogni sera.","Dinner is prepared by the cook every evening."],["La Gioconda è stata dipinta da Leonardo.","The Mona Lisa was painted by Leonardo."],["I computer vengono riparati dai tecnici.","The computers are repaired by the technicians."],["Il contratto è stato firmato dal direttore.","The contract was signed by the director."],["Queste istruzioni vanno lette.","These instructions must be read."],["Il ladro è stato arrestato dalla polizia.","The thief was arrested by the police."],["I risultati verranno pubblicati dal governo domani.","The results will be published by the government tomorrow."],["La macchina non va lasciata qui.","The car must not be left here."],["Il ponte è stato costruito nel 1980.","The bridge was built in 1980."],["I compiti vengono corretti dalla professoressa ogni giorno.","The homework is corrected by the teacher every day."]]}
+];
+
+(function(){
+  const nav = document.getElementById('gnav');
+  const main = document.getElementById('g-main');
+  function tableToText(rows){
+    return rows.map((r,i)=>`${i+1}. ${r[0]}\n   ${r[1]}`).join('\n');
+  }
+  gsections.forEach(function(s,i){
+    const opt=document.createElement('option');
+    opt.value='gsec-'+i; opt.textContent=(i+1)+'. '+s.title;
+    nav.appendChild(opt);
+    const sec=document.createElement('section');
+    sec.id='gsec-'+i;
+    const hdr=document.createElement('div'); hdr.className='sec-header';
+    const tw=document.createElement('div'); tw.className='sec-title';
+    const num=document.createElement('span'); num.className='sec-num';
+    num.textContent=String(i+1).padStart(2,'0');
+    const h2=document.createElement('h2');
+    h2.innerHTML=s.title+'<span class="count-badge">'+s.rows.length+'</span>';
+    tw.appendChild(num); tw.appendChild(h2);
+    const btn=document.createElement('button'); btn.className='copy-btn';
+    btn.textContent='Copy section';
+    btn.addEventListener('click',function(){
+      const text=s.title+'\n\n'+tableToText(s.rows);
+      navigator.clipboard.writeText(text).then(function(){
+        btn.textContent='Copied!'; btn.classList.add('copied');
+        setTimeout(function(){btn.textContent='Copy section';btn.classList.remove('copied');},2000);
+      });
+    });
+    hdr.appendChild(tw); hdr.appendChild(btn);
+    const table=document.createElement('table');
+    table.innerHTML='<thead><tr><th>#</th><th>Italiano</th><th>English</th></tr></thead>';
+    const tbody=document.createElement('tbody');
+    s.rows.forEach(function(row,ri){
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td>'+(ri+1)+'</td><td>'+row[0]+'</td><td>'+row[1]+'</td>';
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    sec.appendChild(hdr); sec.appendChild(table);
+    main.appendChild(sec);
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  var root=document.documentElement;
+  root.dataset.theme=localStorage.getItem('msTheme')||'dark';
+  function updateIcons(){
+    var dark=root.dataset.theme==='dark';
+    document.querySelectorAll('.sb-theme-icon,.mob-theme-icon').forEach(function(el){el.textContent=dark?'☀':'🌙';});
+  }
+  window.toggleTheme=function(){
+    root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';
+    localStorage.setItem('msTheme',root.dataset.theme);updateIcons();
+  };
+  updateIcons();
+  window.addEventListener('DOMContentLoaded',function(){
+    updateIcons();
+    var sb=document.querySelector('.sb'),ov=document.querySelector('.sb-overlay'),hm=document.querySelector('.ham-btn');
+    if(!sb||!ov||!hm)return;
+    function open(){sb.classList.add('open');ov.classList.add('open');}
+    function close(){sb.classList.remove('open');ov.classList.remove('open');}
+    hm.addEventListener('click',function(){sb.classList.contains('open')?close():open();});
+    ov.addEventListener('click',close);
+    document.querySelectorAll('.sb-nav a').forEach(function(a){a.addEventListener('click',close);});
+  });
+})();
+</script>
+<script>if('serviceWorker'in navigator){navigator.serviceWorker.register('../sw.js').catch(function(){});}</script>
+
+</body>
+</html>

@@ -1,10 +1,10 @@
-const CACHE = 'medstudy-v5';
+const CACHE = 'medstudy-v6';
 const URLS = [
   '.','./index.html',
   './anatomy/index.html','./anatomy/back.html','./anatomy/netter.html','./anatomy/study-tool.html',
   './microbiology/index.html','./microbiology/hub.html','./microbiology/chapters.html','./microbiology/exam-framework.html',
   './hebrew/index.html','./hebrew/vocab.html','./hebrew/checklist.html',
-  './italian/index.html','./italian/practice.html',
+  './italian/index.html','./italian/practice.html','./italian/grammar.html',
   './tools/clostridium_MASTER.html',
   './tools/staph_aureus_MASTER.html',
   './tools/streptococcus_MASTER.html',

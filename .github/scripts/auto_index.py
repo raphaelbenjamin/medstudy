@@ -81,14 +81,16 @@ def make_card(filename, title, icon):
 
 
 def ensure_marker(index_path):
-    """Make sure the AUTO-INDEX-END marker exists in the file."""
+    """Make sure the AUTO-INDEX-END marker exists in the file, inside the last tool-grid."""
     with open(index_path, encoding="utf-8") as f:
         content = f.read()
     if MARKER in content:
         return content
-    # Insert marker just before </div>\n</main>
-    # Find the last tool-grid closing </div> before </main>
-    new_content = content.replace("</div>\n</main>", f"  {MARKER}\n</div>\n</main>", 1)
+    # Insert marker just before the closing </div> of the last tool-grid
+    # Find the last occurrence of </div> that closes a tool-grid
+    target = '  </div>\n</div>\n</main>'
+    replacement = f'  {MARKER}\n  </div>\n</div>\n</main>'
+    new_content = content.replace(target, replacement, 1)
     if new_content == content:
         # Fallback: insert before </main>
         new_content = content.replace("</main>", f"  {MARKER}\n</main>", 1)

@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microbiology Oral Exam – High-Yield Script</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f5;
+  --surface: #ffffff;
+  --border: #e8e2d9;
+  --text: #2c2a26;
+  --text-muted: #7a756c;
+  --accent: #b44d2d;
+  --accent-light: #f5ebe6;
+  --accent-dark: #8a3518;
+  --toc-bg: #f3f0eb;
+  --tag-bacteria: #3a7d6e;
+  --tag-virus: #8b5a8c;
+  --tag-fungi: #b08830;
+  --tag-parasite: #c25a4a;
+  --tag-special: #5a6a8c;
+  --tag-lab: #4a7a8c;
+  --tag-abx: #6a7a4a;
+  --tag-vaccine: #8a6a3a;
+  --star: #d4a017;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 16px 80px;
+}
+header {
+  text-align: center;
+  padding: 48px 20px 40px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 32px;
+}
+header h1 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* TOC */
+.toc {
+  background: var(--toc-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 36px;
+}
+.toc h2 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.3rem;
+  color: var(--accent-dark);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toc-section {
+  margin-bottom: 10px;
+}
+.toc-section-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  padding-left: 2px;
+}
+.toc-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-bottom: 8px;
+}
+.toc-link {
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 2px 0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.toc-link:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+.toc-link::after {
+  content: " ·";
+  color: var(--border);
+}
+.toc-link:last-child::after { content: ""; }
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.controls input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: var(--surface);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.controls input[type="text"]:focus {
+  border-color: var(--accent);
+}
+.btn {
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent-dark); }
+
+/* Sections */
+.main-section {
+  margin-bottom: 32px;
+}
+.main-section-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 16px;
+}
+.subsection-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin: 20px 0 10px;
+  padding-left: 4px;
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: var(--shadow-md); }
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+  gap: 10px;
+}
+.card-header:hover { background: rgba(0,0,0,0.015); }
+.card-arrow {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  transition: transform 0.25s;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+.card.open .card-arrow { transform: rotate(90deg); }
+.card-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  flex: 1;
+}
+.card-stars {
+  color: var(--star);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+.card-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  color: white;
+  flex-shrink: 0;
+}
+.card-body {
+  display: none;
+  padding: 0 18px 18px 44px;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: #3d3a35;
+}
+.card.open .card-body { display: block; }
+.card-body p { margin-bottom: 10px; }
+.card-body p:last-child { margin-bottom: 0; }
+
+/* Tag colours */
+.tag-bacteria { background: var(--tag-bacteria); }
+.tag-virus { background: var(--tag-virus); }
+.tag-fungi { background: var(--tag-fungi); }
+.tag-parasite { background: var(--tag-parasite); }
+.tag-special { background: var(--tag-special); }
+.tag-lab { background: var(--tag-lab); }
+.tag-abx { background: var(--tag-abx); }
+.tag-vaccine { background: var(--tag-vaccine); }
+
+.no-results {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 40px 20px;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  header h1 { font-size: 1.7rem; }
+  .card-body { padding-left: 18px; }
+  .toc { padding: 16px 18px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Microbiology Oral Exam</h1>
+  <p>High-yield scripts for each pathogen — tap any card to expand the oral exam talking points.</p>
+</header>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="Search pathogens, diseases, keywords…" />
+  <button class="btn" onclick="toggleAll(true)">Open All</button>
+  <button class="btn" onclick="toggleAll(false)">Close All</button>
+</div>
+
+<nav class="toc" id="toc">
+  <h2>📑 Table of Contents</h2>
+</nav>
+
+<div id="content"></div>
+</div>
+
+<script>
+const DATA = [
+  // =============== BACTERIA ===============
+  {
+    section: "Bacteria",
+    subsection: "Gram-Positive Cocci",
+    tag: "bacteria",
+    items: [
+      {
+        name: "Staphylococcus aureus",
+        stars: 2,
+        body: `<p>Staph aureus is a gram-positive coccus that grows in clusters. It's coagulase-positive, which is the key test that separates it from other staphylococci. It causes a huge range of diseases — skin infections like abscesses and cellulitis, endocarditis, osteomyelitis, septic arthritis, and pneumonia. If they ask you about toxin-mediated disease, remember three big ones: TSST-1 causes toxic shock syndrome (high fever, diffuse rash, hypotension, desquamation), exfoliative toxin causes scalded skin syndrome (superficial skin peeling in newborns), and enterotoxins cause rapid-onset food poisoning — within 1 to 6 hours, with vomiting as the main symptom, and the toxin is preformed and heat-stable.</p>
+<p>MRSA is a critical topic. It's resistant to methicillin and all beta-lactams because of an altered penicillin-binding protein encoded by the mecA gene. You treat community-acquired MRSA skin infections with TMP-SMX or doxycycline, and serious MRSA infections with vancomycin or linezolid. If asked about lab identification, you can mention that Staph aureus is catalase-positive and coagulase-positive, ferments mannitol on mannitol-salt agar, and produces a golden pigment.</p>`
+      },
+      {
+        name: "Streptococcus pyogenes (Group A Strep)",
+        stars: 2,
+        body: `<p>Strep pyogenes is a gram-positive coccus in chains, classified as Group A by the Lancefield system. It's beta-hemolytic on blood agar and bacitracin-sensitive — that's how you tell it apart from Group B strep. Its virulence factors are extremely high-yield. The M protein is the most important — it prevents phagocytosis and is the basis for strain typing. It also has a hyaluronic acid capsule, streptolysin O (which is oxygen-labile, and the basis of the ASO titre test), and streptolysin S (oxygen-stable, causes the beta-hemolysis you see on the plate).</p>
+<p>Diseases include pharyngitis, impetigo, cellulitis, erysipelas, necrotizing fasciitis, and scarlet fever. The post-streptococcal complications are huge for exams: rheumatic fever (which follows pharyngitis, not skin infections, and is diagnosed using the Jones criteria — carditis, polyarthritis, chorea, erythema marginatum, and subcutaneous nodules) and post-streptococcal glomerulonephritis (which can follow either pharyngitis or skin infections, presenting with hematuria, edema, and hypertension). You diagnose recent infection with the ASO titre or anti-DNase B.</p>`
+      },
+      {
+        name: "Streptococcus pneumoniae",
+        stars: 1,
+        body: `<p>Pneumococcus is a gram-positive lancet-shaped diplococcus, alpha-hemolytic, and optochin-sensitive — that's how you distinguish it from viridans streptococci (which are optochin-resistant). It also has a polysaccharide capsule, which is its major virulence factor and enables it to evade phagocytosis. The bile solubility test is another classic identifier.</p>
+<p>For the diseases, remember the mnemonic MOPS: Meningitis, Otitis media, Pneumonia (most common cause of community-acquired pneumonia in adults), and Sinusitis. At-risk populations include the elderly, asplenic patients, alcoholics, and those with sickle cell disease. The vaccines are PCV13 (conjugate, for kids) and PPSV23 (polysaccharide, for adults over 65 and high-risk groups). A Quellung reaction — capsular swelling when antibodies are applied — is a classic buzzword for this organism.</p>`
+      },
+      {
+        name: "Streptococcus agalactiae (Group B Strep)",
+        stars: 0,
+        body: `<p>Group B strep is a gram-positive coccus in chains, beta-hemolytic, and bacitracin-resistant — that's the key to differentiating it from Group A. It's also CAMP test positive and hippurate hydrolysis positive. The major clinical scenario is neonatal infection. GBS colonises the vaginal tract of roughly 20-30% of women, and the baby can pick it up during delivery, leading to early-onset neonatal sepsis, pneumonia, or meningitis.</p>
+<p>Screening is done at 35-37 weeks of pregnancy, and if the mother is positive, she receives intrapartum antibiotic prophylaxis — usually penicillin G. GBS can also cause infections in adults, particularly in the elderly and diabetics, including UTIs, skin infections, and bacteremia.</p>`
+      },
+      {
+        name: "Viridans Streptococci",
+        stars: 0,
+        body: `<p>Viridans strep is a group of alpha-hemolytic streptococci that are optochin-resistant — that's the defining feature that separates them from Strep pneumoniae. They're normal flora of the oropharynx and are the classic cause of subacute bacterial endocarditis, especially on previously damaged or abnormal heart valves. The clinical picture is insidious: low-grade fever, night sweats, weight loss, and new or changing murmur developing over weeks to months.</p>
+<p>The most commonly tested species is Streptococcus mutans, which is the major cause of dental caries. Streptococcus bovis (now called S. gallolyticus) is associated with colon cancer — if you find S. bovis bacteremia, you need a colonoscopy. Viridans strep are generally susceptible to penicillin.</p>`
+      },
+      {
+        name: "Enterococcus spp. (E. faecalis, E. faecium)",
+        stars: 0,
+        body: `<p>Enterococci are gram-positive cocci that grow in chains. They're part of normal gut flora and are a leading cause of nosocomial infections, including UTIs, biliary tract infections, and endocarditis. An important feature: they are inherently resistant to cephalosporins and have low-level resistance to aminoglycosides.</p>
+<p>The big issue is vancomycin-resistant Enterococcus, or VRE. E. faecium is more commonly vancomycin-resistant than E. faecalis. VRE is treated with linezolid or daptomycin. On lab testing, enterococci are catalase-negative, can grow in 6.5% NaCl, and can hydrolyse esculin in the presence of bile — that's the bile-esculin test, and it's positive for enterococci and Group D strep.</p>`
+      },
+    ]
+  },
+  {
+    section: "Bacteria",
+    subsection: "Gram-Positive Spore-Forming Rods",
+    tag: "bacteria",
+    items: [
+      {
+        name: "Bacillus anthracis",
+        stars: 1,
+        body: `<p>Bacillus anthracis is a gram-positive, spore-forming rod that causes anthrax. It has a unique poly-D-glutamic acid capsule (not polysaccharide like most others) which is antiphagocytic. The three clinical forms are cutaneous (most common — painless black eschar), pulmonary or inhalation (widened mediastinum on CXR, high mortality), and gastrointestinal (rare). The organism produces two major toxins: edema factor (an adenylate cyclase that increases cAMP) and lethal factor (a protease).</p>
+<p>Lab identification: non-hemolytic on blood agar and non-motile — these two features distinguish it from B. cereus. On microscopy, you see large boxcar-shaped rods in chains. Treatment is ciprofloxacin or doxycycline. The vaccine exists for at-risk populations like military personnel.</p>`
+      },
+      {
+        name: "Bacillus cereus",
+        stars: 1,
+        body: `<p>B. cereus causes two types of food poisoning, and the examiner loves to test you on the difference. The emetic form is caused by a preformed heat-stable toxin, classically from reheated rice — you get nausea and vomiting within 1-6 hours, very similar to Staph aureus food poisoning. The diarrheal form is caused by a heat-labile enterotoxin and presents 8-16 hours later with watery diarrhea and cramping.</p>
+<p>The key buzzword is "reheated fried rice." Unlike B. anthracis, B. cereus is motile and beta-hemolytic. It's also an important cause of eye infections, particularly post-traumatic endophthalmitis.</p>`
+      },
+      {
+        name: "Clostridioides difficile",
+        stars: 1,
+        body: `<p>C. diff is a gram-positive, spore-forming, obligate anaerobe. It causes antibiotic-associated diarrhea and pseudomembranous colitis — you see yellowish plaques on colonoscopy. The two toxins are the key: toxin A is an enterotoxin (causes watery diarrhea and attracts neutrophils), and toxin B is a cytotoxin (destroys the mucosal cytoskeleton). Both work by inactivating Rho GTPases.</p>
+<p>The most commonly implicated antibiotics are clindamycin, fluoroquinolones, and broad-spectrum cephalosporins. Diagnosis is by stool PCR for toxin genes or a two-step algorithm using GDH antigen screening followed by toxin testing. First-line treatment for an initial, non-severe episode is oral vancomycin or fidaxomicin. Metronidazole is no longer first line. For recurrent cases, fecal microbiota transplant is increasingly used.</p>`
+      },
+      {
+        name: "Clostridium perfringens",
+        stars: 1,
+        body: `<p>C. perfringens is a gram-positive, spore-forming anaerobe that produces an alpha toxin — a lecithinase (phospholipase C) that destroys cell membranes. This is the cause of gas gangrene (myonecrosis), where you get crepitus on exam due to gas production in tissues. On X-ray, you can see gas within the soft tissue. It's a surgical emergency requiring debridement.</p>
+<p>C. perfringens also causes a self-limited food poisoning with watery diarrhea and cramping, typically 8-16 hours after eating contaminated meat. It produces a large number of spores that survive cooking. The organism is also described as having a "double zone" of hemolysis on blood agar, which is a classic buzzword.</p>`
+      },
+      {
+        name: "Clostridium tetani",
+        stars: 1,
+        body: `<p>C. tetani produces tetanospasmin, an exotoxin that is the entire basis of the disease. It travels retrograde up neurons to the spinal cord and blocks the release of inhibitory neurotransmitters — glycine and GABA — from Renshaw cells. The result is unopposed excitation: spastic paralysis, opisthotonus (arching of the back), trismus (lockjaw), and risus sardonicus (a fixed grimace).</p>
+<p>It enters through a dirty wound — classically a puncture wound contaminated with soil. Prevention is by vaccination with the tetanus toxoid (part of DTaP in children and Tdap in adults). If someone presents with a dirty wound and uncertain vaccination status, you give both the toxoid booster and tetanus immunoglobulin (TIG) for passive immunity.</p>`
+      },
+      {
+        name: "Clostridium botulinum",
+        stars: 1,
+        body: `<p>C. botulinum produces botulinum toxin, which blocks the release of acetylcholine at the neuromuscular junction — it cleaves SNARE proteins. This causes a descending flaccid paralysis. The classic scenario is from improperly canned foods (adults) or honey in infants (infant botulism, also called "floppy baby syndrome"). The clinical picture starts with cranial nerve involvement: diplopia, dysphagia, dysarthria, then descends to the limbs and respiratory muscles.</p>
+<p>This is opposite to tetanus — botulism is flaccid, tetanus is spastic. Both are caused by toxins blocking neurotransmitter release, but at different locations. Treatment for botulism is antitoxin (for adults) or human botulism immune globulin for infants. The toxin is also used therapeutically as Botox for cosmetic and medical purposes.</p>`
+      },
+    ]
+  },
+  {
+    section: "Bacteria",
+    subsection: "Gram-Positive Non-Spore-Forming Rods",
+    tag: "bacteria",
+    items: [
+      {
+        name: "Listeria monocytogenes",
+        stars: 2,
+        body: `<p>Listeria is a gram-positive rod with tumbling motility, and it's one of the few bacteria that can grow at refrigerator temperatures (4°C), which is a classic buzzword. It's a facultative intracellular organism — it escapes the phagosome using listeriolysin O and spreads cell-to-cell via actin rockets, so it evades antibody-mediated immunity. This means cell-mediated immunity (T cells) is the key defense.</p>
+<p>Clinical scenarios: in pregnant women, it causes mild flu-like illness but can cause devastating neonatal infection — granulomatosis infantiseptica. In the elderly and immunosuppressed, it causes meningitis and bacteremia. It's classically associated with unpasteurised dairy, soft cheeses, and deli meats. Treatment is ampicillin — not cephalosporins, since Listeria is inherently resistant to cephalosporins.</p>`
+      },
+      {
+        name: "Corynebacterium diphtheriae",
+        stars: 0,
+        body: `<p>C. diphtheriae is a gram-positive rod with metachromatic (volutin) granules on staining. It causes diphtheria, characterised by a tough grayish pseudomembrane in the pharynx that can obstruct the airway. The exotoxin is the key virulence factor — it works by inactivating elongation factor 2 (EF-2) via ADP-ribosylation, which shuts down protein synthesis. The toxin gene is carried by a bacteriophage (lysogenic conversion), so only strains infected by this phage are toxigenic.</p>
+<p>The Elek test is the gold standard for detecting toxin production. The toxin can cause myocarditis and peripheral neuropathy as systemic complications. Diagnosis is on Löffler medium or tellurite agar. Treatment is antitoxin plus antibiotics (penicillin or erythromycin). Vaccination with the diphtheria toxoid (part of DTaP/Tdap) is the primary prevention.</p>`
+      },
+    ]
+  },
+  {
+    section: "Bacteria",
+    subsection: "Gram-Negative Diplococci",
+    tag: "bacteria",
+    items: [
+      {
+        name: "Neisseria gonorrhoeae",
+        stars: 2,
+        body: `<p>Gonococcus is a gram-negative kidney-bean-shaped diplococcus — you classically see it intracellular within neutrophils on a Gram stain of urethral discharge. It grows on Thayer-Martin VCN agar (Vancomycin, Colistin, Nystatin — kills off normal flora). It's oxidase-positive and ferments glucose only (no maltose — which distinguishes it from N. meningitidis, which ferments both glucose and maltose).</p>
+<p>Clinically, it causes urethritis (purulent discharge in men), cervicitis, PID in women (which can lead to infertility from tubal scarring), neonatal ophthalmia neonatorum (prevented by erythromycin eye drops at birth), and disseminated gonococcal infection (septic arthritis, tenosynovitis, skin pustules). Resistance is a major issue: PPNG strains produce beta-lactamase. Current treatment is dual therapy — IM ceftriaxone plus oral azithromycin. Always test for concurrent chlamydia.</p>`
+      },
+      {
+        name: "Neisseria meningitidis",
+        stars: 1,
+        body: `<p>Meningococcus is a gram-negative diplococcus with a polysaccharide capsule — and the capsule is the major virulence factor. It colonises the nasopharynx and spreads via respiratory droplets. It causes bacterial meningitis, especially in adolescents and young adults living in close quarters (college dormitories, military barracks). It ferments both glucose and maltose (unlike gonorrhoeae which only does glucose).</p>
+<p>The dreaded complication is Waterhouse-Friderichsen syndrome — fulminant meningococcemia causing bilateral adrenal hemorrhage, DIC, and shock. It presents with a rapidly spreading petechial and purpuric rash and carries a very high mortality rate. Prophylaxis with rifampin, ciprofloxacin, or ceftriaxone is given to close contacts. Vaccines target serogroups A, C, W, Y (quadrivalent) and serogroup B separately. Patients with complement deficiency (C5-C9, the MAC) are at especially high risk.</p>`
+      },
+    ]
+  },
+  {
+    section: "Bacteria",
+    subsection: "Gram-Negative Enteric & Opportunistic Rods",
+    tag: "bacteria",
+    items: [
+      {
+        name: "E. coli & Enterobacteriaceae",
+        stars: 2,
+        body: `<p>E. coli is the most common gram-negative rod you'll encounter. It's the number one cause of UTIs, a common cause of neonatal meningitis (K1 capsular antigen), and various types cause diarrheal disease. The key strains to know: ETEC (traveler's diarrhea — heat-labile and heat-stable toxins), EHEC O157:H7 (bloody diarrhea, doesn't ferment sorbitol, produces Shiga-like toxin leading to hemolytic uremic syndrome — HUS), EIEC (dysentery, invades mucosa like Shigella), and EPEC (pediatric diarrhea in developing countries).</p>
+<p>Other Enterobacteriaceae: Shigella causes bacillary dysentery with bloody, mucoid diarrhea and has very low infectious dose (just 10 organisms). It produces Shiga toxin and doesn't invade the bloodstream (unlike Salmonella). Klebsiella pneumoniae causes a lobar pneumonia with "currant jelly" sputum, classically in alcoholics, and has a thick mucoid capsule. All Enterobacteriaceae are oxidase-negative and ferment glucose.</p>`
+      },
+      {
+        name: "Salmonella typhi",
+        stars: 2,
+        body: `<p>S. typhi causes typhoid fever — a systemic illness, not just gastroenteritis. The organism is ingested, invades the Peyer's patches in the ileum, and disseminates through the blood. Clinically you see stepwise fever (rising over the first week), relative bradycardia (pulse doesn't rise with fever), rose spots on the abdomen, and hepatosplenomegaly. Intestinal perforation and hemorrhage are serious complications.</p>
+<p>Diagnosis is high-yield. In the first week, blood cultures are most sensitive. In the second week, stool cultures become positive. The Widal test detects antibodies against O and H antigens but is less reliable. More modern tests like Typhidot (IgM) are used in endemic areas. Carriers (like the famous "Typhoid Mary") harbor the organism in the gallbladder. Treatment is with fluoroquinolones (ciprofloxacin) or ceftriaxone, and there's a vaccine for travelers to endemic areas.</p>`
+      },
+      {
+        name: "Non-typhoidal Salmonella spp.",
+        stars: 2,
+        body: `<p>Non-typhoidal Salmonella (like S. enteritidis and S. typhimurium) causes gastroenteritis — diarrhea, nausea, fever, abdominal cramps — typically 6-48 hours after eating contaminated food, especially poultry, eggs, and pet reptiles. Unlike Shigella, Salmonella can invade the bloodstream and cause bacteremia, osteomyelitis (especially in sickle cell disease — this is a classic association), and abscess formation.</p>
+<p>Most cases of Salmonella gastroenteritis are self-limited and don't need antibiotics — in fact, antibiotics can prolong the carrier state. You only treat with antibiotics if there's bacteremia, severe disease, or in immunocompromised patients. On culture, Salmonella is motile, produces H2S on triple sugar iron agar, and doesn't ferment lactose.</p>`
+      },
+      {
+        name: "Vibrio cholerae",
+        stars: 2,
+        body: `<p>V. cholerae is a gram-negative comma-shaped rod with a single polar flagellum. It causes cholera — massive watery "rice-water" diarrhea that can lead to severe dehydration, metabolic acidosis, and hypovolemic shock within hours. The cholera toxin is the central mechanism: it permanently activates Gs protein by ADP-ribosylation, which continuously stimulates adenylate cyclase, raising intracellular cAMP. This causes chloride and water to pour into the intestinal lumen.</p>
+<p>It's transmitted by fecal-oral route via contaminated water. On culture, it grows on TCBS agar (thiosulfate-citrate-bile salts-sucrose) producing yellow colonies. Treatment is primarily aggressive rehydration — oral rehydration solution (ORS) is life-saving. Antibiotics like doxycycline or azithromycin can shorten the duration. Serotypes O1 and O139 are the pandemic strains.</p>`
+      },
+      {
+        name: "Campylobacter jejuni",
+        stars: 0,
+        body: `<p>Campylobacter is a gram-negative curved or S-shaped rod — similar to a "gull-wing" shape on Gram stain. It's the most common cause of bacterial gastroenteritis in developed countries. It's transmitted through undercooked poultry and unpasteurized milk. It grows at 42°C (body temperature of chickens), which helps in lab isolation, and requires microaerophilic conditions.</p>
+<p>The disease is typically a bloody diarrhea with fever, and it's self-limited. The high-yield association is Guillain-Barré syndrome (GBS) — an ascending flaccid paralysis caused by molecular mimicry, where antibodies against Campylobacter cross-react with gangliosides on peripheral nerves. If an examiner asks about GBS, think Campylobacter as the most common preceding infection.</p>`
+      },
+      {
+        name: "Pseudomonas aeruginosa",
+        stars: 1,
+        body: `<p>Pseudomonas is a gram-negative obligate aerobe with a characteristic blue-green pigment (pyocyanin) and a fruity grape-like odor. It's oxidase-positive and non-lactose-fermenting. It's a major nosocomial pathogen, especially in burn patients, cystic fibrosis patients (where it causes chronic lung colonization), and immunocompromised hosts. It's also the classic cause of hot-tub folliculitis, otitis externa (swimmer's ear), and ecthyma gangrenosum (necrotic skin lesions in neutropenic patients).</p>
+<p>Pseudomonas is inherently resistant to many antibiotics. You treat it with anti-pseudomonal agents: piperacillin-tazobactam, cefepime, carbapenems (meropenem), aminoglycosides, or ciprofloxacin. It forms biofilms, which makes it very difficult to eradicate from devices and CF lungs.</p>`
+      },
+      {
+        name: "Bacteroides fragilis",
+        stars: 0,
+        body: `<p>Bacteroides fragilis is a gram-negative obligate anaerobe and the most common anaerobic pathogen in clinical infections. It's the predominant organism in normal colonic flora. When the bowel is perforated — from appendicitis, diverticulitis, trauma, or surgery — Bacteroides escapes and causes intra-abdominal abscesses, peritonitis, and pelvic infections.</p>
+<p>It has a polysaccharide capsule that promotes abscess formation. Importantly, it's resistant to penicillin because it produces beta-lactamase. Treatment is metronidazole, carbapenems, or beta-lactam/beta-lactamase inhibitor combinations. On the exam, any time they mention an anaerobic intra-abdominal abscess, think Bacteroides fragilis.</p>`
+      },
+    ]
+  },
+  {
+    section: "Bacteria",
+    subsection: "Gram-Negative Coccobacilli & Respiratory Pathogens",
+    tag: "bacteria",
+    items: [
+      {
+        name: "Haemophilus influenzae type b",
+        stars: 1,
+        body: `<p>H. influenzae is a small gram-negative coccobacillus that requires factors V (NAD) and X (hemin) for growth — that's a classic board question. Type b (encapsulated) was historically the leading cause of bacterial meningitis in children, but the Hib conjugate vaccine has dramatically reduced this. It also causes epiglottitis (a medical emergency with "thumbprint sign" on lateral neck X-ray), pneumonia, and otitis media.</p>
+<p>Non-typeable (unencapsulated) strains still cause otitis media, sinusitis, and COPD exacerbations in adults. These strains are not covered by the Hib vaccine. H. influenzae grows on chocolate agar (not blood agar, because the heating releases the factors V and X). Treatment is amoxicillin-clavulanate or cephalosporins. For meningitis, you use ceftriaxone plus dexamethasone.</p>`
+      },
+      {
+        name: "Bordetella pertussis",
+        stars: 1,
+        body: `<p>Bordetella pertussis is a small gram-negative coccobacillus that causes whooping cough (pertussis). The pertussis toxin works by ADP-ribosylating the Gi protein, which disables it — so adenylate cyclase is permanently turned on, increasing cAMP. This leads to lymphocytosis (a classic lab finding — a very high white cell count with lymphocyte predominance).</p>
+<p>The disease has three stages: catarrhal (most contagious, looks like a cold), paroxysmal (intense coughing fits with a "whoop" on inspiration, post-tussive vomiting), and convalescent (gradual recovery over weeks). It grows on Bordet-Gengou agar (potato-glycerol-blood agar). Diagnosis is by PCR of nasopharyngeal swab. Prevention is the acellular pertussis vaccine (part of DTaP/Tdap). Treatment is macrolides (azithromycin or erythromycin).</p>`
+      },
+      {
+        name: "Legionella pneumophila",
+        stars: 1,
+        body: `<p>Legionella is a gram-negative rod that causes Legionnaires' disease — a severe atypical pneumonia. It's found in water systems: air conditioning units, cooling towers, and hot water tanks. It's a facultative intracellular organism that replicates within alveolar macrophages. On staining, it doesn't show up well on standard Gram stain — you need a silver stain to visualise it.</p>
+<p>It grows on charcoal yeast extract agar with iron and cysteine. The classic clue in a vignette is an older smoker or immunocompromised patient with pneumonia plus GI symptoms (diarrhea) plus hyponatremia. Diagnosis is by urinary antigen test (detects serogroup 1, the most common). Treatment is fluoroquinolones or macrolides — not beta-lactams, because it's intracellular.</p>`
+      },
+      {
+        name: "Brucella spp.",
+        stars: 2,
+        body: `<p>Brucella is a small gram-negative coccobacillus that causes brucellosis — also called undulant fever, Malta fever, or Bang disease. It's transmitted through unpasteurized dairy products or direct contact with infected animals (cattle, goats, pigs). It's a facultative intracellular organism. The clinical picture is an undulating fever pattern with night sweats, arthralgias, hepatosplenomegaly, and fatigue.</p>
+<p>Lab diagnosis is critical for exams. Blood cultures are the gold standard but take a long time (hold cultures for at least 21 days). Serology using standard tube agglutination (STA) test is the classic method — a titre of 1:160 or higher is significant. PCR is increasingly used. A common trick question: the prozone phenomenon can cause a false-negative agglutination test if you don't dilute enough. Treatment is doxycycline plus an aminoglycoside (streptomycin or gentamicin) for 6 weeks.</p>`
+      },
+    ]
+  },
+  {
+    section: "Bacteria",
+    subsection: "Acid-Fast Bacilli",
+    tag: "bacteria",
+    items: [
+      {
+        name: "Mycobacterium tuberculosis",
+        stars: 2,
+        body: `<p>TB is an acid-fast bacillus — it stains with Ziehl-Neelsen (carbol fuchsin, acid-alcohol, methylene blue). The cell wall has a very high mycolic acid content, making it waxy and resistant to drying, disinfectants, and many antibiotics. It's an obligate aerobe, which explains why it loves the lung apices (highest oxygen tension). It's a facultative intracellular pathogen that survives within macrophages.</p>
+<p>You need to know latent versus active disease. Latent TB means the person is PPD-positive (or IGRA-positive) but asymptomatic with a normal chest X-ray — the organism is walled off in granulomas but alive. Active TB presents with chronic cough, hemoptysis, night sweats, weight loss, and cavitary lesions on CXR. The Ghon complex is the initial site of infection (Ghon focus in the mid-lung zone plus hilar lymphadenopathy). The PPD test interpretation depends on the patient's risk category — 5 mm for HIV/immunocompromised, 10 mm for high-risk groups, 15 mm for low-risk. Treatment of active TB is RIPE: Rifampin, Isoniazid, Pyrazinamide, and Ethambutol for two months, then rifampin plus isoniazid for four more months. Latent TB is treated with isoniazid for 9 months.</p>`
+      },
+      {
+        name: "Mycobacterium leprae",
+        stars: 0,
+        body: `<p>M. leprae causes leprosy (Hansen disease), which exists on a spectrum. Tuberculoid leprosy is the milder form — the patient has a strong cell-mediated (Th1) response, so there are few organisms but there is nerve damage. You see well-defined, hypopigmented, anesthetic skin patches with thickened peripheral nerves. Lepromatous leprosy is the more severe form — weak cell-mediated immunity (Th2 predominant), so there's diffuse skin involvement ("leonine facies"), high bacterial load, and widespread nerve damage.</p>
+<p>M. leprae cannot be cultured on artificial media — it's grown in armadillo footpads or mouse footpads for research. It prefers cool temperatures, hence it affects skin, peripheral nerves, and the nasal mucosa. Treatment of lepromatous leprosy is with dapsone, rifampin, and clofazimine (triple therapy). Tuberculoid leprosy is treated with dapsone and rifampin.</p>`
+      },
+    ]
+  },
+  {
+    section: "Bacteria",
+    subsection: "Spirochetes",
+    tag: "bacteria",
+    items: [
+      {
+        name: "Treponema pallidum",
+        stars: 2,
+        body: `<p>T. pallidum causes syphilis. It can't be cultured in vitro and is too thin to see on regular Gram stain — you use darkfield microscopy or direct fluorescent antibody testing to visualise it. The stages are critical: primary syphilis is a painless chancre at the site of inoculation, secondary syphilis presents with diffuse maculopapular rash (including palms and soles), condylomata lata (moist flat warts), and lymphadenopathy. Tertiary syphilis can present as gummas (granulomatous lesions), cardiovascular syphilis (aortitis, aortic aneurysm), or neurosyphilis (tabes dorsalis, Argyll-Robertson pupils).</p>
+<p>Screening is done with non-treponemal tests: RPR or VDRL — these are cheap and can be used to monitor treatment (titres fall with effective treatment). Confirmation is with treponemal tests: FTA-ABS or TP-PA, which stay positive for life. A false positive RPR can be seen in SLE, pregnancy, and viral infections. Congenital syphilis causes saddle nose, Hutchinson teeth, saber shins, and interstitial keratitis. Treatment is penicillin G — benzathine penicillin for early syphilis, IV penicillin for neurosyphilis.</p>`
+      },
+      {
+        name: "Borrelia burgdorferi",
+        stars: 1,
+        body: `<p>B. burgdorferi causes Lyme disease, transmitted by the Ixodes tick (same tick that carries Babesia and Anaplasma). It's the most common vector-borne disease in the US. Stage 1 is early localised: erythema migrans — the classic expanding "bull's-eye" rash at the tick bite site. Stage 2 is early disseminated: carditis (AV block), bilateral Bell's palsy, and migratory arthritis. Stage 3 is late: chronic large-joint arthritis (especially the knee) and encephalopathy.</p>
+<p>Diagnosis uses a two-step approach: ELISA first, then confirmed by Western blot. Treatment for early disease is doxycycline (also covers co-infections). For cardiac or neurologic involvement, IV ceftriaxone. The spirochete is visualised by Giemsa staining of blood smears or by culture in Barbour-Stoenner-Kelly (BSK) medium.</p>`
+      },
+      {
+        name: "Leptospira interrogans",
+        stars: 1,
+        body: `<p>Leptospira is a tightly coiled spirochete with hook-shaped ends (like a question mark, hence "interrogans"). It's a zoonotic infection transmitted through contact with water contaminated by animal urine — classically from rats. It enters through skin abrasions or mucous membranes. You see it in farmers, sewer workers, and people who swim in or wade through contaminated water.</p>
+<p>The mild form is anicteric leptospirosis — a biphasic illness with fever, headache, myalgia (especially calf muscles, which is a classic clue), and conjunctival suffusion (red eyes without discharge). The severe form is Weil's disease — jaundice, renal failure, and hemorrhage, with a significant mortality rate. Diagnosis is with serology (MAT — microscopic agglutination test) or PCR. Treatment is penicillin or doxycycline, and doxycycline can also be used as prophylaxis in high-risk exposures.</p>`
+      },
+    ]
+  },
+  {
+    section: "Bacteria",
+    subsection: "Obligate Intracellular & Cell-Wall Deficient",
+    tag: "bacteria",
+    items: [
+      {
+        name: "Mycoplasma pneumoniae",
+        stars: 1,
+        body: `<p>Mycoplasma pneumoniae is the classic cause of "walking pneumonia" or atypical pneumonia — patients feel relatively well despite having an abnormal chest X-ray. It has no cell wall, which means it doesn't Gram stain, is inherently resistant to beta-lactams and vancomycin (which target the cell wall), and its membrane contains sterols for stability. It grows on Eaton agar but is very slow.</p>
+<p>The clinical picture is a young person (school-age child or young adult) with a dry, hacking cough, low-grade fever, and a chest X-ray that looks worse than the patient does. A classic lab finding is cold agglutinins — IgM antibodies that agglutinate red blood cells at cold temperatures. Complications include erythema multiforme, hemolytic anemia, and bullous myringitis (blistering of the tympanic membrane). Treatment is macrolides (azithromycin), doxycycline, or fluoroquinolones.</p>`
+      },
+      {
+        name: "Rickettsia spp.",
+        stars: 1,
+        body: `<p>Rickettsiae are obligate intracellular gram-negative bacteria transmitted by arthropod vectors. Rocky Mountain spotted fever (RMSF) is caused by R. rickettsii, transmitted by the Dermacentor tick. The classic triad is fever, headache, and a rash that starts on the wrists and ankles and spreads centripetally (inward) — including the palms and soles. The rash is petechial because the organism infects endothelial cells, causing vasculitis.</p>
+<p>Epidemic typhus is caused by R. prowazekii, transmitted by the human body louse. The rash starts centrally and spreads outward (centrifugal) — the opposite of RMSF. Lab clue: the Weil-Felix test uses cross-reacting Proteus antigens, though it's not very specific. Treatment for all rickettsial diseases is doxycycline — even in children, because the disease can be fatal and the risk outweighs the concern about tooth staining.</p>`
+      },
+      {
+        name: "Chlamydia species",
+        stars: 2,
+        body: `<p>Chlamydiae are obligate intracellular bacteria with a unique biphasic life cycle: the elementary body (EB) is the infectious extracellular form (small, dense, metabolically inactive — think "E for Enter"), and the reticulate body (RB) is the intracellular replicating form (larger, metabolically active — think "R for Replicate"). They can't make their own ATP — they're energy parasites.</p>
+<p>C. trachomatis serotypes D-K cause the most common bacterial STI — urethritis, cervicitis, PID, and reactive arthritis. Serotypes A-C cause trachoma (leading infectious cause of blindness worldwide). Serotypes L1-L3 cause lymphogranuloma venereum (LGV). C. pneumoniae causes atypical pneumonia. C. psittaci causes psittacosis from bird exposure. Detection is by NAAT (nucleic acid amplification testing) — this is the gold standard for C. trachomatis genital infections. On histology, you may see basophilic intracytoplasmic inclusion bodies. Treatment is azithromycin (single dose) or doxycycline (7 days).</p>`
+      },
+    ]
+  },
+  {
+    section: "Bacteria",
+    subsection: "Gram-Variable",
+    tag: "bacteria",
+    items: [
+      {
+        name: "Gardnerella vaginalis",
+        stars: 2,
+        body: `<p>Gardnerella vaginalis is the key organism in bacterial vaginosis (BV), which is actually a polymicrobial condition involving an overgrowth of anaerobes (Gardnerella, Mobiluncus, Prevotella) and a loss of the normal protective Lactobacillus flora. BV is not an STI in the traditional sense, but it's associated with sexual activity. The normal vaginal flora is dominated by Lactobacillus, which produces lactic acid and hydrogen peroxide to maintain an acidic pH (~4.5).</p>
+<p>The classic presentation is a thin, grayish-white vaginal discharge with a fishy smell. Diagnosis is by the Amsel criteria (at least 3 of 4): clue cells on wet mount (epithelial cells coated with bacteria, giving them a stippled appearance), positive whiff test (fishy odor with KOH), vaginal pH > 4.5, and the characteristic discharge. Nugent scoring on Gram stain is the gold standard. Treatment is metronidazole or clindamycin.</p>`
+      },
+    ]
+  },
+
+  // =============== VIRUSES ===============
+  {
+    section: "Viruses",
+    subsection: "DNA Viruses: Enveloped",
+    tag: "virus",
+    items: [
+      {
+        name: "Herpesviridae (HSV, VZV, CMV, EBV)",
+        stars: 2,
+        body: `<p>Herpesviruses are enveloped dsDNA viruses that establish latency — this is their defining feature. HSV-1 is classically oral herpes (cold sores) and encephalitis (temporal lobe), latent in the trigeminal ganglion. HSV-2 is genital herpes, latent in the sacral ganglia. Both are diagnosed by Tzanck smear (shows multinucleated giant cells) or PCR. Treatment is acyclovir, which requires viral thymidine kinase for activation — so it selectively targets infected cells.</p>
+<p>VZV causes chickenpox (primary infection — vesicular rash in different stages, "dew drops on a rose petal") and shingles (reactivation from dorsal root ganglia — dermatomal, painful vesicular rash). CMV is the most common congenital viral infection — it causes hearing loss, jaundice, petechiae ("blueberry muffin rash"), microcephaly, and periventricular calcifications. In immunocompromised patients, CMV causes retinitis, colitis, and pneumonitis. Diagnosis is by PCR or "owl-eye" intranuclear inclusions on biopsy. EBV causes infectious mononucleosis — sore throat, lymphadenopathy, fatigue, and splenomegaly. The classic lab finding is atypical lymphocytes (reactive CD8+ T cells). It's associated with Burkitt lymphoma (c-myc translocation t(8;14)), nasopharyngeal carcinoma, and Hodgkin lymphoma. Diagnosis with heterophile antibody test (Monospot) or EBV-specific antibodies (VCA IgM).</p>`
+      },
+      {
+        name: "Hepatitis B Virus (HBV)",
+        stars: 2,
+        body: `<p>HBV is a partially dsDNA virus (uses reverse transcriptase, but it's a DNA virus — not RNA). It's transmitted by blood, sexual contact, and vertical (mother-to-child) transmission. The serology is extremely high-yield. HBsAg means active infection (surface antigen — appears first). Anti-HBs means immunity (either from vaccination or recovered infection). HBeAg means high infectivity and active viral replication. Anti-HBe means lower infectivity. Anti-HBc IgM means acute infection, while Anti-HBc IgG means past or chronic infection. The "window period" is when HBsAg has disappeared but Anti-HBs hasn't appeared yet — only Anti-HBc IgM is detectable.</p>
+<p>Chronic HBV (HBsAg positive for >6 months) carries a significant risk of cirrhosis and hepatocellular carcinoma (HCC). Risk of chronicity is inversely related to age at infection — 90% in neonates but only 5% in adults. The vaccine is a recombinant HBsAg vaccine and is given in a 3-dose series. Treatment of chronic HBV includes tenofovir, entecavir, or pegylated interferon-alpha.</p>`
+      },
+      {
+        name: "Poxviridae",
+        stars: 1,
+        body: `<p>Poxviruses are the largest DNA viruses, and uniquely among DNA viruses, they replicate in the cytoplasm (they carry their own DNA-dependent RNA polymerase). Smallpox (variola) was eradicated by vaccination in 1980. Molluscum contagiosum is the remaining clinically relevant poxvirus — it causes small, dome-shaped, umbilicated (dimpled) papules, especially in children and immunocompromised patients. Histologically, you see Henderson-Patterson bodies (large eosinophilic intracytoplasmic inclusions). It's self-limited in immunocompetent patients.</p>`
+      },
+    ]
+  },
+  {
+    section: "Viruses",
+    subsection: "DNA Viruses: Non-Enveloped",
+    tag: "virus",
+    items: [
+      {
+        name: "Human Papillomavirus (HPV)",
+        stars: 2,
+        body: `<p>HPV is a non-enveloped dsDNA virus — non-enveloped viruses are generally more resistant to disinfection. The key concept is that different types cause different diseases. Low-risk types 6 and 11 cause genital warts (condylomata acuminata) and laryngeal papillomas. High-risk types 16 and 18 cause cervical cancer, as well as anal, penile, and oropharyngeal cancers. Type 16 is the most oncogenic overall.</p>
+<p>The oncogenic mechanism involves two viral proteins: E6 degrades p53 (a tumor suppressor), and E7 inhibits Rb (retinoblastoma protein). Together, they remove cell cycle checkpoints and promote uncontrolled growth. Cervical cancer screening is by Pap smear (looks for koilocytes — cells with perinuclear clearing) and HPV DNA testing. Vaccines (Gardasil 9) cover types 6, 11, 16, 18, and five additional high-risk types. Vaccination is recommended for both boys and girls starting at age 11-12.</p>`
+      },
+      {
+        name: "Adenovirus",
+        stars: 2,
+        body: `<p>Adenoviruses are non-enveloped dsDNA viruses and are extremely hardy — they resist desiccation and GI conditions. They cause a range of diseases: pharyngoconjunctival fever (sore throat plus conjunctivitis, common in kids), epidemic keratoconjunctivitis ("pink eye," highly contagious), gastroenteritis (serotypes 40 and 41 — second most common cause of pediatric viral diarrhea after rotavirus), hemorrhagic cystitis, and pneumonia (especially in military recruits).</p>
+<p>A classic buzzword is "swimming pool conjunctivitis" — outbreaks linked to inadequately chlorinated pools. Adenoviruses can also cause intussusception in children. There's no specific antiviral treatment. A live oral vaccine exists for military use against serotypes 4 and 7.</p>`
+      },
+      {
+        name: "Parvovirus B19",
+        stars: 1,
+        body: `<p>Parvovirus B19 is the smallest DNA virus (hence "parvo") and is a non-enveloped ssDNA virus. It infects erythroid precursors in the bone marrow by binding the P antigen (globoside) on red blood cell precursors. In children, it causes erythema infectiosum (fifth disease) — a "slapped cheek" rash followed by a lacy reticular rash on the trunk and extremities. By the time the rash appears, the child is no longer contagious.</p>
+<p>In patients with chronic hemolytic anemias (like sickle cell disease or spherocytosis), parvovirus B19 causes aplastic crisis — a sudden, severe drop in hemoglobin because the marrow can't compensate. In adults, it can cause a symmetric polyarthropathy. In pregnancy, it can cause hydrops fetalis (severe fetal anemia and edema). There is no vaccine and no specific antiviral — treatment is supportive, with IVIG for immunocompromised patients.</p>`
+      },
+    ]
+  },
+  {
+    section: "Viruses",
+    subsection: "RNA Viruses: +ssRNA",
+    tag: "virus",
+    items: [
+      {
+        name: "Hepatitis A Virus",
+        stars: 1,
+        body: `<p>HAV is a non-enveloped ssRNA picornavirus transmitted by the fecal-oral route — classically from contaminated shellfish, water, or food. It causes acute hepatitis only — it never becomes chronic. The clinical picture is malaise, jaundice, dark urine, and elevated transaminases. Most children are asymptomatic, but adults are more likely to be symptomatic. It's self-limited with no specific treatment.</p>
+<p>Diagnosis: anti-HAV IgM for acute infection, anti-HAV IgG for past infection or immunity. The vaccine is an inactivated virus, given to travelers heading to endemic areas, children, and people with chronic liver disease. It does not cause a carrier state.</p>`
+      },
+      {
+        name: "Hepatitis C Virus",
+        stars: 2,
+        body: `<p>HCV is an enveloped +ssRNA flavivirus. Unlike HAV, it has a very high rate of chronicity — about 75-85% of infected individuals develop chronic hepatitis. It's transmitted primarily through blood (IV drug use is the most common route now, also blood transfusions before 1992). It has a high mutation rate, which is why there's no vaccine — the virus constantly changes its envelope proteins.</p>
+<p>Chronic HCV leads to cirrhosis and hepatocellular carcinoma. Diagnosis is by anti-HCV antibodies (screening) followed by HCV RNA PCR (confirmatory and to monitor treatment). Treatment has been revolutionized by direct-acting antivirals (DAAs) like sofosbuvir and ledipasvir — cure rates now exceed 95%. HCV is the most common indication for liver transplantation in many countries.</p>`
+      },
+      {
+        name: "Yellow Fever Virus",
+        stars: 2,
+        body: `<p>Yellow fever virus is a flavivirus transmitted by the Aedes aegypti mosquito, endemic in sub-Saharan Africa and South America. The name comes from jaundice caused by hepatic involvement. The clinical course is biphasic: an initial viremic phase with fever, headache, and myalgias, followed by a brief remission, then a toxic phase with jaundice, hemorrhage, and liver failure (Councilman bodies — eosinophilic apoptotic hepatocytes on histology).</p>
+<p>There is a highly effective live-attenuated vaccine (17D strain), which is required for travel to endemic areas and provides lifelong immunity. Diagnosis is by serology (IgM) or PCR. There's no specific antiviral — treatment is supportive.</p>`
+      },
+      {
+        name: "Dengue Virus",
+        stars: 1,
+        body: `<p>Dengue is a flavivirus transmitted by the Aedes mosquito. Primary infection typically causes dengue fever — high fever, severe headache, retroorbital pain, myalgia, arthralgia ("breakbone fever"), and a rash. Most cases are self-limited. The danger comes with secondary infection by a different serotype (there are 4 serotypes): antibody-dependent enhancement leads to dengue hemorrhagic fever and dengue shock syndrome, with plasma leakage, hemorrhage, and potentially death.</p>
+<p>Diagnosis is by NS1 antigen (early), IgM serology, or PCR. A key lab finding is thrombocytopenia and hemoconcentration. Treatment is supportive — avoid aspirin and NSAIDs (increase bleeding risk). There is a vaccine (Dengvaxia) but it's only recommended for individuals with prior dengue infection.</p>`
+      },
+      {
+        name: "Zika Virus",
+        stars: 0,
+        body: `<p>Zika is a flavivirus transmitted by the Aedes mosquito, but it can also be transmitted sexually and vertically. Most infections are asymptomatic or mild — low-grade fever, maculopapular rash, conjunctivitis, and arthralgias. The major concern is congenital Zika syndrome: microcephaly, intracranial calcifications, and other severe brain abnormalities in infants born to infected mothers.</p>
+<p>In adults, Zika is also associated with Guillain-Barré syndrome. Diagnosis is by PCR (acute) or IgM serology (but cross-reacts with dengue, which complicates interpretation). There's no vaccine and no specific treatment. Pregnant women are advised to avoid travel to endemic areas.</p>`
+      },
+      {
+        name: "Rubella Virus",
+        stars: 1,
+        body: `<p>Rubella is a togavirus that causes German measles — a mild illness with a maculopapular rash starting on the face and spreading downward, low-grade fever, and posterior auricular and postoccipital lymphadenopathy (a distinguishing feature). The Forchheimer spots (petechiae on the soft palate) are another buzzword. In children and adults, it's usually mild and self-limited.</p>
+<p>The major concern is congenital rubella syndrome — if a pregnant woman is infected in the first trimester, the baby can develop cataracts, deafness (sensorineural hearing loss), cardiac defects (PDA is classic), and "blueberry muffin" rash. Prevention is with the MMR vaccine (live-attenuated), which is contraindicated in pregnancy. All women of childbearing age should be checked for rubella immunity.</p>`
+      },
+      {
+        name: "Norovirus",
+        stars: 1,
+        body: `<p>Norovirus is a non-enveloped ssRNA calicivirus and is the most common cause of viral gastroenteritis in adults and in outbreaks (cruise ships, nursing homes, daycare centers). It has a very low infectious dose — as few as 18 viral particles can cause infection. It spreads by the fecal-oral route, contaminated food or water, and fomites. It's extremely resistant because it's non-enveloped — survives on surfaces and is resistant to many disinfectants.</p>
+<p>Symptoms include sudden onset of projectile vomiting, watery diarrhea, nausea, and abdominal cramps, lasting 24-72 hours. It's self-limited and treatment is supportive — primarily rehydration. Diagnosis is by RT-PCR of stool.</p>`
+      },
+      {
+        name: "HIV",
+        stars: 2,
+        body: `<p>HIV is an enveloped +ssRNA retrovirus. It carries reverse transcriptase, which converts its RNA into DNA, which then integrates into the host genome using integrase. The virus binds CD4 receptors and a coreceptor (CCR5 on macrophages initially, then CXCR4 on T cells as the disease progresses). The gp120 protein binds CD4, and gp41 mediates fusion. Over time, the virus destroys CD4+ T cells, leading to progressive immunodeficiency.</p>
+<p>The natural history: acute retroviral syndrome (flu-like illness 2-4 weeks after infection), then a long clinical latency period (years), then AIDS when CD4 drops below 200 cells/μL or an AIDS-defining illness occurs. Opportunistic infections are high-yield: CD4 < 200 → Pneumocystis pneumonia; CD4 < 100 → Toxoplasma, Cryptococcus; CD4 < 50 → MAC, CMV. Diagnosis is by 4th generation combo test (HIV p24 antigen + anti-HIV antibodies), confirmed by HIV RNA PCR. Treatment is combination antiretroviral therapy (cART) — usually two NRTIs plus an integrase inhibitor. PrEP with tenofovir/emtricitabine prevents infection in high-risk individuals.</p>`
+      },
+      {
+        name: "Coxsackievirus",
+        stars: 1,
+        body: `<p>Coxsackieviruses are enteroviruses (non-enveloped ssRNA, picornavirus family). Group A causes hand-foot-and-mouth disease (HFMD) — painful vesicles on the hands, feet, and mouth, most common in children under 5 — and herpangina (painful vesicles on the posterior pharynx). Group B causes myocarditis, pericarditis, and pleurodynia (Bornholm disease — sudden chest or abdominal pain).</p>
+<p>Both groups can cause aseptic meningitis. Neonatal myocarditis from Coxsackie B can be fatal. Transmission is fecal-oral or respiratory. Diagnosis is usually clinical, but can be confirmed by PCR. Treatment is supportive — no specific antiviral. Group B's association with dilated cardiomyopathy is a classic board question.</p>`
+      },
+      {
+        name: "Rhinovirus",
+        stars: 0,
+        body: `<p>Rhinovirus is a non-enveloped ssRNA picornavirus and the most common cause of the common cold. It replicates best at 33°C (the temperature of the nasal passages), which is why it causes upper respiratory infections rather than lower respiratory disease. It has over 100 serotypes, making vaccine development impractical. Transmission is by aerosol or direct contact with contaminated surfaces (fomites).</p>
+<p>Symptoms are rhinorrhea, sneezing, sore throat, and mild cough — usually self-limited in 7-10 days. In asthmatics and COPD patients, rhinovirus can trigger exacerbations. Treatment is supportive — rest, fluids, and symptomatic relief. Antibiotics are not indicated.</p>`
+      },
+    ]
+  },
+  {
+    section: "Viruses",
+    subsection: "RNA Viruses: -ssRNA",
+    tag: "virus",
+    items: [
+      {
+        name: "Influenza Virus",
+        stars: 2,
+        body: `<p>Influenza is an enveloped -ssRNA virus with a segmented genome (8 segments). The two key surface glycoproteins are hemagglutinin (H) — which mediates viral entry by binding sialic acid — and neuraminidase (N) — which cleaves sialic acid to release new virions. These are the basis of subtyping (e.g., H1N1, H3N2). You need to know the difference between antigenic drift (minor point mutations in H and N genes → gradual change → seasonal epidemics) and antigenic shift (reassortment of whole genome segments, usually when two different strains co-infect the same cell, often in pigs → major change → pandemics).</p>
+<p>Clinical presentation is abrupt onset of high fever, myalgias, headache, and non-productive cough. Complications include primary viral pneumonia and secondary bacterial pneumonia (Staph aureus, Strep pneumoniae). Diagnosis is by rapid antigen test or PCR. Treatment is neuraminidase inhibitors (oseltamivir, zanamivir) — most effective within 48 hours of symptom onset. The inactivated vaccine is given annually. The live-attenuated intranasal vaccine (LAIV) is an alternative for healthy young people.</p>`
+      },
+      {
+        name: "RSV (Respiratory Syncytial Virus)",
+        stars: 2,
+        body: `<p>RSV is the most common cause of bronchiolitis and pneumonia in infants (typically under 2 years). It's an enveloped -ssRNA paramyxovirus. The F (fusion) protein allows the virus to fuse respiratory epithelial cells, creating giant multinucleated cells (syncytia), which is how it got its name. It spreads via respiratory droplets and fomites.</p>
+<p>Clinically, infants present with wheezing, tachypnea, nasal flaring, and intercostal retractions. It can also cause otitis media. In premature infants and those with chronic lung disease or congenital heart disease, RSV can be severe and life-threatening. Diagnosis is by rapid antigen testing or PCR. Treatment is mainly supportive — oxygen, fluids, and monitoring. Palivizumab (a monoclonal antibody against the F protein) is given as prophylaxis to high-risk infants during RSV season.</p>`
+      },
+      {
+        name: "Measles Virus",
+        stars: 1,
+        body: `<p>Measles is a paramyxovirus that is one of the most contagious viruses known (R0 of 12-18). The prodrome includes the three C's: Cough, Coryza, and Conjunctivitis, plus Koplik spots — white spots on the buccal mucosa opposite the molars, which are pathognomonic and appear before the rash. The maculopapular rash starts on the face/head and spreads downward (cephalocaudal). Complications include pneumonia (most common cause of death), encephalitis, and subacute sclerosing panencephalitis (SSPE — a fatal late complication years later).</p>
+<p>Measles also causes profound immunosuppression through "immune amnesia" — it wipes out previously acquired immune memory. Diagnosis is by IgM serology or PCR. Prevention is with the MMR vaccine (live-attenuated), given at 12-15 months and 4-6 years. Vitamin A supplementation reduces mortality in malnourished children.</p>`
+      },
+      {
+        name: "Mumps Virus",
+        stars: 1,
+        body: `<p>Mumps is a paramyxovirus that classically causes bilateral parotitis — tender swelling of the parotid glands. Transmission is via respiratory droplets. After a prodrome of fever and malaise, the parotid swelling appears. In most children, it's a mild self-limited illness.</p>
+<p>Complications are more common in post-pubertal males: orchitis (testicular inflammation, which can cause infertility, though bilateral involvement is uncommon), meningitis, and pancreatitis. Mumps is also a cause of unilateral sensorineural hearing loss. Diagnosis is clinical, confirmed by serology (IgM) or viral culture from saliva. Prevention is with the MMR vaccine. Elevated serum amylase can be seen from either parotitis or pancreatitis.</p>`
+      },
+      {
+        name: "Rabies Virus",
+        stars: 1,
+        body: `<p>Rabies is a bullet-shaped -ssRNA rhabdovirus that travels retrogradely along peripheral nerves to the CNS. It's transmitted through the bite of an infected animal — dogs globally, bats and raccoons in the US. The incubation period can be weeks to months. Once symptoms appear, it's almost universally fatal. The clinical picture is encephalitis with hydrophobia (fear of water — painful spasms of pharyngeal muscles when swallowing), aerophobia, agitation, and hypersalivation.</p>
+<p>The diagnostic buzzword is Negri bodies — eosinophilic intracytoplasmic inclusions in neurons (especially hippocampal pyramidal cells). Post-exposure prophylaxis (PEP) includes wound cleaning, rabies immunoglobulin (infiltrated around the wound), and a series of rabies vaccine doses. Pre-exposure vaccination is available for high-risk individuals (veterinarians, cave explorers).</p>`
+      },
+      {
+        name: "Hantavirus",
+        stars: 0,
+        body: `<p>Hantavirus is a bunyavirus transmitted by inhalation of aerosolized rodent excreta (urine, droppings, saliva) — not by arthropod bite, which distinguishes it from other bunyaviruses. In the Americas, the Sin Nombre virus causes hantavirus pulmonary syndrome (HPS) — rapid-onset non-cardiogenic pulmonary edema, respiratory failure, and shock. In the Old World, hantaviruses cause hemorrhagic fever with renal syndrome (HFRS).</p>
+<p>The classic scenario is someone who cleaned out a rural cabin or shed and inhaled deer mouse droppings. There is no person-to-person transmission (for New World strains). Treatment is supportive — ribavirin may have some benefit. There's no vaccine available in the US.</p>`
+      },
+    ]
+  },
+  {
+    section: "Viruses",
+    subsection: "RNA Viruses: dsRNA",
+    tag: "virus",
+    items: [
+      {
+        name: "Rotavirus",
+        stars: 1,
+        body: `<p>Rotavirus is a non-enveloped dsRNA virus (Reoviridae family) and is the most common cause of severe viral gastroenteritis in children under 5 worldwide. It's transmitted by the fecal-oral route and is highly contagious. It infects the mature enterocytes of the small intestine villus tips, causing villous destruction, malabsorption, and osmotic diarrhea. It also produces NSP4, a viral enterotoxin that stimulates secretory diarrhea.</p>
+<p>Clinical picture: watery diarrhea, vomiting, and fever in a child 6 months to 2 years old. The major risk is severe dehydration. Diagnosis is by rapid antigen detection (ELISA) in stool. The vaccine is a live-attenuated oral vaccine given in infancy (RotaTeq at 2, 4, 6 months or Rotarix at 2, 4 months). A previous rotavirus vaccine (RotaShield) was withdrawn due to intussusception risk.</p>`
+      },
+    ]
+  },
+  {
+    section: "Viruses",
+    subsection: "Defective RNA Viruses",
+    tag: "virus",
+    items: [
+      {
+        name: "Hepatitis D Virus (HDV)",
+        stars: 1,
+        body: `<p>HDV is a defective RNA virus — it's unique because it absolutely requires Hepatitis B surface antigen (HBsAg) to assemble its viral particle. So you can only get HDV if you have HBV. There are two scenarios: coinfection (HBV and HDV acquired simultaneously — usually self-limited, low risk of chronicity) and superinfection (HDV acquired on top of chronic HBV — high risk of fulminant hepatitis and accelerated progression to cirrhosis).</p>
+<p>HDV has the smallest genome of any animal virus. Diagnosis is by anti-HDV antibodies and HDV RNA. Superinfection is the more dangerous scenario — it makes pre-existing chronic HBV much worse. Prevention is achieved by vaccinating against HBV — if you prevent HBV, you automatically prevent HDV.</p>`
+      },
+    ]
+  },
+
+  // =============== FUNGI ===============
+  {
+    section: "Fungi",
+    subsection: "Yeasts & Atypical Fungi",
+    tag: "fungi",
+    items: [
+      {
+        name: "Candida albicans / Candida spp.",
+        stars: 2,
+        body: `<p>Candida albicans is a normal commensal yeast of the skin, GI tract, and vagina that becomes pathogenic when host defenses are down — immunosuppression, antibiotics (killing competing bacteria), diabetes, or indwelling catheters. Superficial infections include oral thrush (white, scrape-off-able plaques), vulvovaginal candidiasis (thick white "cottage cheese" discharge, itching, normal pH), and diaper dermatitis. Systemic candidiasis occurs in hospitalized, critically ill, or neutropenic patients and can involve the bloodstream, eyes, heart valves, and kidneys.</p>
+<p>Candida forms germ tubes at 37°C — this is the rapid test for C. albicans specifically. Non-albicans species like C. glabrata and C. krusei are important because they are resistant to fluconazole. On KOH prep, you see pseudohyphae and budding yeast. Treatment: topical azoles for superficial infections, fluconazole for systemic, and echinocandins (caspofungin, micafungin) for resistant or severe cases.</p>`
+      },
+      {
+        name: "Cryptococcus neoformans",
+        stars: 1,
+        body: `<p>Cryptococcus is an encapsulated yeast found in soil contaminated with pigeon droppings. It's the most common cause of fungal meningitis, especially in HIV/AIDS patients with very low CD4 counts (< 100). It causes a subacute meningitis with headache, fever, and altered mental status. CSF findings show elevated opening pressure, low glucose, high protein, and mononuclear pleocytosis.</p>
+<p>The classic diagnostic test is India ink stain of CSF — you see a clear halo around the yeast (the capsule). The latex agglutination test for cryptococcal antigen in CSF or serum is more sensitive. The capsule is the major virulence factor — it inhibits phagocytosis. Treatment is amphotericin B plus flucytosine for induction, then fluconazole for long-term maintenance.</p>`
+      },
+      {
+        name: "Pneumocystis jirovecii",
+        stars: 1,
+        body: `<p>Pneumocystis jirovecii (formerly P. carinii) is technically classified as a fungus, but it doesn't respond to conventional antifungals. It causes Pneumocystis pneumonia (PCP) — the most common opportunistic infection in AIDS, typically when CD4 < 200. The classic presentation is bilateral diffuse interstitial infiltrates on CXR ("ground glass opacities" on CT), with an insidious onset of dyspnea, dry cough, and fever. The LDH is often elevated.</p>
+<p>Diagnosis is by silver stain (methenamine silver — shows the cyst walls as "crushed ping-pong balls") or direct fluorescent antibody of induced sputum or bronchoalveolar lavage. Treatment is high-dose TMP-SMX (trimethoprim-sulfamethoxazole). If PaO₂ < 70 or A-a gradient > 35, add steroids. Prophylaxis with TMP-SMX is given to HIV patients with CD4 < 200 and to other immunocompromised patients.</p>`
+      },
+    ]
+  },
+  {
+    section: "Fungi",
+    subsection: "Molds",
+    tag: "fungi",
+    items: [
+      {
+        name: "Aspergillus species",
+        stars: 1,
+        body: `<p>Aspergillus fumigatus is the most pathogenic species. It causes a spectrum of disease depending on the host's immune status. In immunocompetent atopic patients: allergic bronchopulmonary aspergillosis (ABPA) — asthma, eosinophilia, elevated IgE, central bronchiectasis. In patients with pre-existing cavities (like from TB): aspergilloma ("fungus ball") — a mass of hyphae in the cavity, visible on imaging as a mobile mass within a cavity (Monod sign). In neutropenic and immunocompromised patients: invasive pulmonary aspergillosis — the most dangerous form, with vascular invasion causing tissue necrosis.</p>
+<p>On histology, Aspergillus has septate hyphae branching at 45-degree angles (V-shaped). Diagnosis of invasive disease uses galactomannan antigen testing and CT (showing a "halo sign"). Aspergillus also produces aflatoxins (from A. flavus), which are associated with hepatocellular carcinoma. Treatment is voriconazole for invasive disease, itraconazole for ABPA.</p>`
+      },
+      {
+        name: "Mucorales / Rhizopus",
+        stars: 1,
+        body: `<p>Mucor and Rhizopus cause mucormycosis (zygomycosis), a rapidly invasive fungal infection that's a medical emergency. The classic patient is a diabetic in ketoacidosis or a severely neutropenic/immunosuppressed patient. The fungi love acidotic, high-iron environments. Rhinocerebral mucormycosis is the most common presentation — it starts in the sinuses with black necrotic tissue (due to angioinvasion and thrombosis), then spreads to the orbit and brain.</p>
+<p>On histology, you see wide, ribbon-like, non-septate (pauciseptate) hyphae branching at 90-degree (right) angles — this is the distinguishing feature from Aspergillus (which is septate at 45 degrees). Treatment requires aggressive surgical debridement of necrotic tissue plus IV amphotericin B. Correction of the underlying condition (especially DKA) is essential. Voriconazole does NOT work against Mucor — a common board trick.</p>`
+      },
+      {
+        name: "Dermatophytes",
+        stars: 0,
+        body: `<p>Dermatophytes (Trichophyton, Microsporum, Epidermophyton) are fungi that infect keratinised tissue — skin, hair, and nails. They cause "tinea" infections: tinea capitis (scalp), tinea corporis (body — "ringworm," which is not a worm), tinea cruris (groin — "jock itch"), tinea pedis (feet — "athlete's foot"), and tinea unguium (nails — onychomycosis). They never invade deeper tissues.</p>
+<p>Diagnosis is by KOH prep — you dissolve the keratin with KOH and see branching hyphae under the microscope. Wood lamp fluorescence (blue-green) can detect Microsporum infections of the scalp. Treatment for superficial infections is topical antifungals (terbinafine, clotrimazole). For nail or widespread infections, systemic terbinafine or itraconazole is needed.</p>`
+      },
+    ]
+  },
+  {
+    section: "Fungi",
+    subsection: "Dimorphic Fungi",
+    tag: "fungi",
+    items: [
+      {
+        name: "Dimorphic Fungi (Histo, Blasto, Cocci)",
+        stars: 1,
+        body: `<p>Dimorphic fungi are "mold in the cold, yeast in the heat" — they exist as mold at 25°C (in the environment) and convert to yeast at 37°C (in the body). They're all found in specific geographic areas and primarily cause pulmonary infections that can disseminate. Histoplasma capsulatum is found in the Ohio and Mississippi River valleys, associated with bat and bird droppings. It infects macrophages (intracellular yeast), and you see small oval yeast inside macrophages on biopsy. It can mimic TB and sarcoidosis.</p>
+<p>Blastomyces dermatitidis is found in the Great Lakes region and Ohio/Mississippi valleys. It causes pulmonary disease that often disseminates to skin (verrucous lesions) and bone. On histology, you see broad-based budding yeast — that's the key feature. Coccidioides immitis is found in the southwestern US (desert). It causes "valley fever" — pulmonary infection with erythema nodosum. On histology, it forms large spherules filled with endospores. Treatment for mild disease: itraconazole. For severe or disseminated disease: amphotericin B.</p>`
+      },
+    ]
+  },
+
+  // =============== SPECIAL PATHOGENS ===============
+  {
+    section: "Special Pathogens",
+    subsection: "Prions",
+    tag: "special",
+    items: [
+      {
+        name: "Prions",
+        stars: 2,
+        body: `<p>Prions are misfolded proteins — specifically, the normal cellular prion protein (PrPc) gets converted to the abnormal, disease-causing form (PrPSc), which is protease-resistant and forms amyloid-like aggregates. The key concept: prions contain no nucleic acid (no DNA, no RNA), so they can't be destroyed by UV radiation, nucleases, or autoclaving at standard temperatures. They cause transmissible spongiform encephalopathies.</p>
+<p>The diseases to know: Creutzfeldt-Jakob disease (CJD) — the most common, presents with rapidly progressive dementia, myoclonus, and periodic sharp waves on EEG. Variant CJD (vCJD) is from eating BSE-contaminated beef ("mad cow disease") and affects younger patients. Other prion diseases include kuru (from cannibalism in Papua New Guinea), fatal familial insomnia, and Gerstmann-Sträussler-Scheinker syndrome. The brain has a spongiform (sponge-like) appearance on histology. There is no treatment — prion diseases are uniformly fatal.</p>`
+      },
+    ]
+  },
+
+  // =============== PARASITES ===============
+  {
+    section: "Parasites",
+    subsection: "Protozoa: Intestinal & Urogenital",
+    tag: "parasite",
+    items: [
+      {
+        name: "Giardia lamblia",
+        stars: 0,
+        body: `<p>Giardia is a flagellated protozoan transmitted by the fecal-oral route, typically through contaminated water — hikers and campers drinking from streams are the classic scenario. It exists as a cyst (infectious form, survives in the environment) and a trophozoite (the active form in the gut). The trophozoite has a characteristic pear-shaped appearance with two nuclei, giving it a "face-like" look under the microscope.</p>
+<p>It causes a non-bloody, foul-smelling, fatty diarrhea (steatorrhea) due to malabsorption — it coats the duodenal and jejunal mucosa. There's no invasion and no blood in the stool. Diagnosis is by stool microscopy (ova and parasites), stool antigen testing, or the "string test" (Entero-Test). Treatment is metronidazole or tinidazole.</p>`
+      },
+      {
+        name: "Entamoeba histolytica",
+        stars: 0,
+        body: `<p>Entamoeba histolytica causes amebic dysentery and liver abscess. Transmission is fecal-oral, common in developing countries. It invades the colonic mucosa, creating "flask-shaped" ulcers. The diarrhea is bloody and mucoid. The classic complication is amebic liver abscess — a single large abscess in the right lobe of the liver, containing "anchovy paste" material (chocolate-brown necrotic tissue).</p>
+<p>Diagnosis: stool microscopy showing trophozoites with ingested red blood cells (this is the hallmark — RBCs inside the amoeba), or serology for the liver abscess. Stool antigen testing helps distinguish pathogenic E. histolytica from the non-pathogenic E. dispar. Treatment is metronidazole (to kill trophozoites) followed by paromomycin or iodoquinol (to eliminate cysts in the gut and prevent relapse).</p>`
+      },
+      {
+        name: "Trichomonas vaginalis",
+        stars: 0,
+        body: `<p>Trichomonas vaginalis is a flagellated protozoan that causes trichomoniasis — the most common non-viral STI worldwide. It only exists as a trophozoite (no cyst form), which means it's fragile and requires direct mucosal contact for transmission. In women, it causes a frothy, yellow-green, malodorous vaginal discharge with vaginal pH > 4.5 and a "strawberry cervix" (punctate hemorrhages on the cervix). Men are usually asymptomatic carriers.</p>
+<p>Diagnosis is by wet mount showing motile, pear-shaped, flagellated trophozoites — you can see them moving under the microscope. NAAT is more sensitive. Treatment is metronidazole or tinidazole for both the patient and their sexual partner (test of cure is not needed for most cases). It's important to treat partners to prevent re-infection.</p>`
+      },
+    ]
+  },
+  {
+    section: "Parasites",
+    subsection: "Protozoa: Blood & Tissue",
+    tag: "parasite",
+    items: [
+      {
+        name: "Plasmodium spp. (Malaria)",
+        stars: 0,
+        body: `<p>Malaria is caused by Plasmodium species transmitted by the female Anopheles mosquito. The four species are P. falciparum (most dangerous — causes cerebral malaria, severe anemia, and high parasitemia), P. vivax and P. ovale (can form hypnozoites in the liver causing relapse months to years later), and P. malariae (causes nephrotic syndrome). The life cycle alternates between the mosquito (sexual reproduction) and humans (asexual reproduction in liver and then red blood cells).</p>
+<p>Clinically, you see cyclical fevers (every 48 hours for falciparum, vivax, ovale; every 72 for malariae), chills, sweats, anemia, and splenomegaly. Diagnosis is by thick and thin blood smear — thick smear for detection, thin smear for species identification. P. falciparum shows "banana-shaped" gametocytes. Treatment: chloroquine for sensitive strains, artemisinin-based combination therapy (ACT) for P. falciparum. For vivax/ovale, add primaquine to kill hypnozoites (check G6PD first — primaquine causes hemolytic anemia in G6PD deficiency). Prophylaxis for travelers: atovaquone-proguanil, doxycycline, or mefloquine.</p>`
+      },
+      {
+        name: "Toxoplasma gondii",
+        stars: 0,
+        body: `<p>Toxoplasma is an intracellular protozoan. The definitive host is the cat — cats shed oocysts in their feces. Humans get infected by ingesting oocysts from cat feces or undercooked meat containing tissue cysts. In immunocompetent individuals, it usually causes a mild, self-limited illness or is completely asymptomatic.</p>
+<p>Two high-yield scenarios: in HIV/AIDS (CD4 < 100), Toxoplasma causes brain abscesses — multiple ring-enhancing lesions on CT/MRI, classically in the basal ganglia. Treatment is pyrimethamine plus sulfadiazine. In congenital toxoplasmosis (if the mother is infected for the first time during pregnancy), the classic triad is chorioretinitis, intracranial calcifications (diffuse, unlike CMV which is periventricular), and hydrocephalus. Diagnosis is by IgM serology or PCR.</p>`
+      },
+      {
+        name: "Trypanosoma brucei",
+        stars: 0,
+        body: `<p>T. brucei causes African trypanosomiasis (sleeping sickness), transmitted by the tsetse fly. There are two subspecies: T.b. gambiense (West African, chronic — progresses slowly over months to years) and T.b. rhodesiense (East African, acute — more rapidly progressive). The trypanosomes evade the immune system through antigenic variation — they continuously switch their variable surface glycoprotein (VSG), so the host can never mount an effective response.</p>
+<p>Clinical stages: Stage 1 (hemolymphatic) — fever, lymphadenopathy (Winterbottom's sign — posterior cervical lymphadenopathy is a classic buzzword). Stage 2 (meningoencephalitic) — the parasite crosses the blood-brain barrier causing daytime somnolence, behavioral changes, and eventually coma. Diagnosis is by blood smear or CSF analysis. Treatment for early disease is suramin (rhodesiense) or pentamidine (gambiense); for late disease with CNS involvement, melarsoprol or eflornithine.</p>`
+      },
+      {
+        name: "Trypanosoma cruzi",
+        stars: 0,
+        body: `<p>T. cruzi causes American trypanosomiasis (Chagas disease), transmitted by the reduviid bug (kissing bug) — the bug defecates while feeding, and the trypanosomes enter through the bite wound or mucous membranes. It's endemic in Central and South America.</p>
+<p>Acute phase: Romaña sign (unilateral periorbital swelling at the bite site) and chagoma (skin nodule). Most cases are asymptomatic acutely. Chronic phase (decades later): dilated cardiomyopathy (the most important — heart failure, arrhythmias, sudden death) and megaesophagus/megacolon (damage to myenteric plexus). Diagnosis is by blood smear in acute disease, serology in chronic disease. Trypomastigotes are seen in blood. Treatment is benznidazole or nifurtimox — most effective in the acute phase.</p>`
+      },
+      {
+        name: "Leishmania spp.",
+        stars: 0,
+        body: `<p>Leishmania is transmitted by the sandfly. It exists as a promastigote in the sandfly (flagellated) and as an amastigote in human macrophages (non-flagellated, intracellular). There are three main clinical forms: cutaneous (painless ulcer at the bite site, usually self-heals), mucocutaneous (L. braziliensis — destroys nasal and oral mucosa), and visceral (L. donovani — kala-azar, meaning "black fever").</p>
+<p>Visceral leishmaniasis presents with massive hepatosplenomegaly, pancytopenia, fever, and weight loss. It's fatal if untreated. Diagnosis is by biopsy showing amastigotes (Leishman-Donovan bodies) within macrophages. Treatment is amphotericin B (liposomal) or miltefosine.</p>`
+      },
+      {
+        name: "Babesia spp.",
+        stars: 0,
+        body: `<p>Babesia is a protozoan transmitted by the Ixodes tick (the same tick that transmits Lyme disease and Anaplasma). It infects red blood cells, so it looks similar to malaria on a blood smear. The key distinguishing feature is the "Maltese cross" (tetrad) formation inside RBCs — this is classic for Babesia and not seen in malaria.</p>
+<p>It's most common in the northeastern US (Nantucket, Martha's Vineyard). Patients present with fever, hemolytic anemia, and jaundice. Asplenic patients are at particularly high risk for severe disease. Diagnosis is by blood smear (ring forms, tetrads) or PCR. Treatment is atovaquone plus azithromycin (mild disease) or clindamycin plus quinine (severe disease).</p>`
+      },
+    ]
+  },
+  {
+    section: "Parasites",
+    subsection: "Helminths: Cestodes (Tapeworms)",
+    tag: "parasite",
+    items: [
+      {
+        name: "Taenia spp.",
+        stars: 0,
+        body: `<p>Taenia solium (pork tapeworm) is more dangerous than T. saginata (beef tapeworm). If you eat undercooked pork with cysticerci, the larva develops into an adult tapeworm in the gut — this is intestinal taeniasis, which is relatively benign. The critical difference: if you ingest T. solium eggs (fecal-oral route, from contaminated food or water), the larvae can encyst in tissues — this is cysticercosis. When cysts lodge in the brain, it's neurocysticercosis, the most common cause of acquired epilepsy in endemic areas.</p>
+<p>Neurocysticercosis presents with seizures, and imaging shows cystic lesions, often with a visible scolex (the worm head) inside. Diagnosis is by imaging plus serology. Treatment of neurocysticercosis requires albendazole or praziquantel plus steroids and antiepileptics. T. saginata doesn't cause cysticercosis — humans are the definitive host for the adult worm with both species, but only T. solium has humans as an intermediate host for cysticerci.</p>`
+      },
+      {
+        name: "Echinococcus spp.",
+        stars: 0,
+        body: `<p>Echinococcus granulosus causes cystic hydatid disease. The definitive host is the dog, and humans are accidental intermediate hosts who ingest eggs from contaminated food or contact with dogs. The larvae form large, slowly growing cysts most commonly in the liver and lungs. These cysts have a characteristic "daughter cysts" pattern on imaging — cysts within cysts.</p>
+<p>The big risk is cyst rupture — this can cause a severe anaphylactic reaction because the cyst fluid is highly antigenic. Rupture can also cause disseminated seeding of daughter cysts. For this reason, you should never aspirate or biopsy a suspected hydatid cyst without precautions. Lab findings may show eosinophilia. Treatment is albendazole, sometimes with percutaneous drainage (PAIR technique) or surgical excision for large cysts.</p>`
+      },
+    ]
+  },
+  {
+    section: "Parasites",
+    subsection: "Helminths: Trematodes (Flukes)",
+    tag: "parasite",
+    items: [
+      {
+        name: "Schistosoma spp.",
+        stars: 0,
+        body: `<p>Schistosomiasis is caused by blood flukes whose larvae (cercariae) penetrate the skin when you wade in freshwater — the classic scenario is swimming in African lakes. There are three main species: S. mansoni (intestinal — portal hypertension, lives in inferior mesenteric vein), S. japonicum (also intestinal, more eggs, more severe hepatic disease), and S. haematobium (urogenital — lives in vesical venous plexus).</p>
+<p>S. haematobium causes hematuria and is associated with squamous cell carcinoma of the bladder — a key association. S. mansoni and S. japonicum cause hepatosplenomegaly, portal hypertension, and pipe-stem fibrosis of the liver (granulomatous reaction around eggs deposited in portal venules). Eggs are the diagnostic finding in stool or urine. S. mansoni eggs have a lateral spine, S. japonicum eggs are small and round, and S. haematobium eggs have a terminal spine. Treatment for all species is praziquantel.</p>`
+      },
+    ]
+  },
+  {
+    section: "Parasites",
+    subsection: "Helminths: Nematodes (Roundworms)",
+    tag: "parasite",
+    items: [
+      {
+        name: "Toxocara spp.",
+        stars: 0,
+        body: `<p>Toxocara canis (from dogs) and T. cati (from cats) cause toxocariasis. Children ingest eggs from contaminated soil (like sandboxes or playgrounds). The larvae hatch in the intestine and migrate through tissues — this is visceral larva migrans, presenting with fever, hepatomegaly, eosinophilia, and granulomatous inflammation. If larvae reach the eye, it causes ocular larva migrans — unilateral vision loss and granuloma formation, which can be confused with retinoblastoma.</p>
+<p>Diagnosis is by serology (ELISA for Toxocara antibodies). Eosinophilia is a hallmark of helminth infections in general. Treatment is albendazole plus steroids if there's significant inflammation.</p>`
+      },
+      {
+        name: "Filarial Worms",
+        stars: 0,
+        body: `<p>Wuchereria bancrofti and Brugia malayi cause lymphatic filariasis. Adult worms live in lymphatic vessels, causing obstruction. Acutely, you get lymphangitis and fever. Chronically, the lymphatic obstruction leads to elephantiasis — massive swelling of the limbs, genitals, or breasts. The vectors are mosquitoes.</p>
+<p>Diagnosis is by thick blood smear — but here's the trick: the microfilariae (larvae) have nocturnal periodicity, so you must draw blood at night. Diagnosis is also possible by antigen testing. Treatment is diethylcarbamazine (DEC). Another important filarial worm is Onchocerca volvulus, transmitted by the blackfly, causing "river blindness" (onchocerciasis) — skin nodules, intense pruritus, and visual impairment. Treatment for onchocerciasis is ivermectin.</p>`
+      },
+    ]
+  },
+
+  // =============== OPPORTUNISTIC INFECTIONS ===============
+  {
+    section: "Opportunistic Infections",
+    subsection: "Fungal Opportunists in HIV/AIDS",
+    tag: "special",
+    items: [
+      {
+        name: "PCP, Candida, Crypto, Aspergillus in HIV",
+        stars: 1,
+        body: `<p>In HIV/AIDS, opportunistic infections follow a predictable pattern based on CD4 count. Pneumocystis jirovecii pneumonia (PCP) occurs at CD4 < 200 — bilateral ground-glass opacities, elevated LDH, diagnosed by silver stain, treated and prevented with TMP-SMX. Oral and esophageal candidiasis (thrush, odynophagia) also occurs around CD4 < 200 — white plaques, treat with fluconazole. Cryptococcal meningitis occurs at CD4 < 100 — subacute headache, diagnosed by India ink and cryptococcal antigen, treated with amphotericin B plus flucytosine then fluconazole maintenance.</p>
+<p>Invasive aspergillosis is less common in HIV than in neutropenic patients, but can occur with very low CD4 counts — look for pulmonary nodules, halo sign on CT, septate hyphae at 45 degrees, galactomannan antigen positive. Treated with voriconazole. The overall approach in HIV: know the CD4 thresholds, know the prophylaxis regimens, and recognise the clinical and diagnostic patterns for each opportunistic infection.</p>`
+      },
+    ]
+  },
+  {
+    section: "Opportunistic Infections",
+    subsection: "Bacterial & Parasitic Opportunists",
+    tag: "special",
+    items: [
+      {
+        name: "Cryptosporidium & MAC in HIV",
+        stars: 0,
+        body: `<p>Cryptosporidium is a protozoan that causes severe, chronic watery diarrhea in AIDS patients (CD4 < 100). It's transmitted fecal-orally and infects the brush border of the small intestine. Oocysts are acid-fast on modified Ziehl-Neelsen stain — this is a classic buzzword. In immunocompetent patients, cryptosporidiosis is self-limited, but in HIV it can be relentless. Treatment is primarily immune reconstitution with antiretrovirals (ART). Nitazoxanide may help in mild cases.</p>
+<p>Mycobacterium avium complex (MAC) occurs at CD4 < 50 — the lowest CD4 threshold of the major opportunistic infections. It causes disseminated disease with fever, night sweats, weight loss, anemia, and elevated alkaline phosphatase. It's diagnosed by blood cultures (acid-fast bacilli). Prophylaxis with azithromycin is given when CD4 < 50. Treatment is clarithromycin or azithromycin plus ethambutol.</p>`
+      },
+    ]
+  },
+
+  // =============== STRUCTURES, TOXINS, GENETICS ===============
+  {
+    section: "Pathogen Structures & Genetics",
+    subsection: "Bacterial Structures",
+    tag: "special",
+    items: [
+      {
+        name: "Pili, Biofilm, Capsule, Endospores",
+        stars: 2,
+        body: `<p>Pili (fimbriae) are protein appendages on the bacterial surface used for adhesion to host cells — they're critical for colonisation. Type 1 pili on E. coli mediate attachment to uroepithelial cells, which is why E. coli is the most common cause of UTIs. Sex pili (F pili) are used in conjugation — the transfer of plasmid DNA between bacteria. Biofilm is a structured community of bacteria enclosed in a self-produced extracellular matrix, adhering to surfaces. Biofilms are clinically important because bacteria within them are much more resistant to antibiotics and immune clearance — this is why infections associated with prosthetic devices, catheters, and implants are so hard to treat.</p>
+<p>The bacterial capsule is a polysaccharide layer that prevents phagocytosis — it's the virulence factor for encapsulated organisms (Strep pneumoniae, N. meningitidis, H. influenzae, Klebsiella, group B strep, Cryptococcus). Asplenic patients are at high risk because the spleen is responsible for clearing encapsulated organisms. Endospores are formed by Bacillus and Clostridium species — they're highly resistant to heat, chemicals, radiation, and desiccation. They allow the organism to survive in harsh environments and germinate when conditions are favorable. Autoclaving at 121°C for 15 minutes under pressure is required to kill endospores.</p>`
+      },
+    ]
+  },
+  {
+    section: "Pathogen Structures & Genetics",
+    subsection: "Viral Structures & Genetics",
+    tag: "special",
+    items: [
+      {
+        name: "Capsid, Envelope, Plasmids",
+        stars: 2,
+        body: `<p>The viral capsid is a protein shell that protects the nucleic acid. It's made of capsomeres, which can be arranged in icosahedral symmetry (20 triangular faces — most spherical viruses) or helical symmetry (rod-shaped, like tobacco mosaic virus). The capsid determines the viral shape and mediates attachment to host cells in naked (non-enveloped) viruses. Enveloped viruses have a lipid bilayer derived from the host cell membrane surrounding the capsid. This envelope contains viral glycoproteins needed for entry (e.g., hemagglutinin in influenza, gp120/gp41 in HIV).</p>
+<p>Enveloped viruses are generally more fragile — they're susceptible to detergents, drying, and heat. Non-enveloped (naked) viruses are tougher and can survive on surfaces and in the GI tract (which is why enteroviruses, rotavirus, and norovirus can spread fecal-orally). Plasmids are extrachromosomal circular DNA found in bacteria that can carry genes for antibiotic resistance, virulence factors, and toxins. They replicate independently of the chromosome and can be transferred between bacteria by conjugation, which is a major mechanism for spreading drug resistance.</p>`
+      },
+    ]
+  },
+
+  // =============== VACCINES ===============
+  {
+    section: "Vaccines & Immunology",
+    subsection: "Bacterial Vaccines",
+    tag: "vaccine",
+    items: [
+      {
+        name: "Tdap, Pneumococcal, BCG",
+        stars: 2,
+        body: `<p>The tetanus vaccine is a toxoid — inactivated toxin that induces antibodies against the toxin itself. Tdap (tetanus, diphtheria, acellular pertussis) is given as a booster to adolescents and adults; DTaP is the primary series for children. Pregnant women receive Tdap in the third trimester of each pregnancy to passively protect the newborn against pertussis. For wound management, give the toxoid booster if the last dose was >5 years ago for dirty wounds, or >10 years for clean wounds. Give tetanus immunoglobulin (TIG) for dirty wounds in unvaccinated patients.</p>
+<p>Pneumococcal vaccines: PCV13 (conjugate) is for children under 2 and high-risk adults — the conjugate design links the polysaccharide to a protein carrier, making it T-cell dependent and effective in young children. PPSV23 (polysaccharide) is for adults 65+ and at-risk patients — it covers more serotypes but generates T-cell independent immunity and doesn't work well in children under 2. BCG is a live-attenuated vaccine for TB prevention, made from Mycobacterium bovis. It's given at birth in high-prevalence countries. Important nuance: BCG can cause a positive PPD test, which complicates TB screening — that's why IGRA (interferon-gamma release assay) is preferred in BCG-vaccinated individuals because IGRA is not affected by BCG.</p>`
+      },
+    ]
+  },
+  {
+    section: "Vaccines & Immunology",
+    subsection: "Viral Vaccines",
+    tag: "vaccine",
+    items: [
+      {
+        name: "Polio, MMR, Hep A/B, Influenza, Varicella",
+        stars: 0,
+        body: `<p>The polio vaccine comes in two forms: IPV (inactivated — Salk vaccine, given by injection, used in the US, cannot cause disease) and OPV (oral live-attenuated — Sabin vaccine, used in mass campaigns globally, induces mucosal IgA immunity but has a very rare risk of vaccine-associated paralytic polio from reversion to virulence). MMR is a live-attenuated vaccine for measles, mumps, and rubella — contraindicated in pregnancy and severely immunocompromised patients. Given at 12-15 months and 4-6 years.</p>
+<p>Hepatitis A vaccine is inactivated, given for travel to endemic areas and to children. Hepatitis B vaccine is a recombinant vaccine (HBsAg produced in yeast) — given as a 3-dose series starting at birth. You check anti-HBs to confirm immunity. Influenza vaccine: the inactivated form (IM injection) is given annually; the live-attenuated intranasal form (LAIV) is for healthy people aged 2-49, not immunocompromised. The varicella vaccine is live-attenuated for children (2 doses). Shingrix (recombinant adjuvanted vaccine) is preferred over Zostavax for shingles prevention in adults 50+ — Shingrix is not live, so it can be given to immunocompromised patients.</p>`
+      },
+    ]
+  },
+
+  // =============== LAB TECHNIQUES ===============
+  {
+    section: "Lab Techniques & Diagnostics",
+    subsection: "Stains",
+    tag: "lab",
+    items: [
+      {
+        name: "Gram, Acid-Fast, India Ink, KOH, Silver",
+        stars: 2,
+        body: `<p>Gram stain is the most fundamental microbiologic test. The steps: crystal violet (primary stain) → iodine (mordant, fixes the stain) → decolorizer (acetone-alcohol — this is the differential step) → safranin (counterstain). Gram-positive bacteria have a thick peptidoglycan layer that retains crystal violet and stain purple. Gram-negative bacteria have a thin peptidoglycan layer and an outer membrane — they lose the crystal violet during decolorization and pick up safranin, staining pink/red.</p>
+<p>Acid-fast staining (Ziehl-Neelsen) uses carbol fuchsin, which binds mycolic acids in mycobacterial cell walls. After acid-alcohol decolorization, acid-fast bacilli retain the red stain. This is used for Mycobacterium tuberculosis and M. leprae, as well as Nocardia (weakly acid-fast). India ink is a negative stain — it stains the background, and the unstained capsule of Cryptococcus neoformans appears as a clear halo around the yeast. KOH prep dissolves keratin and cellular debris, making fungal elements (hyphae, yeast) visible — used for dermatophytes and Candida. Silver stain (Gomori methenamine silver) stains the cyst wall of Pneumocystis jirovecii and is also used for fungi and Legionella.</p>`
+      },
+    ]
+  },
+  {
+    section: "Lab Techniques & Diagnostics",
+    subsection: "Culture",
+    tag: "lab",
+    items: [
+      {
+        name: "Blood, Urine, CSF Culture & Special Media",
+        stars: 2,
+        body: `<p>Blood culture is the gold standard for diagnosing bacteremia and sepsis. You draw two sets (from different sites) before starting antibiotics. Positive blood cultures are critical in diagnosing endocarditis (need sustained bacteremia) and guiding antibiotic therapy. Urine culture: a colony count of ≥10⁵ CFU/mL from a clean-catch midstream specimen is significant for a UTI. Always send for culture and sensitivity to guide treatment, especially for complicated UTIs. CSF analysis in meningitis is extremely high-yield: bacterial meningitis shows high neutrophils, low glucose, high protein, and positive Gram stain/culture; viral meningitis shows lymphocytic pleocytosis, normal glucose, mildly elevated protein.</p>
+<p>Special media: Thayer-Martin VCN agar is for Neisseria (selective — vancomycin kills gram-positives, colistin kills gram-negatives except Neisseria, nystatin kills fungi). Bordet-Gengou agar (or Regan-Lowe) is for Bordetella pertussis. Löwenstein-Jensen medium is for Mycobacterium tuberculosis (takes 4-6 weeks to grow). Chocolate agar is for Haemophilus and Neisseria (supplies factors V and X). MacConkey agar differentiates lactose fermenters (pink colonies, like E. coli and Klebsiella) from non-fermenters (colorless, like Salmonella and Shigella). Sabouraud agar is for fungi.</p>`
+      },
+    ]
+  },
+  {
+    section: "Lab Techniques & Diagnostics",
+    subsection: "Immunoassays & Molecular Testing",
+    tag: "lab",
+    items: [
+      {
+        name: "Rapid Antigen, PCR, ELISA, Serology",
+        stars: 0,
+        body: `<p>ELISA (enzyme-linked immunosorbent assay) is a workhorse screening test. It detects antibodies or antigens using an enzyme-labeled reagent that produces a color change. It's used for HIV screening (4th gen detects both p24 antigen and anti-HIV antibodies), HCV antibodies, and many parasitic infections. PCR (polymerase chain reaction) amplifies DNA and is extremely sensitive and specific — used for Chlamydia/Gonorrhea (NAAT), HSV, CMV, HCV RNA, HIV RNA, TB, and COVID-19. Rapid antigen tests detect specific microbial antigens — used for Strep throat (rapid strep test), RSV, influenza, rotavirus, and Cryptococcus.</p>
+<p>Serology is used when culture is difficult or for retrospective diagnosis. ASO titre and anti-DNase B detect prior Group A Strep infection (useful for diagnosing rheumatic fever and post-streptococcal glomerulonephritis). Widal test is for typhoid fever (but has low sensitivity). MAT is the gold standard for Leptospira. EBV serologies (VCA IgM, EBNA) help stage EBV infection. CMV IgM and IgG help determine timing of infection (important in pregnancy). Heterophile antibody test (Monospot) is for EBV infectious mononucleosis.</p>`
+      },
+    ]
+  },
+  {
+    section: "Lab Techniques & Diagnostics",
+    subsection: "Susceptibility Testing",
+    tag: "lab",
+    items: [
+      {
+        name: "Antibiotic Susceptibility Testing",
+        stars: 2,
+        body: `<p>Antibiotic susceptibility testing determines which antibiotics a given isolate is sensitive or resistant to. The two main methods are disk diffusion (Kirby-Bauer) and minimum inhibitory concentration (MIC). In disk diffusion, antibiotic-impregnated disks are placed on an agar plate inoculated with the bacterium — the zone of inhibition (clear area around the disk where bacteria can't grow) is measured and compared to standardised breakpoints. Larger zones mean greater susceptibility.</p>
+<p>MIC is the lowest concentration of an antibiotic that inhibits visible growth of the organism — it's determined by broth dilution or automated systems (like Vitek). MIC is more precise and is used to guide dosing, especially for serious infections. E-test (Epsilometer test) is a hybrid method using a strip with a gradient of antibiotic concentrations — where the ellipse of inhibition intersects the strip gives you the MIC. Results are reported as S (susceptible), I (intermediate), or R (resistant). Always use the narrowest-spectrum effective antibiotic to reduce resistance development.</p>`
+      },
+    ]
+  },
+
+  // =============== ANTIBIOTICS ===============
+  {
+    section: "Antibiotics & Antifungals",
+    subsection: "General Principles",
+    tag: "abx",
+    items: [
+      {
+        name: "Mechanisms of Antibiotic Action",
+        stars: 2,
+        body: `<p>Antibiotics work by targeting structures or processes unique to (or more important in) bacteria. The five major mechanisms are: inhibition of cell wall synthesis (beta-lactams, vancomycin), inhibition of protein synthesis (aminoglycosides, macrolides, tetracyclines, chloramphenicol, linezolid, clindamycin), inhibition of nucleic acid synthesis (fluoroquinolones target DNA gyrase and topoisomerase IV; rifampin targets RNA polymerase), inhibition of folate synthesis (sulfonamides block dihydropteroate synthase, trimethoprim blocks dihydrofolate reductase), and disruption of cell membrane integrity (daptomycin, polymyxins).</p>
+<p>Protein synthesis inhibitors are divided by ribosomal subunit: 30S inhibitors include aminoglycosides and tetracyclines; 50S inhibitors include macrolides, chloramphenicol, clindamycin, and linezolid. A useful mnemonic: "Buy AT 30, CELL at 50" — (30S: Aminoglycosides, Tetracyclines; 50S: Chloramphenicol, Erythromycin/macrolides, Linezolid, cLindamycin). Bactericidal antibiotics kill bacteria (beta-lactams, fluoroquinolones, aminoglycosides, metronidazole), while bacteriostatic antibiotics inhibit growth (macrolides, tetracyclines, chloramphenicol, clindamycin, TMP-SMX at standard doses).</p>`
+      },
+    ]
+  },
+  {
+    section: "Antibiotics & Antifungals",
+    subsection: "Cell Wall Synthesis Inhibitors",
+    tag: "abx",
+    items: [
+      {
+        name: "Beta-Lactams & Vancomycin",
+        stars: 2,
+        body: `<p>Beta-lactams (penicillins, cephalosporins, carbapenems, monobactams) all share a beta-lactam ring that binds penicillin-binding proteins (PBPs) and inhibits transpeptidation — the cross-linking step in peptidoglycan synthesis. Resistance occurs through beta-lactamase production (enzymatic destruction of the ring), altered PBPs (like MRSA's PBP2a encoded by mecA), or porin mutations (in gram-negatives). You overcome beta-lactamase with inhibitors like clavulanate, sulbactam, and tazobactam.</p>
+<p>Cephalosporins: first-gen (cefazolin — gram-positives, surgical prophylaxis), second-gen (cefuroxime, cefoxitin), third-gen (ceftriaxone — meningitis, gonorrhea; ceftazidime — Pseudomonas), fourth-gen (cefepime — broad including Pseudomonas). Carbapenems (imipenem, meropenem) are the broadest spectrum beta-lactams and are reserved for resistant organisms. Vancomycin is a glycopeptide that binds D-Ala-D-Ala on the peptidoglycan precursor, blocking cell wall synthesis. It's the drug of choice for serious MRSA infections. VRE resistance occurs because the organism changes D-Ala-D-Ala to D-Ala-D-Lac, reducing vancomycin binding. Vancomycin side effects include red man syndrome (histamine release from rapid infusion — slow the infusion) and nephrotoxicity/ototoxicity.</p>`
+      },
+    ]
+  },
+  {
+    section: "Antibiotics & Antifungals",
+    subsection: "Protein Synthesis Inhibitors",
+    tag: "abx",
+    items: [
+      {
+        name: "Aminoglycosides, Macrolides, Tetracyclines, Chloramphenicol",
+        stars: 0,
+        body: `<p>Aminoglycosides (gentamicin, tobramycin, amikacin, streptomycin) bind the 30S ribosomal subunit and cause misreading of mRNA. They're bactericidal and require oxygen for uptake — so they don't work against anaerobes. They have concentration-dependent killing and a post-antibiotic effect. Major toxicities: nephrotoxicity and ototoxicity (both vestibular and cochlear — irreversible hearing loss). They're used for serious gram-negative infections and in combination with beta-lactams for synergy (e.g., endocarditis).</p>
+<p>Macrolides (azithromycin, erythromycin, clarithromycin) bind the 50S subunit and block translocation. They cover atypical organisms (Mycoplasma, Chlamydia, Legionella) and are first-line for community-acquired pneumonia in outpatients. Side effects include GI upset (erythromycin is a motilin receptor agonist), QT prolongation, and inhibition of cytochrome P450 enzymes. Tetracyclines (doxycycline, minocycline) bind the 30S subunit and block tRNA binding. They cover atypicals, Rickettsia, Borrelia, Brucella, and acne. Side effects: teeth discoloration in children under 8 (chelates calcium), photosensitivity, and esophagitis. Chloramphenicol binds 50S and inhibits peptidyl transferase. It causes dose-dependent bone marrow suppression and, rarely, aplastic anemia (idiosyncratic). In neonates, it causes gray baby syndrome due to immature hepatic conjugation.</p>`
+      },
+    ]
+  },
+  {
+    section: "Antibiotics & Antifungals",
+    subsection: "DNA/RNA & Folate Synthesis Inhibitors",
+    tag: "abx",
+    items: [
+      {
+        name: "Fluoroquinolones & TMP-SMX",
+        stars: 0,
+        body: `<p>Fluoroquinolones (ciprofloxacin, levofloxacin, moxifloxacin) inhibit DNA gyrase (topoisomerase II) in gram-negatives and topoisomerase IV in gram-positives. They're bactericidal and have excellent bioavailability orally. Ciprofloxacin is particularly good against Pseudomonas. Levofloxacin and moxifloxacin are "respiratory fluoroquinolones" with better coverage of Strep pneumoniae. Black box warnings include tendon rupture (especially Achilles), peripheral neuropathy, and aortic dissection. They also chelate divalent cations (so don't take with antacids or dairy) and should be avoided in children and pregnancy (cartilage damage).</p>
+<p>TMP-SMX (trimethoprim-sulfamethoxazole) blocks two sequential steps in folate synthesis: sulfonamides inhibit dihydropteroate synthase, and trimethoprim inhibits dihydrofolate reductase. Together, they're synergistic and bactericidal. They're used for UTIs, MRSA skin infections, Pneumocystis prophylaxis and treatment, Nocardia, and Toxoplasma. Side effects include bone marrow suppression (megaloblastic anemia — give leucovorin), hyperkalemia (trimethoprim blocks ENaC), Stevens-Johnson syndrome, and hypersensitivity reactions (especially in HIV patients, who have a high rate of sulfa allergy).</p>`
+      },
+    ]
+  },
+  {
+    section: "Antibiotics & Antifungals",
+    subsection: "Antifungal Agents",
+    tag: "abx",
+    items: [
+      {
+        name: "Antifungal Classification & Mechanisms",
+        stars: 2,
+        body: `<p>Antifungals target fungal-specific structures, mainly ergosterol in the cell membrane and beta-glucan in the cell wall. Polyenes (amphotericin B, nystatin) bind ergosterol directly and create pores in the fungal membrane, causing cell death. Amphotericin B is the broadest-spectrum antifungal and is used for life-threatening systemic mycoses — side effects include nephrotoxicity ("ampho-terrible"), fever, chills, and hypokalemia. Liposomal formulations reduce toxicity.</p>
+<p>Azoles (fluconazole, itraconazole, voriconazole, posaconazole, ketoconazole) inhibit lanosterol 14-alpha-demethylase (a cytochrome P450 enzyme), blocking ergosterol synthesis. Fluconazole is first-line for Candida and Cryptococcal maintenance. Voriconazole is first-line for invasive Aspergillosis. Azoles interact with CYP450 — watch for drug interactions. Echinocandins (caspofungin, micafungin, anidulafungin) inhibit beta-1,3-glucan synthase in the fungal cell wall. They're used for invasive Candida (especially azole-resistant species) and as salvage therapy for Aspergillus. They do NOT work against Cryptococcus (which has little beta-glucan). Terbinafine inhibits squalene epoxidase — used for dermatophyte infections, especially onychomycosis. Flucytosine (5-FC) is converted to 5-FU inside fungal cells, inhibiting nucleic acid synthesis — used in combination with amphotericin B for Cryptococcal meningitis.</p>`
+      },
+    ]
+  },
+];
+
+// Build the page
+const contentEl = document.getElementById('content');
+const tocEl = document.getElementById('toc');
+let cardId = 0;
+const sections = {};
+
+DATA.forEach(group => {
+  const sKey = group.section;
+  if (!sections[sKey]) sections[sKey] = [];
+  sections[sKey].push(group);
+});
+
+// Build TOC
+Object.entries(sections).forEach(([secName, groups]) => {
+  const tocSec = document.createElement('div');
+  tocSec.className = 'toc-section';
+  tocSec.innerHTML = `<div class="toc-section-title">${secName}</div><div class="toc-links"></div>`;
+  const linksEl = tocSec.querySelector('.toc-links');
+  groups.forEach(g => {
+    g.items.forEach(item => {
+      const a = document.createElement('a');
+      a.className = 'toc-link';
+      a.textContent = item.name.length > 40 ? item.name.slice(0, 38) + '…' : item.name;
+      a.onclick = () => {
+        const el = document.getElementById('card-' + item._id);
+        if (el) {
+          el.classList.add('open');
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      };
+      linksEl.appendChild(a);
+    });
+  });
+  tocEl.appendChild(tocSec);
+});
+
+// Build content
+let lastSection = '';
+let lastSub = '';
+DATA.forEach(group => {
+  if (group.section !== lastSection) {
+    lastSection = group.section;
+    const sec = document.createElement('div');
+    sec.className = 'main-section';
+    sec.innerHTML = `<h2 class="main-section-title">${group.section}</h2>`;
+    contentEl.appendChild(sec);
+  }
+  if (group.subsection !== lastSub) {
+    lastSub = group.subsection;
+    const sub = document.createElement('div');
+    sub.className = 'subsection-title';
+    sub.textContent = group.subsection;
+    contentEl.appendChild(sub);
+  }
+  group.items.forEach(item => {
+    item._id = cardId++;
+    const stars = '★'.repeat(item.stars);
+    const tagLabel = group.tag;
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = 'card-' + item._id;
+    card.setAttribute('data-search', (item.name + ' ' + item.body).toLowerCase());
+    card.innerHTML = `
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="card-arrow">▶</span>
+        <span class="card-name">${item.name}</span>
+        ${stars ? `<span class="card-stars">${stars}</span>` : ''}
+        <span class="card-tag tag-${tagLabel}">${tagLabel}</span>
+      </div>
+      <div class="card-body">${item.body}</div>
+    `;
+    contentEl.appendChild(card);
+  });
+});
+
+// Search
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.card');
+  let any = false;
+  cards.forEach(c => {
+    const match = !q || c.getAttribute('data-search').includes(q);
+    c.style.display = match ? '' : 'none';
+    if (match) any = true;
+  });
+  document.getElementById('no-results')?.remove();
+  if (!any) {
+    const nr = document.createElement('div');
+    nr.className = 'no-results';
+    nr.id = 'no-results';
+    nr.textContent = 'No pathogens match your search.';
+    contentEl.appendChild(nr);
+  }
+});
+
+function toggleAll(open) {
+  document.querySelectorAll('.card').forEach(c => {
+    if (c.style.display !== 'none') {
+      open ? c.classList.add('open') : c.classList.remove('open');
+    }
+  });
+}
+</script>
+</body>
+</html>

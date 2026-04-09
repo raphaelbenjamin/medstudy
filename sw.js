@@ -1,4 +1,4 @@
-const CACHE = 'medstudy-v9';
+const CACHE = 'medstudy-v10';
 const URLS = [
   '.','./index.html',
   './anatomy/index.html','./anatomy/back.html','./anatomy/netter.html','./anatomy/study-tool.html',
@@ -10,6 +10,7 @@ const URLS = [
   './tools/streptococcus_MASTER.html',
   './site-admin.js',
     './italian/italian-conversation-b1.html',
+    './microbiology/micro_guide.html',
 ];
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(URLS)).then(()=>self.skipWaiting()));

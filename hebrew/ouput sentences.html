@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English–Hebrew Sentence Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --surface2: #222;
+    --border: #2e2e2e;
+    --accent: #c8a96e;
+    --accent2: #7dbfb2;
+    --text: #e8e2d9;
+    --text-dim: #888;
+    --text-faint: #555;
+    --copy-ok: #6fcf97;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 3rem 2rem 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--accent);
+    letter-spacing: 0.01em;
+  }
+
+  header p {
+    margin-top: 0.6rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    max-width: 600px;
+  }
+
+  .toc {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .toc a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.55rem;
+    border-radius: 3px;
+    transition: all 0.15s;
+  }
+
+  .toc a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1rem 2rem 4rem;
+  }
+
+  .section {
+    margin-bottom: 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.2rem 1.4rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-meta {
+    flex: 1;
+  }
+
+  .section-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .section-desc {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-style: italic;
+    max-width: 600px;
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    margin-top: 0.2rem;
+  }
+
+  .copy-btn:hover {
+    color: var(--accent2);
+    border-color: var(--accent2);
+  }
+
+  .copy-btn.copied {
+    color: var(--copy-ok);
+    border-color: var(--copy-ok);
+  }
+
+  .subsection {
+    border-top: 1px solid var(--border);
+  }
+
+  .subsection-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1.4rem;
+    background: #161616;
+  }
+
+  .subsection-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    letter-spacing: 0.05em;
+  }
+
+  .pair-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pair-row {
+    display: contents;
+  }
+
+  .pair-row:hover .cell {
+    background: #1e1e1e;
+  }
+
+  .cell {
+    padding: 0.55rem 1.4rem;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #1d1d1d;
+    transition: background 0.1s;
+  }
+
+  .cell.en {
+    color: var(--text);
+    border-right: 1px solid var(--border);
+  }
+
+  .cell.he {
+    color: var(--accent);
+    direction: rtl;
+    font-size: 0.88rem;
+  }
+
+  .col-headers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #161616;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .col-h {
+    padding: 0.4rem 1.4rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .col-h:first-child { border-right: 1px solid var(--border); }
+
+  @media (max-width: 600px) {
+    .pair-grid { grid-template-columns: 1fr; }
+    .col-headers { grid-template-columns: 1fr; }
+    .cell.en { border-right: none; }
+    .col-h:first-child { border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>English–Hebrew Sentence Patterns</h1>
+  <p>Bilingual sentence pairs grouped by verb or phrase pattern. Click any "Copy" button to copy that section to your clipboard.</p>
+</header>
+
+<nav class="toc" id="toc"></nav>
+
+<main id="main"></main>
+
+<script>
+const data = [
+  {
+    id: "s1",
+    num: "01",
+    title: "Movement and Travel — go/come",
+    desc: "Sentences using the verb \"to go\" (and related forms: goes, going, went, will go, used to go) express physical movement from one place to another. The Hebrew verbs are forms of ללכת.",
+    subsections: [
+      {
+        title: "core go / went / will go / used to go",
+        pairs: [
+          ["I go to the store.","אני הולך לחנות."],
+          ["I go to work every day.","אני הולך לעבודה כל יום."],
+          ["I am going to the beach.","אני הולך לחוף הים."],
+          ["You go to school every day.","אתה הולך לבית הספר מדי יום."],
+          ["We go to the cinema.","אנחנו הולכים לקולנוע."],
+          ["They go to the store.","הם הולכים לחנות."],
+          ["I went to the beach yesterday.","הלכתי לים אתמול."],
+          ["I went to the party last night.","הלכתי למסיבה אתמול בלילה."],
+          ["I went shopping this morning.","הלכתי לקניות הבוקר."],
+          ["We went to the concert.","הלכנו לקונצרט."],
+          ["You went to the market.","הלכת לשוק."],
+          ["He went to the doctor.","הוא הלך לרופא."],
+          ["She went to the gym.","היא הלכה לחדר הכושר."],
+          ["They went to the concert.","הם הלכו לקונצרט."],
+          ["I will go to work tomorrow.","אלך לעבודה מחר."],
+          ["I will go to the movies.","אלך לקולנוע."],
+          ["I will go visit you.","אלך לבקר אותך."],
+          ["We will go together.","נלך ביחד."],
+          ["You will go with me.","אתה תלך איתי."],
+          ["They will go by car.","הם ייסעו במכונית."],
+          ["I used to go often.","נהגתי ללכת לעיתים קרובות."],
+          ["You used to go there.","נהגת ללכת לשם."],
+          ["He used to go alone.","הוא נהג ללכת לבד."],
+          ["We used to go together.","נהגנו ללכת ביחד."],
+          ["They used to go fast.","הם נהגו ללכת מהר."],
+        ]
+      },
+      {
+        title: "using transport or destination",
+        pairs: [
+          ["I go by bus.","אני נוסע באוטובוס."],
+          ["He goes by train.","הוא נוסע ברכבת."],
+          ["She goes by plane.","היא טסה במטוס."],
+          ["We go by bike.","אנחנו נוסעים באופניים."],
+          ["They go by taxi.","הם נוסעים במונית."],
+          ["I went by car.","נסעתי במכונית."],
+          ["She went by plane.","היא טסה במטוס."],
+          ["We used to go by bus.","נהגנו לנסוע באוטובוס."],
+          ["They will go by taxi.","הם ייסעו במונית."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s2",
+    num: "02",
+    title: "Possession and Existence — have",
+    desc: "These sentences express possession or existence using the verb \"to have\" in various tenses. In Hebrew, possession uses forms of יש לי (I have), היה לי (I had), etc.",
+    subsections: [
+      {
+        title: "core have / had / will have",
+        pairs: [
+          ["I have a red car.","יש לי מכונית אדומה."],
+          ["I have three brothers.","יש לי שלושה אחים."],
+          ["I have a lot of work.","יש לי הרבה עבודה."],
+          ["I have two brothers.","יש לי שני אחים."],
+          ["You have a dog.","יש לך כלב."],
+          ["He has a book.","יש לו ספר."],
+          ["She has a cat.","יש לה חתול."],
+          ["We have a house.","יש לנו בית."],
+          ["They have money.","יש להם כסף."],
+          ["I had a dream.","היה לי חלום."],
+          ["You had a good idea.","היה לך רעיון טוב."],
+          ["He had a lot of work.","הייתה לו הרבה עבודה."],
+          ["She had a dog when she was young.","היה לה כלב כשהייתה צעירה."],
+          ["We had fun.","היה לנו כיף."],
+          ["I had a great time.","נהניתי מאוד."],
+          ["They had a party.","הייתה להם מסיבה."],
+          ["I will have more time later.","יהיה לי יותר זמן מאוחר יותר."],
+          ["I will have a meeting tomorrow.","תהיה לי פגישה מחר."],
+          ["I will have dinner with friends.","אוכל ארוחת ערב עם חברים."],
+          ["You will have success.","תהיה לך הצלחה."],
+          ["They will have many friends.","יהיו להם הרבה חברים."],
+        ]
+      },
+      {
+        title: "possession of physical or abstract items",
+        pairs: [
+          ["I have a headache.","יש לי כאב ראש."],
+          ["You have a cold.","אתה מצונן."],
+          ["He has a fever.","יש לו חום."],
+          ["She has a cough.","יש לה שיעול."],
+          ["We have hunger.","אנחנו רעבים."],
+          ["You have thirst.","אתם צמאים."],
+          ["They have sleep.","הם עייפים."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s3",
+    num: "03",
+    title: "Obligation and Necessity — have to / must",
+    desc: "Sentences in this group use \"have to\" or \"must\" to express obligations. The Hebrew uses forms of צריך or חייב. Past and future obligations are expressed with היה צריך / אצטרך.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I have to work today.","אני צריך לעבוד היום."],
+          ["I have to call my mother.","אני צריך להתקשר לאמא שלי."],
+          ["I have to study Spanish.","אני צריך ללמוד ספרדית."],
+          ["You have to study more.","אתה צריך ללמוד יותר."],
+          ["We have to leave early.","אנחנו צריכים לצאת מוקדם."],
+          ["They have to wait.","נצטרך לחכות."],
+          ["I had to work late.","הייתי צריך לעבוד עד מאוחר."],
+          ["I had to leave early yesterday.","הייתי צריך לצאת מוקדם אתמול."],
+          ["I had to buy groceries.","הייתי צריך לקנות מצרכים."],
+          ["He had to call.","הוא היה צריך להתקשר."],
+          ["We had to leave early.","היינו צריכים לצאת מוקדם."],
+          ["She had to buy groceries.","היא הייתה צריכה לקנות מצרכים."],
+          ["I will have to travel.","אצטרך לנסוע."],
+          ["I will have to study more.","אצטרך ללמוד יותר."],
+          ["I will have to work tomorrow.","אצטרך לעבוד מחר."],
+          ["Must we finish now?","האם אנחנו חייבים לסיים עכשיו?"],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s4",
+    num: "04",
+    title: "Desire and Preferences — want/like/love",
+    desc: "These sentences express desire using \"want\" in present, past and future forms. Variations include liking or loving something.",
+    subsections: [
+      {
+        title: "want / wanted / will want / used to want",
+        pairs: [
+          ["I want to learn Spanish.","אני רוצה ללמוד ספרדית."],
+          ["I want to eat pizza.","אני רוצה לאכול פיצה."],
+          ["I want to travel.","אני רוצה לטייל."],
+          ["I want water.","אני רוצה מים."],
+          ["You want a new car.","אתה רוצה מכונית חדשה."],
+          ["He wants to eat now.","הוא רוצה לאכול עכשיו."],
+          ["She wants to sing.","היא רוצה לשיר."],
+          ["We want to travel.","אנחנו רוצים לנסוע."],
+          ["They want more time.","הם רוצים עוד זמן."],
+          ["I don't want to wait.","אני לא רוצה לחכות."],
+          ["I wanted to call you.","רציתי להתקשר אליך."],
+          ["I wanted to go with you.","רציתי ללכת איתך."],
+          ["I wanted to buy that book.","רציתי לקנות את הספר ההוא."],
+          ["You wanted to come with us.","רצית לבוא איתנו."],
+          ["She wanted to dance.","היא רצתה לרקוד."],
+          ["They wanted to rest.","הם רצו לנוח."],
+          ["I used to want peace.","פעם רציתי שלום."],
+          ["He used to want money.","פעם הוא רצה כסף."],
+          ["She used to want a dog.","פעם היא רצתה כלב."],
+          ["We used to want a house.","פעם רצינו בית."],
+          ["I will want to see you.","ארצה לראות אותך."],
+          ["I will want to know more.","ארצה לדעת יותר."],
+          ["You will want to try this.","תרצה לנסות את זה."],
+          ["They will want to come.","הם ירצו לבוא."],
+        ]
+      },
+      {
+        title: "liking and loving",
+        pairs: [
+          ["I like coffee.","אני אוהב קפה."],
+          ["You like music.","אתה אוהב מוזיקה."],
+          ["He likes books.","הוא אוהב ספרים."],
+          ["She likes to dance.","היא אוהבת לרקוד."],
+          ["We like movies.","אנחנו אוהבים סרטים."],
+          ["They like to travel.","הם אוהבים לטייל."],
+          ["I like apples.","אני אוהב תפוחים."],
+          ["He likes cars.","הוא אוהב מכוניות."],
+          ["We like to cook.","אנחנו אוהבים לבשל."],
+          ["They like sports.","הם אוהבים ספורט."],
+          ["I love my family.","אני אוהב את המשפחה שלי."],
+          ["She loves her work.","היא אוהבת את העבודה שלה."],
+          ["They love their country.","הם אוהבים את המדינה שלהם."],
+          ["I loved my old car.","אהבתי את המכונית הישנה שלי."],
+          ["She loved that book.","היא אהבה את הספר ההוא."],
+          ["We loved that place.","אהבנו את המקום ההוא."],
+          ["I used to love chocolate.","פעם אהבתי שוקולד."],
+          ["He used to love music.","פעם הוא אהב מוזיקה."],
+          ["We used to love playing.","פעם אהבנו לשחק."],
+          ["I will love my new home.","אני אוהב את הבית החדש שלי."],
+          ["They will love this trip.","הם יאהבו את הטיול הזה."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s5",
+    num: "05",
+    title: "Ability — can/could/will be able to",
+    desc: "Sentences expressing ability or possibility use \"can,\" \"could\" and \"will be able to.\" In Hebrew the verb יכול/יכולה/יוכל conveys ability.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I can speak three languages.","אני יכול לדבר שלוש שפות."],
+          ["I can help you today.","אני יכול לעזור לך היום."],
+          ["I can drive a car.","אני יכול לנהוג במכונית."],
+          ["He can run fast.","הוא יכול לרוץ מהר."],
+          ["She can sing well.","היא יכולה לשיר היטב."],
+          ["We can go tomorrow.","אנחנו יכולים ללכת מחר."],
+          ["They can do it.","הם יכולים לעשות את זה."],
+          ["You can eat now.","אתה יכול לאכול עכשיו."],
+          ["I could help you yesterday.","יכולתי לעזור לך אתמול."],
+          ["I could finish my work.","יכולתי לסיים את העבודה שלי."],
+          ["I could not come early.","לא יכולתי לבוא מוקדם."],
+          ["You could help me yesterday.","יכולת לעזור לי אתמול."],
+          ["We can't find the keys.","אנחנו לא יכולים למצוא את המפתחות."],
+          ["I will be able to visit.","אוכל לבקר."],
+          ["I will be able to help.","אוכל לעזור."],
+          ["I will be able to call.","אוכל להתקשר."],
+          ["You will be able to understand.","תוכל להבין."],
+          ["I will be able to finish.","אנחנו נוכל לסיים."],
+          ["They will be able to win.","הם יוכלו לנצח."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s6",
+    num: "06",
+    title: "Actions and Activities — do/make",
+    desc: "The verb \"to do/make\" covers both producing something (\"make breakfast\") and performing an action (\"do homework\"). Hebrew distinguishes between לעשות (to do) and להכין (to make).",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I do my homework every day.","אני מכין שיעורי בית כל יום."],
+          ["I make breakfast in the morning.","אני מכין ארוחת בוקר בבוקר."],
+          ["I do exercise regularly.","אני עושה ספורט באופן קבוע."],
+          ["I'm doing exercise now.","אני עושה ספורט עכשיו."],
+          ["You do good work.","אתה עושה עבודה טובה."],
+          ["He does exercise daily.","הוא עושה פעילות גופנית מדי יום."],
+          ["We do our duties.","אנחנו עושים את החובות שלנו."],
+          ["They do their best.","הם עושים כמיטב יכולתם."],
+          ["I made a delicious dinner.","הכנתי ארוחת ערב טעימה."],
+          ["I made a mistake.","עשיתי טעות."],
+          ["He made dinner.","הוא הכין ארוחת ערב."],
+          ["You made a delicious dinner.","הכנת ארוחת ערב טעימה."],
+          ["We made plans.","אנחנו נעשה תוכניות."],
+          ["He makes cakes.","הוא מכין עוגות."],
+          ["She makes dinner now.","היא מכינה ארוחת ערב עכשיו."],
+          ["We make dinner.","אנחנו מכינים ארוחת ערב."],
+          ["They make noise outside.","הם עושים רעש בחוץ."],
+          ["I did my homework yesterday.","הכנתי את שיעורי הבית שלי אתמול."],
+          ["I did my best.","עשיתי כמיטב יכולתי."],
+          ["We did a good job.","עשינו עבודה טובה."],
+          ["They did their part.","הם עשו את חלקם."],
+          ["I will make a decision.","אקבל החלטה."],
+          ["I will do it tomorrow.","אעשה את זה מחר."],
+          ["I will make dinner tonight.","אכין ארוחת ערב הלילה."],
+          ["We will make plans.","אנחנו נעשה תוכניות."],
+          ["They will do it well.","הם יעשו את זה טוב."],
+          ["I used to do sports.","נהגתי לעשות ספורט."],
+          ["He used to do nothing.","הוא לא נהג לעשות כלום."],
+          ["We used to do homework.","נהגנו להכין שיעורי בית."],
+          ["She used to make clothes.","היא נהגה להכין בגדים."],
+          ["You used to make trouble.","נהגת לעשות צרות."],
+          ["I will do it for you.","אני אעשה את זה בשבילך."],
+          ["You will make dinner.","אתה תכין ארוחת ערב."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s7",
+    num: "07",
+    title: "Being and Existence — to be",
+    desc: "\"To be\" sentences describe identity, state or location. Present forms use am/are/is; past forms use was/were and future forms use will be. Hebrew uses forms of להיות.",
+    subsections: [
+      {
+        title: "identity / state / location",
+        pairs: [
+          ["I am a teacher.","אני מורה."],
+          ["I am from Mexico.","אני ממקסיקו."],
+          ["I am very happy.","אני מאוד שמח."],
+          ["You are very intelligent.","אתה מאוד אינטליגנטי."],
+          ["She is my sister.","היא אחותי."],
+          ["We are good friends.","אנחנו חברים טובים."],
+          ["They are doctors now.","הם רופאים עכשיו."],
+          ["It will be a good day.","זה יהיה יום טוב."],
+          ["I am at the office.","אני במשרד."],
+          ["I am studying Spanish.","אני לומד ספרדית."],
+          ["I am feeling happy.","אני מרגיש שמח."],
+          ["You are feeling tired.","אתה מרגיש עייף."],
+          ["He is sick today.","הוא חולה היום."],
+          ["She is happy now.","היא שמחה עכשיו."],
+          ["We are ready.","אנחנו מוכנים."],
+          ["They are outside.","הם בחוץ."],
+          ["I was a student.","הייתי סטודנט."],
+          ["I was very young.","הייתי צעיר מאוד."],
+          ["I was born in Spain.","נולדתי בספרד."],
+          ["You were very kind.","היית מאוד אדיב."],
+          ["He was a teacher.","הוא היה מורה."],
+          ["She was my neighbor.","היא הייתה השכנה שלי."],
+          ["We were at home.","היינו בבית."],
+          ["They were very busy.","הם היו מאוד עסוקים."],
+          ["I will be a doctor.","אהיה רופא."],
+          ["I will be very busy.","אהיה מאוד עסוק."],
+          ["I will be ready soon.","אהיה מוכן בקרוב."],
+          ["We will be together.","אנחנו נהיה ביחד."],
+          ["They will be here.","הם יהיו כאן."],
+        ]
+      },
+      {
+        title: "feelings or conditions with \"to be\"",
+        pairs: [
+          ["I am happy.","אני שמח."],
+          ["You are smart.","אתה חכם."],
+          ["He is tall.","הוא גבוה."],
+          ["She is tired.","היא עייפה."],
+          ["We have time.","יש לנו זמן."],
+          ["They are busy.","הם עסוקים."],
+          ["They are tired.","הן עייפות."],
+          ["I was happy yesterday.","הייתי שמח אתמול."],
+          ["He was a hero.","הוא היה גיבור."],
+          ["She was a queen.","היא הייתה מלכה."],
+          ["We were champions.","היינו אלופים."],
+          ["I will be happy.","אני אהיה שמח."],
+          ["You will be strong.","אתה תהיה חזק."],
+          ["She will be famous.","היא תהיה מפורסמת."],
+          ["They will be good citizens.","הם יהיו אזרחים טובים."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s8",
+    num: "08",
+    title: "Knowledge and Understanding — know, understand, remember",
+    desc: "This group includes verbs of knowing, understanding and remembering. Hebrew uses forms of לדעת (to know), להבין (to understand) and לזכור (to remember).",
+    subsections: [
+      {
+        title: "know",
+        pairs: [
+          ["I know how to cook.","אני יודע לבשל."],
+          ["I know the answer.","אני יודע את התשובה."],
+          ["I know Spanish well.","אני יודע ספרדית היטב."],
+          ["You know the truth.","אתה יודע את האמת."],
+          ["He knows the secret.","הוא יודע את הסוד."],
+          ["She knows the way.","היא יודעת את הדרך."],
+          ["We know the rules.","אנחנו יודעים את הכללים."],
+          ["They know the story.","הם מכירים את הסיפור."],
+          ["I knew the truth.","ידעתי את האמת."],
+          ["I knew how to swim.","ידעתי לשחות."],
+          ["I knew you were right.","ידעתי שאתה צודק."],
+          ["You knew the answer.","ידעת את התשובה."],
+          ["They don't know where it is.","אנחנו לא יודעים איפה זה."],
+          ["I will know tomorrow.","אדע מחר."],
+          ["I will know the results.","אדע את התוצאות."],
+          ["I will know what to do.","אדע מה לעשות."],
+          ["You will know soon enough.","תדע בקרוב."],
+          ["I know that you are here.","אני יודע שאתה כאן."],
+          ["He knows that she is happy.","הוא יודע שהיא שמחה."],
+          ["We know that they are coming.","אנחנו יודעים שהם באים."],
+          ["I knew that you were here.","ידעתי שהיית כאן."],
+          ["They knew that it was true.","הם ידעו שזה נכון."],
+          ["I will know that you are here.","אני אדע שאתה כאן."],
+        ]
+      },
+      {
+        title: "understand and remember",
+        pairs: [
+          ["I understand this now.","אני מבין את זה עכשיו."],
+          ["You understand very well.","אתה מבין היטב."],
+          ["He understands the rules.","הוא מבין את הכללים."],
+          ["We understand each other.","אנחנו מבינים זה את זה."],
+          ["They don't understand anything.","הם לא מבינים כלום."],
+          ["I understood everything yesterday.","הבנתי הכל אתמול."],
+          ["She understood the point.","היא הבינה את הנקודה."],
+          ["I will understand later.","אבין מאוחר יותר."],
+          ["I remember his name.","אני זוכר את השם שלו."],
+          ["You remember the date.","אתה זוכר את התאריך."],
+          ["He remembers that trip.","הוא זוכר את הטיול ההוא."],
+          ["We remember everything now.","אנחנו זוכרים הכל עכשיו."],
+          ["I remembered it well.","זכרתי את זה היטב."],
+          ["She remembered his face.","היא זכרה את הפנים שלו."],
+          ["I will remember always.","אזכור תמיד."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s9",
+    num: "09",
+    title: "Suggestions and Recommendations — should/ought to",
+    desc: "These sentences use \"should\" to give advice. In Hebrew, the modal suggestion is often כדאי or צריך.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I should call my mother.","אני צריך להתקשר לאמא שלי."],
+          ["I should study more.","אני צריך ללמוד יותר."],
+          ["I should eat healthier.","אני צריך לאכול בריא יותר."],
+          ["I should have called.","הייתי צריך להתקשר."],
+          ["I should have studied.","הייתי צריך ללמוד."],
+          ["I should have left earlier.","הייתי צריך לצאת מוקדם יותר."],
+          ["I should call you tomorrow.","אני צריך להתקשר אליך מחר."],
+          ["I should finish this work.","אני צריך לסיים את העבודה הזו."],
+          ["I should visit my family.","אני צריך לבקר את המשפחה שלי."],
+          ["You should eat more vegetables.","כדאי לך לאכול יותר ירקות."],
+          ["We should leave now.","אנחנו צריכים לצאת עכשיו."],
+          ["You should try this.","כדאי לך לנסות את זה."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s10",
+    num: "10",
+    title: "Habitual Actions — usually / used to",
+    desc: "These sentences describe habitual actions using \"usually\" in the present or \"used to\" in the past. Hebrew uses בדרך כלל or נהגתי.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I usually wake up early.","אני בדרך כלל מתעורר מוקדם."],
+          ["I usually drink coffee.","אני בדרך כלל שותה קפה."],
+          ["I usually work late.","אני בדרך כלל עובד עד מאוחר."],
+          ["You usually drink coffee.","אתה בדרך כלל שותה קפה."],
+          ["We usually walk to work.","אנחנו בדרך כלל הולכים לעבודה."],
+          ["I used to wake up late.","נהגתי להתעורר מאוחר."],
+          ["I used to live there.","נהגתי לגור שם."],
+          ["I used to play soccer.","נהגתי לשחק כדורגל."],
+          ["You used to be different.","היית שונה פעם."],
+          ["We used to walk home.","נהגנו ללכת הביתה."],
+          ["She used to wake up early.","היא נהגה להתעורר מוקדם."],
+          ["They used to live happily.","הם נהגו לחיות באושר."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s11",
+    num: "11",
+    title: "Recently Completed Actions — just",
+    desc: "The adverb \"just\" indicates a recent action. Hebrew uses הרגע (just now).",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I just finished eating.","הרגע סיימתי לאכול."],
+          ["I just arrived home.","הרגע הגעתי הביתה."],
+          ["I just called you.","הרגע התקשרתי אליך."],
+          ["I just finished my work.","הרגע סיימתי את העבודה שלי."],
+          ["I just saw your message.","הרגע ראיתי את ההודעה שלך."],
+          ["You just arrived home.","הרגע הגעת הביתה."],
+          ["We just finished dinner.","הרגע סיימנו לאכול ארוחת ערב."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s12",
+    num: "12",
+    title: "Greetings and Courtesy Phrases",
+    desc: "Common greetings and polite expressions used when meeting or speaking with someone, each paired with its Hebrew equivalent.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["Hello.","שלום."],
+          ["Good morning.","בוקר טוב."],
+          ["Good afternoon/evening.","צהריים טובים / ערב טוב."],
+          ["Good night.","לילה טוב."],
+          ["How are you?","מה שלומך?"],
+          ["What's up?","מה נשמע?"],
+          ["I'm fine, thank you. And you?","אני בסדר, תודה. ואתה?"],
+          ["Please.","בבקשה."],
+          ["Thank you.","תודה."],
+          ["You're welcome.","על לא דבר."],
+          ["Excuse me.","סליחה."],
+          ["I'm sorry.","אני מצטער."],
+          ["I don't understand.","אני לא מבין."],
+          ["Can you speak slower?","אתה יכול לדבר לאט יותר?"],
+          ["Can you repeat?","אתה יכול לחזור על זה?"],
+          ["See you.","נתראה."],
+          ["See you later.","נתראה מאוחר יותר."],
+          ["Goodbye.","להתראות."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s13",
+    num: "13",
+    title: "Help, Assistance and Requests",
+    desc: "Sentences where someone asks for help, offers help or requests something. Hebrew equivalents often use בבקשה or תוכל.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["Can you help me, please?","תוכל לעזור לי, בבקשה?"],
+          ["Could you help me yesterday?","יכולת לעזור לי אתמול?"],
+          ["Will you be able to help?","האם תוכל לעזור?"],
+          ["Help me, please.","תעזור לי, בבקשה."],
+          ["Thanks for the ride.","תודה על הנסיעה."],
+          ["Thanks for your help.","תודה על העזרה שלך."],
+          ["I need help.","אני צריך עזרה."],
+          ["We need your help.","אנחנו צריכים את העזרה שלך."],
+          ["I needed more sleep.","הייתי צריך עוד שינה."],
+          ["He needs a doctor.","הוא צריך רופא."],
+          ["Will he need help?","האם הוא יצטרך עזרה?"],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s14",
+    num: "14",
+    title: "Location, Travel and Directions",
+    desc: "Sentences used when travelling, asking for locations or giving directions. They include questions and statements about taxis, buses, and transport.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["A taxi, please.","מונית, בבקשה."],
+          ["Can you take me to Cancún?","אתה יכול לקחת אותי לקנקון?"],
+          ["How much is it to Cancún?","כמה זה לקנקון?"],
+          ["Is it far?","זה רחוק?"],
+          ["Here is fine.","כאן זה בסדר."],
+          ["Where can I take a colectivo for Cancún?","איפה אני יכול לקחת מונית שירות לקנקון?"],
+          ["Does this colectivo go to Cancún?","מונית השירות הזו נוסעת לקנקון?"],
+          ["I get off here.","אני יורד כאן."],
+          ["Stop, please.","עצור, בבקשה."],
+          ["What time does the next one leave?","באיזו שעה יוצא הבא?"],
+          ["Is there traffic?","יש פקקים?"],
+          ["Can you wait a moment?","אתה יכול לחכות רגע?"],
+          ["I need to go to the airport.","אני צריך לנסוע לשדה התעופה."],
+          ["How long will it take to get there?","כמה זמן ייקח להגיע לשם?"],
+          ["Can you pick me up at 5:00 pm?","אתה יכול לאסוף אותי בחמש אחר הצהריים?"],
+          ["Is there a fixed rate?","יש תעריף קבוע?"],
+          ["Can you take me to the bus station?","אתה יכול לקחת אותי לתחנת האוטובוס?"],
+          ["Is this the correct way?","זו הדרך הנכונה?"],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s15",
+    num: "15",
+    title: "Dietary Preferences and Vegan Options",
+    desc: "Useful phrases for expressing dietary restrictions and asking about vegan or allergen-free options.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I am vegan (masculine).","אני טבעוני."],
+          ["I am vegan (feminine).","אני טבעונית."],
+          ["Do you have vegan options?","יש לכם אפשרויות טבעוניות?"],
+          ["Does this have meat?","יש בזה בשר?"],
+          ["Without meat, please.","בלי בשר, בבקשה."],
+          ["Without cheese, please.","בלי גבינה, בבקשה."],
+          ["Without milk, please.","בלי חלב, בבקשה."],
+          ["What do you recommend that is vegan?","מה אתה ממליץ שהוא טבעוני?"],
+          ["The bill, please.","החשבון, בבקשה."],
+          ["It's delicious.","זה טעים."],
+          ["Is this dish vegan?","המנה הזו טבעונית?"],
+          ["Can I have it without milk?","אפשר לקבל את זה בלי חלב?"],
+          ["Can I have it without sugar?","אפשר לקבל את זה בלי סוכר?"],
+          ["Can I have it without cream?","אפשר לקבל את זה בלי שמנת?"],
+          ["I am allergic to peanuts.","אני אלרגי לבוטנים."],
+          ["Do you have any plant-based milk?","יש לכם חלב צמחי כלשהו?"],
+          ["Is there a vegan restaurant nearby?","יש מסעדה טבעונית קרובה?"],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s16",
+    num: "16",
+    title: "Banking and Financial Services",
+    desc: "Phrases for use in banks, at ATMs, or when handling money exchange.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I want to open an account.","אני רוצה לפתוח חשבון."],
+          ["I want to withdraw money.","אני רוצה למשוך כסף."],
+          ["I want to deposit money.","אני רוצה להפקיד כסף."],
+          ["What is the exchange rate?","מה שער החליפין?"],
+          ["Is there an ATM nearby?","יש כספומט קרוב?"],
+          ["My card doesn't work.","הכרטיס שלי לא עובד."],
+          ["I need help with my account.","אני צריך עזרה עם החשבון שלי."],
+          ["What are the hours of operation?","מה שעות הפעילות?"],
+          ["I want to make a transfer.","אני רוצה לעשות העברה."],
+          ["Can I pay with credit/debit card?","אני יכול לשלם בכרטיס אשראי או חיוב?"],
+          ["I need to exchange currency.","אני צריך להמיר מטבע."],
+          ["What is the commission fee?","מהי העמלה?"],
+          ["Can I get a bank statement?","אפשר לקבל פירוט חשבון?"],
+          ["I need to activate my card.","אני צריך להפעיל את הכרטיס שלי."],
+          ["Where is the nearest bank?","איפה הבנק הקרוב ביותר?"],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s17",
+    num: "17",
+    title: "Social Conversation and Meeting People",
+    desc: "Casual conversation starters and phrases for meeting and connecting with new people.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["What's up?","מה נשמע?"],
+          ["Nice to meet you.","נעים מאוד."],
+          ["Where are you from?","מאיפה אתה?"],
+          ["I am from the United States.","אני מארצות הברית."],
+          ["What are you doing around here?","מה אתה עושה פה?"],
+          ["I really like Playa del Carmen.","אני ממש אוהב את פלאיה דל כרמן."],
+          ["Do you want to grab a coffee?","בא לך לשתות קפה?"],
+          ["Do you want to grab a beer?","בא לך לשתות בירה?"],
+          ["Would you like to go out?","היית רוצה לצאת?"],
+          ["Do you have plans for the weekend?","יש לך תוכניות לסוף השבוע?"],
+          ["I would like to learn more Spanish.","הייתי רוצה ללמוד עוד ספרדית."],
+          ["Your Spanish is very good.","הספרדית שלך טובה מאוד."],
+          ["See you soon.","נתראה בקרוב."],
+          ["Can we exchange numbers?","אפשר להחליף מספרים?"],
+          ["Do you want to hang out sometime?","תרצה לבלות מתישהו?"],
+          ["Are you free tomorrow?","אתה פנוי מחר?"],
+          ["Let's keep in touch.","בוא נשמור על קשר."],
+          ["It was a pleasure meeting you.","היה תענוג להכיר אותך."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s18",
+    num: "18",
+    title: "Coworking and Workspace",
+    desc: "Phrases for finding and using coworking spaces or shared offices.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["Is there a coworking space nearby?","יש חלל עבודה משותף קרוב?"],
+          ["What is the price per day/month?","מה המחיר ליום/חודש?"],
+          ["Do you have fast internet?","יש לכם אינטרנט מהיר?"],
+          ["Is there coffee/water available?","יש קפה/מים זמינים?"],
+          ["What are the opening hours?","מה שעות הפתיחה?"],
+          ["I'd like to book a desk for a day.","הייתי רוצה להזמין שולחן ליום."],
+          ["Do you offer a weekly membership?","אתם מציעים מנוי שבועי?"],
+          ["Do you offer a monthly membership?","אתם מציעים מנוי חודשי?"],
+          ["Is there a meeting room available?","יש חדר ישיבות זמין?"],
+          ["Can I print here?","אני יכול להדפיס כאן?"],
+          ["Do you have lockers?","יש לכם לוקרים?"],
+          ["How much is the daily pass?","כמה עולה כרטיס יומי?"],
+          ["Is there a quiet zone?","יש אזור שקט?"],
+          ["Can I make phone calls here?","אני יכול לעשות שיחות טלפון כאן?"],
+          ["Is there a community manager?","יש מנהל קהילה?"],
+          ["Do you have events for members?","יש לכם אירועים לחברים?"],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s19",
+    num: "19",
+    title: "Events, Nightlife and Local Culture",
+    desc: "Phrases for exploring local events, entertainment, and cultural activities.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["What is there to do here?","מה יש לעשות כאן?"],
+          ["Is there any event?","יש איזה אירוע?"],
+          ["Is there any festival?","יש איזה פסטיבל?"],
+          ["Is there any concert?","יש איזו הופעה?"],
+          ["Where can I find information about local events?","איפה אני יכול למצוא מידע על אירועים מקומיים?"],
+          ["Do you know any good place for dancing?","אתה מכיר מקום טוב לרקוד?"],
+          ["Do you know any good place for listening to live music?","אתה מכיר מקום טוב לשמוע מוזיקה חיה?"],
+          ["Is there a local market?","יש שוק מקומי?"],
+          ["What are the popular spots for nightlife?","מהם המקומות הפופולריים לחיי לילה?"],
+          ["Is there a cultural center nearby?","יש מרכז תרבות קרוב?"],
+          ["Are there any art exhibitions?","יש תערוכות אמנות?"],
+          ["Where can I see live music?","איפה אפשר לראות מוזיקה חיה?"],
+          ["What are the typical local celebrations?","מהן החגיגות המקומיות האופייניות?"],
+          ["Is there a schedule of events?","יש לוח אירועים?"],
+          ["Are there any workshops or classes?","יש סדנאות או שיעורים?"],
+          ["What time does it start?","באיזו שעה זה מתחיל?"],
+          ["What time does it end?","באיזו שעה זה נגמר?"],
+          ["Is there an entrance fee?","יש דמי כניסה?"],
+          ["Can you recommend a good place to dance?","אתה יכול להמליץ על מקום טוב לרקוד?"],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s20",
+    num: "20",
+    title: "Physical Activities and Exercise",
+    desc: "Vocabulary and phrases for gyms, sports, and outdoor exercise.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I want to exercise.","אני רוצה לעשות כושר."],
+          ["Is there a public sports center nearby?","יש מרכז ספורט ציבורי קרוב?"],
+          ["What are the hours of the gym?","מה שעות הפעילות של חדר הכושר?"],
+          ["I want to sign up for the gym.","אני רוצה להירשם לחדר הכושר."],
+          ["How much is the gym membership?","כמה עולה מנוי לחדר כושר?"],
+          ["Do you have personal trainers?","יש לכם מאמנים אישיים?"],
+          ["Where can I run on the beach?","איפה אני יכול לרוץ על החוף?"],
+          ["Is it safe to run on the street here?","זה בטוח לרוץ ברחוב כאן?"],
+          ["I want to do yoga.","אני רוצה לעשות יוגה."],
+          ["Are there any exercise classes?","יש שיעורי התעמלות?"],
+          ["Where can I find a good running route?","איפה אני יכול למצוא מסלול ריצה טוב?"],
+          ["I need to buy sports clothes.","אני צריך לקנות בגדי ספורט."],
+          ["Do you have a swimming pool?","יש לכם בריכת שחייה?"],
+          ["Is there a track for running?","יש מסלול ריצה?"],
+          ["I want to play tennis.","אני רוצה לשחק טניס."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s21",
+    num: "21",
+    title: "Descriptive Sentences with Adjectives",
+    desc: "Sentences describing objects or people using adjectives, following patterns like \"The car is red.\" Also includes comparative and superlative forms.",
+    subsections: [
+      {
+        title: "basic descriptive sentences",
+        pairs: [
+          ["The house is large.","הבית גדול."],
+          ["The car is red.","המכונית אדומה."],
+          ["The boy is tall.","הילד גבוה."],
+          ["The girl is short.","הילדה נמוכה."],
+          ["The table is old.","השולחן ישן."],
+          ["The book is new.","הספר חדש."],
+          ["The flower is pretty.","הפרח יפה."],
+          ["The dog is small.","הכלב קטן."],
+          ["The cat is black.","החתול שחור."],
+          ["The water is cold.","המים קרים."],
+          ["The sun is hot.","השמש חמה."],
+          ["The moon is bright.","הירח בהיר."],
+          ["The door is open.","הדלת פתוחה."],
+          ["The window is closed.","החלון סגור."],
+          ["The man is strong.","האיש חזק."],
+          ["The woman is kind.","האישה אדיבה."],
+          ["The city is big.","העיר גדולה."],
+          ["The country is beautiful.","הארץ יפה."],
+          ["The phone is new.","הטלפון חדש."],
+          ["The shirt is blue.","החולצה כחולה."],
+          ["The apple is red.","התפוח אדום."],
+          ["The apples are red.","התפוחים אדומים."],
+        ]
+      },
+      {
+        title: "plural or indefinite variations",
+        pairs: [
+          ["A flower is pretty.","פרח הוא יפה."],
+          ["Some flowers are pretty.","כמה פרחים הם יפים."],
+          ["The tables are small.","השולחנות קטנים."],
+          ["The books are old.","הספרים ישנים."],
+          ["Some cats sleep.","כמה חתולים ישנים."],
+          ["The women work.","הנשים עובדות."],
+          ["The cars are fast.","המכוניות מהירות."],
+          ["The flowers are pretty.","הפרחים יפים."],
+          ["The students learn.","הסטודנטים לומדים."],
+          ["The teachers teach.","המורים מלמדים."],
+          ["The apartment is small.","הדירה קטנה."],
+          ["The shoes are black.","הנעליים שחורות."],
+          ["The shirts are white.","החולצות לבנות."],
+          ["The country is quiet.","הארץ שקטה."],
+          ["Some boys play.","כמה בנים משחקים."],
+          ["Some girls sing.","כמה בנות שרות."],
+        ]
+      },
+      {
+        title: "adjective + noun phrases",
+        pairs: [
+          ["The red car.","המכונית האדומה."],
+          ["The red cars.","המכוניות האדומות."],
+          ["The white house.","הבית הלבן."],
+          ["The tall boy.","הילד הגבוה."],
+          ["The short girl.","הילדה הנמוכה."],
+          ["The big dog.","הכלב הגדול."],
+          ["The small cat.","החתול הקטן."],
+          ["The new book.","הספר החדש."],
+          ["The old table.","השולחן הישן."],
+          ["The beautiful flower.","הפרח היפה."],
+          ["The beautiful flowers.","הפרחים היפים."],
+          ["The happy man/woman.","האיש השמח / האישה השמחה."],
+          ["A good friend.","חבר טוב."],
+          ["The old car.","המכונית הישנה."],
+          ["A new book.","ספר חדש."],
+          ["A bad day.","יום רע."],
+          ["The first time.","הפעם הראשונה."],
+          ["The last song.","השיר האחרון."],
+          ["My old shoes.","הנעליים הישנות שלי."],
+          ["Your new dress.","השמלה החדשה שלך."],
+          ["The true story.","הסיפור האמיתי."],
+          ["A certain person.","אדם מסוים."],
+          ["The only child.","הילד היחיד."],
+          ["The poor man.","האיש העני."],
+          ["The rich woman.","האישה העשירה."],
+          ["A great idea.","רעיון נהדר."],
+          ["The same day.","אותו יום."],
+          ["Different colors.","צבעים שונים."],
+          ["The next step.","הצעד הבא."],
+          ["The whole world.","כל העולם."],
+        ]
+      },
+      {
+        title: "comparisons and superlatives",
+        pairs: [
+          ["He is taller.","הוא גבוה יותר."],
+          ["She is shorter.","היא נמוכה יותר."],
+          ["This is better.","זה טוב יותר."],
+          ["That is worse.","זה גרוע יותר."],
+          ["He is the tallest.","הוא הגבוה ביותר."],
+          ["She is the shortest.","היא הנמוכה ביותר."],
+          ["This is the best.","זה הכי טוב."],
+          ["That is the worst.","זה הכי גרוע."],
+          ["More difficult.","קשה יותר."],
+          ["Less easy.","פחות קל."],
+          ["The most beautiful.","הכי יפה."],
+          ["The least interesting.","הכי פחות מעניין."],
+          ["As big as.","גדול כמו."],
+          ["As fast as.","מהיר כמו."],
+          ["Older than me.","מבוגר ממני."],
+          ["Younger than him.","צעיר ממנו."],
+          ["The biggest house.","הבית הגדול ביותר."],
+          ["The smallest car.","המכונית הקטנה ביותר."],
+          ["The best student.","הסטודנט הטוב ביותר."],
+          ["The worst day.","היום הגרוע ביותר."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s22",
+    num: "22",
+    title: "Simple Present Sentences with Various Verbs",
+    desc: "Present tense usage with a variety of verbs and pronouns, including object pronoun constructions.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I speak Spanish.","אני מדבר ספרדית."],
+          ["You eat apples.","אתה אוכל תפוחים."],
+          ["He works here.","הוא עובד כאן."],
+          ["She sings well.","היא שרה היטב."],
+          ["We live in Mexico.","אנחנו חיים במקסיקו."],
+          ["You (plural) study.","אתם לומדים."],
+          ["They read books.","הם קוראים ספרים."],
+          ["They (feminine) dance.","הן רוקדות."],
+          ["You (formal) are kind.","אתה (מנומס) אדיב."],
+          ["I am happy.","אני שמח."],
+          ["You are smart.","אתה חכם."],
+          ["He is from here.","הוא מכאן."],
+          ["She is my friend.","היא חברה שלי."],
+          ["We are students.","אנחנו סטודנטים."],
+          ["You (plural) are good.","אתם טובים."],
+          ["They are busy.","הם עסוקים."],
+          ["They (feminine) are tired.","הן עייפות."],
+          ["You (formal) speak.","אתה (מנומס) מדבר."],
+          ["I need help.","אני צריך עזרה."],
+          ["You understand me.","אתה מבין אותי."],
+          ["I see him.","אני רואה אותו."],
+          ["She calls me.","היא מתקשרת אליי."],
+          ["We know her.","אנחנו מכירים אותה."],
+          ["They hear us.","הם שומעים אותנו."],
+          ["You see them.","אתה רואה אותם."],
+          ["I want it.","אני רוצה את זה."],
+          ["She has it.","יש לה את זה."],
+          ["We eat them.","אנחנו אוכלים אותם."],
+          ["They buy them.","הם קונים אותם."],
+          ["You read it.","אתה קורא את זה."],
+          ["I love you.","אני אוהב אותך."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s23",
+    num: "23",
+    title: "Pronouns and Object Pronouns",
+    desc: "Sentences involving direct and indirect objects, showing how English object pronouns correspond to Hebrew pronouns.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["He gives me a gift.","הוא נותן לי מתנה."],
+          ["She tells him a story.","היא מספרת לו סיפור."],
+          ["We write them a letter.","אנחנו כותבים להם מכתב."],
+          ["They buy us food.","הם קונים לנו אוכל."],
+          ["You give her money.","אתה נותן לה כסף."],
+          ["I send you (plural) an email.","אני שולח לכם אימייל."],
+          ["He reads to me.","הוא קורא לי."],
+          ["She cooks for us.","היא מבשלת לנו."],
+          ["We explain to them.","אנחנו מסבירים להם."],
+          ["They talk to you (singular).","הם מדברים איתך."],
+          ["I lend him the car.","אני מלווה לו את המכונית."],
+          ["She sells her the house.","היא מוכרת לה את הבית."],
+          ["We show them the photo.","אנחנו מראים להם את התמונה."],
+          ["They bring us coffee.","הם מביאים לנו קפה."],
+          ["You (plural) ask me.","אתם שואלים אותי."],
+          ["I buy her flowers.","אני קונה לה פרחים."],
+          ["He teaches us Spanish.","הוא מלמד אותנו ספרדית."],
+          ["She sings to them.","היא שרה להם."],
+          ["We tell you (singular) the truth.","אנחנו אומרים לך את האמת."],
+          ["They offer him help.","הם מציעים לו עזרה."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s24",
+    num: "24",
+    title: "Reflexive Actions and Daily Routines",
+    desc: "Reflexive verbs and daily routines. Hebrew uses forms like להתלבש (to dress oneself), להתקלח (to shower), and reflexive pronouns.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I wash myself.","אני רוחץ את עצמי."],
+          ["You get up early.","אתה קם מוקדם."],
+          ["He shaves.","הוא מתגלח."],
+          ["She dresses.","היא מתלבשת."],
+          ["We comb our hair.","אנחנו מסרקים את השיער שלנו."],
+          ["You (plural) go to bed.","אתם הולכים לישון."],
+          ["They shower.","הם מתקלחים."],
+          ["I brush my teeth.","אני מצחצח שיניים."],
+          ["You put on makeup.","את מתאפרת."],
+          ["He gets dressed.","הוא מתלבש."],
+          ["She sits down.","היא מתיישבת."],
+          ["We look at ourselves.","אנחנו מסתכלים על עצמנו."],
+          ["They wake up.","הם מתעוררים."],
+          ["I feel good.","אני מרגיש טוב."],
+          ["You get angry.","אתה כועס."],
+          ["He falls asleep.","הוא נרדם."],
+          ["She gets bored.","היא משתעממת."],
+          ["We worry.","אנחנו דואגים."],
+          ["They remember.","הם זוכרים."],
+          ["I call myself Juan.","קוראים לי חואן."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s25",
+    num: "25",
+    title: "Prepositions and Relational Phrases",
+    desc: "Short phrases illustrating prepositional relationships such as \"for me,\" \"with you,\" or \"about him.\"",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["For me.","בשבילי."],
+          ["With you.","איתך."],
+          ["About him.","עליו."],
+          ["Without her.","בלעדיה."],
+          ["For us.","בשבילנו."],
+          ["With them.","איתם."],
+          ["From you (formal).","ממך (מנומס)."],
+          ["To me.","אלי."],
+          ["By you.","על ידך."],
+          ["Against them.","נגדם."],
+          ["Between us.","בינינו."],
+          ["After him.","אחריו."],
+          ["Before her.","לפניה."],
+          ["Near me.","קרוב אלי."],
+          ["Far from you.","רחוק ממך."],
+          ["Next to him.","לידו."],
+          ["On top of it.","מעל זה."],
+          ["Underneath her.","מתחתיה."],
+          ["With them (feminine).","איתן."],
+          ["For you (plural).","בשבילכם."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s26",
+    num: "26",
+    title: "Demonstratives and Possession",
+    desc: "Sentences using this/that/these/those and showing possession with pronouns.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["This is good.","זה טוב."],
+          ["That is bad.","זה רע."],
+          ["These are new.","אלה חדשים."],
+          ["Those are old.","ההם ישנים."],
+          ["This one is mine.","זה שלי."],
+          ["That one is yours.","ההוא שלך."],
+          ["These ones are hers.","אלה שלה."],
+          ["Those ones are his.","ההם שלו."],
+          ["This is my car.","זו המכונית שלי."],
+          ["That is your house.","זה הבית שלך."],
+          ["These are our books.","אלה הספרים שלנו."],
+          ["Those are their friends.","אלה החברים שלהם."],
+          ["I like this.","אני אוהב את זה."],
+          ["I don't like that.","אני לא אוהב את זה."],
+          ["Do you want this?","אתה רוצה את זה?"],
+          ["Give me that.","תן לי את זה."],
+          ["Look at these.","תסתכל על אלה."],
+          ["Take those.","קח את אלה."],
+          ["This is important.","זה חשוב."],
+          ["That is difficult.","זה קשה."],
+          ["The book is mine.","הספר שלי."],
+          ["The car is yours.","המכונית שלך."],
+          ["The house is hers.","הבית שלה."],
+          ["The dog is ours.","הכלב שלנו."],
+          ["The cats are theirs.","החתולים שלהם."],
+          ["My car is red.","המכונית שלי אדומה."],
+          ["Your house is big.","הבית שלך גדול."],
+          ["His book is new.","הספר שלו חדש."],
+          ["Her dress is blue.","השמלה שלה כחולה."],
+          ["Our friends are here.","החברים שלנו כאן."],
+          ["Their parents are kind.","ההורים שלהם אדיבים."],
+          ["Is this yours?","האם זה שלך?"],
+          ["That is mine.","ההוא שלי."],
+          ["Theirs is better.","שלהם טוב יותר."],
+          ["Ours is here.","שלנו כאן."],
+          ["Is this your pen?","האם זה העט שלך?"],
+          ["No, it's mine.","לא, הוא שלי."],
+          ["Their idea is good.","הרעיון שלהם טוב."],
+          ["Our team wins.","הקבוצה שלנו מנצחת."],
+          ["Your opinion matters.","הדעה שלך חשובה."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s27",
+    num: "27",
+    title: "Present Continuous and Gerunds",
+    desc: "Basic present continuous forms (I am speaking) and gerund/infinitive constructions used as nouns (Speaking is easy).",
+    subsections: [
+      {
+        title: "present continuous",
+        pairs: [
+          ["I am speaking.","אני מדבר."],
+          ["You are eating.","אתה אוכל."],
+          ["He is living.","הוא חי."],
+          ["She is singing.","היא שרה."],
+          ["We are working.","אנחנו עובדים."],
+          ["They are writing.","הם כותבים."],
+          ["I am reading.","אני קורא."],
+          ["You are drinking.","אתה שותה."],
+          ["He is opening.","הוא פותח."],
+          ["She is closing.","היא סוגרת."],
+          ["We are understanding.","אנחנו מבינים."],
+          ["They are running.","הם רצים."],
+          ["I am walking.","אני הולך."],
+          ["You are listening.","אתה מקשיב."],
+          ["He is sleeping.","הוא ישן."],
+          ["She is thinking.","היא חושבת."],
+          ["We are playing.","אנחנו משחקים."],
+          ["They are feeling.","הם מרגישים."],
+          ["I am wanting.","אני רוצה."],
+        ]
+      },
+      {
+        title: "gerunds as nouns",
+        pairs: [
+          ["Speaking is easy.","לדבר זה קל."],
+          ["Eating is good.","לאכול זה טוב."],
+          ["Living here is nice.","לחיות כאן זה נחמד."],
+          ["Singing makes me happy.","לשיר משמח אותי."],
+          ["Working is important.","לעבוד זה חשוב."],
+          ["Studying helps a lot.","ללמוד עוזר מאוד."],
+          ["Writing is my passion.","לכתוב זו התשוקה שלי."],
+          ["Reading is fun.","לקרוא זה כיף."],
+          ["Drinking water is healthy.","לשתות מים זה בריא."],
+          ["Understanding is key.","הבנה היא מפתח."],
+          ["Running is good exercise.","ריצה היא תרגיל טוב."],
+          ["Walking is relaxing.","הליכה היא מרגיעה."],
+          ["Listening is important.","הקשבה היא חשובה."],
+          ["Sleeping is necessary.","שינה היא הכרחית."],
+          ["Thinking is powerful.","חשיבה היא עוצמתית."],
+          ["Playing is fun.","משחק זה כיף."],
+          ["Feeling is human.","להרגיש זה אנושי."],
+          ["Wanting is natural.","לרצות זה טבעי."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s28",
+    num: "28",
+    title: "Past and Future Perfect Forms",
+    desc: "Present perfect or past perfect forms such as \"I have spoken,\" \"You have eaten.\" Hebrew expresses these with simple past tense as it lacks a direct perfect equivalent.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I have spoken.","דיברתי."],
+          ["You have eaten.","אכלת."],
+          ["He has lived.","הוא חיה."],
+          ["She has sung.","היא שרה."],
+          ["We have worked.","עבדנו."],
+          ["They have written.","הם כתבו."],
+          ["I have read.","קראתי."],
+          ["You have drunk.","שתית."],
+          ["He has opened.","הוא פתח."],
+          ["She has closed.","היא סגרה."],
+          ["We have understood.","הבנו."],
+          ["They have run.","הם רצו."],
+          ["I have walked.","הלכתי."],
+          ["You have listened.","הקשבת."],
+          ["He has slept.","הוא ישן."],
+          ["She has thought.","היא חשבה."],
+          ["We have played.","שיחקנו."],
+          ["They have felt.","הם הרגישו."],
+          ["I have wanted.","רציתי."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s29",
+    num: "29",
+    title: "Habitual Adverbs and Frequency",
+    desc: "Frequency adverbs such as always, never, often, rarely, and adverbs of manner like quickly, slowly, carefully.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I always eat breakfast.","אני תמיד אוכל ארוחת בוקר."],
+          ["You never run here.","אתה אף פעם לא רץ כאן."],
+          ["We often visit him.","אנחנו מבקרים אותו לעיתים קרובות."],
+          ["They rarely sleep early.","הם נדיר שישנים מוקדם."],
+          ["He works very hard.","הוא עובד קשה מאוד."],
+          ["She studies a lot.","היא לומדת הרבה."],
+          ["I live here now.","אני גר כאן עכשיו."],
+          ["You go there today.","אתה הולך לשם היום."],
+          ["We arrive early always.","אנחנו תמיד מגיעים מוקדם."],
+          ["They leave late together.","הם עוזבים מאוחר ביחד."],
+          ["He speaks clearly now.","הוא מדבר ברור עכשיו."],
+          ["She writes so neatly.","היא כותבת כל כך מסודר."],
+          ["I read quickly today.","אני קורא מהר היום."],
+          ["You listen carefully now.","אתה מקשיב בזהירות עכשיו."],
+          ["He eats quite slowly.","הוא אוכל די לאט."],
+          ["She walks very fast.","היא הולכת מהר מאוד."],
+          ["We play well together.","אנחנו משחקים היטב ביחד."],
+          ["They sing beautifully now.","הם שרים יפהפה עכשיו."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s30",
+    num: "30",
+    title: "Negative Statements and Questions",
+    desc: "Negatives (\"do not speak,\" \"not here\") and yes/no questions. Hebrew uses לא (not) to negate.",
+    subsections: [
+      {
+        title: "negative statements",
+        pairs: [
+          ["I do not speak.","אני לא מדבר."],
+          ["She does not eat.","היא לא אוכלת."],
+          ["He is not here.","הוא לא כאן."],
+          ["We do not work.","אנחנו לא עובדים."],
+          ["They do not sing.","הם לא שרים."],
+          ["You do not understand.","אתה לא מבין."],
+          ["I am not happy.","אני לא שמח."],
+          ["He is not tall.","הוא לא גבוה."],
+          ["She does not read.","היא לא קוראת."],
+          ["We do not go.","אנחנו לא הולכים."],
+          ["They do not want.","הם לא רוצים."],
+          ["You do not know.","אתה לא יודע."],
+          ["I do not have time.","אין לי זמן."],
+          ["He does not like it.","הוא לא אוהב את זה."],
+          ["She does not see.","היא לא רואה."],
+          ["We do not hear.","אנחנו לא שומעים."],
+          ["They do not come.","הם לא באים."],
+          ["You do not believe.","אתה לא מאמין."],
+          ["I do not need.","אני לא צריך."],
+          ["He does not remember.","הוא לא זוכר."],
+        ]
+      },
+      {
+        title: "yes/no questions",
+        pairs: [
+          ["Do you speak Spanish now?","האם אתה מדבר ספרדית עכשיו?"],
+          ["Is he over there now?","האם הוא שם עכשיו?"],
+          ["Do you eat meat sometimes?","האם אתה אוכל בשר לפעמים?"],
+          ["Does she always sing well?","האם היא תמיד שרה טוב?"],
+          ["Do we work together today?","האם אנחנו עובדים ביחד היום?"],
+          ["Do they really study here?","האם הם באמת לומדים כאן?"],
+          ["Is it very cold outside?","האם קר מאוד בחוץ?"],
+          ["Is it very hot today?","האם חם מאוד היום?"],
+          ["Do you want some coffee?","האם אתה רוצה קפה?"],
+          ["Can you please help me?","האם אתה יכול לעזור לי בבקשה?"],
+          ["Is she feeling tired today?","האם היא מרגישה עייפה היום?"],
+          ["Are they feeling happy now?","האם הם מרגישים שמחים עכשיו?"],
+          ["Do you really understand this?","האם אתה באמת מבין את זה?"],
+          ["Did he finally come here?","האם הוא סוף סוף בא לכאן?"],
+          ["Will she go later today?","האם היא תלך מאוחר יותר היום?"],
+          ["Should we eat dinner now?","האם אנחנו צריכים לאכול ארוחת ערב עכשיו?"],
+          ["Is the door now open?","האם הדלת פתוחה עכשיו?"],
+          ["Is the book completely new?","האם הספר חדש לגמרי?"],
+          ["Do you have enough time?","האם יש לך מספיק זמן?"],
+          ["Is it very far away?","האם זה מאוד רחוק?"],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s31",
+    num: "31",
+    title: "Questions, Exclamations and Interjections",
+    desc: "Sentences beginning with question words (what, who, where, when, how, why), or expressing strong feelings with \"what a…!\" or \"so…\" constructions.",
+    subsections: [
+      {
+        title: "questions",
+        pairs: [
+          ["What is this?","מה זה?"],
+          ["Who is he?","מי הוא?"],
+          ["Where are you?","איפה אתה?"],
+          ["When do you eat?","מתי אתה אוכל?"],
+          ["How are you?","מה שלומך?"],
+          ["Why do you run?","למה אתה רץ?"],
+          ["Which one do you want?","איזה מהם אתה רוצה?"],
+          ["How much is it?","כמה זה עולה?"],
+          ["What do you do?","מה אתה עושה?"],
+          ["Who comes?","מי בא?"],
+          ["Where do we go?","לאן אנחנו הולכים?"],
+          ["When does it start?","מתי זה מתחיל?"],
+          ["How do you say?","איך אומרים?"],
+          ["Why not?","למה לא?"],
+          ["Which book?","איזה ספר?"],
+          ["How many people?","כמה אנשים?"],
+          ["What time is it?","מה השעה?"],
+          ["Who has the key?","למי יש את המפתח?"],
+          ["Where is the bathroom?","איפה השירותים?"],
+          ["When is your birthday?","מתי היום הולדת שלך?"],
+        ]
+      },
+      {
+        title: "exclamations",
+        pairs: [
+          ["What a long day!","איזה יום ארוך!"],
+          ["It is so beautiful!","זה כל כך יפה!"],
+          ["This is very good!","זה טוב מאוד!"],
+          ["That was really bad!","זה היה ממש גרוע!"],
+          ["What a big surprise!","איזו הפתעה גדולה!"],
+          ["That is so much!","זה כל כך הרבה!"],
+          ["There are so many!","יש כל כך הרבה!"],
+          ["What a real shame!","איזו בושה אמיתית!"],
+          ["That is very interesting!","זה מאוד מעניין!"],
+          ["This is very difficult!","זה מאוד קשה!"],
+          ["It is so easy!","זה כל כך קל!"],
+          ["What a messy situation!","איזה מצב מבולגן!"],
+          ["It is very cold!","קר מאוד!"],
+          ["It is extremely hot!","חם בצורה קיצונית!"],
+          ["What a true joy!","איזו שמחה אמיתית!"],
+          ["That is so sad!","זה כל כך עצוב!"],
+          ["What a huge nuisance!","איזה מטרד עצום!"],
+          ["It tastes so delicious!","זה כל כך טעים!"],
+          ["That was a big fright!","זאת הייתה בהלה גדולה!"],
+          ["You are so lucky!","יש לך כל כך הרבה מזל!"],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s32",
+    num: "32",
+    title: "Activities with Simple Present Verbs",
+    desc: "Short sentences with a subject pronoun and a simple present verb describing basic actions like eating, reading, and playing.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["I eat apples.","אני אוכל תפוחים."],
+          ["She reads books.","היא קוראת ספרים."],
+          ["He plays soccer.","הוא משחק כדורגל."],
+          ["We watch TV.","אנחנו צופים בטלוויזיה."],
+          ["They sing songs.","הם שרים שירים."],
+          ["You write letters.","אתה כותב מכתבים."],
+          ["The dog eats food.","הכלב אוכל אוכל."],
+          ["The cat drinks milk.","החתול שותה חלב."],
+          ["Birds build nests.","ציפורים בונות קנים."],
+          ["Fish swim.","דגים שוחים במים."],
+          ["Students learn Spanish.","סטודנטים לומדים ספרדית."],
+          ["Teachers teach classes.","מורים מלמדים כיתות."],
+          ["Doctors help people.","רופאים עוזרים לאנשים."],
+          ["Parents love children.","הורים אוהבים ילדים."],
+          ["He wants a coffee.","הוא רוצה קפה."],
+          ["She needs a pen.","היא צריכה עט."],
+          ["They eat some apples.","הם אוכלים כמה תפוחים."],
+          ["We drink water.","אנחנו שותים מים."],
+          ["I see a house.","אני רואה בית."],
+          ["He finds a key.","הוא מוצא מפתח."],
+          ["She buys a dress.","היא קונה שמלה."],
+          ["We visit a city.","אנחנו מבקרים בעיר."],
+          ["They build a wall.","הם בונים קיר."],
+          ["I hear a song.","אני שומע שיר."],
+          ["He writes a letter.","הוא כותב מכתב."],
+          ["She paints a picture.","היא מציירת תמונה."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s33",
+    num: "33",
+    title: "Comparative Connectors and Logical Links",
+    desc: "Coordinating conjunctions (and, or, but) and other connecting words showing how to combine clauses and convey cause, effect, or condition.",
+    subsections: [
+      {
+        title: null,
+        pairs: [
+          ["He eats and drinks.","הוא אוכל ושותה."],
+          ["She sings or dances.","היא שרה או רוקדת."],
+          ["I like coffee but not tea.","אני אוהב קפה אבל לא תה."],
+          ["He is tall and strong.","הוא גבוה וחזק."],
+          ["She is smart or funny.","היא חכמה או מצחיקה."],
+          ["I want this but not that.","אני רוצה את זה אבל לא את זה."],
+          ["He studies and works.","הוא לומד ועובד."],
+          ["She reads or writes.","היא קוראת או כותבת."],
+          ["We go out but return early.","אנחנו יוצאים אבל חוזרים מוקדם."],
+          ["They are tired and hungry.","הם עייפים ורעבים."],
+          ["You can stay or leave.","אתה יכול להישאר או לעזוב."],
+          ["It is cold but sunny.","קר אבל שטוף שמש."],
+          ["I like both apples and oranges.","אני אוהב גם תפוחים וגם תפוזים."],
+          ["Neither he nor she.","לא הוא ולא היא."],
+          ["Not only read but also write.","לא רק לקרוא אלא גם לכתוב."],
+          ["He is rich, so he buys.","הוא עשיר, אז הוא קונה."],
+          ["She is sick, therefore she rests.","היא חולה, ולכן היא נחה."],
+          ["I am happy, and you?","אני שמח, ואתה?"],
+          ["He is here, or not?","הוא כאן, או לא?"],
+          ["I want to go, but I can't.","אני רוצה ללכת, אבל אני לא יכול."],
+          ["I study so that I learn.","אני לומד כדי שאלמד."],
+          ["He eats when he is hungry.","הוא אוכל מתי שהוא רעב."],
+          ["She sings although she is sad.","היא שרה למרות שהיא עצובה."],
+          ["I know that you come.","אני יודע שאתה בא."],
+          ["He works because he needs money.","הוא עובד בגלל שהוא צריך כסף."],
+          ["She waits until I arrive.","היא מחכה עד שאני מגיע."],
+          ["If you study, you learn.","אם תלמד, תלמד."],
+          ["As soon as he arrives, we eat.","ברגע שהוא מגיע, אנחנו אוכלים."],
+          ["Before you leave, call me.","לפני שאתה יוצא, תתקשר אלי."],
+          ["After he eats, he sleeps.","אחרי שהוא אוכל, הוא ישן."],
+          ["While I read, he sleeps.","בזמן שאני קורא, הוא ישן."],
+          ["So that you know.","כדי שתדע."],
+          ["Although it is difficult.","למרות שזה קשה."],
+          ["Since he arrived.","מאז שהוא הגיע."],
+          ["Provided that you come.","בתנאי שתבוא."],
+          ["Unless it rains.","אלא אם כן יורד גשם."],
+          ["In case he calls.","למקרה שהוא יתקשר."],
+          ["So that he understands.","כדי שהוא יבין."],
+          ["Because I want.","בגלל שאני רוצה."],
+          ["When she sings.","מתי שהיא שרה."],
+        ]
+      }
+    ]
+  },
+  {
+    id: "s34",
+    num: "34",
+    title: "Advanced Verb Conjugations — say/tell/ask",
+    desc: "Conjugations for say, tell, and ask across tenses.",
+    subsections: [
+      {
+        title: "say / tell / ask",
+        pairs: [
+          ["I say hello now.","אני אומר שלום עכשיו."],
+          ["You say the truth.","אתה אומר את האמת."],
+          ["He says nothing always.","הוא תמיד לא אומר כלום."],
+          ["We say yes always.","אנחנו תמיד אומרים כן."],
+          ["They say many things.","הם אומרים הרבה דברים."],
+          ["I said hello yesterday.","אמרתי שלום אתמול."],
+          ["You said the truth.","אמרת את האמת."],
+          ["She said goodbye.","היא אמרה להתראות."],
+          ["I will say everything.","אני אגיד הכל."],
+          ["He tells her a joke.","הוא מספר לה בדיחה."],
+          ["She tells him the news.","היא מספרת לו את החדשות."],
+          ["We tell them the plan.","אנחנו מספרים להם את התוכנית."],
+          ["They tell me everything.","הם מספרים לי הכל."],
+          ["I asked a question.","אני שואל שאלה."],
+          ["You ask every day.","אתה שואל כל יום."],
+          ["He asks too much.","הוא שואל יותר מדי."],
+          ["We asked politely.","ביקשנו בנימוס."],
+          ["They ask important things.","הם שואלים דברים חשובים."],
+          ["I will ask later.","אשאל מאוחר יותר."],
+        ]
+      },
+      {
+        title: "see / look / watch / observe",
+        pairs: [
+          ["I see the light.","אני רואה את האור."],
+          ["You see the truth.","אתה רואה את האמת."],
+          ["He sees the problem.","הוא רואה את הבעיה."],
+          ["She sees the future.","היא רואה את העתיד."],
+          ["We see the world.","אנחנו רואים את העולם."],
+          ["They see the movie.","הם צופים בסרט."],
+          ["I saw you yesterday.","ראיתי אותך אתמול."],
+          ["She saw the bird.","היא ראתה את הציפור."],
+          ["I will see you tomorrow.","אני אראה אותך מחר."],
+          ["You will see me soon.","אתה תראה אותי בקרוב."],
+          ["He will see her there.","הוא יראה אותה שם."],
+          ["I look at you.","אני מסתכל עליך."],
+          ["We look outside often.","אנחנו מסתכלים החוצה לעיתים קרובות."],
+          ["They watch cartoons daily.","הם צופים בסרטים מצוירים כל יום."],
+          ["I watched the match.","צפיתי במשחק."],
+          ["Will he look there?","האם הוא יסתכל שם?"],
+          ["I observe small details.","אני מבחין בפרטים קטנים."],
+          ["You observe the stars.","אתה צופה בכוכבים."],
+          ["He observed his reaction.","הוא צפה בתגובה שלו."],
+          ["We will observe more.","אצפה יותר."],
+        ]
+      },
+      {
+        title: "know / meet / live / arrive",
+        pairs: [
+          ["I know that place.","אני מכיר את המקום ההוא."],
+          ["You know my cousin.","אתה מכיר את בן דוד שלי."],
+          ["He knows the city.","הוא מכיר את העיר."],
+          ["We know her well.","אנחנו מכירים אותה היטב."],
+          ["They know the teacher.","הם מכירים את המורה."],
+          ["I met your mom.","הכרתי את אמא שלך."],
+          ["She met a friend.","היא פגשה חבר."],
+          ["I will meet him.","אפגוש אותו."],
+          ["I live in Lima.","אני חי בלימה."],
+          ["You live with friends.","אתה חי עם חברים."],
+          ["He lives in Mexico.","הוא חי במקסיקו."],
+          ["We live in peace.","אנחנו חיים בשלום."],
+          ["They live downtown.","הם גרים במרכז העיר."],
+          ["I lived in Spain.","גרתי בספרד."],
+          ["She lived in Chile.","היא גרה בצ'ילה."],
+          ["I will live abroad.","אגור בחו\"ל."],
+          ["I arrive at eight.","אני מגיע בשמונה."],
+          ["He arrives very late.","הוא מגיע מאוחר מאוד."],
+          ["We arrive by taxi.","אנחנו מגיעים במונית."],
+          ["They arrive next week.","הם מגיעים בשבוע הבא."],
+        ]
+      },
+      {
+        title: "put / leave / take",
+        pairs: [
+          ["I put the keys.","אני שם את המפתחות."],
+          ["You put the book.","אתה שם את הספר."],
+          ["We put our names.","אנחנו שמים את השמות שלנו."],
+          ["They put the plates.","הם שמים את הצלחות."],
+          ["I put it there.","שמתי את זה שם."],
+          ["She put it here.","היא שמה את זה כאן."],
+          ["I will put that.","אשים את זה."],
+          ["I leave at six.","אני יוצא בשש."],
+          ["You leave every day.","אתה יוצא כל יום."],
+          ["He leaves for school.","הוא יוצא לבית הספר."],
+          ["We leave the party.","אנחנו עוזבים את המסיבה."],
+          ["They go out late.","הם יוצאים מאוחר."],
+          ["I left early today.","יצאתי מוקדם היום."],
+          ["I will leave soon.","אעזוב בקרוב."],
+          ["Will he leave now?","האם הוא יעזוב עכשיו?"],
+          ["I take the bus.","אני לוקח אוטובוס."],
+          ["He takes a photo.","הוא מצלם תמונה."],
+          ["We take this route.","אנחנו לוקחים את המסלול הזה."],
+          ["They take their time.","הם לוקחים את הזמן."],
+          ["I took out money.","הוצאתי כסף."],
+          ["She took the exam.","היא עשתה את המבחן."],
+          ["I will take notes.","ארשום הערות."],
+          ["Will he take notes?","האם הוא ירשום הערות?"],
+        ]
+      },
+      {
+        title: "feel / try / need / keep",
+        pairs: [
+          ["I feel very tired.","אני מרגיש מאוד עייף."],
+          ["You feel nervous now.","אתה מרגיש עצבני עכשיו."],
+          ["She feels better today.","היא מרגישה טוב יותר היום."],
+          ["We feel the same.","אנחנו מרגישים אותו דבר."],
+          ["They feel sad sometimes.","הם מרגישים עצובים לפעמים."],
+          ["I felt so happy.","הרגשתי כל כך שמח."],
+          ["I will feel great.","אני ארגיש מצוין."],
+          ["I try every day.","אני מנסה כל יום."],
+          ["You try very hard.","אתה משתדל מאוד."],
+          ["She tries her best.","היא עושה את המיטב."],
+          ["We try to help.","אנחנו מנסים לעזור."],
+          ["They try again today.","הם מנסים שוב היום."],
+          ["I tried everything.","ניסיתי הכל."],
+          ["I will try later.","אנסה מאוחר יותר."],
+          ["I need more time.","אני צריך עוד זמן."],
+          ["You need to rest.","אתה צריך לנוח."],
+          ["He needs this now.","הוא צריך את זה עכשיו."],
+          ["We need your help.","אנחנו צריכים את העזרה שלך."],
+          ["They need a car.","הם צריכים מכונית."],
+          ["I will need it.","אצטרך את זה."],
+          ["I keep things clean.","אני שומר על דברים נקיים."],
+          ["You keep good habits.","אתה שומר על הרגלים טובים."],
+          ["She keeps calm always.","היא תמיד שומרת על רוגע."],
+          ["We keep good relationships.","אנחנו שומרים על מערכות יחסים טובות."],
+          ["They keep their distance.","הם שומרים מרחק."],
+          ["I kept my promise.","קיימתי את ההבטחה שלי."],
+          ["I will keep working.","אמשיך לעבוד."],
+        ]
+      },
+      {
+        title: "result / change / open / close",
+        pairs: [
+          ["It turns out well.","זה מסתדר טוב."],
+          ["That turns out bad.","זה מסתדר רע."],
+          ["This results in chaos.","זה מוביל לכאוס."],
+          ["It resulted in success.","זה הסתיים בהצלחה."],
+          ["It will result soon.","זה יסתדר בקרוב."],
+          ["I change my clothes.","אני מחליף בגדים."],
+          ["You change your mind.","אתה משנה את דעתך."],
+          ["He changes his tone.","הוא משנה את הטון שלו."],
+          ["We changed the plan.","שינינו את התוכנית."],
+          ["I will change soon.","אשתנה בקרוב."],
+          ["I open the door.","אני פותח את הדלת."],
+          ["You open your heart.","אתה פותח את הלב שלך."],
+          ["He opens the store.","הוא פותח את החנות."],
+          ["We opened the box.","פתחנו את הקופסה."],
+          ["I will open now.","אפתח עכשיו."],
+          ["She closes the window.","היא סוגרת את החלון."],
+          ["We close the door.","אנחנו סוגרים את הדלת."],
+          ["I closed the window.","סגרתי את החלון."],
+        ]
+      },
+      {
+        title: "run / walk / play / study / reach",
+        pairs: [
+          ["I run every morning.","אני רץ כל בוקר."],
+          ["He runs very fast.","הוא רץ מהר מאוד."],
+          ["We run every day.","אנחנו רצים כל יום."],
+          ["They run at school.","הם רצים בבית הספר."],
+          ["I ran last night.","רצתי אתמול בלילה."],
+          ["She ran with me.","היא רצה איתי."],
+          ["I will run later.","ארוץ מאוחר יותר."],
+          ["I walk to school.","אני הולך לבית הספר."],
+          ["She walks carefully.","היא הולכת בזהירות."],
+          ["We walk slowly.","אנחנו הולכים לאט."],
+          ["They walk fast.","הם הולכים מהר."],
+          ["I play the guitar.","אני מנגן בגיטרה."],
+          ["You play very well.","אתה מנגן היטב."],
+          ["We play together often.","אנחנו מנגנים יחד לעיתים קרובות."],
+          ["They play games often.","הם משחקים משחקים לעיתים קרובות."],
+          ["She plays soccer.","היא משחקת כדורגל."],
+          ["I study every night.","אני לומד כל לילה."],
+          ["You study very hard.","אתה לומד קשה מאוד."],
+          ["We study before tests.","אנחנו לומדים לפני מבחנים."],
+          ["They study at home.","הם לומדים בבית."],
+          ["I studied yesterday.","למדתי אתמול."],
+          ["She studied for math.","היא למדה למתמטיקה."],
+          ["I will study tomorrow.","אלמד מחר."],
+          ["I reach the shelf.","אני מגיע למדף."],
+          ["You reach your goals.","אתה משיג את המטרות שלך."],
+          ["He reaches the top.","הוא מגיע לפסגה."],
+          ["We reach the limit.","אנחנו מגיעים לגבול."],
+          ["They reach new levels.","הם מגיעים לרמות חדשות."],
+          ["I reached my goal.","השגתי את המטרה שלי."],
+          ["She reached the prize.","היא הגיעה לפרס."],
+          ["I will reach soon.","אגיע בקרוב."],
+        ]
+      },
+      {
+        title: "born / lead / win / use / pay / help",
+        pairs: [
+          ["I was born here.","נולדתי כאן."],
+          ["You were born ready.","נולדת מוכן."],
+          ["He was born yesterday.","הוא נולד אתמול."],
+          ["We were born there.","נולדנו שם."],
+          ["They were born poor.","הם נולדו עניים."],
+          ["I lead the team.","אני מוביל את הצוות."],
+          ["You lead the class.","אתה מוביל את הכיתה."],
+          ["He directs a movie.","הוא מביים סרט."],
+          ["We lead together now.","אנחנו מובילים יחד עכשיו."],
+          ["They direct the work.","הם מנהלים את העבודה."],
+          ["I win the game.","אני מנצח במשחק."],
+          ["You win every time.","אתה מנצח כל פעם."],
+          ["He wins with style.","הוא מנצח בסטייל."],
+          ["We win as one.","אנחנו מנצחים כאחד."],
+          ["They win the prize.","הם זוכים בפרס."],
+          ["I will win tomorrow.","אנצח מחר."],
+          ["I use this app.","אני משתמש באפליקציה הזו."],
+          ["He uses the car.","הוא משתמש במכונית."],
+          ["We use new tools.","אנחנו משתמשים בכלים חדשים."],
+          ["They use old methods.","הם משתמשים בשיטות ישנות."],
+          ["I used your pen.","השתמשתי בעט שלך."],
+          ["She used my car.","היא השתמשה במכונית שלי."],
+          ["I will use mine.","אשתמש בשלי."],
+          ["I pay the bill.","אני משלם את החשבון."],
+          ["You pay every month.","אתה משלם כל חודש."],
+          ["He pays in cash.","הוא משלם במזומן."],
+          ["We pay on time.","אנחנו משלמים בזמן."],
+          ["They pay together today.","הם משלמים יחד היום."],
+          ["I helped my mom.","עזרתי לאמא שלי."],
+          ["You help your friends.","אתה עוזר לחברים שלך."],
+          ["He helps his sister.","הוא עוזר לאחותו."],
+          ["We help each other.","אנחנו עוזרים אחד לשני."],
+          ["They help a lot.","הם עוזרים הרבה."],
+          ["I will help tomorrow.","אעזור מחר."],
+        ]
+      },
+      {
+        title: "recognize / set / observe / get up",
+        pairs: [
+          ["I recognize your voice.","אני מזהה את הקול שלך."],
+          ["You recognize the smell.","אתה מזהה את הריח."],
+          ["He recognizes the place.","הוא מזהה את המקום."],
+          ["We recognize our error.","אנחנו מזהים את הטעות שלנו."],
+          ["They recognize the truth.","הם מזהים את האמת."],
+          ["I set clear goals.","אני מציב מטרות ברורות."],
+          ["You set new rules.","אתה קובע כללים חדשים."],
+          ["He establishes peace now.","הוא מכונן שלום עכשיו."],
+          ["We establish a plan.","אנחנו קובעים תוכנית."],
+          ["They set good habits.","הם קובעים הרגלים טובים."],
+          ["I observe small details.","אני מבחין בפרטים קטנים."],
+          ["You observe the stars.","אתה צופה בכוכבים."],
+          ["He observes her actions.","הוא בוחן את הפעולות שלה."],
+          ["We observe and learn.","אנחנו צופים ולומדים."],
+          ["They observe the process.","הם צופים בתהליך."],
+          ["I get up early.","אני קם מוקדם."],
+          ["You get up early.","אתה קם מוקדם."],
+          ["He gets up late.","הוא קם מאוחר."],
+          ["We get up early every day.","אנחנו קמים מוקדם כל יום."],
+          ["They get up at five.","הם קמים בחמש."],
+        ]
+      },
+      {
+        title: "travel / sell / wait / enter",
+        pairs: [
+          ["I travel every summer.","אני נוסע כל קיץ."],
+          ["You travel very often.","אתה נוסע לעיתים קרובות."],
+          ["He travels for work.","הוא נוסע לעבודה."],
+          ["We travel together always.","אנחנו תמיד נוסעים יחד."],
+          ["They travel by plane.","הם טסים במטוס."],
+          ["I traveled last year.","נסעתי בשנה שעברה."],
+          ["She traveled to Mexico.","היא נסעה למקסיקו."],
+          ["I will travel soon.","אטייל בקרוב."],
+          ["I sell fresh fruit.","אני מוכר פירות טריים."],
+          ["You sell your car.","אתה מוכר את המכונית שלך."],
+          ["He sells clothes here.","הוא מוכר בגדים כאן."],
+          ["We sell homemade bread.","אנחנו מוכרים לחם תוצרת בית."],
+          ["They sell many things.","הם מוכרים דברים רבים."],
+          ["I sold my bike.","מכרתי את האופניים שלי."],
+          ["She sold her house.","היא מכרה את הבית שלה."],
+          ["I will sell soon.","אמכור בקרוב."],
+          ["I wait for you.","אני מחכה לך."],
+          ["You wait patiently.","אתה מחכה בסבלנות."],
+          ["He waits outside.","הוא מחכה בחוץ."],
+          ["We wait together.","אנחנו מחכים יחד."],
+          ["They wait too long.","הם מחכים יותר מדי זמן."],
+          ["I will wait here.","אני אחכה כאן."],
+          ["I enter the room.","אני נכנס לחדר."],
+          ["You enter the house.","אתה נכנס לבית."],
+          ["He enters quickly.","הוא נכנס מהר."],
+          ["We enter together.","אנחנו נכנסים יחד."],
+          ["They enter late.","הם נכנסים מאוחר."],
+          ["I will enter soon.","אכנס בקרוב."],
+        ]
+      }
+    ]
+  },
+];
+
+// Build TOC
+const toc = document.getElementById('toc');
+data.forEach(sec => {
+  const a = document.createElement('a');
+  a.href = `#${sec.id}`;
+  a.textContent = `${sec.num}. ${sec.title.split('—')[0].split('—')[0].trim()}`;
+  toc.appendChild(a);
+});
+
+// Build sections
+const main = document.getElementById('main');
+
+function sectionText(sec) {
+  let lines = [sec.title, '', sec.desc, ''];
+  sec.subsections.forEach(sub => {
+    if (sub.title) lines.push(`[${sub.title}]`, '');
+    sub.pairs.forEach(([en, he]) => lines.push(`${en} | ${he}`));
+    lines.push('');
+  });
+  return lines.join('\n').trim();
+}
+
+function subsectionText(sub) {
+  return sub.pairs.map(([en, he]) => `${en} | ${he}`).join('\n');
+}
+
+data.forEach(sec => {
+  const div = document.createElement('div');
+  div.className = 'section';
+  div.id = sec.id;
+
+  const hdr = document.createElement('div');
+  hdr.className = 'section-header';
+
+  const meta = document.createElement('div');
+  meta.className = 'section-meta';
+  meta.innerHTML = `<div class="section-number">§ ${sec.num}</div>
+    <div class="section-title">${sec.title}</div>
+    <div class="section-desc">${sec.desc}</div>`;
+
+  const btn = document.createElement('button');
+  btn.className = 'copy-btn';
+  btn.textContent = 'Copy all';
+  btn.addEventListener('click', () => {
+    navigator.clipboard.writeText(sectionText(sec)).then(() => {
+      btn.textContent = '✓ Copied';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy all'; btn.classList.remove('copied'); }, 1800);
+    });
+  });
+
+  hdr.appendChild(meta);
+  hdr.appendChild(btn);
+  div.appendChild(hdr);
+
+  sec.subsections.forEach(sub => {
+    const subDiv = document.createElement('div');
+    subDiv.className = 'subsection';
+
+    if (sub.title || sec.subsections.length > 1) {
+      const subHdr = document.createElement('div');
+      subHdr.className = 'subsection-header';
+      const subTitle = document.createElement('span');
+      subTitle.className = 'subsection-title';
+      subTitle.textContent = sub.title || '';
+      const subBtn = document.createElement('button');
+      subBtn.className = 'copy-btn';
+      subBtn.textContent = 'Copy';
+      subBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(subsectionText(sub)).then(() => {
+          subBtn.textContent = '✓ Copied';
+          subBtn.classList.add('copied');
+          setTimeout(() => { subBtn.textContent = 'Copy'; subBtn.classList.remove('copied'); }, 1800);
+        });
+      });
+      subHdr.appendChild(subTitle);
+      subHdr.appendChild(subBtn);
+      subDiv.appendChild(subHdr);
+    }
+
+    const colHdrs = document.createElement('div');
+    colHdrs.className = 'col-headers';
+    colHdrs.innerHTML = '<div class="col-h">English</div><div class="col-h">Hebrew עברית</div>';
+    subDiv.appendChild(colHdrs);
+
+    const grid = document.createElement('div');
+    grid.className = 'pair-grid';
+
+    sub.pairs.forEach(([en, he]) => {
+      const row = document.createElement('div');
+      row.className = 'pair-row';
+      const enCell = document.createElement('div');
+      enCell.className = 'cell en';
+      enCell.textContent = en;
+      const heCell = document.createElement('div');
+      heCell.className = 'cell he';
+      heCell.textContent = he;
+      row.appendChild(enCell);
+      row.appendChild(heCell);
+      grid.appendChild(row);
+    });
+
+    subDiv.appendChild(grid);
+    div.appendChild(subDiv);
+  });
+
+  main.appendChild(div);
+});
+</script>
+</body>
+</html>

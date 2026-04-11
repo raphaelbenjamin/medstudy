@@ -22,6 +22,7 @@ SECTIONS = {
     "microbiology": {"label": "Microbiology",  "color": "#22c55e", "icon": "🔬"},
     "hebrew":       {"label": "Hebrew",        "color": "#a78bfa", "icon": "🔤"},
     "italian":      {"label": "Italian",       "color": "#5b8fd9", "icon": "🇮🇹"},
+    "misc":         {"label": "Misc",          "color": "#64748b", "icon": "📁"},
 }
 
 TODAY = date.today().strftime("%-m/%d").lstrip("0")  # e.g. "4/8"

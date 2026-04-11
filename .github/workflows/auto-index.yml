@@ -8,6 +8,7 @@ on:
       - 'microbiology/*.html'
       - 'hebrew/*.html'
       - 'italian/*.html'
+      - 'misc/*.html'
 
 jobs:
   index:

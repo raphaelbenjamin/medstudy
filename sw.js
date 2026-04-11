@@ -5,6 +5,7 @@ const URLS = [
   './microbiology/index.html','./microbiology/hub.html','./microbiology/chapters.html','./microbiology/exam-framework.html',
   './hebrew/index.html','./hebrew/vocab.html','./hebrew/checklist.html',
   './italian/index.html','./italian/practice.html','./italian/grammar.html',
+  './misc/index.html',
   './tools/clostridium_MASTER.html',
   './tools/staph_aureus_MASTER.html',
   './tools/streptococcus_MASTER.html',
